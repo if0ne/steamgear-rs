@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
-mod callback;
 mod client;
+mod core;
 mod utils;
 
 pub mod prelude;

@@ -3,7 +3,7 @@ use steamgear_sys::{
     SteamAPI_ISteamUtils_IsAPICallCompleted, SteamAPI_SteamUtils_v010,
 };
 
-use crate::callback::CallbackTyped;
+use crate::core::callback::CallbackTyped;
 
 #[derive(Clone, Debug)]
 pub struct SteamUtils(pub(crate) *mut ISteamUtils);
