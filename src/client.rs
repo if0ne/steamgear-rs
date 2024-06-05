@@ -2,12 +2,7 @@ use std::{ops::Deref, sync::Arc, task::Waker};
 
 use dashmap::DashMap;
 
-use steamgear_sys::{
-    HSteamPipe, SteamAPICallCompleted_t, SteamAPICallCompleted_t_k_iCallback, SteamAPICall_t,
-    SteamAPI_GetHSteamPipe, SteamAPI_ManualDispatch_FreeLastCallback,
-    SteamAPI_ManualDispatch_GetNextCallback, SteamAPI_ManualDispatch_Init,
-    SteamAPI_ManualDispatch_RunFrame, SteamGameServer_GetHSteamPipe,
-};
+use steamgear_sys as sys;
 
 use crate::utils::SteamUtils;
 
@@ -15,12 +10,12 @@ use crate::utils::SteamUtils;
 pub struct SteamClient(Arc<SteamClientInner>);
 
 impl SteamClient {
-    pub fn new_client() -> Self {
-        Self(Arc::new(SteamClientInner::new(false)))
+    pub fn new_client() -> Result<Self, String> {
+        Ok(Self(Arc::new(SteamClientInner::new(false)?)))
     }
 
-    pub fn new_server() -> Self {
-        Self(Arc::new(SteamClientInner::new(true)))
+    pub fn new_server() -> Result<Self, String> {
+        Ok(Self(Arc::new(SteamClientInner::new(true)?)))
     }
 }
 
@@ -34,8 +29,8 @@ impl Deref for SteamClient {
 
 #[derive(Debug)]
 pub struct SteamClientInner {
-    pipe: HSteamPipe,
-    call_results: DashMap<SteamAPICall_t, Waker>,
+    pipe: sys::HSteamPipe,
+    call_results: DashMap<sys::SteamAPICall_t, Waker>,
 
     pub(crate) steam_utils: SteamUtils,
 }
@@ -43,12 +38,12 @@ pub struct SteamClientInner {
 impl SteamClientInner {
     pub fn run_callbacks(&self) {
         unsafe {
-            SteamAPI_ManualDispatch_RunFrame(self.pipe);
+            sys::SteamAPI_ManualDispatch_RunFrame(self.pipe);
             let mut callback = std::mem::zeroed();
-            while SteamAPI_ManualDispatch_GetNextCallback(self.pipe, &mut callback) {
-                if callback.m_iCallback == SteamAPICallCompleted_t_k_iCallback as i32 {
+            while sys::SteamAPI_ManualDispatch_GetNextCallback(self.pipe, &mut callback) {
+                if callback.m_iCallback == sys::SteamAPICallCompleted_t_k_iCallback as i32 {
                     let apicall =
-                        &*(callback.m_pubParam as *const _ as *const SteamAPICallCompleted_t);
+                        &*(callback.m_pubParam as *const _ as *const sys::SteamAPICallCompleted_t);
                     let id = apicall.m_hAsyncCall;
 
                     if let Some(entry) = self.call_results.get(&id) {
@@ -57,36 +52,88 @@ impl SteamClientInner {
                 } else {
                     // TODO: Callback call
                 }
-                SteamAPI_ManualDispatch_FreeLastCallback(self.pipe);
+                sys::SteamAPI_ManualDispatch_FreeLastCallback(self.pipe);
             }
         }
     }
 }
 
 impl SteamClientInner {
-    pub(crate) fn new(is_server: bool) -> Self {
-        unsafe {
-            let pipe = if is_server {
-                SteamGameServer_GetHSteamPipe()
-            } else {
-                SteamAPI_GetHSteamPipe()
-            };
+    fn init_ex() -> Result<(), String> {
+        let versions: Vec<&[u8]> = vec![
+            sys::STEAMUTILS_INTERFACE_VERSION,
+            sys::STEAMNETWORKINGUTILS_INTERFACE_VERSION,
+            sys::STEAMAPPLIST_INTERFACE_VERSION,
+            sys::STEAMAPPS_INTERFACE_VERSION,
+            sys::STEAMCONTROLLER_INTERFACE_VERSION,
+            sys::STEAMFRIENDS_INTERFACE_VERSION,
+            sys::STEAMGAMESEARCH_INTERFACE_VERSION,
+            sys::STEAMHTMLSURFACE_INTERFACE_VERSION,
+            sys::STEAMHTTP_INTERFACE_VERSION,
+            sys::STEAMINPUT_INTERFACE_VERSION,
+            sys::STEAMINVENTORY_INTERFACE_VERSION,
+            sys::STEAMMATCHMAKINGSERVERS_INTERFACE_VERSION,
+            sys::STEAMMATCHMAKING_INTERFACE_VERSION,
+            sys::STEAMMUSICREMOTE_INTERFACE_VERSION,
+            sys::STEAMMUSIC_INTERFACE_VERSION,
+            sys::STEAMNETWORKINGMESSAGES_INTERFACE_VERSION,
+            sys::STEAMNETWORKINGSOCKETS_INTERFACE_VERSION,
+            sys::STEAMNETWORKING_INTERFACE_VERSION,
+            sys::STEAMPARENTALSETTINGS_INTERFACE_VERSION,
+            sys::STEAMPARTIES_INTERFACE_VERSION,
+            sys::STEAMREMOTEPLAY_INTERFACE_VERSION,
+            sys::STEAMREMOTESTORAGE_INTERFACE_VERSION,
+            sys::STEAMSCREENSHOTS_INTERFACE_VERSION,
+            sys::STEAMUGC_INTERFACE_VERSION,
+            sys::STEAMUSERSTATS_INTERFACE_VERSION,
+            sys::STEAMUSER_INTERFACE_VERSION,
+            sys::STEAMVIDEO_INTERFACE_VERSION,
+            b"\0",
+        ];
 
-            SteamAPI_ManualDispatch_Init();
+        let versions: Vec<u8> = versions.into_iter().flatten().cloned().collect();
+        let versions = versions.as_ptr() as *const ::std::os::raw::c_char;
 
-            Self {
-                pipe,
-                call_results: Default::default(),
-                steam_utils: SteamUtils::new(),
-            }
+        let mut err_msg: sys::SteamErrMsg = [0; 1024];
+
+        let result = unsafe { sys::SteamInternal_SteamAPI_Init(versions, &mut err_msg) };
+
+        let err_string = unsafe {
+            let cstr = std::ffi::CStr::from_ptr(err_msg.as_ptr() as *const std::ffi::c_char);
+            cstr.to_string_lossy().to_owned().into_owned()
+        };
+
+        match result {
+            steamgear_sys::ESteamAPIInitResult::k_ESteamAPIInitResult_OK => Ok(()),
+            _ => Err(err_string),
         }
     }
 
-    pub(crate) fn register_call_result(&self, id: SteamAPICall_t, waker: Waker) {
+    pub(crate) fn new(is_server: bool) -> Result<Self, String> {
+        unsafe {
+            let pipe = if is_server {
+                sys::SteamGameServer_GetHSteamPipe()
+            } else {
+                sys::SteamAPI_GetHSteamPipe()
+            };
+
+            Self::init_ex()?;
+
+            sys::SteamAPI_ManualDispatch_Init();
+
+            Ok(Self {
+                pipe,
+                call_results: Default::default(),
+                steam_utils: SteamUtils::new(),
+            })
+        }
+    }
+
+    pub(crate) fn register_call_result(&self, id: sys::SteamAPICall_t, waker: Waker) {
         self.call_results.insert(id, waker);
     }
 
-    pub(crate) fn remove_call_result(&self, id: SteamAPICall_t) {
+    pub(crate) fn remove_call_result(&self, id: sys::SteamAPICall_t) {
         self.call_results.remove(&id);
     }
 }

@@ -1,3 +1,3 @@
 #![allow(unused_imports)]
 
-use crate::client::*;
+pub use crate::client::*;
