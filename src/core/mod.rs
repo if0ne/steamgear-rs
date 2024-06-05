@@ -121,6 +121,14 @@ impl SteamClientInner {
     }
 }
 
+impl Drop for SteamClientInner {
+    fn drop(&mut self) {
+        unsafe {
+            sys::SteamAPI_Shutdown();
+        }
+    }
+}
+
 impl Deref for SteamClientInner {
     type Target = SteamUtils;
 
