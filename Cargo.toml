@@ -1,0 +1,10 @@
+[package]
+name = "steamgear"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies.dashmap]
+version = "5.5.3"
+
+[dependencies.steamgear-sys]
+path = "./steamgear-sys"
