@@ -1,17 +1,19 @@
 use std::future::Future;
 
-use steamgear_sys::SteamAPICall_t;
+use futures::{channel::mpsc::UnboundedSender, Stream};
+use parking_lot::RwLock;
+use steamgear_sys as sys;
 
-use crate::client::SteamClient;
+use crate::{client::SteamClient, utils::callbacks::SteamShutdown};
 
-pub struct CallResult<T: CallbackTyped> {
-    id: SteamAPICall_t,
+pub(crate) struct CallResult<T: CallbackTyped> {
+    id: sys::SteamAPICall_t,
     client: SteamClient,
     _marker: std::marker::PhantomData<T>,
 }
 
 impl<T: CallbackTyped> CallResult<T> {
-    pub(crate) fn new(id: SteamAPICall_t, client: SteamClient) -> Self {
+    pub(crate) fn new(id: sys::SteamAPICall_t, client: SteamClient) -> Self {
         Self {
             id,
             client,
@@ -43,8 +45,29 @@ impl<T: CallbackTyped> Future for CallResult<T> {
 }
 
 pub(crate) trait CallbackTyped {
-    const TYPE: i32;
+    const TYPE: u32;
     type Raw: Sized;
 
     fn from_raw(raw: Self::Raw) -> Self;
+}
+
+#[derive(Default)]
+pub(crate) struct CallbackDispatcher {
+    steam_shutdown: RwLock<Vec<UnboundedSender<SteamShutdown>>>,
+}
+
+impl CallbackDispatcher {
+    pub(crate) fn proceed(&self, callback: sys::CallbackMsg_t) {
+        todo!()
+    }
+
+    pub(crate) fn register_call_back<T: CallbackTyped>(&self) -> ()/*impl Stream<Item = T> + Send*/ {
+       todo!()
+    }
+}
+
+impl std::fmt::Debug for CallbackDispatcher {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("CallbackDispatcher").finish()
+    }
 }

@@ -4,8 +4,10 @@ pub mod enums;
 
 use std::{ops::Deref, task::Waker};
 
+use callback::{CallbackDispatcher, CallbackTyped};
 use dashmap::DashMap;
 use enums::SteamApiInitError;
+use futures::Stream;
 use steamgear_sys as sys;
 
 use crate::utils::SteamUtils;
@@ -14,11 +16,18 @@ use crate::utils::SteamUtils;
 pub struct SteamClientInner {
     pipe: sys::HSteamPipe,
     call_results: DashMap<sys::SteamAPICall_t, Waker>,
+    call_backs: CallbackDispatcher,
 
     pub(crate) steam_utils: SteamUtils,
 }
 
 impl SteamClientInner {
+    pub fn restart_app_if_necessary(app_id: u32) -> bool {
+        unsafe {
+            sys::SteamAPI_RestartAppIfNecessary(app_id)
+        }
+    }
+
     pub fn run_callbacks(&self) {
         unsafe {
             sys::SteamAPI_ManualDispatch_RunFrame(self.pipe);
@@ -34,6 +43,7 @@ impl SteamClientInner {
                     }
                 } else {
                     // TODO: Callback call
+                    self.call_backs.proceed(callback);
                 }
                 sys::SteamAPI_ManualDispatch_FreeLastCallback(self.pipe);
             }
@@ -58,6 +68,7 @@ impl SteamClientInner {
                 pipe,
                 call_results: Default::default(),
                 steam_utils: SteamUtils::new(),
+                call_backs: Default::default(),
             })
         }
     }
@@ -69,6 +80,10 @@ impl SteamClientInner {
     pub(crate) fn remove_call_result(&self, id: sys::SteamAPICall_t) {
         self.call_results.remove(&id);
     }
+
+    /*pub(crate) fn register_call_back<T: CallbackTyped>(&self) -> impl Stream<Item = T> + Send {
+        self.call_backs.register_call_back::<T>()
+    }*/
 }
 
 impl SteamClientInner {

@@ -1,3 +1,5 @@
+pub mod callbacks;
+
 use steamgear_sys::{
     ISteamUtils, SteamAPICall_t, SteamAPI_ISteamUtils_GetAPICallResult,
     SteamAPI_ISteamUtils_IsAPICallCompleted, SteamAPI_SteamUtils_v010,
@@ -42,7 +44,7 @@ impl SteamUtils {
                     call,
                     raw_type as *mut _,
                     std::mem::size_of::<T::Raw>() as i32,
-                    T::TYPE,
+                    T::TYPE as i32,
                     &mut failed,
                 )
             };
