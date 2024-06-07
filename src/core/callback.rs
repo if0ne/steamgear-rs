@@ -1,10 +1,11 @@
 use std::future::Future;
 
-use futures::{channel::mpsc::UnboundedSender, Stream};
-use parking_lot::RwLock;
+use parking_lot::Mutex;
 use steamgear_sys as sys;
+use tokio::sync::broadcast::Sender;
+use tokio_stream::wrappers::BroadcastStream;
 
-use crate::{client::SteamClient, utils::callbacks::SteamShutdown};
+use crate::{client::SteamClient, utils::callbacks::SteamShutdownDispatcher};
 
 pub(crate) struct CallResult<T: CallbackTyped> {
     id: sys::SteamAPICall_t,
@@ -44,30 +45,62 @@ impl<T: CallbackTyped> Future for CallResult<T> {
     }
 }
 
-pub(crate) trait CallbackTyped {
+pub(crate) trait CallbackTyped: Clone + Send + 'static {
     const TYPE: u32;
-    type Raw: Sized;
+    type Raw: Copy;
 
     fn from_raw(raw: Self::Raw) -> Self;
-}
 
-#[derive(Default)]
-pub(crate) struct CallbackDispatcher {
-    steam_shutdown: RwLock<Vec<UnboundedSender<SteamShutdown>>>,
-}
+    unsafe fn from_ptr(ptr: *mut u8) -> Self::Raw {
+        assert_eq!(
+            std::mem::align_of::<Self::Raw>(),
+            std::mem::align_of_val(&ptr)
+        );
 
-impl CallbackDispatcher {
-    pub(crate) fn proceed(&self, callback: sys::CallbackMsg_t) {
-        todo!()
-    }
+        let raw_type: Self::Raw = *(ptr as *const Self::Raw);
 
-    pub(crate) fn register_call_back<T: CallbackTyped>(&self) -> ()/*impl Stream<Item = T> + Send*/ {
-       todo!()
+        raw_type
     }
 }
 
-impl std::fmt::Debug for CallbackDispatcher {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("CallbackDispatcher").finish()
+#[derive(Debug, Default)]
+pub(crate) struct CallbackContainer {
+    pub(crate) steam_shutdown_callback: SteamShutdownDispatcher,
+}
+
+pub(crate) trait CallbackDispatcher: Send + Sync {
+    type Item: CallbackTyped;
+
+    fn storage(&self) -> &Mutex<Option<Sender<Self::Item>>>;
+
+    fn register(&self) -> BroadcastStream<Self::Item> {
+        let storage = self.storage();
+        let mut guard = storage.lock();
+
+        if let Some(storage) = &*guard {
+            BroadcastStream::new(storage.subscribe())
+        } else {
+            let (sender, receiver) = tokio::sync::broadcast::channel(32);
+            *guard = Some(sender);
+
+            BroadcastStream::new(receiver)
+        }
+    }
+
+    fn proceed(&self, value: Self::Item) {
+        let storage = self.storage();
+        let mut guard = storage.lock();
+
+        if let Some(storage) = &*storage.lock() {
+            match storage.send(value) {
+                Ok(_n) => { /* TODO: Log all is okey; number of listeners _n */ }
+                Err(_) => {
+                    // Clear storage
+                    guard.take();
+                }
+            }
+        } else {
+            // TODO: Log no listeners
+        }
     }
 }

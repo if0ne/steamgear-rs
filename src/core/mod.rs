@@ -4,28 +4,25 @@ pub mod enums;
 
 use std::{ops::Deref, task::Waker};
 
-use callback::{CallbackDispatcher, CallbackTyped};
+use callback::{CallbackContainer, CallbackDispatcher, CallbackTyped};
 use dashmap::DashMap;
 use enums::SteamApiInitError;
-use futures::Stream;
 use steamgear_sys as sys;
 
-use crate::utils::SteamUtils;
+use crate::utils::{callbacks::SteamShutdown, SteamUtils};
 
 #[derive(Debug)]
 pub struct SteamClientInner {
     pipe: sys::HSteamPipe,
     call_results: DashMap<sys::SteamAPICall_t, Waker>,
-    call_backs: CallbackDispatcher,
 
+    pub(crate) callback_container: CallbackContainer,
     pub(crate) steam_utils: SteamUtils,
 }
 
 impl SteamClientInner {
     pub fn restart_app_if_necessary(app_id: u32) -> bool {
-        unsafe {
-            sys::SteamAPI_RestartAppIfNecessary(app_id)
-        }
+        unsafe { sys::SteamAPI_RestartAppIfNecessary(app_id) }
     }
 
     pub fn run_callbacks(&self) {
@@ -42,8 +39,7 @@ impl SteamClientInner {
                         entry.value().wake_by_ref();
                     }
                 } else {
-                    // TODO: Callback call
-                    self.call_backs.proceed(callback);
+                    self.proceed_callback(callback);
                 }
                 sys::SteamAPI_ManualDispatch_FreeLastCallback(self.pipe);
             }
@@ -68,7 +64,7 @@ impl SteamClientInner {
                 pipe,
                 call_results: Default::default(),
                 steam_utils: SteamUtils::new(),
-                call_backs: Default::default(),
+                callback_container: Default::default(),
             })
         }
     }
@@ -97,7 +93,7 @@ impl SteamClientInner {
         let result = unsafe { sys::SteamInternal_SteamAPI_Init(versions, &mut err_msg) };
 
         match result {
-            steamgear_sys::ESteamAPIInitResult::k_ESteamAPIInitResult_OK => Ok(()),
+            steamgear_sys::ESteamAPIInitResult_k_ESteamAPIInitResult_OK => Ok(()),
             _ => Err(SteamApiInitError::from_raw(result, err_msg)),
         }
     }
@@ -133,6 +129,18 @@ impl SteamClientInner {
             sys::STEAMVIDEO_INTERFACE_VERSION,
             b"\0",
         ]
+    }
+
+    unsafe fn proceed_callback(&self, callback: sys::CallbackMsg_t) {
+        match callback.m_iCallback as u32 {
+            sys::SteamShutdown_t_k_iCallback => {
+                let value = SteamShutdown::from_raw(SteamShutdown::from_ptr(callback.m_pubParam));
+                self.callback_container
+                    .steam_shutdown_callback
+                    .proceed(value);
+            }
+            _ => {}
+        }
     }
 }
 

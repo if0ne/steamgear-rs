@@ -6,11 +6,21 @@ edition = "2021"
 [dependencies.dashmap]
 version = "5.5.3"
 
-[dependencies.futures]
+[dependencies.futures-core]
 version = "0.3.30"
-
-[dependencies.steamgear-sys]
-path = "./steamgear-sys"
 
 [dependencies.parking_lot]
 version = "0.12.3"
+
+[dependencies.tokio]
+version = "1.38.0"
+default-features = false
+features = ["sync"]
+
+[dependencies.tokio-stream]
+version = "0.1.15"
+default-features = false
+features = ["sync"]
+
+[dependencies.steamgear-sys]
+path = "./steamgear-sys"

@@ -10,13 +10,13 @@ impl SteamApiInitError {
         };
 
         match raw {
-            sys::ESteamAPIInitResult::k_ESteamAPIInitResult_FailedGeneric => {
+            sys::ESteamAPIInitResult_k_ESteamAPIInitResult_FailedGeneric => {
                 Self::FailedGeneric(msg)
             }
-            sys::ESteamAPIInitResult::k_ESteamAPIInitResult_NoSteamClient => {
+            sys::ESteamAPIInitResult_k_ESteamAPIInitResult_NoSteamClient => {
                 Self::NoSteamClient(msg)
             }
-            sys::ESteamAPIInitResult::k_ESteamAPIInitResult_VersionMismatch => {
+            sys::ESteamAPIInitResult_k_ESteamAPIInitResult_VersionMismatch => {
                 Self::VersionMismatch(msg)
             }
             _ => unreachable!(),

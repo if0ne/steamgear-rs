@@ -358,13 +358,9 @@ pub const k_uAPICallInvalid: SteamAPICall_t = 0;
 pub type AccountID_t = uint32;
 pub type PartyBeaconID_t = uint64;
 pub const k_ulPartyBeaconIdInvalid: PartyBeaconID_t = 0;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamIPType {
-    k_ESteamIPTypeIPv4 = 0,
-    k_ESteamIPTypeIPv6 = 1,
-}
+pub const ESteamIPType_k_ESteamIPTypeIPv4: ESteamIPType = 0;
+pub const ESteamIPType_k_ESteamIPTypeIPv6: ESteamIPType = 1;
+pub type ESteamIPType = ::std::os::raw::c_uint;
 #[repr(C, packed)]
 #[derive(Copy, Clone)]
 pub struct SteamIPAddress_t {
@@ -449,379 +445,360 @@ fn bindgen_test_layout_SteamIPAddress_t() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EUniverse {
-    k_EUniverseInvalid = 0,
-    k_EUniversePublic = 1,
-    k_EUniverseBeta = 2,
-    k_EUniverseInternal = 3,
-    k_EUniverseDev = 4,
-    k_EUniverseMax = 5,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EResult {
-    k_EResultNone = 0,
-    k_EResultOK = 1,
-    k_EResultFail = 2,
-    k_EResultNoConnection = 3,
-    k_EResultInvalidPassword = 5,
-    k_EResultLoggedInElsewhere = 6,
-    k_EResultInvalidProtocolVer = 7,
-    k_EResultInvalidParam = 8,
-    k_EResultFileNotFound = 9,
-    k_EResultBusy = 10,
-    k_EResultInvalidState = 11,
-    k_EResultInvalidName = 12,
-    k_EResultInvalidEmail = 13,
-    k_EResultDuplicateName = 14,
-    k_EResultAccessDenied = 15,
-    k_EResultTimeout = 16,
-    k_EResultBanned = 17,
-    k_EResultAccountNotFound = 18,
-    k_EResultInvalidSteamID = 19,
-    k_EResultServiceUnavailable = 20,
-    k_EResultNotLoggedOn = 21,
-    k_EResultPending = 22,
-    k_EResultEncryptionFailure = 23,
-    k_EResultInsufficientPrivilege = 24,
-    k_EResultLimitExceeded = 25,
-    k_EResultRevoked = 26,
-    k_EResultExpired = 27,
-    k_EResultAlreadyRedeemed = 28,
-    k_EResultDuplicateRequest = 29,
-    k_EResultAlreadyOwned = 30,
-    k_EResultIPNotFound = 31,
-    k_EResultPersistFailed = 32,
-    k_EResultLockingFailed = 33,
-    k_EResultLogonSessionReplaced = 34,
-    k_EResultConnectFailed = 35,
-    k_EResultHandshakeFailed = 36,
-    k_EResultIOFailure = 37,
-    k_EResultRemoteDisconnect = 38,
-    k_EResultShoppingCartNotFound = 39,
-    k_EResultBlocked = 40,
-    k_EResultIgnored = 41,
-    k_EResultNoMatch = 42,
-    k_EResultAccountDisabled = 43,
-    k_EResultServiceReadOnly = 44,
-    k_EResultAccountNotFeatured = 45,
-    k_EResultAdministratorOK = 46,
-    k_EResultContentVersion = 47,
-    k_EResultTryAnotherCM = 48,
-    k_EResultPasswordRequiredToKickSession = 49,
-    k_EResultAlreadyLoggedInElsewhere = 50,
-    k_EResultSuspended = 51,
-    k_EResultCancelled = 52,
-    k_EResultDataCorruption = 53,
-    k_EResultDiskFull = 54,
-    k_EResultRemoteCallFailed = 55,
-    k_EResultPasswordUnset = 56,
-    k_EResultExternalAccountUnlinked = 57,
-    k_EResultPSNTicketInvalid = 58,
-    k_EResultExternalAccountAlreadyLinked = 59,
-    k_EResultRemoteFileConflict = 60,
-    k_EResultIllegalPassword = 61,
-    k_EResultSameAsPreviousValue = 62,
-    k_EResultAccountLogonDenied = 63,
-    k_EResultCannotUseOldPassword = 64,
-    k_EResultInvalidLoginAuthCode = 65,
-    k_EResultAccountLogonDeniedNoMail = 66,
-    k_EResultHardwareNotCapableOfIPT = 67,
-    k_EResultIPTInitError = 68,
-    k_EResultParentalControlRestricted = 69,
-    k_EResultFacebookQueryError = 70,
-    k_EResultExpiredLoginAuthCode = 71,
-    k_EResultIPLoginRestrictionFailed = 72,
-    k_EResultAccountLockedDown = 73,
-    k_EResultAccountLogonDeniedVerifiedEmailRequired = 74,
-    k_EResultNoMatchingURL = 75,
-    k_EResultBadResponse = 76,
-    k_EResultRequirePasswordReEntry = 77,
-    k_EResultValueOutOfRange = 78,
-    k_EResultUnexpectedError = 79,
-    k_EResultDisabled = 80,
-    k_EResultInvalidCEGSubmission = 81,
-    k_EResultRestrictedDevice = 82,
-    k_EResultRegionLocked = 83,
-    k_EResultRateLimitExceeded = 84,
-    k_EResultAccountLoginDeniedNeedTwoFactor = 85,
-    k_EResultItemDeleted = 86,
-    k_EResultAccountLoginDeniedThrottle = 87,
-    k_EResultTwoFactorCodeMismatch = 88,
-    k_EResultTwoFactorActivationCodeMismatch = 89,
-    k_EResultAccountAssociatedToMultiplePartners = 90,
-    k_EResultNotModified = 91,
-    k_EResultNoMobileDevice = 92,
-    k_EResultTimeNotSynced = 93,
-    k_EResultSmsCodeFailed = 94,
-    k_EResultAccountLimitExceeded = 95,
-    k_EResultAccountActivityLimitExceeded = 96,
-    k_EResultPhoneActivityLimitExceeded = 97,
-    k_EResultRefundToWallet = 98,
-    k_EResultEmailSendFailure = 99,
-    k_EResultNotSettled = 100,
-    k_EResultNeedCaptcha = 101,
-    k_EResultGSLTDenied = 102,
-    k_EResultGSOwnerDenied = 103,
-    k_EResultInvalidItemType = 104,
-    k_EResultIPBanned = 105,
-    k_EResultGSLTExpired = 106,
-    k_EResultInsufficientFunds = 107,
-    k_EResultTooManyPending = 108,
-    k_EResultNoSiteLicensesFound = 109,
-    k_EResultWGNetworkSendExceeded = 110,
-    k_EResultAccountNotFriends = 111,
-    k_EResultLimitedUserAccount = 112,
-    k_EResultCantRemoveItem = 113,
-    k_EResultAccountDeleted = 114,
-    k_EResultExistingUserCancelledLicense = 115,
-    k_EResultCommunityCooldown = 116,
-    k_EResultNoLauncherSpecified = 117,
-    k_EResultMustAgreeToSSA = 118,
-    k_EResultLauncherMigrated = 119,
-    k_EResultSteamRealmMismatch = 120,
-    k_EResultInvalidSignature = 121,
-    k_EResultParseFailure = 122,
-    k_EResultNoVerifiedPhone = 123,
-    k_EResultInsufficientBattery = 124,
-    k_EResultChargerRequired = 125,
-    k_EResultCachedCredentialInvalid = 126,
-    K_EResultPhoneNumberIsVOIP = 127,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EVoiceResult {
-    k_EVoiceResultOK = 0,
-    k_EVoiceResultNotInitialized = 1,
-    k_EVoiceResultNotRecording = 2,
-    k_EVoiceResultNoData = 3,
-    k_EVoiceResultBufferTooSmall = 4,
-    k_EVoiceResultDataCorrupted = 5,
-    k_EVoiceResultRestricted = 6,
-    k_EVoiceResultUnsupportedCodec = 7,
-    k_EVoiceResultReceiverOutOfDate = 8,
-    k_EVoiceResultReceiverDidNotAnswer = 9,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EDenyReason {
-    k_EDenyInvalid = 0,
-    k_EDenyInvalidVersion = 1,
-    k_EDenyGeneric = 2,
-    k_EDenyNotLoggedOn = 3,
-    k_EDenyNoLicense = 4,
-    k_EDenyCheater = 5,
-    k_EDenyLoggedInElseWhere = 6,
-    k_EDenyUnknownText = 7,
-    k_EDenyIncompatibleAnticheat = 8,
-    k_EDenyMemoryCorruption = 9,
-    k_EDenyIncompatibleSoftware = 10,
-    k_EDenySteamConnectionLost = 11,
-    k_EDenySteamConnectionError = 12,
-    k_EDenySteamResponseTimedOut = 13,
-    k_EDenySteamValidationStalled = 14,
-    k_EDenySteamOwnerLeftGuestUser = 15,
-}
+pub const EUniverse_k_EUniverseInvalid: EUniverse = 0;
+pub const EUniverse_k_EUniversePublic: EUniverse = 1;
+pub const EUniverse_k_EUniverseBeta: EUniverse = 2;
+pub const EUniverse_k_EUniverseInternal: EUniverse = 3;
+pub const EUniverse_k_EUniverseDev: EUniverse = 4;
+pub const EUniverse_k_EUniverseMax: EUniverse = 5;
+pub type EUniverse = ::std::os::raw::c_uint;
+pub const EResult_k_EResultNone: EResult = 0;
+pub const EResult_k_EResultOK: EResult = 1;
+pub const EResult_k_EResultFail: EResult = 2;
+pub const EResult_k_EResultNoConnection: EResult = 3;
+pub const EResult_k_EResultInvalidPassword: EResult = 5;
+pub const EResult_k_EResultLoggedInElsewhere: EResult = 6;
+pub const EResult_k_EResultInvalidProtocolVer: EResult = 7;
+pub const EResult_k_EResultInvalidParam: EResult = 8;
+pub const EResult_k_EResultFileNotFound: EResult = 9;
+pub const EResult_k_EResultBusy: EResult = 10;
+pub const EResult_k_EResultInvalidState: EResult = 11;
+pub const EResult_k_EResultInvalidName: EResult = 12;
+pub const EResult_k_EResultInvalidEmail: EResult = 13;
+pub const EResult_k_EResultDuplicateName: EResult = 14;
+pub const EResult_k_EResultAccessDenied: EResult = 15;
+pub const EResult_k_EResultTimeout: EResult = 16;
+pub const EResult_k_EResultBanned: EResult = 17;
+pub const EResult_k_EResultAccountNotFound: EResult = 18;
+pub const EResult_k_EResultInvalidSteamID: EResult = 19;
+pub const EResult_k_EResultServiceUnavailable: EResult = 20;
+pub const EResult_k_EResultNotLoggedOn: EResult = 21;
+pub const EResult_k_EResultPending: EResult = 22;
+pub const EResult_k_EResultEncryptionFailure: EResult = 23;
+pub const EResult_k_EResultInsufficientPrivilege: EResult = 24;
+pub const EResult_k_EResultLimitExceeded: EResult = 25;
+pub const EResult_k_EResultRevoked: EResult = 26;
+pub const EResult_k_EResultExpired: EResult = 27;
+pub const EResult_k_EResultAlreadyRedeemed: EResult = 28;
+pub const EResult_k_EResultDuplicateRequest: EResult = 29;
+pub const EResult_k_EResultAlreadyOwned: EResult = 30;
+pub const EResult_k_EResultIPNotFound: EResult = 31;
+pub const EResult_k_EResultPersistFailed: EResult = 32;
+pub const EResult_k_EResultLockingFailed: EResult = 33;
+pub const EResult_k_EResultLogonSessionReplaced: EResult = 34;
+pub const EResult_k_EResultConnectFailed: EResult = 35;
+pub const EResult_k_EResultHandshakeFailed: EResult = 36;
+pub const EResult_k_EResultIOFailure: EResult = 37;
+pub const EResult_k_EResultRemoteDisconnect: EResult = 38;
+pub const EResult_k_EResultShoppingCartNotFound: EResult = 39;
+pub const EResult_k_EResultBlocked: EResult = 40;
+pub const EResult_k_EResultIgnored: EResult = 41;
+pub const EResult_k_EResultNoMatch: EResult = 42;
+pub const EResult_k_EResultAccountDisabled: EResult = 43;
+pub const EResult_k_EResultServiceReadOnly: EResult = 44;
+pub const EResult_k_EResultAccountNotFeatured: EResult = 45;
+pub const EResult_k_EResultAdministratorOK: EResult = 46;
+pub const EResult_k_EResultContentVersion: EResult = 47;
+pub const EResult_k_EResultTryAnotherCM: EResult = 48;
+pub const EResult_k_EResultPasswordRequiredToKickSession: EResult = 49;
+pub const EResult_k_EResultAlreadyLoggedInElsewhere: EResult = 50;
+pub const EResult_k_EResultSuspended: EResult = 51;
+pub const EResult_k_EResultCancelled: EResult = 52;
+pub const EResult_k_EResultDataCorruption: EResult = 53;
+pub const EResult_k_EResultDiskFull: EResult = 54;
+pub const EResult_k_EResultRemoteCallFailed: EResult = 55;
+pub const EResult_k_EResultPasswordUnset: EResult = 56;
+pub const EResult_k_EResultExternalAccountUnlinked: EResult = 57;
+pub const EResult_k_EResultPSNTicketInvalid: EResult = 58;
+pub const EResult_k_EResultExternalAccountAlreadyLinked: EResult = 59;
+pub const EResult_k_EResultRemoteFileConflict: EResult = 60;
+pub const EResult_k_EResultIllegalPassword: EResult = 61;
+pub const EResult_k_EResultSameAsPreviousValue: EResult = 62;
+pub const EResult_k_EResultAccountLogonDenied: EResult = 63;
+pub const EResult_k_EResultCannotUseOldPassword: EResult = 64;
+pub const EResult_k_EResultInvalidLoginAuthCode: EResult = 65;
+pub const EResult_k_EResultAccountLogonDeniedNoMail: EResult = 66;
+pub const EResult_k_EResultHardwareNotCapableOfIPT: EResult = 67;
+pub const EResult_k_EResultIPTInitError: EResult = 68;
+pub const EResult_k_EResultParentalControlRestricted: EResult = 69;
+pub const EResult_k_EResultFacebookQueryError: EResult = 70;
+pub const EResult_k_EResultExpiredLoginAuthCode: EResult = 71;
+pub const EResult_k_EResultIPLoginRestrictionFailed: EResult = 72;
+pub const EResult_k_EResultAccountLockedDown: EResult = 73;
+pub const EResult_k_EResultAccountLogonDeniedVerifiedEmailRequired: EResult = 74;
+pub const EResult_k_EResultNoMatchingURL: EResult = 75;
+pub const EResult_k_EResultBadResponse: EResult = 76;
+pub const EResult_k_EResultRequirePasswordReEntry: EResult = 77;
+pub const EResult_k_EResultValueOutOfRange: EResult = 78;
+pub const EResult_k_EResultUnexpectedError: EResult = 79;
+pub const EResult_k_EResultDisabled: EResult = 80;
+pub const EResult_k_EResultInvalidCEGSubmission: EResult = 81;
+pub const EResult_k_EResultRestrictedDevice: EResult = 82;
+pub const EResult_k_EResultRegionLocked: EResult = 83;
+pub const EResult_k_EResultRateLimitExceeded: EResult = 84;
+pub const EResult_k_EResultAccountLoginDeniedNeedTwoFactor: EResult = 85;
+pub const EResult_k_EResultItemDeleted: EResult = 86;
+pub const EResult_k_EResultAccountLoginDeniedThrottle: EResult = 87;
+pub const EResult_k_EResultTwoFactorCodeMismatch: EResult = 88;
+pub const EResult_k_EResultTwoFactorActivationCodeMismatch: EResult = 89;
+pub const EResult_k_EResultAccountAssociatedToMultiplePartners: EResult = 90;
+pub const EResult_k_EResultNotModified: EResult = 91;
+pub const EResult_k_EResultNoMobileDevice: EResult = 92;
+pub const EResult_k_EResultTimeNotSynced: EResult = 93;
+pub const EResult_k_EResultSmsCodeFailed: EResult = 94;
+pub const EResult_k_EResultAccountLimitExceeded: EResult = 95;
+pub const EResult_k_EResultAccountActivityLimitExceeded: EResult = 96;
+pub const EResult_k_EResultPhoneActivityLimitExceeded: EResult = 97;
+pub const EResult_k_EResultRefundToWallet: EResult = 98;
+pub const EResult_k_EResultEmailSendFailure: EResult = 99;
+pub const EResult_k_EResultNotSettled: EResult = 100;
+pub const EResult_k_EResultNeedCaptcha: EResult = 101;
+pub const EResult_k_EResultGSLTDenied: EResult = 102;
+pub const EResult_k_EResultGSOwnerDenied: EResult = 103;
+pub const EResult_k_EResultInvalidItemType: EResult = 104;
+pub const EResult_k_EResultIPBanned: EResult = 105;
+pub const EResult_k_EResultGSLTExpired: EResult = 106;
+pub const EResult_k_EResultInsufficientFunds: EResult = 107;
+pub const EResult_k_EResultTooManyPending: EResult = 108;
+pub const EResult_k_EResultNoSiteLicensesFound: EResult = 109;
+pub const EResult_k_EResultWGNetworkSendExceeded: EResult = 110;
+pub const EResult_k_EResultAccountNotFriends: EResult = 111;
+pub const EResult_k_EResultLimitedUserAccount: EResult = 112;
+pub const EResult_k_EResultCantRemoveItem: EResult = 113;
+pub const EResult_k_EResultAccountDeleted: EResult = 114;
+pub const EResult_k_EResultExistingUserCancelledLicense: EResult = 115;
+pub const EResult_k_EResultCommunityCooldown: EResult = 116;
+pub const EResult_k_EResultNoLauncherSpecified: EResult = 117;
+pub const EResult_k_EResultMustAgreeToSSA: EResult = 118;
+pub const EResult_k_EResultLauncherMigrated: EResult = 119;
+pub const EResult_k_EResultSteamRealmMismatch: EResult = 120;
+pub const EResult_k_EResultInvalidSignature: EResult = 121;
+pub const EResult_k_EResultParseFailure: EResult = 122;
+pub const EResult_k_EResultNoVerifiedPhone: EResult = 123;
+pub const EResult_k_EResultInsufficientBattery: EResult = 124;
+pub const EResult_k_EResultChargerRequired: EResult = 125;
+pub const EResult_k_EResultCachedCredentialInvalid: EResult = 126;
+pub const EResult_K_EResultPhoneNumberIsVOIP: EResult = 127;
+pub type EResult = ::std::os::raw::c_uint;
+pub const EVoiceResult_k_EVoiceResultOK: EVoiceResult = 0;
+pub const EVoiceResult_k_EVoiceResultNotInitialized: EVoiceResult = 1;
+pub const EVoiceResult_k_EVoiceResultNotRecording: EVoiceResult = 2;
+pub const EVoiceResult_k_EVoiceResultNoData: EVoiceResult = 3;
+pub const EVoiceResult_k_EVoiceResultBufferTooSmall: EVoiceResult = 4;
+pub const EVoiceResult_k_EVoiceResultDataCorrupted: EVoiceResult = 5;
+pub const EVoiceResult_k_EVoiceResultRestricted: EVoiceResult = 6;
+pub const EVoiceResult_k_EVoiceResultUnsupportedCodec: EVoiceResult = 7;
+pub const EVoiceResult_k_EVoiceResultReceiverOutOfDate: EVoiceResult = 8;
+pub const EVoiceResult_k_EVoiceResultReceiverDidNotAnswer: EVoiceResult = 9;
+pub type EVoiceResult = ::std::os::raw::c_uint;
+pub const EDenyReason_k_EDenyInvalid: EDenyReason = 0;
+pub const EDenyReason_k_EDenyInvalidVersion: EDenyReason = 1;
+pub const EDenyReason_k_EDenyGeneric: EDenyReason = 2;
+pub const EDenyReason_k_EDenyNotLoggedOn: EDenyReason = 3;
+pub const EDenyReason_k_EDenyNoLicense: EDenyReason = 4;
+pub const EDenyReason_k_EDenyCheater: EDenyReason = 5;
+pub const EDenyReason_k_EDenyLoggedInElseWhere: EDenyReason = 6;
+pub const EDenyReason_k_EDenyUnknownText: EDenyReason = 7;
+pub const EDenyReason_k_EDenyIncompatibleAnticheat: EDenyReason = 8;
+pub const EDenyReason_k_EDenyMemoryCorruption: EDenyReason = 9;
+pub const EDenyReason_k_EDenyIncompatibleSoftware: EDenyReason = 10;
+pub const EDenyReason_k_EDenySteamConnectionLost: EDenyReason = 11;
+pub const EDenyReason_k_EDenySteamConnectionError: EDenyReason = 12;
+pub const EDenyReason_k_EDenySteamResponseTimedOut: EDenyReason = 13;
+pub const EDenyReason_k_EDenySteamValidationStalled: EDenyReason = 14;
+pub const EDenyReason_k_EDenySteamOwnerLeftGuestUser: EDenyReason = 15;
+pub type EDenyReason = ::std::os::raw::c_uint;
 pub type HAuthTicket = uint32;
 pub const k_HAuthTicketInvalid: HAuthTicket = 0;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EBeginAuthSessionResult {
-    k_EBeginAuthSessionResultOK = 0,
-    k_EBeginAuthSessionResultInvalidTicket = 1,
-    k_EBeginAuthSessionResultDuplicateRequest = 2,
-    k_EBeginAuthSessionResultInvalidVersion = 3,
-    k_EBeginAuthSessionResultGameMismatch = 4,
-    k_EBeginAuthSessionResultExpiredTicket = 5,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EAuthSessionResponse {
-    k_EAuthSessionResponseOK = 0,
-    k_EAuthSessionResponseUserNotConnectedToSteam = 1,
-    k_EAuthSessionResponseNoLicenseOrExpired = 2,
-    k_EAuthSessionResponseVACBanned = 3,
-    k_EAuthSessionResponseLoggedInElseWhere = 4,
-    k_EAuthSessionResponseVACCheckTimedOut = 5,
-    k_EAuthSessionResponseAuthTicketCanceled = 6,
-    k_EAuthSessionResponseAuthTicketInvalidAlreadyUsed = 7,
-    k_EAuthSessionResponseAuthTicketInvalid = 8,
-    k_EAuthSessionResponsePublisherIssuedBan = 9,
-    k_EAuthSessionResponseAuthTicketNetworkIdentityFailure = 10,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EUserHasLicenseForAppResult {
-    k_EUserHasLicenseResultHasLicense = 0,
-    k_EUserHasLicenseResultDoesNotHaveLicense = 1,
-    k_EUserHasLicenseResultNoAuth = 2,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EAccountType {
-    k_EAccountTypeInvalid = 0,
-    k_EAccountTypeIndividual = 1,
-    k_EAccountTypeMultiseat = 2,
-    k_EAccountTypeGameServer = 3,
-    k_EAccountTypeAnonGameServer = 4,
-    k_EAccountTypePending = 5,
-    k_EAccountTypeContentServer = 6,
-    k_EAccountTypeClan = 7,
-    k_EAccountTypeChat = 8,
-    k_EAccountTypeConsoleUser = 9,
-    k_EAccountTypeAnonUser = 10,
-    k_EAccountTypeMax = 11,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EChatEntryType {
-    k_EChatEntryTypeInvalid = 0,
-    k_EChatEntryTypeChatMsg = 1,
-    k_EChatEntryTypeTyping = 2,
-    k_EChatEntryTypeInviteGame = 3,
-    k_EChatEntryTypeEmote = 4,
-    k_EChatEntryTypeLeftConversation = 6,
-    k_EChatEntryTypeEntered = 7,
-    k_EChatEntryTypeWasKicked = 8,
-    k_EChatEntryTypeWasBanned = 9,
-    k_EChatEntryTypeDisconnected = 10,
-    k_EChatEntryTypeHistoricalChat = 11,
-    k_EChatEntryTypeLinkBlocked = 14,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EChatRoomEnterResponse {
-    k_EChatRoomEnterResponseSuccess = 1,
-    k_EChatRoomEnterResponseDoesntExist = 2,
-    k_EChatRoomEnterResponseNotAllowed = 3,
-    k_EChatRoomEnterResponseFull = 4,
-    k_EChatRoomEnterResponseError = 5,
-    k_EChatRoomEnterResponseBanned = 6,
-    k_EChatRoomEnterResponseLimited = 7,
-    k_EChatRoomEnterResponseClanDisabled = 8,
-    k_EChatRoomEnterResponseCommunityBan = 9,
-    k_EChatRoomEnterResponseMemberBlockedYou = 10,
-    k_EChatRoomEnterResponseYouBlockedMember = 11,
-    k_EChatRoomEnterResponseRatelimitExceeded = 15,
-}
+pub const EBeginAuthSessionResult_k_EBeginAuthSessionResultOK: EBeginAuthSessionResult = 0;
+pub const EBeginAuthSessionResult_k_EBeginAuthSessionResultInvalidTicket: EBeginAuthSessionResult =
+    1;
+pub const EBeginAuthSessionResult_k_EBeginAuthSessionResultDuplicateRequest:
+    EBeginAuthSessionResult = 2;
+pub const EBeginAuthSessionResult_k_EBeginAuthSessionResultInvalidVersion: EBeginAuthSessionResult =
+    3;
+pub const EBeginAuthSessionResult_k_EBeginAuthSessionResultGameMismatch: EBeginAuthSessionResult =
+    4;
+pub const EBeginAuthSessionResult_k_EBeginAuthSessionResultExpiredTicket: EBeginAuthSessionResult =
+    5;
+pub type EBeginAuthSessionResult = ::std::os::raw::c_uint;
+pub const EAuthSessionResponse_k_EAuthSessionResponseOK: EAuthSessionResponse = 0;
+pub const EAuthSessionResponse_k_EAuthSessionResponseUserNotConnectedToSteam: EAuthSessionResponse =
+    1;
+pub const EAuthSessionResponse_k_EAuthSessionResponseNoLicenseOrExpired: EAuthSessionResponse = 2;
+pub const EAuthSessionResponse_k_EAuthSessionResponseVACBanned: EAuthSessionResponse = 3;
+pub const EAuthSessionResponse_k_EAuthSessionResponseLoggedInElseWhere: EAuthSessionResponse = 4;
+pub const EAuthSessionResponse_k_EAuthSessionResponseVACCheckTimedOut: EAuthSessionResponse = 5;
+pub const EAuthSessionResponse_k_EAuthSessionResponseAuthTicketCanceled: EAuthSessionResponse = 6;
+pub const EAuthSessionResponse_k_EAuthSessionResponseAuthTicketInvalidAlreadyUsed:
+    EAuthSessionResponse = 7;
+pub const EAuthSessionResponse_k_EAuthSessionResponseAuthTicketInvalid: EAuthSessionResponse = 8;
+pub const EAuthSessionResponse_k_EAuthSessionResponsePublisherIssuedBan: EAuthSessionResponse = 9;
+pub const EAuthSessionResponse_k_EAuthSessionResponseAuthTicketNetworkIdentityFailure:
+    EAuthSessionResponse = 10;
+pub type EAuthSessionResponse = ::std::os::raw::c_uint;
+pub const EUserHasLicenseForAppResult_k_EUserHasLicenseResultHasLicense:
+    EUserHasLicenseForAppResult = 0;
+pub const EUserHasLicenseForAppResult_k_EUserHasLicenseResultDoesNotHaveLicense:
+    EUserHasLicenseForAppResult = 1;
+pub const EUserHasLicenseForAppResult_k_EUserHasLicenseResultNoAuth: EUserHasLicenseForAppResult =
+    2;
+pub type EUserHasLicenseForAppResult = ::std::os::raw::c_uint;
+pub const EAccountType_k_EAccountTypeInvalid: EAccountType = 0;
+pub const EAccountType_k_EAccountTypeIndividual: EAccountType = 1;
+pub const EAccountType_k_EAccountTypeMultiseat: EAccountType = 2;
+pub const EAccountType_k_EAccountTypeGameServer: EAccountType = 3;
+pub const EAccountType_k_EAccountTypeAnonGameServer: EAccountType = 4;
+pub const EAccountType_k_EAccountTypePending: EAccountType = 5;
+pub const EAccountType_k_EAccountTypeContentServer: EAccountType = 6;
+pub const EAccountType_k_EAccountTypeClan: EAccountType = 7;
+pub const EAccountType_k_EAccountTypeChat: EAccountType = 8;
+pub const EAccountType_k_EAccountTypeConsoleUser: EAccountType = 9;
+pub const EAccountType_k_EAccountTypeAnonUser: EAccountType = 10;
+pub const EAccountType_k_EAccountTypeMax: EAccountType = 11;
+pub type EAccountType = ::std::os::raw::c_uint;
+pub const EChatEntryType_k_EChatEntryTypeInvalid: EChatEntryType = 0;
+pub const EChatEntryType_k_EChatEntryTypeChatMsg: EChatEntryType = 1;
+pub const EChatEntryType_k_EChatEntryTypeTyping: EChatEntryType = 2;
+pub const EChatEntryType_k_EChatEntryTypeInviteGame: EChatEntryType = 3;
+pub const EChatEntryType_k_EChatEntryTypeEmote: EChatEntryType = 4;
+pub const EChatEntryType_k_EChatEntryTypeLeftConversation: EChatEntryType = 6;
+pub const EChatEntryType_k_EChatEntryTypeEntered: EChatEntryType = 7;
+pub const EChatEntryType_k_EChatEntryTypeWasKicked: EChatEntryType = 8;
+pub const EChatEntryType_k_EChatEntryTypeWasBanned: EChatEntryType = 9;
+pub const EChatEntryType_k_EChatEntryTypeDisconnected: EChatEntryType = 10;
+pub const EChatEntryType_k_EChatEntryTypeHistoricalChat: EChatEntryType = 11;
+pub const EChatEntryType_k_EChatEntryTypeLinkBlocked: EChatEntryType = 14;
+pub type EChatEntryType = ::std::os::raw::c_uint;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseSuccess: EChatRoomEnterResponse = 1;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseDoesntExist: EChatRoomEnterResponse = 2;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseNotAllowed: EChatRoomEnterResponse = 3;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseFull: EChatRoomEnterResponse = 4;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseError: EChatRoomEnterResponse = 5;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseBanned: EChatRoomEnterResponse = 6;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseLimited: EChatRoomEnterResponse = 7;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseClanDisabled: EChatRoomEnterResponse = 8;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseCommunityBan: EChatRoomEnterResponse = 9;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseMemberBlockedYou: EChatRoomEnterResponse =
+    10;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseYouBlockedMember: EChatRoomEnterResponse =
+    11;
+pub const EChatRoomEnterResponse_k_EChatRoomEnterResponseRatelimitExceeded: EChatRoomEnterResponse =
+    15;
+pub type EChatRoomEnterResponse = ::std::os::raw::c_uint;
 pub const k_unSteamAccountIDMask: ::std::os::raw::c_uint = 4294967295;
 pub const k_unSteamAccountInstanceMask: ::std::os::raw::c_uint = 1048575;
 pub const k_unSteamUserDefaultInstance: ::std::os::raw::c_uint = 1;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EChatSteamIDInstanceFlags {
-    k_EChatAccountInstanceMask = 4095,
-    k_EChatInstanceFlagClan = 524288,
-    k_EChatInstanceFlagLobby = 262144,
-    k_EChatInstanceFlagMMSLobby = 131072,
-}
-#[repr(i32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ENotificationPosition {
-    k_EPositionInvalid = -1,
-    k_EPositionTopLeft = 0,
-    k_EPositionTopRight = 1,
-    k_EPositionBottomLeft = 2,
-    k_EPositionBottomRight = 3,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EBroadcastUploadResult {
-    k_EBroadcastUploadResultNone = 0,
-    k_EBroadcastUploadResultOK = 1,
-    k_EBroadcastUploadResultInitFailed = 2,
-    k_EBroadcastUploadResultFrameFailed = 3,
-    k_EBroadcastUploadResultTimeout = 4,
-    k_EBroadcastUploadResultBandwidthExceeded = 5,
-    k_EBroadcastUploadResultLowFPS = 6,
-    k_EBroadcastUploadResultMissingKeyFrames = 7,
-    k_EBroadcastUploadResultNoConnection = 8,
-    k_EBroadcastUploadResultRelayFailed = 9,
-    k_EBroadcastUploadResultSettingsChanged = 10,
-    k_EBroadcastUploadResultMissingAudio = 11,
-    k_EBroadcastUploadResultTooFarBehind = 12,
-    k_EBroadcastUploadResultTranscodeBehind = 13,
-    k_EBroadcastUploadResultNotAllowedToPlay = 14,
-    k_EBroadcastUploadResultBusy = 15,
-    k_EBroadcastUploadResultBanned = 16,
-    k_EBroadcastUploadResultAlreadyActive = 17,
-    k_EBroadcastUploadResultForcedOff = 18,
-    k_EBroadcastUploadResultAudioBehind = 19,
-    k_EBroadcastUploadResultShutdown = 20,
-    k_EBroadcastUploadResultDisconnect = 21,
-    k_EBroadcastUploadResultVideoInitFailed = 22,
-    k_EBroadcastUploadResultAudioInitFailed = 23,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EMarketNotAllowedReasonFlags {
-    k_EMarketNotAllowedReason_None = 0,
-    k_EMarketNotAllowedReason_TemporaryFailure = 1,
-    k_EMarketNotAllowedReason_AccountDisabled = 2,
-    k_EMarketNotAllowedReason_AccountLockedDown = 4,
-    k_EMarketNotAllowedReason_AccountLimited = 8,
-    k_EMarketNotAllowedReason_TradeBanned = 16,
-    k_EMarketNotAllowedReason_AccountNotTrusted = 32,
-    k_EMarketNotAllowedReason_SteamGuardNotEnabled = 64,
-    k_EMarketNotAllowedReason_SteamGuardOnlyRecentlyEnabled = 128,
-    k_EMarketNotAllowedReason_RecentPasswordReset = 256,
-    k_EMarketNotAllowedReason_NewPaymentMethod = 512,
-    k_EMarketNotAllowedReason_InvalidCookie = 1024,
-    k_EMarketNotAllowedReason_UsingNewDevice = 2048,
-    k_EMarketNotAllowedReason_RecentSelfRefund = 4096,
-    k_EMarketNotAllowedReason_NewPaymentMethodCannotBeVerified = 8192,
-    k_EMarketNotAllowedReason_NoRecentPurchases = 16384,
-    k_EMarketNotAllowedReason_AcceptedWalletGift = 32768,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EDurationControlProgress {
-    k_EDurationControlProgress_Full = 0,
-    k_EDurationControlProgress_Half = 1,
-    k_EDurationControlProgress_None = 2,
-    k_EDurationControl_ExitSoon_3h = 3,
-    k_EDurationControl_ExitSoon_5h = 4,
-    k_EDurationControl_ExitSoon_Night = 5,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EDurationControlNotification {
-    k_EDurationControlNotification_None = 0,
-    k_EDurationControlNotification_1Hour = 1,
-    k_EDurationControlNotification_3Hours = 2,
-    k_EDurationControlNotification_HalfProgress = 3,
-    k_EDurationControlNotification_NoProgress = 4,
-    k_EDurationControlNotification_ExitSoon_3h = 5,
-    k_EDurationControlNotification_ExitSoon_5h = 6,
-    k_EDurationControlNotification_ExitSoon_Night = 7,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EDurationControlOnlineState {
-    k_EDurationControlOnlineState_Invalid = 0,
-    k_EDurationControlOnlineState_Offline = 1,
-    k_EDurationControlOnlineState_Online = 2,
-    k_EDurationControlOnlineState_OnlineHighPri = 3,
-}
+pub const EChatSteamIDInstanceFlags_k_EChatAccountInstanceMask: EChatSteamIDInstanceFlags = 4095;
+pub const EChatSteamIDInstanceFlags_k_EChatInstanceFlagClan: EChatSteamIDInstanceFlags = 524288;
+pub const EChatSteamIDInstanceFlags_k_EChatInstanceFlagLobby: EChatSteamIDInstanceFlags = 262144;
+pub const EChatSteamIDInstanceFlags_k_EChatInstanceFlagMMSLobby: EChatSteamIDInstanceFlags = 131072;
+pub type EChatSteamIDInstanceFlags = ::std::os::raw::c_uint;
+pub const ENotificationPosition_k_EPositionInvalid: ENotificationPosition = -1;
+pub const ENotificationPosition_k_EPositionTopLeft: ENotificationPosition = 0;
+pub const ENotificationPosition_k_EPositionTopRight: ENotificationPosition = 1;
+pub const ENotificationPosition_k_EPositionBottomLeft: ENotificationPosition = 2;
+pub const ENotificationPosition_k_EPositionBottomRight: ENotificationPosition = 3;
+pub type ENotificationPosition = ::std::os::raw::c_int;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultNone: EBroadcastUploadResult = 0;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultOK: EBroadcastUploadResult = 1;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultInitFailed: EBroadcastUploadResult = 2;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultFrameFailed: EBroadcastUploadResult = 3;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultTimeout: EBroadcastUploadResult = 4;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultBandwidthExceeded: EBroadcastUploadResult =
+    5;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultLowFPS: EBroadcastUploadResult = 6;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultMissingKeyFrames: EBroadcastUploadResult =
+    7;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultNoConnection: EBroadcastUploadResult = 8;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultRelayFailed: EBroadcastUploadResult = 9;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultSettingsChanged: EBroadcastUploadResult =
+    10;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultMissingAudio: EBroadcastUploadResult = 11;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultTooFarBehind: EBroadcastUploadResult = 12;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultTranscodeBehind: EBroadcastUploadResult =
+    13;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultNotAllowedToPlay: EBroadcastUploadResult =
+    14;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultBusy: EBroadcastUploadResult = 15;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultBanned: EBroadcastUploadResult = 16;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultAlreadyActive: EBroadcastUploadResult = 17;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultForcedOff: EBroadcastUploadResult = 18;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultAudioBehind: EBroadcastUploadResult = 19;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultShutdown: EBroadcastUploadResult = 20;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultDisconnect: EBroadcastUploadResult = 21;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultVideoInitFailed: EBroadcastUploadResult =
+    22;
+pub const EBroadcastUploadResult_k_EBroadcastUploadResultAudioInitFailed: EBroadcastUploadResult =
+    23;
+pub type EBroadcastUploadResult = ::std::os::raw::c_uint;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_None:
+    EMarketNotAllowedReasonFlags = 0;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_TemporaryFailure:
+    EMarketNotAllowedReasonFlags = 1;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_AccountDisabled:
+    EMarketNotAllowedReasonFlags = 2;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_AccountLockedDown:
+    EMarketNotAllowedReasonFlags = 4;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_AccountLimited:
+    EMarketNotAllowedReasonFlags = 8;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_TradeBanned:
+    EMarketNotAllowedReasonFlags = 16;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_AccountNotTrusted:
+    EMarketNotAllowedReasonFlags = 32;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_SteamGuardNotEnabled:
+    EMarketNotAllowedReasonFlags = 64;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_SteamGuardOnlyRecentlyEnabled:
+    EMarketNotAllowedReasonFlags = 128;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_RecentPasswordReset:
+    EMarketNotAllowedReasonFlags = 256;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_NewPaymentMethod:
+    EMarketNotAllowedReasonFlags = 512;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_InvalidCookie:
+    EMarketNotAllowedReasonFlags = 1024;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_UsingNewDevice:
+    EMarketNotAllowedReasonFlags = 2048;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_RecentSelfRefund:
+    EMarketNotAllowedReasonFlags = 4096;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_NewPaymentMethodCannotBeVerified : EMarketNotAllowedReasonFlags = 8192 ;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_NoRecentPurchases:
+    EMarketNotAllowedReasonFlags = 16384;
+pub const EMarketNotAllowedReasonFlags_k_EMarketNotAllowedReason_AcceptedWalletGift:
+    EMarketNotAllowedReasonFlags = 32768;
+pub type EMarketNotAllowedReasonFlags = ::std::os::raw::c_uint;
+pub const EDurationControlProgress_k_EDurationControlProgress_Full: EDurationControlProgress = 0;
+pub const EDurationControlProgress_k_EDurationControlProgress_Half: EDurationControlProgress = 1;
+pub const EDurationControlProgress_k_EDurationControlProgress_None: EDurationControlProgress = 2;
+pub const EDurationControlProgress_k_EDurationControl_ExitSoon_3h: EDurationControlProgress = 3;
+pub const EDurationControlProgress_k_EDurationControl_ExitSoon_5h: EDurationControlProgress = 4;
+pub const EDurationControlProgress_k_EDurationControl_ExitSoon_Night: EDurationControlProgress = 5;
+pub type EDurationControlProgress = ::std::os::raw::c_uint;
+pub const EDurationControlNotification_k_EDurationControlNotification_None:
+    EDurationControlNotification = 0;
+pub const EDurationControlNotification_k_EDurationControlNotification_1Hour:
+    EDurationControlNotification = 1;
+pub const EDurationControlNotification_k_EDurationControlNotification_3Hours:
+    EDurationControlNotification = 2;
+pub const EDurationControlNotification_k_EDurationControlNotification_HalfProgress:
+    EDurationControlNotification = 3;
+pub const EDurationControlNotification_k_EDurationControlNotification_NoProgress:
+    EDurationControlNotification = 4;
+pub const EDurationControlNotification_k_EDurationControlNotification_ExitSoon_3h:
+    EDurationControlNotification = 5;
+pub const EDurationControlNotification_k_EDurationControlNotification_ExitSoon_5h:
+    EDurationControlNotification = 6;
+pub const EDurationControlNotification_k_EDurationControlNotification_ExitSoon_Night:
+    EDurationControlNotification = 7;
+pub type EDurationControlNotification = ::std::os::raw::c_uint;
+pub const EDurationControlOnlineState_k_EDurationControlOnlineState_Invalid:
+    EDurationControlOnlineState = 0;
+pub const EDurationControlOnlineState_k_EDurationControlOnlineState_Offline:
+    EDurationControlOnlineState = 1;
+pub const EDurationControlOnlineState_k_EDurationControlOnlineState_Online:
+    EDurationControlOnlineState = 2;
+pub const EDurationControlOnlineState_k_EDurationControlOnlineState_OnlineHighPri:
+    EDurationControlOnlineState = 3;
+pub type EDurationControlOnlineState = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CSteamID {
@@ -1070,15 +1047,11 @@ impl CSteamID {
 pub struct CGameID {
     pub __bindgen_anon_1: CGameID__bindgen_ty_1,
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CGameID_EGameIDType {
-    k_EGameIDTypeApp = 0,
-    k_EGameIDTypeGameMod = 1,
-    k_EGameIDTypeShortcut = 2,
-    k_EGameIDTypeP2P = 3,
-}
+pub const CGameID_EGameIDType_k_EGameIDTypeApp: CGameID_EGameIDType = 0;
+pub const CGameID_EGameIDType_k_EGameIDTypeGameMod: CGameID_EGameIDType = 1;
+pub const CGameID_EGameIDType_k_EGameIDTypeShortcut: CGameID_EGameIDType = 2;
+pub const CGameID_EGameIDType_k_EGameIDTypeP2P: CGameID_EGameIDType = 3;
+pub type CGameID_EGameIDType = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct CGameID_GameID_t {
@@ -1240,46 +1213,43 @@ impl CGameID {
 pub const k_cchGameExtraInfoMax: ::std::os::raw::c_int = 64;
 pub type PFNPreMinidumpCallback =
     ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EGameSearchErrorCode_t {
-    k_EGameSearchErrorCode_OK = 1,
-    k_EGameSearchErrorCode_Failed_Search_Already_In_Progress = 2,
-    k_EGameSearchErrorCode_Failed_No_Search_In_Progress = 3,
-    k_EGameSearchErrorCode_Failed_Not_Lobby_Leader = 4,
-    k_EGameSearchErrorCode_Failed_No_Host_Available = 5,
-    k_EGameSearchErrorCode_Failed_Search_Params_Invalid = 6,
-    k_EGameSearchErrorCode_Failed_Offline = 7,
-    k_EGameSearchErrorCode_Failed_NotAuthorized = 8,
-    k_EGameSearchErrorCode_Failed_Unknown_Error = 9,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EPlayerResult_t {
-    k_EPlayerResultFailedToConnect = 1,
-    k_EPlayerResultAbandoned = 2,
-    k_EPlayerResultKicked = 3,
-    k_EPlayerResultIncomplete = 4,
-    k_EPlayerResultCompleted = 5,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamIPv6ConnectivityProtocol {
-    k_ESteamIPv6ConnectivityProtocol_Invalid = 0,
-    k_ESteamIPv6ConnectivityProtocol_HTTP = 1,
-    k_ESteamIPv6ConnectivityProtocol_UDP = 2,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamIPv6ConnectivityState {
-    k_ESteamIPv6ConnectivityState_Unknown = 0,
-    k_ESteamIPv6ConnectivityState_Good = 1,
-    k_ESteamIPv6ConnectivityState_Bad = 2,
-}
+pub const EGameSearchErrorCode_t_k_EGameSearchErrorCode_OK: EGameSearchErrorCode_t = 1;
+pub const EGameSearchErrorCode_t_k_EGameSearchErrorCode_Failed_Search_Already_In_Progress:
+    EGameSearchErrorCode_t = 2;
+pub const EGameSearchErrorCode_t_k_EGameSearchErrorCode_Failed_No_Search_In_Progress:
+    EGameSearchErrorCode_t = 3;
+pub const EGameSearchErrorCode_t_k_EGameSearchErrorCode_Failed_Not_Lobby_Leader:
+    EGameSearchErrorCode_t = 4;
+pub const EGameSearchErrorCode_t_k_EGameSearchErrorCode_Failed_No_Host_Available:
+    EGameSearchErrorCode_t = 5;
+pub const EGameSearchErrorCode_t_k_EGameSearchErrorCode_Failed_Search_Params_Invalid:
+    EGameSearchErrorCode_t = 6;
+pub const EGameSearchErrorCode_t_k_EGameSearchErrorCode_Failed_Offline: EGameSearchErrorCode_t = 7;
+pub const EGameSearchErrorCode_t_k_EGameSearchErrorCode_Failed_NotAuthorized:
+    EGameSearchErrorCode_t = 8;
+pub const EGameSearchErrorCode_t_k_EGameSearchErrorCode_Failed_Unknown_Error:
+    EGameSearchErrorCode_t = 9;
+pub type EGameSearchErrorCode_t = ::std::os::raw::c_uint;
+pub const EPlayerResult_t_k_EPlayerResultFailedToConnect: EPlayerResult_t = 1;
+pub const EPlayerResult_t_k_EPlayerResultAbandoned: EPlayerResult_t = 2;
+pub const EPlayerResult_t_k_EPlayerResultKicked: EPlayerResult_t = 3;
+pub const EPlayerResult_t_k_EPlayerResultIncomplete: EPlayerResult_t = 4;
+pub const EPlayerResult_t_k_EPlayerResultCompleted: EPlayerResult_t = 5;
+pub type EPlayerResult_t = ::std::os::raw::c_uint;
+pub const ESteamIPv6ConnectivityProtocol_k_ESteamIPv6ConnectivityProtocol_Invalid:
+    ESteamIPv6ConnectivityProtocol = 0;
+pub const ESteamIPv6ConnectivityProtocol_k_ESteamIPv6ConnectivityProtocol_HTTP:
+    ESteamIPv6ConnectivityProtocol = 1;
+pub const ESteamIPv6ConnectivityProtocol_k_ESteamIPv6ConnectivityProtocol_UDP:
+    ESteamIPv6ConnectivityProtocol = 2;
+pub type ESteamIPv6ConnectivityProtocol = ::std::os::raw::c_uint;
+pub const ESteamIPv6ConnectivityState_k_ESteamIPv6ConnectivityState_Unknown:
+    ESteamIPv6ConnectivityState = 0;
+pub const ESteamIPv6ConnectivityState_k_ESteamIPv6ConnectivityState_Good:
+    ESteamIPv6ConnectivityState = 1;
+pub const ESteamIPv6ConnectivityState_k_ESteamIPv6ConnectivityState_Bad:
+    ESteamIPv6ConnectivityState = 2;
+pub type ESteamIPv6ConnectivityState = ::std::os::raw::c_uint;
 #[repr(C, packed(4))]
 #[derive(Debug, Copy, Clone)]
 pub struct ValvePackingSentinel_t {
@@ -1369,17 +1339,9 @@ pub struct CCallbackBase {
     pub m_nCallbackFlags: uint8,
     pub m_iCallback: ::std::os::raw::c_int,
 }
-pub const CCallbackBase_k_ECallbackFlagsRegistered: CCallbackBase__bindgen_ty_1 =
-    CCallbackBase__bindgen_ty_1::k_ECallbackFlagsRegistered;
-pub const CCallbackBase_k_ECallbackFlagsGameServer: CCallbackBase__bindgen_ty_1 =
-    CCallbackBase__bindgen_ty_1::k_ECallbackFlagsGameServer;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CCallbackBase__bindgen_ty_1 {
-    k_ECallbackFlagsRegistered = 1,
-    k_ECallbackFlagsGameServer = 2,
-}
+pub const CCallbackBase_k_ECallbackFlagsRegistered: CCallbackBase__bindgen_ty_1 = 1;
+pub const CCallbackBase_k_ECallbackFlagsGameServer: CCallbackBase__bindgen_ty_1 = 2;
+pub type CCallbackBase__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_CCallbackBase() {
     const UNINIT: ::std::mem::MaybeUninit<CCallbackBase> = ::std::mem::MaybeUninit::uninit();
@@ -2023,287 +1985,82 @@ pub struct ISteamContentServer {
 pub struct ISteamPS3OverlayRender {
     _unused: [u8; 0],
 }
-pub const k_iSteamUserCallbacks: _bindgen_ty_1 = _bindgen_ty_1::k_iSteamUserCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_1 {
-    k_iSteamUserCallbacks = 100,
-}
-pub const k_iSteamGameServerCallbacks: _bindgen_ty_2 = _bindgen_ty_2::k_iSteamGameServerCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_2 {
-    k_iSteamGameServerCallbacks = 200,
-}
-pub const k_iSteamFriendsCallbacks: _bindgen_ty_3 = _bindgen_ty_3::k_iSteamFriendsCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_3 {
-    k_iSteamFriendsCallbacks = 300,
-}
-pub const k_iSteamBillingCallbacks: _bindgen_ty_4 = _bindgen_ty_4::k_iSteamBillingCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_4 {
-    k_iSteamBillingCallbacks = 400,
-}
-pub const k_iSteamMatchmakingCallbacks: _bindgen_ty_5 = _bindgen_ty_5::k_iSteamMatchmakingCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_5 {
-    k_iSteamMatchmakingCallbacks = 500,
-}
-pub const k_iSteamContentServerCallbacks: _bindgen_ty_6 =
-    _bindgen_ty_6::k_iSteamContentServerCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_6 {
-    k_iSteamContentServerCallbacks = 600,
-}
-pub const k_iSteamUtilsCallbacks: _bindgen_ty_7 = _bindgen_ty_7::k_iSteamUtilsCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_7 {
-    k_iSteamUtilsCallbacks = 700,
-}
-pub const k_iSteamAppsCallbacks: _bindgen_ty_8 = _bindgen_ty_8::k_iSteamAppsCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_8 {
-    k_iSteamAppsCallbacks = 1000,
-}
-pub const k_iSteamUserStatsCallbacks: _bindgen_ty_9 = _bindgen_ty_9::k_iSteamUserStatsCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_9 {
-    k_iSteamUserStatsCallbacks = 1100,
-}
-pub const k_iSteamNetworkingCallbacks: _bindgen_ty_10 = _bindgen_ty_10::k_iSteamNetworkingCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_10 {
-    k_iSteamNetworkingCallbacks = 1200,
-}
-pub const k_iSteamNetworkingSocketsCallbacks: _bindgen_ty_11 =
-    _bindgen_ty_11::k_iSteamNetworkingSocketsCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_11 {
-    k_iSteamNetworkingSocketsCallbacks = 1220,
-}
-pub const k_iSteamNetworkingMessagesCallbacks: _bindgen_ty_12 =
-    _bindgen_ty_12::k_iSteamNetworkingMessagesCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_12 {
-    k_iSteamNetworkingMessagesCallbacks = 1250,
-}
-pub const k_iSteamNetworkingUtilsCallbacks: _bindgen_ty_13 =
-    _bindgen_ty_13::k_iSteamNetworkingUtilsCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_13 {
-    k_iSteamNetworkingUtilsCallbacks = 1280,
-}
-pub const k_iSteamRemoteStorageCallbacks: _bindgen_ty_14 =
-    _bindgen_ty_14::k_iSteamRemoteStorageCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_14 {
-    k_iSteamRemoteStorageCallbacks = 1300,
-}
-pub const k_iSteamGameServerItemsCallbacks: _bindgen_ty_15 =
-    _bindgen_ty_15::k_iSteamGameServerItemsCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_15 {
-    k_iSteamGameServerItemsCallbacks = 1500,
-}
-pub const k_iSteamGameCoordinatorCallbacks: _bindgen_ty_16 =
-    _bindgen_ty_16::k_iSteamGameCoordinatorCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_16 {
-    k_iSteamGameCoordinatorCallbacks = 1700,
-}
-pub const k_iSteamGameServerStatsCallbacks: _bindgen_ty_17 =
-    _bindgen_ty_17::k_iSteamGameServerStatsCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_17 {
-    k_iSteamGameServerStatsCallbacks = 1800,
-}
-pub const k_iSteam2AsyncCallbacks: _bindgen_ty_18 = _bindgen_ty_18::k_iSteam2AsyncCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_18 {
-    k_iSteam2AsyncCallbacks = 1900,
-}
-pub const k_iSteamGameStatsCallbacks: _bindgen_ty_19 = _bindgen_ty_19::k_iSteamGameStatsCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_19 {
-    k_iSteamGameStatsCallbacks = 2000,
-}
-pub const k_iSteamHTTPCallbacks: _bindgen_ty_20 = _bindgen_ty_20::k_iSteamHTTPCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_20 {
-    k_iSteamHTTPCallbacks = 2100,
-}
-pub const k_iSteamScreenshotsCallbacks: _bindgen_ty_21 =
-    _bindgen_ty_21::k_iSteamScreenshotsCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_21 {
-    k_iSteamScreenshotsCallbacks = 2300,
-}
-pub const k_iSteamStreamLauncherCallbacks: _bindgen_ty_22 =
-    _bindgen_ty_22::k_iSteamStreamLauncherCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_22 {
-    k_iSteamStreamLauncherCallbacks = 2600,
-}
-pub const k_iSteamControllerCallbacks: _bindgen_ty_23 = _bindgen_ty_23::k_iSteamControllerCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_23 {
-    k_iSteamControllerCallbacks = 2800,
-}
-pub const k_iSteamUGCCallbacks: _bindgen_ty_24 = _bindgen_ty_24::k_iSteamUGCCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_24 {
-    k_iSteamUGCCallbacks = 3400,
-}
-pub const k_iSteamStreamClientCallbacks: _bindgen_ty_25 =
-    _bindgen_ty_25::k_iSteamStreamClientCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_25 {
-    k_iSteamStreamClientCallbacks = 3500,
-}
-pub const k_iSteamAppListCallbacks: _bindgen_ty_26 = _bindgen_ty_26::k_iSteamAppListCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_26 {
-    k_iSteamAppListCallbacks = 3900,
-}
-pub const k_iSteamMusicCallbacks: _bindgen_ty_27 = _bindgen_ty_27::k_iSteamMusicCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_27 {
-    k_iSteamMusicCallbacks = 4000,
-}
-pub const k_iSteamMusicRemoteCallbacks: _bindgen_ty_28 =
-    _bindgen_ty_28::k_iSteamMusicRemoteCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_28 {
-    k_iSteamMusicRemoteCallbacks = 4100,
-}
-pub const k_iSteamGameNotificationCallbacks: _bindgen_ty_29 =
-    _bindgen_ty_29::k_iSteamGameNotificationCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_29 {
-    k_iSteamGameNotificationCallbacks = 4400,
-}
-pub const k_iSteamHTMLSurfaceCallbacks: _bindgen_ty_30 =
-    _bindgen_ty_30::k_iSteamHTMLSurfaceCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_30 {
-    k_iSteamHTMLSurfaceCallbacks = 4500,
-}
-pub const k_iSteamVideoCallbacks: _bindgen_ty_31 = _bindgen_ty_31::k_iSteamVideoCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_31 {
-    k_iSteamVideoCallbacks = 4600,
-}
-pub const k_iSteamInventoryCallbacks: _bindgen_ty_32 = _bindgen_ty_32::k_iSteamInventoryCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_32 {
-    k_iSteamInventoryCallbacks = 4700,
-}
-pub const k_ISteamParentalSettingsCallbacks: _bindgen_ty_33 =
-    _bindgen_ty_33::k_ISteamParentalSettingsCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_33 {
-    k_ISteamParentalSettingsCallbacks = 5000,
-}
-pub const k_iSteamGameSearchCallbacks: _bindgen_ty_34 = _bindgen_ty_34::k_iSteamGameSearchCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_34 {
-    k_iSteamGameSearchCallbacks = 5200,
-}
-pub const k_iSteamPartiesCallbacks: _bindgen_ty_35 = _bindgen_ty_35::k_iSteamPartiesCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_35 {
-    k_iSteamPartiesCallbacks = 5300,
-}
-pub const k_iSteamSTARCallbacks: _bindgen_ty_36 = _bindgen_ty_36::k_iSteamSTARCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_36 {
-    k_iSteamSTARCallbacks = 5500,
-}
-pub const k_iSteamRemotePlayCallbacks: _bindgen_ty_37 = _bindgen_ty_37::k_iSteamRemotePlayCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_37 {
-    k_iSteamRemotePlayCallbacks = 5700,
-}
-pub const k_iSteamChatCallbacks: _bindgen_ty_38 = _bindgen_ty_38::k_iSteamChatCallbacks;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_38 {
-    k_iSteamChatCallbacks = 5900,
-}
+pub const k_iSteamUserCallbacks: _bindgen_ty_1 = 100;
+pub type _bindgen_ty_1 = ::std::os::raw::c_uint;
+pub const k_iSteamGameServerCallbacks: _bindgen_ty_2 = 200;
+pub type _bindgen_ty_2 = ::std::os::raw::c_uint;
+pub const k_iSteamFriendsCallbacks: _bindgen_ty_3 = 300;
+pub type _bindgen_ty_3 = ::std::os::raw::c_uint;
+pub const k_iSteamBillingCallbacks: _bindgen_ty_4 = 400;
+pub type _bindgen_ty_4 = ::std::os::raw::c_uint;
+pub const k_iSteamMatchmakingCallbacks: _bindgen_ty_5 = 500;
+pub type _bindgen_ty_5 = ::std::os::raw::c_uint;
+pub const k_iSteamContentServerCallbacks: _bindgen_ty_6 = 600;
+pub type _bindgen_ty_6 = ::std::os::raw::c_uint;
+pub const k_iSteamUtilsCallbacks: _bindgen_ty_7 = 700;
+pub type _bindgen_ty_7 = ::std::os::raw::c_uint;
+pub const k_iSteamAppsCallbacks: _bindgen_ty_8 = 1000;
+pub type _bindgen_ty_8 = ::std::os::raw::c_uint;
+pub const k_iSteamUserStatsCallbacks: _bindgen_ty_9 = 1100;
+pub type _bindgen_ty_9 = ::std::os::raw::c_uint;
+pub const k_iSteamNetworkingCallbacks: _bindgen_ty_10 = 1200;
+pub type _bindgen_ty_10 = ::std::os::raw::c_uint;
+pub const k_iSteamNetworkingSocketsCallbacks: _bindgen_ty_11 = 1220;
+pub type _bindgen_ty_11 = ::std::os::raw::c_uint;
+pub const k_iSteamNetworkingMessagesCallbacks: _bindgen_ty_12 = 1250;
+pub type _bindgen_ty_12 = ::std::os::raw::c_uint;
+pub const k_iSteamNetworkingUtilsCallbacks: _bindgen_ty_13 = 1280;
+pub type _bindgen_ty_13 = ::std::os::raw::c_uint;
+pub const k_iSteamRemoteStorageCallbacks: _bindgen_ty_14 = 1300;
+pub type _bindgen_ty_14 = ::std::os::raw::c_uint;
+pub const k_iSteamGameServerItemsCallbacks: _bindgen_ty_15 = 1500;
+pub type _bindgen_ty_15 = ::std::os::raw::c_uint;
+pub const k_iSteamGameCoordinatorCallbacks: _bindgen_ty_16 = 1700;
+pub type _bindgen_ty_16 = ::std::os::raw::c_uint;
+pub const k_iSteamGameServerStatsCallbacks: _bindgen_ty_17 = 1800;
+pub type _bindgen_ty_17 = ::std::os::raw::c_uint;
+pub const k_iSteam2AsyncCallbacks: _bindgen_ty_18 = 1900;
+pub type _bindgen_ty_18 = ::std::os::raw::c_uint;
+pub const k_iSteamGameStatsCallbacks: _bindgen_ty_19 = 2000;
+pub type _bindgen_ty_19 = ::std::os::raw::c_uint;
+pub const k_iSteamHTTPCallbacks: _bindgen_ty_20 = 2100;
+pub type _bindgen_ty_20 = ::std::os::raw::c_uint;
+pub const k_iSteamScreenshotsCallbacks: _bindgen_ty_21 = 2300;
+pub type _bindgen_ty_21 = ::std::os::raw::c_uint;
+pub const k_iSteamStreamLauncherCallbacks: _bindgen_ty_22 = 2600;
+pub type _bindgen_ty_22 = ::std::os::raw::c_uint;
+pub const k_iSteamControllerCallbacks: _bindgen_ty_23 = 2800;
+pub type _bindgen_ty_23 = ::std::os::raw::c_uint;
+pub const k_iSteamUGCCallbacks: _bindgen_ty_24 = 3400;
+pub type _bindgen_ty_24 = ::std::os::raw::c_uint;
+pub const k_iSteamStreamClientCallbacks: _bindgen_ty_25 = 3500;
+pub type _bindgen_ty_25 = ::std::os::raw::c_uint;
+pub const k_iSteamAppListCallbacks: _bindgen_ty_26 = 3900;
+pub type _bindgen_ty_26 = ::std::os::raw::c_uint;
+pub const k_iSteamMusicCallbacks: _bindgen_ty_27 = 4000;
+pub type _bindgen_ty_27 = ::std::os::raw::c_uint;
+pub const k_iSteamMusicRemoteCallbacks: _bindgen_ty_28 = 4100;
+pub type _bindgen_ty_28 = ::std::os::raw::c_uint;
+pub const k_iSteamGameNotificationCallbacks: _bindgen_ty_29 = 4400;
+pub type _bindgen_ty_29 = ::std::os::raw::c_uint;
+pub const k_iSteamHTMLSurfaceCallbacks: _bindgen_ty_30 = 4500;
+pub type _bindgen_ty_30 = ::std::os::raw::c_uint;
+pub const k_iSteamVideoCallbacks: _bindgen_ty_31 = 4600;
+pub type _bindgen_ty_31 = ::std::os::raw::c_uint;
+pub const k_iSteamInventoryCallbacks: _bindgen_ty_32 = 4700;
+pub type _bindgen_ty_32 = ::std::os::raw::c_uint;
+pub const k_ISteamParentalSettingsCallbacks: _bindgen_ty_33 = 5000;
+pub type _bindgen_ty_33 = ::std::os::raw::c_uint;
+pub const k_iSteamGameSearchCallbacks: _bindgen_ty_34 = 5200;
+pub type _bindgen_ty_34 = ::std::os::raw::c_uint;
+pub const k_iSteamPartiesCallbacks: _bindgen_ty_35 = 5300;
+pub type _bindgen_ty_35 = ::std::os::raw::c_uint;
+pub const k_iSteamSTARCallbacks: _bindgen_ty_36 = 5500;
+pub type _bindgen_ty_36 = ::std::os::raw::c_uint;
+pub const k_iSteamRemotePlayCallbacks: _bindgen_ty_37 = 5700;
+pub type _bindgen_ty_37 = ::std::os::raw::c_uint;
+pub const k_iSteamChatCallbacks: _bindgen_ty_38 = 5900;
+pub type _bindgen_ty_38 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct CSteamAPIContext {
@@ -2731,14 +2488,8 @@ fn bindgen_test_layout_ISteamUser() {
 pub struct SteamServersConnected_t {
     pub _address: u8,
 }
-pub const SteamServersConnected_t_k_iCallback: SteamServersConnected_t__bindgen_ty_1 =
-    SteamServersConnected_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamServersConnected_t__bindgen_ty_1 {
-    k_iCallback = 101,
-}
+pub const SteamServersConnected_t_k_iCallback: SteamServersConnected_t__bindgen_ty_1 = 101;
+pub type SteamServersConnected_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamServersConnected_t() {
     assert_eq!(
@@ -2758,14 +2509,8 @@ pub struct SteamServerConnectFailure_t {
     pub m_eResult: EResult,
     pub m_bStillRetrying: bool,
 }
-pub const SteamServerConnectFailure_t_k_iCallback: SteamServerConnectFailure_t__bindgen_ty_1 =
-    SteamServerConnectFailure_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamServerConnectFailure_t__bindgen_ty_1 {
-    k_iCallback = 102,
-}
+pub const SteamServerConnectFailure_t_k_iCallback: SteamServerConnectFailure_t__bindgen_ty_1 = 102;
+pub type SteamServerConnectFailure_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamServerConnectFailure_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamServerConnectFailure_t> =
@@ -2807,14 +2552,8 @@ fn bindgen_test_layout_SteamServerConnectFailure_t() {
 pub struct SteamServersDisconnected_t {
     pub m_eResult: EResult,
 }
-pub const SteamServersDisconnected_t_k_iCallback: SteamServersDisconnected_t__bindgen_ty_1 =
-    SteamServersDisconnected_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamServersDisconnected_t__bindgen_ty_1 {
-    k_iCallback = 103,
-}
+pub const SteamServersDisconnected_t_k_iCallback: SteamServersDisconnected_t__bindgen_ty_1 = 103;
+pub type SteamServersDisconnected_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamServersDisconnected_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamServersDisconnected_t> =
@@ -2850,14 +2589,8 @@ pub struct ClientGameServerDeny_t {
     pub m_bSecure: uint16,
     pub m_uReason: uint32,
 }
-pub const ClientGameServerDeny_t_k_iCallback: ClientGameServerDeny_t__bindgen_ty_1 =
-    ClientGameServerDeny_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ClientGameServerDeny_t__bindgen_ty_1 {
-    k_iCallback = 113,
-}
+pub const ClientGameServerDeny_t_k_iCallback: ClientGameServerDeny_t__bindgen_ty_1 = 113;
+pub type ClientGameServerDeny_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_ClientGameServerDeny_t() {
     const UNINIT: ::std::mem::MaybeUninit<ClientGameServerDeny_t> =
@@ -2929,21 +2662,11 @@ fn bindgen_test_layout_ClientGameServerDeny_t() {
 pub struct IPCFailure_t {
     pub m_eFailureType: uint8,
 }
-pub const IPCFailure_t_k_iCallback: IPCFailure_t__bindgen_ty_1 =
-    IPCFailure_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum IPCFailure_t__bindgen_ty_1 {
-    k_iCallback = 117,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum IPCFailure_t_EFailureType {
-    k_EFailureFlushedCallbackQueue = 0,
-    k_EFailurePipeFail = 1,
-}
+pub const IPCFailure_t_k_iCallback: IPCFailure_t__bindgen_ty_1 = 117;
+pub type IPCFailure_t__bindgen_ty_1 = ::std::os::raw::c_uint;
+pub const IPCFailure_t_EFailureType_k_EFailureFlushedCallbackQueue: IPCFailure_t_EFailureType = 0;
+pub const IPCFailure_t_EFailureType_k_EFailurePipeFail: IPCFailure_t_EFailureType = 1;
+pub type IPCFailure_t_EFailureType = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_IPCFailure_t() {
     const UNINIT: ::std::mem::MaybeUninit<IPCFailure_t> = ::std::mem::MaybeUninit::uninit();
@@ -2974,14 +2697,8 @@ fn bindgen_test_layout_IPCFailure_t() {
 pub struct LicensesUpdated_t {
     pub _address: u8,
 }
-pub const LicensesUpdated_t_k_iCallback: LicensesUpdated_t__bindgen_ty_1 =
-    LicensesUpdated_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LicensesUpdated_t__bindgen_ty_1 {
-    k_iCallback = 125,
-}
+pub const LicensesUpdated_t_k_iCallback: LicensesUpdated_t__bindgen_ty_1 = 125;
+pub type LicensesUpdated_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LicensesUpdated_t() {
     assert_eq!(
@@ -3003,13 +2720,8 @@ pub struct ValidateAuthTicketResponse_t {
     pub m_OwnerSteamID: CSteamID,
 }
 pub const ValidateAuthTicketResponse_t_k_iCallback: ValidateAuthTicketResponse_t__bindgen_ty_1 =
-    ValidateAuthTicketResponse_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ValidateAuthTicketResponse_t__bindgen_ty_1 {
-    k_iCallback = 143,
-}
+    143;
+pub type ValidateAuthTicketResponse_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_ValidateAuthTicketResponse_t() {
     const UNINIT: ::std::mem::MaybeUninit<ValidateAuthTicketResponse_t> =
@@ -3064,14 +2776,8 @@ pub struct MicroTxnAuthorizationResponse_t {
     pub m_bAuthorized: uint8,
 }
 pub const MicroTxnAuthorizationResponse_t_k_iCallback:
-    MicroTxnAuthorizationResponse_t__bindgen_ty_1 =
-    MicroTxnAuthorizationResponse_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MicroTxnAuthorizationResponse_t__bindgen_ty_1 {
-    k_iCallback = 152,
-}
+    MicroTxnAuthorizationResponse_t__bindgen_ty_1 = 152;
+pub type MicroTxnAuthorizationResponse_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MicroTxnAuthorizationResponse_t() {
     const UNINIT: ::std::mem::MaybeUninit<MicroTxnAuthorizationResponse_t> =
@@ -3124,13 +2830,8 @@ pub struct EncryptedAppTicketResponse_t {
     pub m_eResult: EResult,
 }
 pub const EncryptedAppTicketResponse_t_k_iCallback: EncryptedAppTicketResponse_t__bindgen_ty_1 =
-    EncryptedAppTicketResponse_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EncryptedAppTicketResponse_t__bindgen_ty_1 {
-    k_iCallback = 154,
-}
+    154;
+pub type EncryptedAppTicketResponse_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_EncryptedAppTicketResponse_t() {
     const UNINIT: ::std::mem::MaybeUninit<EncryptedAppTicketResponse_t> =
@@ -3164,13 +2865,8 @@ pub struct GetAuthSessionTicketResponse_t {
     pub m_eResult: EResult,
 }
 pub const GetAuthSessionTicketResponse_t_k_iCallback: GetAuthSessionTicketResponse_t__bindgen_ty_1 =
-    GetAuthSessionTicketResponse_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GetAuthSessionTicketResponse_t__bindgen_ty_1 {
-    k_iCallback = 163,
-}
+    163;
+pub type GetAuthSessionTicketResponse_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GetAuthSessionTicketResponse_t() {
     const UNINIT: ::std::mem::MaybeUninit<GetAuthSessionTicketResponse_t> =
@@ -3212,14 +2908,8 @@ fn bindgen_test_layout_GetAuthSessionTicketResponse_t() {
 pub struct GameWebCallback_t {
     pub m_szURL: [::std::os::raw::c_char; 256usize],
 }
-pub const GameWebCallback_t_k_iCallback: GameWebCallback_t__bindgen_ty_1 =
-    GameWebCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GameWebCallback_t__bindgen_ty_1 {
-    k_iCallback = 164,
-}
+pub const GameWebCallback_t_k_iCallback: GameWebCallback_t__bindgen_ty_1 = 164;
+pub type GameWebCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GameWebCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<GameWebCallback_t> = ::std::mem::MaybeUninit::uninit();
@@ -3250,14 +2940,8 @@ fn bindgen_test_layout_GameWebCallback_t() {
 pub struct StoreAuthURLResponse_t {
     pub m_szURL: [::std::os::raw::c_char; 512usize],
 }
-pub const StoreAuthURLResponse_t_k_iCallback: StoreAuthURLResponse_t__bindgen_ty_1 =
-    StoreAuthURLResponse_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum StoreAuthURLResponse_t__bindgen_ty_1 {
-    k_iCallback = 165,
-}
+pub const StoreAuthURLResponse_t_k_iCallback: StoreAuthURLResponse_t__bindgen_ty_1 = 165;
+pub type StoreAuthURLResponse_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_StoreAuthURLResponse_t() {
     const UNINIT: ::std::mem::MaybeUninit<StoreAuthURLResponse_t> =
@@ -3293,14 +2977,8 @@ pub struct MarketEligibilityResponse_t {
     pub m_cdaySteamGuardRequiredDays: ::std::os::raw::c_int,
     pub m_cdayNewDeviceCooldown: ::std::os::raw::c_int,
 }
-pub const MarketEligibilityResponse_t_k_iCallback: MarketEligibilityResponse_t__bindgen_ty_1 =
-    MarketEligibilityResponse_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MarketEligibilityResponse_t__bindgen_ty_1 {
-    k_iCallback = 166,
-}
+pub const MarketEligibilityResponse_t_k_iCallback: MarketEligibilityResponse_t__bindgen_ty_1 = 166;
+pub type MarketEligibilityResponse_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MarketEligibilityResponse_t() {
     const UNINIT: ::std::mem::MaybeUninit<MarketEligibilityResponse_t> =
@@ -3381,14 +3059,8 @@ pub struct DurationControl_t {
     pub m_csecsToday: int32,
     pub m_csecsRemaining: int32,
 }
-pub const DurationControl_t_k_iCallback: DurationControl_t__bindgen_ty_1 =
-    DurationControl_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum DurationControl_t__bindgen_ty_1 {
-    k_iCallback = 167,
-}
+pub const DurationControl_t_k_iCallback: DurationControl_t__bindgen_ty_1 = 167;
+pub type DurationControl_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_DurationControl_t() {
     const UNINIT: ::std::mem::MaybeUninit<DurationControl_t> = ::std::mem::MaybeUninit::uninit();
@@ -3493,13 +3165,8 @@ pub struct GetTicketForWebApiResponse_t {
     pub m_rgubTicket: [uint8; 2560usize],
 }
 pub const GetTicketForWebApiResponse_t_k_iCallback: GetTicketForWebApiResponse_t__bindgen_ty_1 =
-    GetTicketForWebApiResponse_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GetTicketForWebApiResponse_t__bindgen_ty_1 {
-    k_iCallback = 168,
-}
+    168;
+pub type GetTicketForWebApiResponse_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 pub const GetTicketForWebApiResponse_t_k_nCubTicketMaxLength: ::std::os::raw::c_int = 2560;
 #[test]
 fn bindgen_test_layout_GetTicketForWebApiResponse_t() {
@@ -3557,56 +3224,44 @@ fn bindgen_test_layout_GetTicketForWebApiResponse_t() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EFriendRelationship {
-    k_EFriendRelationshipNone = 0,
-    k_EFriendRelationshipBlocked = 1,
-    k_EFriendRelationshipRequestRecipient = 2,
-    k_EFriendRelationshipFriend = 3,
-    k_EFriendRelationshipRequestInitiator = 4,
-    k_EFriendRelationshipIgnored = 5,
-    k_EFriendRelationshipIgnoredFriend = 6,
-    k_EFriendRelationshipSuggested_DEPRECATED = 7,
-    k_EFriendRelationshipMax = 8,
-}
+pub const EFriendRelationship_k_EFriendRelationshipNone: EFriendRelationship = 0;
+pub const EFriendRelationship_k_EFriendRelationshipBlocked: EFriendRelationship = 1;
+pub const EFriendRelationship_k_EFriendRelationshipRequestRecipient: EFriendRelationship = 2;
+pub const EFriendRelationship_k_EFriendRelationshipFriend: EFriendRelationship = 3;
+pub const EFriendRelationship_k_EFriendRelationshipRequestInitiator: EFriendRelationship = 4;
+pub const EFriendRelationship_k_EFriendRelationshipIgnored: EFriendRelationship = 5;
+pub const EFriendRelationship_k_EFriendRelationshipIgnoredFriend: EFriendRelationship = 6;
+pub const EFriendRelationship_k_EFriendRelationshipSuggested_DEPRECATED: EFriendRelationship = 7;
+pub const EFriendRelationship_k_EFriendRelationshipMax: EFriendRelationship = 8;
+pub type EFriendRelationship = ::std::os::raw::c_uint;
 pub const k_cchMaxFriendsGroupName: ::std::os::raw::c_int = 64;
 pub const k_cFriendsGroupLimit: ::std::os::raw::c_int = 100;
 pub type FriendsGroupID_t = int16;
 pub const k_FriendsGroupID_Invalid: FriendsGroupID_t = -1;
 pub const k_cEnumerateFollowersMax: ::std::os::raw::c_int = 50;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EPersonaState {
-    k_EPersonaStateOffline = 0,
-    k_EPersonaStateOnline = 1,
-    k_EPersonaStateBusy = 2,
-    k_EPersonaStateAway = 3,
-    k_EPersonaStateSnooze = 4,
-    k_EPersonaStateLookingToTrade = 5,
-    k_EPersonaStateLookingToPlay = 6,
-    k_EPersonaStateInvisible = 7,
-    k_EPersonaStateMax = 8,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EFriendFlags {
-    k_EFriendFlagNone = 0,
-    k_EFriendFlagBlocked = 1,
-    k_EFriendFlagFriendshipRequested = 2,
-    k_EFriendFlagImmediate = 4,
-    k_EFriendFlagClanMember = 8,
-    k_EFriendFlagOnGameServer = 16,
-    k_EFriendFlagRequestingFriendship = 128,
-    k_EFriendFlagRequestingInfo = 256,
-    k_EFriendFlagIgnored = 512,
-    k_EFriendFlagIgnoredFriend = 1024,
-    k_EFriendFlagChatMember = 4096,
-    k_EFriendFlagAll = 65535,
-}
+pub const EPersonaState_k_EPersonaStateOffline: EPersonaState = 0;
+pub const EPersonaState_k_EPersonaStateOnline: EPersonaState = 1;
+pub const EPersonaState_k_EPersonaStateBusy: EPersonaState = 2;
+pub const EPersonaState_k_EPersonaStateAway: EPersonaState = 3;
+pub const EPersonaState_k_EPersonaStateSnooze: EPersonaState = 4;
+pub const EPersonaState_k_EPersonaStateLookingToTrade: EPersonaState = 5;
+pub const EPersonaState_k_EPersonaStateLookingToPlay: EPersonaState = 6;
+pub const EPersonaState_k_EPersonaStateInvisible: EPersonaState = 7;
+pub const EPersonaState_k_EPersonaStateMax: EPersonaState = 8;
+pub type EPersonaState = ::std::os::raw::c_uint;
+pub const EFriendFlags_k_EFriendFlagNone: EFriendFlags = 0;
+pub const EFriendFlags_k_EFriendFlagBlocked: EFriendFlags = 1;
+pub const EFriendFlags_k_EFriendFlagFriendshipRequested: EFriendFlags = 2;
+pub const EFriendFlags_k_EFriendFlagImmediate: EFriendFlags = 4;
+pub const EFriendFlags_k_EFriendFlagClanMember: EFriendFlags = 8;
+pub const EFriendFlags_k_EFriendFlagOnGameServer: EFriendFlags = 16;
+pub const EFriendFlags_k_EFriendFlagRequestingFriendship: EFriendFlags = 128;
+pub const EFriendFlags_k_EFriendFlagRequestingInfo: EFriendFlags = 256;
+pub const EFriendFlags_k_EFriendFlagIgnored: EFriendFlags = 512;
+pub const EFriendFlags_k_EFriendFlagIgnoredFriend: EFriendFlags = 1024;
+pub const EFriendFlags_k_EFriendFlagChatMember: EFriendFlags = 4096;
+pub const EFriendFlags_k_EFriendFlagAll: EFriendFlags = 65535;
+pub type EFriendFlags = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct FriendGameInfo_t {
@@ -3681,94 +3336,70 @@ fn bindgen_test_layout_FriendGameInfo_t() {
         )
     );
 }
-pub const k_cchPersonaNameMax: _bindgen_ty_39 = _bindgen_ty_39::k_cchPersonaNameMax;
-pub const k_cwchPersonaNameMax: _bindgen_ty_39 = _bindgen_ty_39::k_cwchPersonaNameMax;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_39 {
-    k_cchPersonaNameMax = 128,
-    k_cwchPersonaNameMax = 32,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EUserRestriction {
-    k_nUserRestrictionNone = 0,
-    k_nUserRestrictionUnknown = 1,
-    k_nUserRestrictionAnyChat = 2,
-    k_nUserRestrictionVoiceChat = 4,
-    k_nUserRestrictionGroupChat = 8,
-    k_nUserRestrictionRating = 16,
-    k_nUserRestrictionGameInvites = 32,
-    k_nUserRestrictionTrading = 64,
-}
+pub const k_cchPersonaNameMax: _bindgen_ty_39 = 128;
+pub const k_cwchPersonaNameMax: _bindgen_ty_39 = 32;
+pub type _bindgen_ty_39 = ::std::os::raw::c_uint;
+pub const EUserRestriction_k_nUserRestrictionNone: EUserRestriction = 0;
+pub const EUserRestriction_k_nUserRestrictionUnknown: EUserRestriction = 1;
+pub const EUserRestriction_k_nUserRestrictionAnyChat: EUserRestriction = 2;
+pub const EUserRestriction_k_nUserRestrictionVoiceChat: EUserRestriction = 4;
+pub const EUserRestriction_k_nUserRestrictionGroupChat: EUserRestriction = 8;
+pub const EUserRestriction_k_nUserRestrictionRating: EUserRestriction = 16;
+pub const EUserRestriction_k_nUserRestrictionGameInvites: EUserRestriction = 32;
+pub const EUserRestriction_k_nUserRestrictionTrading: EUserRestriction = 64;
+pub type EUserRestriction = ::std::os::raw::c_uint;
 pub const k_cubChatMetadataMax: uint32 = 8192;
-pub const k_cchMaxRichPresenceKeys: _bindgen_ty_40 = _bindgen_ty_40::k_cchMaxRichPresenceKeys;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_40 {
-    k_cchMaxRichPresenceKeys = 30,
-}
-pub const k_cchMaxRichPresenceKeyLength: _bindgen_ty_41 =
-    _bindgen_ty_41::k_cchMaxRichPresenceKeyLength;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_41 {
-    k_cchMaxRichPresenceKeyLength = 64,
-}
-pub const k_cchMaxRichPresenceValueLength: _bindgen_ty_42 =
-    _bindgen_ty_42::k_cchMaxRichPresenceValueLength;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_42 {
-    k_cchMaxRichPresenceValueLength = 256,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EOverlayToStoreFlag {
-    k_EOverlayToStoreFlag_None = 0,
-    k_EOverlayToStoreFlag_AddToCart = 1,
-    k_EOverlayToStoreFlag_AddToCartAndShow = 2,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EActivateGameOverlayToWebPageMode {
-    k_EActivateGameOverlayToWebPageMode_Default = 0,
-    k_EActivateGameOverlayToWebPageMode_Modal = 1,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ECommunityProfileItemType {
-    k_ECommunityProfileItemType_AnimatedAvatar = 0,
-    k_ECommunityProfileItemType_AvatarFrame = 1,
-    k_ECommunityProfileItemType_ProfileModifier = 2,
-    k_ECommunityProfileItemType_ProfileBackground = 3,
-    k_ECommunityProfileItemType_MiniProfileBackground = 4,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ECommunityProfileItemProperty {
-    k_ECommunityProfileItemProperty_ImageSmall = 0,
-    k_ECommunityProfileItemProperty_ImageLarge = 1,
-    k_ECommunityProfileItemProperty_InternalName = 2,
-    k_ECommunityProfileItemProperty_Title = 3,
-    k_ECommunityProfileItemProperty_Description = 4,
-    k_ECommunityProfileItemProperty_AppID = 5,
-    k_ECommunityProfileItemProperty_TypeID = 6,
-    k_ECommunityProfileItemProperty_Class = 7,
-    k_ECommunityProfileItemProperty_MovieWebM = 8,
-    k_ECommunityProfileItemProperty_MovieMP4 = 9,
-    k_ECommunityProfileItemProperty_MovieWebMSmall = 10,
-    k_ECommunityProfileItemProperty_MovieMP4Small = 11,
-}
+pub const k_cchMaxRichPresenceKeys: _bindgen_ty_40 = 30;
+pub type _bindgen_ty_40 = ::std::os::raw::c_uint;
+pub const k_cchMaxRichPresenceKeyLength: _bindgen_ty_41 = 64;
+pub type _bindgen_ty_41 = ::std::os::raw::c_uint;
+pub const k_cchMaxRichPresenceValueLength: _bindgen_ty_42 = 256;
+pub type _bindgen_ty_42 = ::std::os::raw::c_uint;
+pub const EOverlayToStoreFlag_k_EOverlayToStoreFlag_None: EOverlayToStoreFlag = 0;
+pub const EOverlayToStoreFlag_k_EOverlayToStoreFlag_AddToCart: EOverlayToStoreFlag = 1;
+pub const EOverlayToStoreFlag_k_EOverlayToStoreFlag_AddToCartAndShow: EOverlayToStoreFlag = 2;
+pub type EOverlayToStoreFlag = ::std::os::raw::c_uint;
+pub const EActivateGameOverlayToWebPageMode_k_EActivateGameOverlayToWebPageMode_Default:
+    EActivateGameOverlayToWebPageMode = 0;
+pub const EActivateGameOverlayToWebPageMode_k_EActivateGameOverlayToWebPageMode_Modal:
+    EActivateGameOverlayToWebPageMode = 1;
+pub type EActivateGameOverlayToWebPageMode = ::std::os::raw::c_uint;
+pub const ECommunityProfileItemType_k_ECommunityProfileItemType_AnimatedAvatar:
+    ECommunityProfileItemType = 0;
+pub const ECommunityProfileItemType_k_ECommunityProfileItemType_AvatarFrame:
+    ECommunityProfileItemType = 1;
+pub const ECommunityProfileItemType_k_ECommunityProfileItemType_ProfileModifier:
+    ECommunityProfileItemType = 2;
+pub const ECommunityProfileItemType_k_ECommunityProfileItemType_ProfileBackground:
+    ECommunityProfileItemType = 3;
+pub const ECommunityProfileItemType_k_ECommunityProfileItemType_MiniProfileBackground:
+    ECommunityProfileItemType = 4;
+pub type ECommunityProfileItemType = ::std::os::raw::c_uint;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_ImageSmall:
+    ECommunityProfileItemProperty = 0;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_ImageLarge:
+    ECommunityProfileItemProperty = 1;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_InternalName:
+    ECommunityProfileItemProperty = 2;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_Title:
+    ECommunityProfileItemProperty = 3;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_Description:
+    ECommunityProfileItemProperty = 4;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_AppID:
+    ECommunityProfileItemProperty = 5;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_TypeID:
+    ECommunityProfileItemProperty = 6;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_Class:
+    ECommunityProfileItemProperty = 7;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_MovieWebM:
+    ECommunityProfileItemProperty = 8;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_MovieMP4:
+    ECommunityProfileItemProperty = 9;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_MovieWebMSmall:
+    ECommunityProfileItemProperty = 10;
+pub const ECommunityProfileItemProperty_k_ECommunityProfileItemProperty_MovieMP4Small:
+    ECommunityProfileItemProperty = 11;
+pub type ECommunityProfileItemProperty = ::std::os::raw::c_uint;
 #[repr(C)]
 pub struct ISteamFriends__bindgen_vtable(::std::os::raw::c_void);
 #[repr(C)]
@@ -3795,14 +3426,8 @@ pub struct PersonaStateChange_t {
     pub m_ulSteamID: uint64,
     pub m_nChangeFlags: ::std::os::raw::c_int,
 }
-pub const PersonaStateChange_t_k_iCallback: PersonaStateChange_t__bindgen_ty_1 =
-    PersonaStateChange_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum PersonaStateChange_t__bindgen_ty_1 {
-    k_iCallback = 304,
-}
+pub const PersonaStateChange_t_k_iCallback: PersonaStateChange_t__bindgen_ty_1 = 304;
+pub type PersonaStateChange_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_PersonaStateChange_t() {
     const UNINIT: ::std::mem::MaybeUninit<PersonaStateChange_t> = ::std::mem::MaybeUninit::uninit();
@@ -3838,26 +3463,22 @@ fn bindgen_test_layout_PersonaStateChange_t() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EPersonaChange {
-    k_EPersonaChangeName = 1,
-    k_EPersonaChangeStatus = 2,
-    k_EPersonaChangeComeOnline = 4,
-    k_EPersonaChangeGoneOffline = 8,
-    k_EPersonaChangeGamePlayed = 16,
-    k_EPersonaChangeGameServer = 32,
-    k_EPersonaChangeAvatar = 64,
-    k_EPersonaChangeJoinedSource = 128,
-    k_EPersonaChangeLeftSource = 256,
-    k_EPersonaChangeRelationshipChanged = 512,
-    k_EPersonaChangeNameFirstSet = 1024,
-    k_EPersonaChangeBroadcast = 2048,
-    k_EPersonaChangeNickname = 4096,
-    k_EPersonaChangeSteamLevel = 8192,
-    k_EPersonaChangeRichPresence = 16384,
-}
+pub const EPersonaChange_k_EPersonaChangeName: EPersonaChange = 1;
+pub const EPersonaChange_k_EPersonaChangeStatus: EPersonaChange = 2;
+pub const EPersonaChange_k_EPersonaChangeComeOnline: EPersonaChange = 4;
+pub const EPersonaChange_k_EPersonaChangeGoneOffline: EPersonaChange = 8;
+pub const EPersonaChange_k_EPersonaChangeGamePlayed: EPersonaChange = 16;
+pub const EPersonaChange_k_EPersonaChangeGameServer: EPersonaChange = 32;
+pub const EPersonaChange_k_EPersonaChangeAvatar: EPersonaChange = 64;
+pub const EPersonaChange_k_EPersonaChangeJoinedSource: EPersonaChange = 128;
+pub const EPersonaChange_k_EPersonaChangeLeftSource: EPersonaChange = 256;
+pub const EPersonaChange_k_EPersonaChangeRelationshipChanged: EPersonaChange = 512;
+pub const EPersonaChange_k_EPersonaChangeNameFirstSet: EPersonaChange = 1024;
+pub const EPersonaChange_k_EPersonaChangeBroadcast: EPersonaChange = 2048;
+pub const EPersonaChange_k_EPersonaChangeNickname: EPersonaChange = 4096;
+pub const EPersonaChange_k_EPersonaChangeSteamLevel: EPersonaChange = 8192;
+pub const EPersonaChange_k_EPersonaChangeRichPresence: EPersonaChange = 16384;
+pub type EPersonaChange = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct GameOverlayActivated_t {
@@ -3866,14 +3487,8 @@ pub struct GameOverlayActivated_t {
     pub m_nAppID: AppId_t,
     pub m_dwOverlayPID: uint32,
 }
-pub const GameOverlayActivated_t_k_iCallback: GameOverlayActivated_t__bindgen_ty_1 =
-    GameOverlayActivated_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GameOverlayActivated_t__bindgen_ty_1 {
-    k_iCallback = 331,
-}
+pub const GameOverlayActivated_t_k_iCallback: GameOverlayActivated_t__bindgen_ty_1 = 331;
+pub type GameOverlayActivated_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GameOverlayActivated_t() {
     const UNINIT: ::std::mem::MaybeUninit<GameOverlayActivated_t> =
@@ -3936,14 +3551,8 @@ pub struct GameServerChangeRequested_t {
     pub m_rgchServer: [::std::os::raw::c_char; 64usize],
     pub m_rgchPassword: [::std::os::raw::c_char; 64usize],
 }
-pub const GameServerChangeRequested_t_k_iCallback: GameServerChangeRequested_t__bindgen_ty_1 =
-    GameServerChangeRequested_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GameServerChangeRequested_t__bindgen_ty_1 {
-    k_iCallback = 332,
-}
+pub const GameServerChangeRequested_t_k_iCallback: GameServerChangeRequested_t__bindgen_ty_1 = 332;
+pub type GameServerChangeRequested_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GameServerChangeRequested_t() {
     const UNINIT: ::std::mem::MaybeUninit<GameServerChangeRequested_t> =
@@ -3986,14 +3595,8 @@ pub struct GameLobbyJoinRequested_t {
     pub m_steamIDLobby: CSteamID,
     pub m_steamIDFriend: CSteamID,
 }
-pub const GameLobbyJoinRequested_t_k_iCallback: GameLobbyJoinRequested_t__bindgen_ty_1 =
-    GameLobbyJoinRequested_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GameLobbyJoinRequested_t__bindgen_ty_1 {
-    k_iCallback = 333,
-}
+pub const GameLobbyJoinRequested_t_k_iCallback: GameLobbyJoinRequested_t__bindgen_ty_1 = 333;
+pub type GameLobbyJoinRequested_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GameLobbyJoinRequested_t() {
     const UNINIT: ::std::mem::MaybeUninit<GameLobbyJoinRequested_t> =
@@ -4038,14 +3641,8 @@ pub struct AvatarImageLoaded_t {
     pub m_iWide: ::std::os::raw::c_int,
     pub m_iTall: ::std::os::raw::c_int,
 }
-pub const AvatarImageLoaded_t_k_iCallback: AvatarImageLoaded_t__bindgen_ty_1 =
-    AvatarImageLoaded_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum AvatarImageLoaded_t__bindgen_ty_1 {
-    k_iCallback = 334,
-}
+pub const AvatarImageLoaded_t_k_iCallback: AvatarImageLoaded_t__bindgen_ty_1 = 334;
+pub type AvatarImageLoaded_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_AvatarImageLoaded_t() {
     const UNINIT: ::std::mem::MaybeUninit<AvatarImageLoaded_t> = ::std::mem::MaybeUninit::uninit();
@@ -4108,14 +3705,8 @@ pub struct ClanOfficerListResponse_t {
     pub m_cOfficers: ::std::os::raw::c_int,
     pub m_bSuccess: uint8,
 }
-pub const ClanOfficerListResponse_t_k_iCallback: ClanOfficerListResponse_t__bindgen_ty_1 =
-    ClanOfficerListResponse_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ClanOfficerListResponse_t__bindgen_ty_1 {
-    k_iCallback = 335,
-}
+pub const ClanOfficerListResponse_t_k_iCallback: ClanOfficerListResponse_t__bindgen_ty_1 = 335;
+pub type ClanOfficerListResponse_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_ClanOfficerListResponse_t() {
     const UNINIT: ::std::mem::MaybeUninit<ClanOfficerListResponse_t> =
@@ -4168,14 +3759,8 @@ pub struct FriendRichPresenceUpdate_t {
     pub m_steamIDFriend: CSteamID,
     pub m_nAppID: AppId_t,
 }
-pub const FriendRichPresenceUpdate_t_k_iCallback: FriendRichPresenceUpdate_t__bindgen_ty_1 =
-    FriendRichPresenceUpdate_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum FriendRichPresenceUpdate_t__bindgen_ty_1 {
-    k_iCallback = 336,
-}
+pub const FriendRichPresenceUpdate_t_k_iCallback: FriendRichPresenceUpdate_t__bindgen_ty_1 = 336;
+pub type FriendRichPresenceUpdate_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_FriendRichPresenceUpdate_t() {
     const UNINIT: ::std::mem::MaybeUninit<FriendRichPresenceUpdate_t> =
@@ -4219,14 +3804,8 @@ pub struct GameRichPresenceJoinRequested_t {
     pub m_rgchConnect: [::std::os::raw::c_char; 256usize],
 }
 pub const GameRichPresenceJoinRequested_t_k_iCallback:
-    GameRichPresenceJoinRequested_t__bindgen_ty_1 =
-    GameRichPresenceJoinRequested_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GameRichPresenceJoinRequested_t__bindgen_ty_1 {
-    k_iCallback = 337,
-}
+    GameRichPresenceJoinRequested_t__bindgen_ty_1 = 337;
+pub type GameRichPresenceJoinRequested_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GameRichPresenceJoinRequested_t() {
     const UNINIT: ::std::mem::MaybeUninit<GameRichPresenceJoinRequested_t> =
@@ -4270,14 +3849,8 @@ pub struct GameConnectedClanChatMsg_t {
     pub m_steamIDUser: CSteamID,
     pub m_iMessageID: ::std::os::raw::c_int,
 }
-pub const GameConnectedClanChatMsg_t_k_iCallback: GameConnectedClanChatMsg_t__bindgen_ty_1 =
-    GameConnectedClanChatMsg_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GameConnectedClanChatMsg_t__bindgen_ty_1 {
-    k_iCallback = 338,
-}
+pub const GameConnectedClanChatMsg_t_k_iCallback: GameConnectedClanChatMsg_t__bindgen_ty_1 = 338;
+pub type GameConnectedClanChatMsg_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GameConnectedClanChatMsg_t() {
     const UNINIT: ::std::mem::MaybeUninit<GameConnectedClanChatMsg_t> =
@@ -4330,14 +3903,8 @@ pub struct GameConnectedChatJoin_t {
     pub m_steamIDClanChat: CSteamID,
     pub m_steamIDUser: CSteamID,
 }
-pub const GameConnectedChatJoin_t_k_iCallback: GameConnectedChatJoin_t__bindgen_ty_1 =
-    GameConnectedChatJoin_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GameConnectedChatJoin_t__bindgen_ty_1 {
-    k_iCallback = 339,
-}
+pub const GameConnectedChatJoin_t_k_iCallback: GameConnectedChatJoin_t__bindgen_ty_1 = 339;
+pub type GameConnectedChatJoin_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GameConnectedChatJoin_t() {
     const UNINIT: ::std::mem::MaybeUninit<GameConnectedChatJoin_t> =
@@ -4382,14 +3949,8 @@ pub struct GameConnectedChatLeave_t {
     pub m_bKicked: bool,
     pub m_bDropped: bool,
 }
-pub const GameConnectedChatLeave_t_k_iCallback: GameConnectedChatLeave_t__bindgen_ty_1 =
-    GameConnectedChatLeave_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GameConnectedChatLeave_t__bindgen_ty_1 {
-    k_iCallback = 340,
-}
+pub const GameConnectedChatLeave_t_k_iCallback: GameConnectedChatLeave_t__bindgen_ty_1 = 340;
+pub type GameConnectedChatLeave_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GameConnectedChatLeave_t() {
     const UNINIT: ::std::mem::MaybeUninit<GameConnectedChatLeave_t> =
@@ -4452,14 +4013,8 @@ pub struct DownloadClanActivityCountsResult_t {
     pub m_bSuccess: bool,
 }
 pub const DownloadClanActivityCountsResult_t_k_iCallback:
-    DownloadClanActivityCountsResult_t__bindgen_ty_1 =
-    DownloadClanActivityCountsResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum DownloadClanActivityCountsResult_t__bindgen_ty_1 {
-    k_iCallback = 341,
-}
+    DownloadClanActivityCountsResult_t__bindgen_ty_1 = 341;
+pub type DownloadClanActivityCountsResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_DownloadClanActivityCountsResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<DownloadClanActivityCountsResult_t> =
@@ -4496,14 +4051,8 @@ pub struct JoinClanChatRoomCompletionResult_t {
     pub m_eChatRoomEnterResponse: EChatRoomEnterResponse,
 }
 pub const JoinClanChatRoomCompletionResult_t_k_iCallback:
-    JoinClanChatRoomCompletionResult_t__bindgen_ty_1 =
-    JoinClanChatRoomCompletionResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum JoinClanChatRoomCompletionResult_t__bindgen_ty_1 {
-    k_iCallback = 342,
-}
+    JoinClanChatRoomCompletionResult_t__bindgen_ty_1 = 342;
+pub type JoinClanChatRoomCompletionResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_JoinClanChatRoomCompletionResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<JoinClanChatRoomCompletionResult_t> =
@@ -4550,13 +4099,8 @@ pub struct GameConnectedFriendChatMsg_t {
     pub m_iMessageID: ::std::os::raw::c_int,
 }
 pub const GameConnectedFriendChatMsg_t_k_iCallback: GameConnectedFriendChatMsg_t__bindgen_ty_1 =
-    GameConnectedFriendChatMsg_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GameConnectedFriendChatMsg_t__bindgen_ty_1 {
-    k_iCallback = 343,
-}
+    343;
+pub type GameConnectedFriendChatMsg_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GameConnectedFriendChatMsg_t() {
     const UNINIT: ::std::mem::MaybeUninit<GameConnectedFriendChatMsg_t> =
@@ -4600,14 +4144,8 @@ pub struct FriendsGetFollowerCount_t {
     pub m_steamID: CSteamID,
     pub m_nCount: ::std::os::raw::c_int,
 }
-pub const FriendsGetFollowerCount_t_k_iCallback: FriendsGetFollowerCount_t__bindgen_ty_1 =
-    FriendsGetFollowerCount_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum FriendsGetFollowerCount_t__bindgen_ty_1 {
-    k_iCallback = 344,
-}
+pub const FriendsGetFollowerCount_t_k_iCallback: FriendsGetFollowerCount_t__bindgen_ty_1 = 344;
+pub type FriendsGetFollowerCount_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_FriendsGetFollowerCount_t() {
     const UNINIT: ::std::mem::MaybeUninit<FriendsGetFollowerCount_t> =
@@ -4661,14 +4199,8 @@ pub struct FriendsIsFollowing_t {
     pub m_steamID: CSteamID,
     pub m_bIsFollowing: bool,
 }
-pub const FriendsIsFollowing_t_k_iCallback: FriendsIsFollowing_t__bindgen_ty_1 =
-    FriendsIsFollowing_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum FriendsIsFollowing_t__bindgen_ty_1 {
-    k_iCallback = 345,
-}
+pub const FriendsIsFollowing_t_k_iCallback: FriendsIsFollowing_t__bindgen_ty_1 = 345;
+pub type FriendsIsFollowing_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_FriendsIsFollowing_t() {
     const UNINIT: ::std::mem::MaybeUninit<FriendsIsFollowing_t> = ::std::mem::MaybeUninit::uninit();
@@ -4723,14 +4255,8 @@ pub struct FriendsEnumerateFollowingList_t {
     pub m_nTotalResultCount: int32,
 }
 pub const FriendsEnumerateFollowingList_t_k_iCallback:
-    FriendsEnumerateFollowingList_t__bindgen_ty_1 =
-    FriendsEnumerateFollowingList_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum FriendsEnumerateFollowingList_t__bindgen_ty_1 {
-    k_iCallback = 346,
-}
+    FriendsEnumerateFollowingList_t__bindgen_ty_1 = 346;
+pub type FriendsEnumerateFollowingList_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_FriendsEnumerateFollowingList_t() {
     const UNINIT: ::std::mem::MaybeUninit<FriendsEnumerateFollowingList_t> =
@@ -4794,14 +4320,8 @@ pub struct SetPersonaNameResponse_t {
     pub m_bLocalSuccess: bool,
     pub m_result: EResult,
 }
-pub const SetPersonaNameResponse_t_k_iCallback: SetPersonaNameResponse_t__bindgen_ty_1 =
-    SetPersonaNameResponse_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SetPersonaNameResponse_t__bindgen_ty_1 {
-    k_iCallback = 347,
-}
+pub const SetPersonaNameResponse_t_k_iCallback: SetPersonaNameResponse_t__bindgen_ty_1 = 347;
+pub type SetPersonaNameResponse_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SetPersonaNameResponse_t() {
     const UNINIT: ::std::mem::MaybeUninit<SetPersonaNameResponse_t> =
@@ -4853,14 +4373,8 @@ fn bindgen_test_layout_SetPersonaNameResponse_t() {
 pub struct UnreadChatMessagesChanged_t {
     pub _address: u8,
 }
-pub const UnreadChatMessagesChanged_t_k_iCallback: UnreadChatMessagesChanged_t__bindgen_ty_1 =
-    UnreadChatMessagesChanged_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum UnreadChatMessagesChanged_t__bindgen_ty_1 {
-    k_iCallback = 348,
-}
+pub const UnreadChatMessagesChanged_t_k_iCallback: UnreadChatMessagesChanged_t__bindgen_ty_1 = 348;
+pub type UnreadChatMessagesChanged_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_UnreadChatMessagesChanged_t() {
     assert_eq!(
@@ -4880,14 +4394,8 @@ pub struct OverlayBrowserProtocolNavigation_t {
     pub rgchURI: [::std::os::raw::c_char; 1024usize],
 }
 pub const OverlayBrowserProtocolNavigation_t_k_iCallback:
-    OverlayBrowserProtocolNavigation_t__bindgen_ty_1 =
-    OverlayBrowserProtocolNavigation_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum OverlayBrowserProtocolNavigation_t__bindgen_ty_1 {
-    k_iCallback = 349,
-}
+    OverlayBrowserProtocolNavigation_t__bindgen_ty_1 = 349;
+pub type OverlayBrowserProtocolNavigation_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_OverlayBrowserProtocolNavigation_t() {
     const UNINIT: ::std::mem::MaybeUninit<OverlayBrowserProtocolNavigation_t> =
@@ -4923,13 +4431,8 @@ pub struct EquippedProfileItemsChanged_t {
     pub m_steamID: CSteamID,
 }
 pub const EquippedProfileItemsChanged_t_k_iCallback: EquippedProfileItemsChanged_t__bindgen_ty_1 =
-    EquippedProfileItemsChanged_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EquippedProfileItemsChanged_t__bindgen_ty_1 {
-    k_iCallback = 350,
-}
+    350;
+pub type EquippedProfileItemsChanged_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_EquippedProfileItemsChanged_t() {
     const UNINIT: ::std::mem::MaybeUninit<EquippedProfileItemsChanged_t> =
@@ -4967,14 +4470,8 @@ pub struct EquippedProfileItems_t {
     pub m_bHasProfileBackground: bool,
     pub m_bHasMiniProfileBackground: bool,
 }
-pub const EquippedProfileItems_t_k_iCallback: EquippedProfileItems_t__bindgen_ty_1 =
-    EquippedProfileItems_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EquippedProfileItems_t__bindgen_ty_1 {
-    k_iCallback = 351,
-}
+pub const EquippedProfileItems_t_k_iCallback: EquippedProfileItems_t__bindgen_ty_1 = 351;
+pub type EquippedProfileItems_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_EquippedProfileItems_t() {
     const UNINIT: ::std::mem::MaybeUninit<EquippedProfileItems_t> =
@@ -5061,48 +4558,34 @@ fn bindgen_test_layout_EquippedProfileItems_t() {
         )
     );
 }
-#[repr(i32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamAPICallFailure {
-    k_ESteamAPICallFailureNone = -1,
-    k_ESteamAPICallFailureSteamGone = 0,
-    k_ESteamAPICallFailureNetworkFailure = 1,
-    k_ESteamAPICallFailureInvalidHandle = 2,
-    k_ESteamAPICallFailureMismatchedCallback = 3,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EGamepadTextInputMode {
-    k_EGamepadTextInputModeNormal = 0,
-    k_EGamepadTextInputModePassword = 1,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EGamepadTextInputLineMode {
-    k_EGamepadTextInputLineModeSingleLine = 0,
-    k_EGamepadTextInputLineModeMultipleLines = 1,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EFloatingGamepadTextInputMode {
-    k_EFloatingGamepadTextInputModeModeSingleLine = 0,
-    k_EFloatingGamepadTextInputModeModeMultipleLines = 1,
-    k_EFloatingGamepadTextInputModeModeEmail = 2,
-    k_EFloatingGamepadTextInputModeModeNumeric = 3,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ETextFilteringContext {
-    k_ETextFilteringContextUnknown = 0,
-    k_ETextFilteringContextGameContent = 1,
-    k_ETextFilteringContextChat = 2,
-    k_ETextFilteringContextName = 3,
-}
+pub const ESteamAPICallFailure_k_ESteamAPICallFailureNone: ESteamAPICallFailure = -1;
+pub const ESteamAPICallFailure_k_ESteamAPICallFailureSteamGone: ESteamAPICallFailure = 0;
+pub const ESteamAPICallFailure_k_ESteamAPICallFailureNetworkFailure: ESteamAPICallFailure = 1;
+pub const ESteamAPICallFailure_k_ESteamAPICallFailureInvalidHandle: ESteamAPICallFailure = 2;
+pub const ESteamAPICallFailure_k_ESteamAPICallFailureMismatchedCallback: ESteamAPICallFailure = 3;
+pub type ESteamAPICallFailure = ::std::os::raw::c_int;
+pub const EGamepadTextInputMode_k_EGamepadTextInputModeNormal: EGamepadTextInputMode = 0;
+pub const EGamepadTextInputMode_k_EGamepadTextInputModePassword: EGamepadTextInputMode = 1;
+pub type EGamepadTextInputMode = ::std::os::raw::c_uint;
+pub const EGamepadTextInputLineMode_k_EGamepadTextInputLineModeSingleLine:
+    EGamepadTextInputLineMode = 0;
+pub const EGamepadTextInputLineMode_k_EGamepadTextInputLineModeMultipleLines:
+    EGamepadTextInputLineMode = 1;
+pub type EGamepadTextInputLineMode = ::std::os::raw::c_uint;
+pub const EFloatingGamepadTextInputMode_k_EFloatingGamepadTextInputModeModeSingleLine:
+    EFloatingGamepadTextInputMode = 0;
+pub const EFloatingGamepadTextInputMode_k_EFloatingGamepadTextInputModeModeMultipleLines:
+    EFloatingGamepadTextInputMode = 1;
+pub const EFloatingGamepadTextInputMode_k_EFloatingGamepadTextInputModeModeEmail:
+    EFloatingGamepadTextInputMode = 2;
+pub const EFloatingGamepadTextInputMode_k_EFloatingGamepadTextInputModeModeNumeric:
+    EFloatingGamepadTextInputMode = 3;
+pub type EFloatingGamepadTextInputMode = ::std::os::raw::c_uint;
+pub const ETextFilteringContext_k_ETextFilteringContextUnknown: ETextFilteringContext = 0;
+pub const ETextFilteringContext_k_ETextFilteringContextGameContent: ETextFilteringContext = 1;
+pub const ETextFilteringContext_k_ETextFilteringContextChat: ETextFilteringContext = 2;
+pub const ETextFilteringContext_k_ETextFilteringContextName: ETextFilteringContext = 3;
+pub type ETextFilteringContext = ::std::os::raw::c_uint;
 #[repr(C)]
 pub struct ISteamUtils__bindgen_vtable(::std::os::raw::c_void);
 #[repr(C)]
@@ -5128,14 +4611,8 @@ fn bindgen_test_layout_ISteamUtils() {
 pub struct IPCountry_t {
     pub _address: u8,
 }
-pub const IPCountry_t_k_iCallback: IPCountry_t__bindgen_ty_1 =
-    IPCountry_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum IPCountry_t__bindgen_ty_1 {
-    k_iCallback = 701,
-}
+pub const IPCountry_t_k_iCallback: IPCountry_t__bindgen_ty_1 = 701;
+pub type IPCountry_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_IPCountry_t() {
     assert_eq!(
@@ -5154,14 +4631,8 @@ fn bindgen_test_layout_IPCountry_t() {
 pub struct LowBatteryPower_t {
     pub m_nMinutesBatteryLeft: uint8,
 }
-pub const LowBatteryPower_t_k_iCallback: LowBatteryPower_t__bindgen_ty_1 =
-    LowBatteryPower_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LowBatteryPower_t__bindgen_ty_1 {
-    k_iCallback = 702,
-}
+pub const LowBatteryPower_t_k_iCallback: LowBatteryPower_t__bindgen_ty_1 = 702;
+pub type LowBatteryPower_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LowBatteryPower_t() {
     const UNINIT: ::std::mem::MaybeUninit<LowBatteryPower_t> = ::std::mem::MaybeUninit::uninit();
@@ -5194,14 +4665,8 @@ pub struct SteamAPICallCompleted_t {
     pub m_iCallback: ::std::os::raw::c_int,
     pub m_cubParam: uint32,
 }
-pub const SteamAPICallCompleted_t_k_iCallback: SteamAPICallCompleted_t__bindgen_ty_1 =
-    SteamAPICallCompleted_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamAPICallCompleted_t__bindgen_ty_1 {
-    k_iCallback = 703,
-}
+pub const SteamAPICallCompleted_t_k_iCallback: SteamAPICallCompleted_t__bindgen_ty_1 = 703;
+pub type SteamAPICallCompleted_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamAPICallCompleted_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamAPICallCompleted_t> =
@@ -5253,14 +4718,8 @@ fn bindgen_test_layout_SteamAPICallCompleted_t() {
 pub struct SteamShutdown_t {
     pub _address: u8,
 }
-pub const SteamShutdown_t_k_iCallback: SteamShutdown_t__bindgen_ty_1 =
-    SteamShutdown_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamShutdown_t__bindgen_ty_1 {
-    k_iCallback = 704,
-}
+pub const SteamShutdown_t_k_iCallback: SteamShutdown_t__bindgen_ty_1 = 704;
+pub type SteamShutdown_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamShutdown_t() {
     assert_eq!(
@@ -5274,29 +4733,21 @@ fn bindgen_test_layout_SteamShutdown_t() {
         concat!("Alignment of ", stringify!(SteamShutdown_t))
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ECheckFileSignature {
-    k_ECheckFileSignatureInvalidSignature = 0,
-    k_ECheckFileSignatureValidSignature = 1,
-    k_ECheckFileSignatureFileNotFound = 2,
-    k_ECheckFileSignatureNoSignaturesFoundForThisApp = 3,
-    k_ECheckFileSignatureNoSignaturesFoundForThisFile = 4,
-}
+pub const ECheckFileSignature_k_ECheckFileSignatureInvalidSignature: ECheckFileSignature = 0;
+pub const ECheckFileSignature_k_ECheckFileSignatureValidSignature: ECheckFileSignature = 1;
+pub const ECheckFileSignature_k_ECheckFileSignatureFileNotFound: ECheckFileSignature = 2;
+pub const ECheckFileSignature_k_ECheckFileSignatureNoSignaturesFoundForThisApp:
+    ECheckFileSignature = 3;
+pub const ECheckFileSignature_k_ECheckFileSignatureNoSignaturesFoundForThisFile:
+    ECheckFileSignature = 4;
+pub type ECheckFileSignature = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct CheckFileSignature_t {
     pub m_eCheckFileSignature: ECheckFileSignature,
 }
-pub const CheckFileSignature_t_k_iCallback: CheckFileSignature_t__bindgen_ty_1 =
-    CheckFileSignature_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CheckFileSignature_t__bindgen_ty_1 {
-    k_iCallback = 705,
-}
+pub const CheckFileSignature_t_k_iCallback: CheckFileSignature_t__bindgen_ty_1 = 705;
+pub type CheckFileSignature_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_CheckFileSignature_t() {
     const UNINIT: ::std::mem::MaybeUninit<CheckFileSignature_t> = ::std::mem::MaybeUninit::uninit();
@@ -5329,14 +4780,8 @@ pub struct GamepadTextInputDismissed_t {
     pub m_unSubmittedText: uint32,
     pub m_unAppID: AppId_t,
 }
-pub const GamepadTextInputDismissed_t_k_iCallback: GamepadTextInputDismissed_t__bindgen_ty_1 =
-    GamepadTextInputDismissed_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GamepadTextInputDismissed_t__bindgen_ty_1 {
-    k_iCallback = 714,
-}
+pub const GamepadTextInputDismissed_t_k_iCallback: GamepadTextInputDismissed_t__bindgen_ty_1 = 714;
+pub type GamepadTextInputDismissed_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GamepadTextInputDismissed_t() {
     const UNINIT: ::std::mem::MaybeUninit<GamepadTextInputDismissed_t> =
@@ -5388,14 +4833,8 @@ fn bindgen_test_layout_GamepadTextInputDismissed_t() {
 pub struct AppResumingFromSuspend_t {
     pub _address: u8,
 }
-pub const AppResumingFromSuspend_t_k_iCallback: AppResumingFromSuspend_t__bindgen_ty_1 =
-    AppResumingFromSuspend_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum AppResumingFromSuspend_t__bindgen_ty_1 {
-    k_iCallback = 736,
-}
+pub const AppResumingFromSuspend_t_k_iCallback: AppResumingFromSuspend_t__bindgen_ty_1 = 736;
+pub type AppResumingFromSuspend_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_AppResumingFromSuspend_t() {
     assert_eq!(
@@ -5415,14 +4854,8 @@ pub struct FloatingGamepadTextInputDismissed_t {
     pub _address: u8,
 }
 pub const FloatingGamepadTextInputDismissed_t_k_iCallback:
-    FloatingGamepadTextInputDismissed_t__bindgen_ty_1 =
-    FloatingGamepadTextInputDismissed_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum FloatingGamepadTextInputDismissed_t__bindgen_ty_1 {
-    k_iCallback = 738,
-}
+    FloatingGamepadTextInputDismissed_t__bindgen_ty_1 = 738;
+pub type FloatingGamepadTextInputDismissed_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_FloatingGamepadTextInputDismissed_t() {
     assert_eq!(
@@ -5445,13 +4878,8 @@ pub struct FilterTextDictionaryChanged_t {
     pub m_eLanguage: ::std::os::raw::c_int,
 }
 pub const FilterTextDictionaryChanged_t_k_iCallback: FilterTextDictionaryChanged_t__bindgen_ty_1 =
-    FilterTextDictionaryChanged_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum FilterTextDictionaryChanged_t__bindgen_ty_1 {
-    k_iCallback = 739,
-}
+    739;
+pub type FilterTextDictionaryChanged_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_FilterTextDictionaryChanged_t() {
     const UNINIT: ::std::mem::MaybeUninit<FilterTextDictionaryChanged_t> =
@@ -6792,14 +6220,10 @@ fn bindgen_test_layout_MatchMakingKeyValuePair_t() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EMatchMakingServerResponse {
-    eServerResponded = 0,
-    eServerFailedToRespond = 1,
-    eNoServersListedOnMasterServer = 2,
-}
+pub const EMatchMakingServerResponse_eServerResponded: EMatchMakingServerResponse = 0;
+pub const EMatchMakingServerResponse_eServerFailedToRespond: EMatchMakingServerResponse = 1;
+pub const EMatchMakingServerResponse_eNoServersListedOnMasterServer: EMatchMakingServerResponse = 2;
+pub type EMatchMakingServerResponse = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct servernetadr_t {
@@ -7087,36 +6511,24 @@ fn bindgen_test_layout_gameserveritem_t() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ELobbyType {
-    k_ELobbyTypePrivate = 0,
-    k_ELobbyTypeFriendsOnly = 1,
-    k_ELobbyTypePublic = 2,
-    k_ELobbyTypeInvisible = 3,
-    k_ELobbyTypePrivateUnique = 4,
-}
-#[repr(i32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ELobbyComparison {
-    k_ELobbyComparisonEqualToOrLessThan = -2,
-    k_ELobbyComparisonLessThan = -1,
-    k_ELobbyComparisonEqual = 0,
-    k_ELobbyComparisonGreaterThan = 1,
-    k_ELobbyComparisonEqualToOrGreaterThan = 2,
-    k_ELobbyComparisonNotEqual = 3,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ELobbyDistanceFilter {
-    k_ELobbyDistanceFilterClose = 0,
-    k_ELobbyDistanceFilterDefault = 1,
-    k_ELobbyDistanceFilterFar = 2,
-    k_ELobbyDistanceFilterWorldwide = 3,
-}
+pub const ELobbyType_k_ELobbyTypePrivate: ELobbyType = 0;
+pub const ELobbyType_k_ELobbyTypeFriendsOnly: ELobbyType = 1;
+pub const ELobbyType_k_ELobbyTypePublic: ELobbyType = 2;
+pub const ELobbyType_k_ELobbyTypeInvisible: ELobbyType = 3;
+pub const ELobbyType_k_ELobbyTypePrivateUnique: ELobbyType = 4;
+pub type ELobbyType = ::std::os::raw::c_uint;
+pub const ELobbyComparison_k_ELobbyComparisonEqualToOrLessThan: ELobbyComparison = -2;
+pub const ELobbyComparison_k_ELobbyComparisonLessThan: ELobbyComparison = -1;
+pub const ELobbyComparison_k_ELobbyComparisonEqual: ELobbyComparison = 0;
+pub const ELobbyComparison_k_ELobbyComparisonGreaterThan: ELobbyComparison = 1;
+pub const ELobbyComparison_k_ELobbyComparisonEqualToOrGreaterThan: ELobbyComparison = 2;
+pub const ELobbyComparison_k_ELobbyComparisonNotEqual: ELobbyComparison = 3;
+pub type ELobbyComparison = ::std::os::raw::c_int;
+pub const ELobbyDistanceFilter_k_ELobbyDistanceFilterClose: ELobbyDistanceFilter = 0;
+pub const ELobbyDistanceFilter_k_ELobbyDistanceFilterDefault: ELobbyDistanceFilter = 1;
+pub const ELobbyDistanceFilter_k_ELobbyDistanceFilterFar: ELobbyDistanceFilter = 2;
+pub const ELobbyDistanceFilter_k_ELobbyDistanceFilterWorldwide: ELobbyDistanceFilter = 3;
+pub type ELobbyDistanceFilter = ::std::os::raw::c_uint;
 #[repr(C)]
 pub struct ISteamMatchmaking__bindgen_vtable(::std::os::raw::c_void);
 #[repr(C)]
@@ -7249,16 +6661,12 @@ fn bindgen_test_layout_ISteamMatchmakingServers() {
 pub const k_unFavoriteFlagNone: uint32 = 0;
 pub const k_unFavoriteFlagFavorite: uint32 = 1;
 pub const k_unFavoriteFlagHistory: uint32 = 2;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EChatMemberStateChange {
-    k_EChatMemberStateChangeEntered = 1,
-    k_EChatMemberStateChangeLeft = 2,
-    k_EChatMemberStateChangeDisconnected = 4,
-    k_EChatMemberStateChangeKicked = 8,
-    k_EChatMemberStateChangeBanned = 16,
-}
+pub const EChatMemberStateChange_k_EChatMemberStateChangeEntered: EChatMemberStateChange = 1;
+pub const EChatMemberStateChange_k_EChatMemberStateChangeLeft: EChatMemberStateChange = 2;
+pub const EChatMemberStateChange_k_EChatMemberStateChangeDisconnected: EChatMemberStateChange = 4;
+pub const EChatMemberStateChange_k_EChatMemberStateChangeKicked: EChatMemberStateChange = 8;
+pub const EChatMemberStateChange_k_EChatMemberStateChangeBanned: EChatMemberStateChange = 16;
+pub type EChatMemberStateChange = ::std::os::raw::c_uint;
 #[repr(C)]
 pub struct ISteamGameSearch__bindgen_vtable(::std::os::raw::c_void);
 #[repr(C)]
@@ -7279,14 +6687,13 @@ fn bindgen_test_layout_ISteamGameSearch() {
         concat!("Alignment of ", stringify!(ISteamGameSearch))
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamPartyBeaconLocationType {
-    k_ESteamPartyBeaconLocationType_Invalid = 0,
-    k_ESteamPartyBeaconLocationType_ChatGroup = 1,
-    k_ESteamPartyBeaconLocationType_Max = 2,
-}
+pub const ESteamPartyBeaconLocationType_k_ESteamPartyBeaconLocationType_Invalid:
+    ESteamPartyBeaconLocationType = 0;
+pub const ESteamPartyBeaconLocationType_k_ESteamPartyBeaconLocationType_ChatGroup:
+    ESteamPartyBeaconLocationType = 1;
+pub const ESteamPartyBeaconLocationType_k_ESteamPartyBeaconLocationType_Max:
+    ESteamPartyBeaconLocationType = 2;
+pub type ESteamPartyBeaconLocationType = ::std::os::raw::c_uint;
 #[repr(C, packed(4))]
 #[derive(Debug, Copy, Clone)]
 pub struct SteamPartyBeaconLocation_t {
@@ -7329,16 +6736,17 @@ fn bindgen_test_layout_SteamPartyBeaconLocation_t() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamPartyBeaconLocationData {
-    k_ESteamPartyBeaconLocationDataInvalid = 0,
-    k_ESteamPartyBeaconLocationDataName = 1,
-    k_ESteamPartyBeaconLocationDataIconURLSmall = 2,
-    k_ESteamPartyBeaconLocationDataIconURLMedium = 3,
-    k_ESteamPartyBeaconLocationDataIconURLLarge = 4,
-}
+pub const ESteamPartyBeaconLocationData_k_ESteamPartyBeaconLocationDataInvalid:
+    ESteamPartyBeaconLocationData = 0;
+pub const ESteamPartyBeaconLocationData_k_ESteamPartyBeaconLocationDataName:
+    ESteamPartyBeaconLocationData = 1;
+pub const ESteamPartyBeaconLocationData_k_ESteamPartyBeaconLocationDataIconURLSmall:
+    ESteamPartyBeaconLocationData = 2;
+pub const ESteamPartyBeaconLocationData_k_ESteamPartyBeaconLocationDataIconURLMedium:
+    ESteamPartyBeaconLocationData = 3;
+pub const ESteamPartyBeaconLocationData_k_ESteamPartyBeaconLocationDataIconURLLarge:
+    ESteamPartyBeaconLocationData = 4;
+pub type ESteamPartyBeaconLocationData = ::std::os::raw::c_uint;
 #[repr(C)]
 pub struct ISteamParties__bindgen_vtable(::std::os::raw::c_void);
 #[repr(C)]
@@ -7370,14 +6778,8 @@ pub struct FavoritesListChanged_t {
     pub m_bAdd: bool,
     pub m_unAccountId: AccountID_t,
 }
-pub const FavoritesListChanged_t_k_iCallback: FavoritesListChanged_t__bindgen_ty_1 =
-    FavoritesListChanged_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum FavoritesListChanged_t__bindgen_ty_1 {
-    k_iCallback = 502,
-}
+pub const FavoritesListChanged_t_k_iCallback: FavoritesListChanged_t__bindgen_ty_1 = 502;
+pub type FavoritesListChanged_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_FavoritesListChanged_t() {
     const UNINIT: ::std::mem::MaybeUninit<FavoritesListChanged_t> =
@@ -7471,14 +6873,8 @@ pub struct LobbyInvite_t {
     pub m_ulSteamIDLobby: uint64,
     pub m_ulGameID: uint64,
 }
-pub const LobbyInvite_t_k_iCallback: LobbyInvite_t__bindgen_ty_1 =
-    LobbyInvite_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LobbyInvite_t__bindgen_ty_1 {
-    k_iCallback = 503,
-}
+pub const LobbyInvite_t_k_iCallback: LobbyInvite_t__bindgen_ty_1 = 503;
+pub type LobbyInvite_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LobbyInvite_t() {
     const UNINIT: ::std::mem::MaybeUninit<LobbyInvite_t> = ::std::mem::MaybeUninit::uninit();
@@ -7532,14 +6928,8 @@ pub struct LobbyEnter_t {
     pub m_bLocked: bool,
     pub m_EChatRoomEnterResponse: uint32,
 }
-pub const LobbyEnter_t_k_iCallback: LobbyEnter_t__bindgen_ty_1 =
-    LobbyEnter_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LobbyEnter_t__bindgen_ty_1 {
-    k_iCallback = 504,
-}
+pub const LobbyEnter_t_k_iCallback: LobbyEnter_t__bindgen_ty_1 = 504;
+pub type LobbyEnter_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LobbyEnter_t() {
     const UNINIT: ::std::mem::MaybeUninit<LobbyEnter_t> = ::std::mem::MaybeUninit::uninit();
@@ -7602,14 +6992,8 @@ pub struct LobbyDataUpdate_t {
     pub m_ulSteamIDMember: uint64,
     pub m_bSuccess: uint8,
 }
-pub const LobbyDataUpdate_t_k_iCallback: LobbyDataUpdate_t__bindgen_ty_1 =
-    LobbyDataUpdate_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LobbyDataUpdate_t__bindgen_ty_1 {
-    k_iCallback = 505,
-}
+pub const LobbyDataUpdate_t_k_iCallback: LobbyDataUpdate_t__bindgen_ty_1 = 505;
+pub type LobbyDataUpdate_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LobbyDataUpdate_t() {
     const UNINIT: ::std::mem::MaybeUninit<LobbyDataUpdate_t> = ::std::mem::MaybeUninit::uninit();
@@ -7663,14 +7047,8 @@ pub struct LobbyChatUpdate_t {
     pub m_ulSteamIDMakingChange: uint64,
     pub m_rgfChatMemberStateChange: uint32,
 }
-pub const LobbyChatUpdate_t_k_iCallback: LobbyChatUpdate_t__bindgen_ty_1 =
-    LobbyChatUpdate_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LobbyChatUpdate_t__bindgen_ty_1 {
-    k_iCallback = 506,
-}
+pub const LobbyChatUpdate_t_k_iCallback: LobbyChatUpdate_t__bindgen_ty_1 = 506;
+pub type LobbyChatUpdate_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LobbyChatUpdate_t() {
     const UNINIT: ::std::mem::MaybeUninit<LobbyChatUpdate_t> = ::std::mem::MaybeUninit::uninit();
@@ -7734,14 +7112,8 @@ pub struct LobbyChatMsg_t {
     pub m_eChatEntryType: uint8,
     pub m_iChatID: uint32,
 }
-pub const LobbyChatMsg_t_k_iCallback: LobbyChatMsg_t__bindgen_ty_1 =
-    LobbyChatMsg_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LobbyChatMsg_t__bindgen_ty_1 {
-    k_iCallback = 507,
-}
+pub const LobbyChatMsg_t_k_iCallback: LobbyChatMsg_t__bindgen_ty_1 = 507;
+pub type LobbyChatMsg_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LobbyChatMsg_t() {
     const UNINIT: ::std::mem::MaybeUninit<LobbyChatMsg_t> = ::std::mem::MaybeUninit::uninit();
@@ -7805,14 +7177,8 @@ pub struct LobbyGameCreated_t {
     pub m_unIP: uint32,
     pub m_usPort: uint16,
 }
-pub const LobbyGameCreated_t_k_iCallback: LobbyGameCreated_t__bindgen_ty_1 =
-    LobbyGameCreated_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LobbyGameCreated_t__bindgen_ty_1 {
-    k_iCallback = 509,
-}
+pub const LobbyGameCreated_t_k_iCallback: LobbyGameCreated_t__bindgen_ty_1 = 509;
+pub type LobbyGameCreated_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LobbyGameCreated_t() {
     const UNINIT: ::std::mem::MaybeUninit<LobbyGameCreated_t> = ::std::mem::MaybeUninit::uninit();
@@ -7873,14 +7239,8 @@ fn bindgen_test_layout_LobbyGameCreated_t() {
 pub struct LobbyMatchList_t {
     pub m_nLobbiesMatching: uint32,
 }
-pub const LobbyMatchList_t_k_iCallback: LobbyMatchList_t__bindgen_ty_1 =
-    LobbyMatchList_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LobbyMatchList_t__bindgen_ty_1 {
-    k_iCallback = 510,
-}
+pub const LobbyMatchList_t_k_iCallback: LobbyMatchList_t__bindgen_ty_1 = 510;
+pub type LobbyMatchList_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LobbyMatchList_t() {
     const UNINIT: ::std::mem::MaybeUninit<LobbyMatchList_t> = ::std::mem::MaybeUninit::uninit();
@@ -7913,14 +7273,8 @@ pub struct LobbyKicked_t {
     pub m_ulSteamIDAdmin: uint64,
     pub m_bKickedDueToDisconnect: uint8,
 }
-pub const LobbyKicked_t_k_iCallback: LobbyKicked_t__bindgen_ty_1 =
-    LobbyKicked_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LobbyKicked_t__bindgen_ty_1 {
-    k_iCallback = 512,
-}
+pub const LobbyKicked_t_k_iCallback: LobbyKicked_t__bindgen_ty_1 = 512;
+pub type LobbyKicked_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LobbyKicked_t() {
     const UNINIT: ::std::mem::MaybeUninit<LobbyKicked_t> = ::std::mem::MaybeUninit::uninit();
@@ -7972,14 +7326,8 @@ pub struct LobbyCreated_t {
     pub m_eResult: EResult,
     pub m_ulSteamIDLobby: uint64,
 }
-pub const LobbyCreated_t_k_iCallback: LobbyCreated_t__bindgen_ty_1 =
-    LobbyCreated_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LobbyCreated_t__bindgen_ty_1 {
-    k_iCallback = 513,
-}
+pub const LobbyCreated_t_k_iCallback: LobbyCreated_t__bindgen_ty_1 = 513;
+pub type LobbyCreated_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LobbyCreated_t() {
     const UNINIT: ::std::mem::MaybeUninit<LobbyCreated_t> = ::std::mem::MaybeUninit::uninit();
@@ -8021,14 +7369,8 @@ pub struct PSNGameBootInviteResult_t {
     pub m_bGameBootInviteExists: bool,
     pub m_steamIDLobby: CSteamID,
 }
-pub const PSNGameBootInviteResult_t_k_iCallback: PSNGameBootInviteResult_t__bindgen_ty_1 =
-    PSNGameBootInviteResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum PSNGameBootInviteResult_t__bindgen_ty_1 {
-    k_iCallback = 515,
-}
+pub const PSNGameBootInviteResult_t_k_iCallback: PSNGameBootInviteResult_t__bindgen_ty_1 = 515;
+pub type PSNGameBootInviteResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_PSNGameBootInviteResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<PSNGameBootInviteResult_t> =
@@ -8071,13 +7413,8 @@ pub struct FavoritesListAccountsUpdated_t {
     pub m_eResult: EResult,
 }
 pub const FavoritesListAccountsUpdated_t_k_iCallback: FavoritesListAccountsUpdated_t__bindgen_ty_1 =
-    FavoritesListAccountsUpdated_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum FavoritesListAccountsUpdated_t__bindgen_ty_1 {
-    k_iCallback = 516,
-}
+    516;
+pub type FavoritesListAccountsUpdated_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_FavoritesListAccountsUpdated_t() {
     const UNINIT: ::std::mem::MaybeUninit<FavoritesListAccountsUpdated_t> =
@@ -8115,14 +7452,8 @@ pub struct SearchForGameProgressCallback_t {
     pub m_cPlayersSearching: int32,
 }
 pub const SearchForGameProgressCallback_t_k_iCallback:
-    SearchForGameProgressCallback_t__bindgen_ty_1 =
-    SearchForGameProgressCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SearchForGameProgressCallback_t__bindgen_ty_1 {
-    k_iCallback = 5201,
-}
+    SearchForGameProgressCallback_t__bindgen_ty_1 = 5201;
+pub type SearchForGameProgressCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SearchForGameProgressCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<SearchForGameProgressCallback_t> =
@@ -8210,13 +7541,8 @@ pub struct SearchForGameResultCallback_t {
     pub m_bFinalCallback: bool,
 }
 pub const SearchForGameResultCallback_t_k_iCallback: SearchForGameResultCallback_t__bindgen_ty_1 =
-    SearchForGameResultCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SearchForGameResultCallback_t__bindgen_ty_1 {
-    k_iCallback = 5202,
-}
+    5202;
+pub type SearchForGameResultCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SearchForGameResultCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<SearchForGameResultCallback_t> =
@@ -8300,14 +7626,8 @@ pub struct RequestPlayersForGameProgressCallback_t {
     pub m_ullSearchID: uint64,
 }
 pub const RequestPlayersForGameProgressCallback_t_k_iCallback:
-    RequestPlayersForGameProgressCallback_t__bindgen_ty_1 =
-    RequestPlayersForGameProgressCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RequestPlayersForGameProgressCallback_t__bindgen_ty_1 {
-    k_iCallback = 5211,
-}
+    RequestPlayersForGameProgressCallback_t__bindgen_ty_1 = 5211;
+pub type RequestPlayersForGameProgressCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RequestPlayersForGameProgressCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<RequestPlayersForGameProgressCallback_t> =
@@ -8365,22 +7685,15 @@ pub struct RequestPlayersForGameResultCallback_t {
     pub m_ullUniqueGameID: uint64,
 }
 pub const RequestPlayersForGameResultCallback_t_k_iCallback:
-    RequestPlayersForGameResultCallback_t__bindgen_ty_1 =
-    RequestPlayersForGameResultCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RequestPlayersForGameResultCallback_t__bindgen_ty_1 {
-    k_iCallback = 5212,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RequestPlayersForGameResultCallback_t_PlayerAcceptState_t {
-    k_EStateUnknown = 0,
-    k_EStatePlayerAccepted = 1,
-    k_EStatePlayerDeclined = 2,
-}
+    RequestPlayersForGameResultCallback_t__bindgen_ty_1 = 5212;
+pub type RequestPlayersForGameResultCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
+pub const RequestPlayersForGameResultCallback_t_PlayerAcceptState_t_k_EStateUnknown:
+    RequestPlayersForGameResultCallback_t_PlayerAcceptState_t = 0;
+pub const RequestPlayersForGameResultCallback_t_PlayerAcceptState_t_k_EStatePlayerAccepted:
+    RequestPlayersForGameResultCallback_t_PlayerAcceptState_t = 1;
+pub const RequestPlayersForGameResultCallback_t_PlayerAcceptState_t_k_EStatePlayerDeclined:
+    RequestPlayersForGameResultCallback_t_PlayerAcceptState_t = 2;
+pub type RequestPlayersForGameResultCallback_t_PlayerAcceptState_t = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RequestPlayersForGameResultCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<RequestPlayersForGameResultCallback_t> =
@@ -8511,14 +7824,8 @@ pub struct RequestPlayersForGameFinalResultCallback_t {
     pub m_ullUniqueGameID: uint64,
 }
 pub const RequestPlayersForGameFinalResultCallback_t_k_iCallback:
-    RequestPlayersForGameFinalResultCallback_t__bindgen_ty_1 =
-    RequestPlayersForGameFinalResultCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RequestPlayersForGameFinalResultCallback_t__bindgen_ty_1 {
-    k_iCallback = 5213,
-}
+    RequestPlayersForGameFinalResultCallback_t__bindgen_ty_1 = 5213;
+pub type RequestPlayersForGameFinalResultCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RequestPlayersForGameFinalResultCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<RequestPlayersForGameFinalResultCallback_t> =
@@ -8579,14 +7886,8 @@ pub struct SubmitPlayerResultResultCallback_t {
     pub steamIDPlayer: CSteamID,
 }
 pub const SubmitPlayerResultResultCallback_t_k_iCallback:
-    SubmitPlayerResultResultCallback_t__bindgen_ty_1 =
-    SubmitPlayerResultResultCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SubmitPlayerResultResultCallback_t__bindgen_ty_1 {
-    k_iCallback = 5214,
-}
+    SubmitPlayerResultResultCallback_t__bindgen_ty_1 = 5214;
+pub type SubmitPlayerResultResultCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SubmitPlayerResultResultCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<SubmitPlayerResultResultCallback_t> =
@@ -8642,14 +7943,8 @@ pub struct EndGameResultCallback_t {
     pub m_eResult: EResult,
     pub ullUniqueGameID: uint64,
 }
-pub const EndGameResultCallback_t_k_iCallback: EndGameResultCallback_t__bindgen_ty_1 =
-    EndGameResultCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EndGameResultCallback_t__bindgen_ty_1 {
-    k_iCallback = 5215,
-}
+pub const EndGameResultCallback_t_k_iCallback: EndGameResultCallback_t__bindgen_ty_1 = 5215;
+pub type EndGameResultCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_EndGameResultCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<EndGameResultCallback_t> =
@@ -8694,14 +7989,8 @@ pub struct JoinPartyCallback_t {
     pub m_SteamIDBeaconOwner: CSteamID,
     pub m_rgchConnectString: [::std::os::raw::c_char; 256usize],
 }
-pub const JoinPartyCallback_t_k_iCallback: JoinPartyCallback_t__bindgen_ty_1 =
-    JoinPartyCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum JoinPartyCallback_t__bindgen_ty_1 {
-    k_iCallback = 5301,
-}
+pub const JoinPartyCallback_t_k_iCallback: JoinPartyCallback_t__bindgen_ty_1 = 5301;
+pub type JoinPartyCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_JoinPartyCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<JoinPartyCallback_t> = ::std::mem::MaybeUninit::uninit();
@@ -8763,14 +8052,8 @@ pub struct CreateBeaconCallback_t {
     pub m_eResult: EResult,
     pub m_ulBeaconID: PartyBeaconID_t,
 }
-pub const CreateBeaconCallback_t_k_iCallback: CreateBeaconCallback_t__bindgen_ty_1 =
-    CreateBeaconCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CreateBeaconCallback_t__bindgen_ty_1 {
-    k_iCallback = 5302,
-}
+pub const CreateBeaconCallback_t_k_iCallback: CreateBeaconCallback_t__bindgen_ty_1 = 5302;
+pub type CreateBeaconCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_CreateBeaconCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<CreateBeaconCallback_t> =
@@ -8814,14 +8097,8 @@ pub struct ReservationNotificationCallback_t {
     pub m_steamIDJoiner: CSteamID,
 }
 pub const ReservationNotificationCallback_t_k_iCallback:
-    ReservationNotificationCallback_t__bindgen_ty_1 =
-    ReservationNotificationCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ReservationNotificationCallback_t__bindgen_ty_1 {
-    k_iCallback = 5303,
-}
+    ReservationNotificationCallback_t__bindgen_ty_1 = 5303;
+pub type ReservationNotificationCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_ReservationNotificationCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<ReservationNotificationCallback_t> =
@@ -8867,13 +8144,8 @@ pub struct ChangeNumOpenSlotsCallback_t {
     pub m_eResult: EResult,
 }
 pub const ChangeNumOpenSlotsCallback_t_k_iCallback: ChangeNumOpenSlotsCallback_t__bindgen_ty_1 =
-    ChangeNumOpenSlotsCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ChangeNumOpenSlotsCallback_t__bindgen_ty_1 {
-    k_iCallback = 5304,
-}
+    5304;
+pub type ChangeNumOpenSlotsCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_ChangeNumOpenSlotsCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<ChangeNumOpenSlotsCallback_t> =
@@ -8906,14 +8178,8 @@ pub struct AvailableBeaconLocationsUpdated_t {
     pub _address: u8,
 }
 pub const AvailableBeaconLocationsUpdated_t_k_iCallback:
-    AvailableBeaconLocationsUpdated_t__bindgen_ty_1 =
-    AvailableBeaconLocationsUpdated_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum AvailableBeaconLocationsUpdated_t__bindgen_ty_1 {
-    k_iCallback = 5305,
-}
+    AvailableBeaconLocationsUpdated_t__bindgen_ty_1 = 5305;
+pub type AvailableBeaconLocationsUpdated_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_AvailableBeaconLocationsUpdated_t() {
     assert_eq!(
@@ -8935,14 +8201,8 @@ fn bindgen_test_layout_AvailableBeaconLocationsUpdated_t() {
 pub struct ActiveBeaconsUpdated_t {
     pub _address: u8,
 }
-pub const ActiveBeaconsUpdated_t_k_iCallback: ActiveBeaconsUpdated_t__bindgen_ty_1 =
-    ActiveBeaconsUpdated_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ActiveBeaconsUpdated_t__bindgen_ty_1 {
-    k_iCallback = 5306,
-}
+pub const ActiveBeaconsUpdated_t_k_iCallback: ActiveBeaconsUpdated_t__bindgen_ty_1 = 5306;
+pub type ActiveBeaconsUpdated_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_ActiveBeaconsUpdated_t() {
     assert_eq!(
@@ -9014,114 +8274,85 @@ pub const k_unEnumeratePublishedFilesMaxResults: uint32 = 50;
 pub const k_cchTagListMax: uint32 = 1025;
 pub const k_cchFilenameMax: uint32 = 260;
 pub const k_cchPublishedFileURLMax: uint32 = 256;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ERemoteStoragePlatform {
-    k_ERemoteStoragePlatformNone = 0,
-    k_ERemoteStoragePlatformWindows = 1,
-    k_ERemoteStoragePlatformOSX = 2,
-    k_ERemoteStoragePlatformPS3 = 4,
-    k_ERemoteStoragePlatformLinux = 8,
-    k_ERemoteStoragePlatformSwitch = 16,
-    k_ERemoteStoragePlatformAndroid = 32,
-    k_ERemoteStoragePlatformIOS = 64,
-    k_ERemoteStoragePlatformAll = 4294967295,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ERemoteStoragePublishedFileVisibility {
-    k_ERemoteStoragePublishedFileVisibilityPublic = 0,
-    k_ERemoteStoragePublishedFileVisibilityFriendsOnly = 1,
-    k_ERemoteStoragePublishedFileVisibilityPrivate = 2,
-    k_ERemoteStoragePublishedFileVisibilityUnlisted = 3,
-}
-impl EWorkshopFileType {
-    pub const k_EWorkshopFileTypeCommunity: EWorkshopFileType =
-        EWorkshopFileType::k_EWorkshopFileTypeFirst;
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EWorkshopFileType {
-    k_EWorkshopFileTypeFirst = 0,
-    k_EWorkshopFileTypeMicrotransaction = 1,
-    k_EWorkshopFileTypeCollection = 2,
-    k_EWorkshopFileTypeArt = 3,
-    k_EWorkshopFileTypeVideo = 4,
-    k_EWorkshopFileTypeScreenshot = 5,
-    k_EWorkshopFileTypeGame = 6,
-    k_EWorkshopFileTypeSoftware = 7,
-    k_EWorkshopFileTypeConcept = 8,
-    k_EWorkshopFileTypeWebGuide = 9,
-    k_EWorkshopFileTypeIntegratedGuide = 10,
-    k_EWorkshopFileTypeMerch = 11,
-    k_EWorkshopFileTypeControllerBinding = 12,
-    k_EWorkshopFileTypeSteamworksAccessInvite = 13,
-    k_EWorkshopFileTypeSteamVideo = 14,
-    k_EWorkshopFileTypeGameManagedItem = 15,
-    k_EWorkshopFileTypeMax = 16,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EWorkshopVote {
-    k_EWorkshopVoteUnvoted = 0,
-    k_EWorkshopVoteFor = 1,
-    k_EWorkshopVoteAgainst = 2,
-    k_EWorkshopVoteLater = 3,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EWorkshopFileAction {
-    k_EWorkshopFileActionPlayed = 0,
-    k_EWorkshopFileActionCompleted = 1,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EWorkshopEnumerationType {
-    k_EWorkshopEnumerationTypeRankedByVote = 0,
-    k_EWorkshopEnumerationTypeRecent = 1,
-    k_EWorkshopEnumerationTypeTrending = 2,
-    k_EWorkshopEnumerationTypeFavoritesOfFriends = 3,
-    k_EWorkshopEnumerationTypeVotedByFriends = 4,
-    k_EWorkshopEnumerationTypeContentByFriends = 5,
-    k_EWorkshopEnumerationTypeRecentFromFollowedUsers = 6,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EWorkshopVideoProvider {
-    k_EWorkshopVideoProviderNone = 0,
-    k_EWorkshopVideoProviderYoutube = 1,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EUGCReadAction {
-    k_EUGCRead_ContinueReadingUntilFinished = 0,
-    k_EUGCRead_ContinueReading = 1,
-    k_EUGCRead_Close = 2,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ERemoteStorageLocalFileChange {
-    k_ERemoteStorageLocalFileChange_Invalid = 0,
-    k_ERemoteStorageLocalFileChange_FileUpdated = 1,
-    k_ERemoteStorageLocalFileChange_FileDeleted = 2,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ERemoteStorageFilePathType {
-    k_ERemoteStorageFilePathType_Invalid = 0,
-    k_ERemoteStorageFilePathType_Absolute = 1,
-    k_ERemoteStorageFilePathType_APIFilename = 2,
-}
+pub const ERemoteStoragePlatform_k_ERemoteStoragePlatformNone: ERemoteStoragePlatform = 0;
+pub const ERemoteStoragePlatform_k_ERemoteStoragePlatformWindows: ERemoteStoragePlatform = 1;
+pub const ERemoteStoragePlatform_k_ERemoteStoragePlatformOSX: ERemoteStoragePlatform = 2;
+pub const ERemoteStoragePlatform_k_ERemoteStoragePlatformPS3: ERemoteStoragePlatform = 4;
+pub const ERemoteStoragePlatform_k_ERemoteStoragePlatformLinux: ERemoteStoragePlatform = 8;
+pub const ERemoteStoragePlatform_k_ERemoteStoragePlatformSwitch: ERemoteStoragePlatform = 16;
+pub const ERemoteStoragePlatform_k_ERemoteStoragePlatformAndroid: ERemoteStoragePlatform = 32;
+pub const ERemoteStoragePlatform_k_ERemoteStoragePlatformIOS: ERemoteStoragePlatform = 64;
+pub const ERemoteStoragePlatform_k_ERemoteStoragePlatformAll: ERemoteStoragePlatform = 4294967295;
+pub type ERemoteStoragePlatform = ::std::os::raw::c_uint;
+pub const ERemoteStoragePublishedFileVisibility_k_ERemoteStoragePublishedFileVisibilityPublic:
+    ERemoteStoragePublishedFileVisibility = 0;
+pub const ERemoteStoragePublishedFileVisibility_k_ERemoteStoragePublishedFileVisibilityFriendsOnly : ERemoteStoragePublishedFileVisibility = 1 ;
+pub const ERemoteStoragePublishedFileVisibility_k_ERemoteStoragePublishedFileVisibilityPrivate:
+    ERemoteStoragePublishedFileVisibility = 2;
+pub const ERemoteStoragePublishedFileVisibility_k_ERemoteStoragePublishedFileVisibilityUnlisted:
+    ERemoteStoragePublishedFileVisibility = 3;
+pub type ERemoteStoragePublishedFileVisibility = ::std::os::raw::c_uint;
+pub const EWorkshopFileType_k_EWorkshopFileTypeFirst: EWorkshopFileType = 0;
+pub const EWorkshopFileType_k_EWorkshopFileTypeCommunity: EWorkshopFileType = 0;
+pub const EWorkshopFileType_k_EWorkshopFileTypeMicrotransaction: EWorkshopFileType = 1;
+pub const EWorkshopFileType_k_EWorkshopFileTypeCollection: EWorkshopFileType = 2;
+pub const EWorkshopFileType_k_EWorkshopFileTypeArt: EWorkshopFileType = 3;
+pub const EWorkshopFileType_k_EWorkshopFileTypeVideo: EWorkshopFileType = 4;
+pub const EWorkshopFileType_k_EWorkshopFileTypeScreenshot: EWorkshopFileType = 5;
+pub const EWorkshopFileType_k_EWorkshopFileTypeGame: EWorkshopFileType = 6;
+pub const EWorkshopFileType_k_EWorkshopFileTypeSoftware: EWorkshopFileType = 7;
+pub const EWorkshopFileType_k_EWorkshopFileTypeConcept: EWorkshopFileType = 8;
+pub const EWorkshopFileType_k_EWorkshopFileTypeWebGuide: EWorkshopFileType = 9;
+pub const EWorkshopFileType_k_EWorkshopFileTypeIntegratedGuide: EWorkshopFileType = 10;
+pub const EWorkshopFileType_k_EWorkshopFileTypeMerch: EWorkshopFileType = 11;
+pub const EWorkshopFileType_k_EWorkshopFileTypeControllerBinding: EWorkshopFileType = 12;
+pub const EWorkshopFileType_k_EWorkshopFileTypeSteamworksAccessInvite: EWorkshopFileType = 13;
+pub const EWorkshopFileType_k_EWorkshopFileTypeSteamVideo: EWorkshopFileType = 14;
+pub const EWorkshopFileType_k_EWorkshopFileTypeGameManagedItem: EWorkshopFileType = 15;
+pub const EWorkshopFileType_k_EWorkshopFileTypeMax: EWorkshopFileType = 16;
+pub type EWorkshopFileType = ::std::os::raw::c_uint;
+pub const EWorkshopVote_k_EWorkshopVoteUnvoted: EWorkshopVote = 0;
+pub const EWorkshopVote_k_EWorkshopVoteFor: EWorkshopVote = 1;
+pub const EWorkshopVote_k_EWorkshopVoteAgainst: EWorkshopVote = 2;
+pub const EWorkshopVote_k_EWorkshopVoteLater: EWorkshopVote = 3;
+pub type EWorkshopVote = ::std::os::raw::c_uint;
+pub const EWorkshopFileAction_k_EWorkshopFileActionPlayed: EWorkshopFileAction = 0;
+pub const EWorkshopFileAction_k_EWorkshopFileActionCompleted: EWorkshopFileAction = 1;
+pub type EWorkshopFileAction = ::std::os::raw::c_uint;
+pub const EWorkshopEnumerationType_k_EWorkshopEnumerationTypeRankedByVote:
+    EWorkshopEnumerationType = 0;
+pub const EWorkshopEnumerationType_k_EWorkshopEnumerationTypeRecent: EWorkshopEnumerationType = 1;
+pub const EWorkshopEnumerationType_k_EWorkshopEnumerationTypeTrending: EWorkshopEnumerationType = 2;
+pub const EWorkshopEnumerationType_k_EWorkshopEnumerationTypeFavoritesOfFriends:
+    EWorkshopEnumerationType = 3;
+pub const EWorkshopEnumerationType_k_EWorkshopEnumerationTypeVotedByFriends:
+    EWorkshopEnumerationType = 4;
+pub const EWorkshopEnumerationType_k_EWorkshopEnumerationTypeContentByFriends:
+    EWorkshopEnumerationType = 5;
+pub const EWorkshopEnumerationType_k_EWorkshopEnumerationTypeRecentFromFollowedUsers:
+    EWorkshopEnumerationType = 6;
+pub type EWorkshopEnumerationType = ::std::os::raw::c_uint;
+pub const EWorkshopVideoProvider_k_EWorkshopVideoProviderNone: EWorkshopVideoProvider = 0;
+pub const EWorkshopVideoProvider_k_EWorkshopVideoProviderYoutube: EWorkshopVideoProvider = 1;
+pub type EWorkshopVideoProvider = ::std::os::raw::c_uint;
+pub const EUGCReadAction_k_EUGCRead_ContinueReadingUntilFinished: EUGCReadAction = 0;
+pub const EUGCReadAction_k_EUGCRead_ContinueReading: EUGCReadAction = 1;
+pub const EUGCReadAction_k_EUGCRead_Close: EUGCReadAction = 2;
+pub type EUGCReadAction = ::std::os::raw::c_uint;
+pub const ERemoteStorageLocalFileChange_k_ERemoteStorageLocalFileChange_Invalid:
+    ERemoteStorageLocalFileChange = 0;
+pub const ERemoteStorageLocalFileChange_k_ERemoteStorageLocalFileChange_FileUpdated:
+    ERemoteStorageLocalFileChange = 1;
+pub const ERemoteStorageLocalFileChange_k_ERemoteStorageLocalFileChange_FileDeleted:
+    ERemoteStorageLocalFileChange = 2;
+pub type ERemoteStorageLocalFileChange = ::std::os::raw::c_uint;
+pub const ERemoteStorageFilePathType_k_ERemoteStorageFilePathType_Invalid:
+    ERemoteStorageFilePathType = 0;
+pub const ERemoteStorageFilePathType_k_ERemoteStorageFilePathType_Absolute:
+    ERemoteStorageFilePathType = 1;
+pub const ERemoteStorageFilePathType_k_ERemoteStorageFilePathType_APIFilename:
+    ERemoteStorageFilePathType = 2;
+pub type ERemoteStorageFilePathType = ::std::os::raw::c_uint;
 #[repr(C)]
 pub struct ISteamRemoteStorage__bindgen_vtable(::std::os::raw::c_void);
 #[repr(C)]
@@ -9150,13 +8381,8 @@ pub struct RemoteStorageFileShareResult_t {
     pub m_rgchFilename: [::std::os::raw::c_char; 260usize],
 }
 pub const RemoteStorageFileShareResult_t_k_iCallback: RemoteStorageFileShareResult_t__bindgen_ty_1 =
-    RemoteStorageFileShareResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageFileShareResult_t__bindgen_ty_1 {
-    k_iCallback = 1307,
-}
+    1307;
+pub type RemoteStorageFileShareResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageFileShareResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageFileShareResult_t> =
@@ -9211,14 +8437,8 @@ pub struct RemoteStoragePublishFileResult_t {
     pub m_bUserNeedsToAcceptWorkshopLegalAgreement: bool,
 }
 pub const RemoteStoragePublishFileResult_t_k_iCallback:
-    RemoteStoragePublishFileResult_t__bindgen_ty_1 =
-    RemoteStoragePublishFileResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStoragePublishFileResult_t__bindgen_ty_1 {
-    k_iCallback = 1309,
-}
+    RemoteStoragePublishFileResult_t__bindgen_ty_1 = 1309;
+pub type RemoteStoragePublishFileResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStoragePublishFileResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStoragePublishFileResult_t> =
@@ -9278,14 +8498,8 @@ pub struct RemoteStorageDeletePublishedFileResult_t {
     pub m_nPublishedFileId: PublishedFileId_t,
 }
 pub const RemoteStorageDeletePublishedFileResult_t_k_iCallback:
-    RemoteStorageDeletePublishedFileResult_t__bindgen_ty_1 =
-    RemoteStorageDeletePublishedFileResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageDeletePublishedFileResult_t__bindgen_ty_1 {
-    k_iCallback = 1311,
-}
+    RemoteStorageDeletePublishedFileResult_t__bindgen_ty_1 = 1311;
+pub type RemoteStorageDeletePublishedFileResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageDeletePublishedFileResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageDeletePublishedFileResult_t> =
@@ -9337,14 +8551,8 @@ pub struct RemoteStorageEnumerateUserPublishedFilesResult_t {
     pub m_rgPublishedFileId: [PublishedFileId_t; 50usize],
 }
 pub const RemoteStorageEnumerateUserPublishedFilesResult_t_k_iCallback:
-    RemoteStorageEnumerateUserPublishedFilesResult_t__bindgen_ty_1 =
-    RemoteStorageEnumerateUserPublishedFilesResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageEnumerateUserPublishedFilesResult_t__bindgen_ty_1 {
-    k_iCallback = 1312,
-}
+    RemoteStorageEnumerateUserPublishedFilesResult_t__bindgen_ty_1 = 1312;
+pub type RemoteStorageEnumerateUserPublishedFilesResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageEnumerateUserPublishedFilesResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageEnumerateUserPublishedFilesResult_t> =
@@ -9414,14 +8622,8 @@ pub struct RemoteStorageSubscribePublishedFileResult_t {
     pub m_nPublishedFileId: PublishedFileId_t,
 }
 pub const RemoteStorageSubscribePublishedFileResult_t_k_iCallback:
-    RemoteStorageSubscribePublishedFileResult_t__bindgen_ty_1 =
-    RemoteStorageSubscribePublishedFileResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageSubscribePublishedFileResult_t__bindgen_ty_1 {
-    k_iCallback = 1313,
-}
+    RemoteStorageSubscribePublishedFileResult_t__bindgen_ty_1 = 1313;
+pub type RemoteStorageSubscribePublishedFileResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageSubscribePublishedFileResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageSubscribePublishedFileResult_t> =
@@ -9474,14 +8676,8 @@ pub struct RemoteStorageEnumerateUserSubscribedFilesResult_t {
     pub m_rgRTimeSubscribed: [uint32; 50usize],
 }
 pub const RemoteStorageEnumerateUserSubscribedFilesResult_t_k_iCallback:
-    RemoteStorageEnumerateUserSubscribedFilesResult_t__bindgen_ty_1 =
-    RemoteStorageEnumerateUserSubscribedFilesResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageEnumerateUserSubscribedFilesResult_t__bindgen_ty_1 {
-    k_iCallback = 1314,
-}
+    RemoteStorageEnumerateUserSubscribedFilesResult_t__bindgen_ty_1 = 1314;
+pub type RemoteStorageEnumerateUserSubscribedFilesResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageEnumerateUserSubscribedFilesResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageEnumerateUserSubscribedFilesResult_t> =
@@ -9561,14 +8757,8 @@ pub struct RemoteStorageUnsubscribePublishedFileResult_t {
     pub m_nPublishedFileId: PublishedFileId_t,
 }
 pub const RemoteStorageUnsubscribePublishedFileResult_t_k_iCallback:
-    RemoteStorageUnsubscribePublishedFileResult_t__bindgen_ty_1 =
-    RemoteStorageUnsubscribePublishedFileResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageUnsubscribePublishedFileResult_t__bindgen_ty_1 {
-    k_iCallback = 1315,
-}
+    RemoteStorageUnsubscribePublishedFileResult_t__bindgen_ty_1 = 1315;
+pub type RemoteStorageUnsubscribePublishedFileResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageUnsubscribePublishedFileResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageUnsubscribePublishedFileResult_t> =
@@ -9619,14 +8809,8 @@ pub struct RemoteStorageUpdatePublishedFileResult_t {
     pub m_bUserNeedsToAcceptWorkshopLegalAgreement: bool,
 }
 pub const RemoteStorageUpdatePublishedFileResult_t_k_iCallback:
-    RemoteStorageUpdatePublishedFileResult_t__bindgen_ty_1 =
-    RemoteStorageUpdatePublishedFileResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageUpdatePublishedFileResult_t__bindgen_ty_1 {
-    k_iCallback = 1316,
-}
+    RemoteStorageUpdatePublishedFileResult_t__bindgen_ty_1 = 1316;
+pub type RemoteStorageUpdatePublishedFileResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageUpdatePublishedFileResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageUpdatePublishedFileResult_t> =
@@ -9693,14 +8877,8 @@ pub struct RemoteStorageDownloadUGCResult_t {
     pub m_ulSteamIDOwner: uint64,
 }
 pub const RemoteStorageDownloadUGCResult_t_k_iCallback:
-    RemoteStorageDownloadUGCResult_t__bindgen_ty_1 =
-    RemoteStorageDownloadUGCResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageDownloadUGCResult_t__bindgen_ty_1 {
-    k_iCallback = 1317,
-}
+    RemoteStorageDownloadUGCResult_t__bindgen_ty_1 = 1317;
+pub type RemoteStorageDownloadUGCResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageDownloadUGCResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageDownloadUGCResult_t> =
@@ -9806,14 +8984,8 @@ pub struct RemoteStorageGetPublishedFileDetailsResult_t {
     pub m_bAcceptedForUse: bool,
 }
 pub const RemoteStorageGetPublishedFileDetailsResult_t_k_iCallback:
-    RemoteStorageGetPublishedFileDetailsResult_t__bindgen_ty_1 =
-    RemoteStorageGetPublishedFileDetailsResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageGetPublishedFileDetailsResult_t__bindgen_ty_1 {
-    k_iCallback = 1318,
-}
+    RemoteStorageGetPublishedFileDetailsResult_t__bindgen_ty_1 = 1318;
+pub type RemoteStorageGetPublishedFileDetailsResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageGetPublishedFileDetailsResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageGetPublishedFileDetailsResult_t> =
@@ -10058,14 +9230,8 @@ pub struct RemoteStorageEnumerateWorkshopFilesResult_t {
     pub m_unStartIndex: uint32,
 }
 pub const RemoteStorageEnumerateWorkshopFilesResult_t_k_iCallback:
-    RemoteStorageEnumerateWorkshopFilesResult_t__bindgen_ty_1 =
-    RemoteStorageEnumerateWorkshopFilesResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageEnumerateWorkshopFilesResult_t__bindgen_ty_1 {
-    k_iCallback = 1319,
-}
+    RemoteStorageEnumerateWorkshopFilesResult_t__bindgen_ty_1 = 1319;
+pub type RemoteStorageEnumerateWorkshopFilesResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageEnumerateWorkshopFilesResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageEnumerateWorkshopFilesResult_t> =
@@ -10169,14 +9335,8 @@ pub struct RemoteStorageGetPublishedItemVoteDetailsResult_t {
     pub m_fScore: f32,
 }
 pub const RemoteStorageGetPublishedItemVoteDetailsResult_t_k_iCallback:
-    RemoteStorageGetPublishedItemVoteDetailsResult_t__bindgen_ty_1 =
-    RemoteStorageGetPublishedItemVoteDetailsResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageGetPublishedItemVoteDetailsResult_t__bindgen_ty_1 {
-    k_iCallback = 1320,
-}
+    RemoteStorageGetPublishedItemVoteDetailsResult_t__bindgen_ty_1 = 1320;
+pub type RemoteStorageGetPublishedItemVoteDetailsResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageGetPublishedItemVoteDetailsResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageGetPublishedItemVoteDetailsResult_t> =
@@ -10266,14 +9426,8 @@ pub struct RemoteStoragePublishedFileSubscribed_t {
     pub m_nAppID: AppId_t,
 }
 pub const RemoteStoragePublishedFileSubscribed_t_k_iCallback:
-    RemoteStoragePublishedFileSubscribed_t__bindgen_ty_1 =
-    RemoteStoragePublishedFileSubscribed_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStoragePublishedFileSubscribed_t__bindgen_ty_1 {
-    k_iCallback = 1321,
-}
+    RemoteStoragePublishedFileSubscribed_t__bindgen_ty_1 = 1321;
+pub type RemoteStoragePublishedFileSubscribed_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStoragePublishedFileSubscribed_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStoragePublishedFileSubscribed_t> =
@@ -10323,14 +9477,8 @@ pub struct RemoteStoragePublishedFileUnsubscribed_t {
     pub m_nAppID: AppId_t,
 }
 pub const RemoteStoragePublishedFileUnsubscribed_t_k_iCallback:
-    RemoteStoragePublishedFileUnsubscribed_t__bindgen_ty_1 =
-    RemoteStoragePublishedFileUnsubscribed_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStoragePublishedFileUnsubscribed_t__bindgen_ty_1 {
-    k_iCallback = 1322,
-}
+    RemoteStoragePublishedFileUnsubscribed_t__bindgen_ty_1 = 1322;
+pub type RemoteStoragePublishedFileUnsubscribed_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStoragePublishedFileUnsubscribed_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStoragePublishedFileUnsubscribed_t> =
@@ -10380,14 +9528,8 @@ pub struct RemoteStoragePublishedFileDeleted_t {
     pub m_nAppID: AppId_t,
 }
 pub const RemoteStoragePublishedFileDeleted_t_k_iCallback:
-    RemoteStoragePublishedFileDeleted_t__bindgen_ty_1 =
-    RemoteStoragePublishedFileDeleted_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStoragePublishedFileDeleted_t__bindgen_ty_1 {
-    k_iCallback = 1323,
-}
+    RemoteStoragePublishedFileDeleted_t__bindgen_ty_1 = 1323;
+pub type RemoteStoragePublishedFileDeleted_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStoragePublishedFileDeleted_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStoragePublishedFileDeleted_t> =
@@ -10434,14 +9576,8 @@ pub struct RemoteStorageUpdateUserPublishedItemVoteResult_t {
     pub m_nPublishedFileId: PublishedFileId_t,
 }
 pub const RemoteStorageUpdateUserPublishedItemVoteResult_t_k_iCallback:
-    RemoteStorageUpdateUserPublishedItemVoteResult_t__bindgen_ty_1 =
-    RemoteStorageUpdateUserPublishedItemVoteResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageUpdateUserPublishedItemVoteResult_t__bindgen_ty_1 {
-    k_iCallback = 1324,
-}
+    RemoteStorageUpdateUserPublishedItemVoteResult_t__bindgen_ty_1 = 1324;
+pub type RemoteStorageUpdateUserPublishedItemVoteResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageUpdateUserPublishedItemVoteResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageUpdateUserPublishedItemVoteResult_t> =
@@ -10492,13 +9628,8 @@ pub struct RemoteStorageUserVoteDetails_t {
     pub m_eVote: EWorkshopVote,
 }
 pub const RemoteStorageUserVoteDetails_t_k_iCallback: RemoteStorageUserVoteDetails_t__bindgen_ty_1 =
-    RemoteStorageUserVoteDetails_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageUserVoteDetails_t__bindgen_ty_1 {
-    k_iCallback = 1325,
-}
+    1325;
+pub type RemoteStorageUserVoteDetails_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageUserVoteDetails_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageUserVoteDetails_t> =
@@ -10554,14 +9685,9 @@ pub struct RemoteStorageEnumerateUserSharedWorkshopFilesResult_t {
     pub m_rgPublishedFileId: [PublishedFileId_t; 50usize],
 }
 pub const RemoteStorageEnumerateUserSharedWorkshopFilesResult_t_k_iCallback:
-    RemoteStorageEnumerateUserSharedWorkshopFilesResult_t__bindgen_ty_1 =
-    RemoteStorageEnumerateUserSharedWorkshopFilesResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageEnumerateUserSharedWorkshopFilesResult_t__bindgen_ty_1 {
-    k_iCallback = 1326,
-}
+    RemoteStorageEnumerateUserSharedWorkshopFilesResult_t__bindgen_ty_1 = 1326;
+pub type RemoteStorageEnumerateUserSharedWorkshopFilesResult_t__bindgen_ty_1 =
+    ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageEnumerateUserSharedWorkshopFilesResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageEnumerateUserSharedWorkshopFilesResult_t> =
@@ -10632,14 +9758,8 @@ pub struct RemoteStorageSetUserPublishedFileActionResult_t {
     pub m_eAction: EWorkshopFileAction,
 }
 pub const RemoteStorageSetUserPublishedFileActionResult_t_k_iCallback:
-    RemoteStorageSetUserPublishedFileActionResult_t__bindgen_ty_1 =
-    RemoteStorageSetUserPublishedFileActionResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageSetUserPublishedFileActionResult_t__bindgen_ty_1 {
-    k_iCallback = 1327,
-}
+    RemoteStorageSetUserPublishedFileActionResult_t__bindgen_ty_1 = 1327;
+pub type RemoteStorageSetUserPublishedFileActionResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageSetUserPublishedFileActionResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageSetUserPublishedFileActionResult_t> =
@@ -10703,14 +9823,9 @@ pub struct RemoteStorageEnumeratePublishedFilesByUserActionResult_t {
     pub m_rgRTimeUpdated: [uint32; 50usize],
 }
 pub const RemoteStorageEnumeratePublishedFilesByUserActionResult_t_k_iCallback:
-    RemoteStorageEnumeratePublishedFilesByUserActionResult_t__bindgen_ty_1 =
-    RemoteStorageEnumeratePublishedFilesByUserActionResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageEnumeratePublishedFilesByUserActionResult_t__bindgen_ty_1 {
-    k_iCallback = 1328,
-}
+    RemoteStorageEnumeratePublishedFilesByUserActionResult_t__bindgen_ty_1 = 1328;
+pub type RemoteStorageEnumeratePublishedFilesByUserActionResult_t__bindgen_ty_1 =
+    ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageEnumeratePublishedFilesByUserActionResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<
@@ -10801,14 +9916,8 @@ pub struct RemoteStoragePublishFileProgress_t {
     pub m_bPreview: bool,
 }
 pub const RemoteStoragePublishFileProgress_t_k_iCallback:
-    RemoteStoragePublishFileProgress_t__bindgen_ty_1 =
-    RemoteStoragePublishFileProgress_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStoragePublishFileProgress_t__bindgen_ty_1 {
-    k_iCallback = 1329,
-}
+    RemoteStoragePublishFileProgress_t__bindgen_ty_1 = 1329;
+pub type RemoteStoragePublishFileProgress_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStoragePublishFileProgress_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStoragePublishFileProgress_t> =
@@ -10856,14 +9965,8 @@ pub struct RemoteStoragePublishedFileUpdated_t {
     pub m_ulUnused: uint64,
 }
 pub const RemoteStoragePublishedFileUpdated_t_k_iCallback:
-    RemoteStoragePublishedFileUpdated_t__bindgen_ty_1 =
-    RemoteStoragePublishedFileUpdated_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStoragePublishedFileUpdated_t__bindgen_ty_1 {
-    k_iCallback = 1330,
-}
+    RemoteStoragePublishedFileUpdated_t__bindgen_ty_1 = 1330;
+pub type RemoteStoragePublishedFileUpdated_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStoragePublishedFileUpdated_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStoragePublishedFileUpdated_t> =
@@ -10919,14 +10022,8 @@ pub struct RemoteStorageFileWriteAsyncComplete_t {
     pub m_eResult: EResult,
 }
 pub const RemoteStorageFileWriteAsyncComplete_t_k_iCallback:
-    RemoteStorageFileWriteAsyncComplete_t__bindgen_ty_1 =
-    RemoteStorageFileWriteAsyncComplete_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageFileWriteAsyncComplete_t__bindgen_ty_1 {
-    k_iCallback = 1331,
-}
+    RemoteStorageFileWriteAsyncComplete_t__bindgen_ty_1 = 1331;
+pub type RemoteStorageFileWriteAsyncComplete_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageFileWriteAsyncComplete_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageFileWriteAsyncComplete_t> =
@@ -10968,14 +10065,8 @@ pub struct RemoteStorageFileReadAsyncComplete_t {
     pub m_cubRead: uint32,
 }
 pub const RemoteStorageFileReadAsyncComplete_t_k_iCallback:
-    RemoteStorageFileReadAsyncComplete_t__bindgen_ty_1 =
-    RemoteStorageFileReadAsyncComplete_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageFileReadAsyncComplete_t__bindgen_ty_1 {
-    k_iCallback = 1332,
-}
+    RemoteStorageFileReadAsyncComplete_t__bindgen_ty_1 = 1332;
+pub type RemoteStorageFileReadAsyncComplete_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageFileReadAsyncComplete_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoteStorageFileReadAsyncComplete_t> =
@@ -11044,13 +10135,8 @@ pub struct RemoteStorageLocalFileChange_t {
     pub _address: u8,
 }
 pub const RemoteStorageLocalFileChange_t_k_iCallback: RemoteStorageLocalFileChange_t__bindgen_ty_1 =
-    RemoteStorageLocalFileChange_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoteStorageLocalFileChange_t__bindgen_ty_1 {
-    k_iCallback = 1333,
-}
+    1333;
+pub type RemoteStorageLocalFileChange_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoteStorageLocalFileChange_t() {
     assert_eq!(
@@ -11064,63 +10150,37 @@ fn bindgen_test_layout_RemoteStorageLocalFileChange_t() {
         concat!("Alignment of ", stringify!(RemoteStorageLocalFileChange_t))
     );
 }
-pub const k_cchStatNameMax: _bindgen_ty_43 = _bindgen_ty_43::k_cchStatNameMax;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_43 {
-    k_cchStatNameMax = 128,
-}
-pub const k_cchLeaderboardNameMax: _bindgen_ty_44 = _bindgen_ty_44::k_cchLeaderboardNameMax;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_44 {
-    k_cchLeaderboardNameMax = 128,
-}
-pub const k_cLeaderboardDetailsMax: _bindgen_ty_45 = _bindgen_ty_45::k_cLeaderboardDetailsMax;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_45 {
-    k_cLeaderboardDetailsMax = 64,
-}
+pub const k_cchStatNameMax: _bindgen_ty_43 = 128;
+pub type _bindgen_ty_43 = ::std::os::raw::c_uint;
+pub const k_cchLeaderboardNameMax: _bindgen_ty_44 = 128;
+pub type _bindgen_ty_44 = ::std::os::raw::c_uint;
+pub const k_cLeaderboardDetailsMax: _bindgen_ty_45 = 64;
+pub type _bindgen_ty_45 = ::std::os::raw::c_uint;
 pub type SteamLeaderboard_t = uint64;
 pub type SteamLeaderboardEntries_t = uint64;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ELeaderboardDataRequest {
-    k_ELeaderboardDataRequestGlobal = 0,
-    k_ELeaderboardDataRequestGlobalAroundUser = 1,
-    k_ELeaderboardDataRequestFriends = 2,
-    k_ELeaderboardDataRequestUsers = 3,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ELeaderboardSortMethod {
-    k_ELeaderboardSortMethodNone = 0,
-    k_ELeaderboardSortMethodAscending = 1,
-    k_ELeaderboardSortMethodDescending = 2,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ELeaderboardDisplayType {
-    k_ELeaderboardDisplayTypeNone = 0,
-    k_ELeaderboardDisplayTypeNumeric = 1,
-    k_ELeaderboardDisplayTypeTimeSeconds = 2,
-    k_ELeaderboardDisplayTypeTimeMilliSeconds = 3,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ELeaderboardUploadScoreMethod {
-    k_ELeaderboardUploadScoreMethodNone = 0,
-    k_ELeaderboardUploadScoreMethodKeepBest = 1,
-    k_ELeaderboardUploadScoreMethodForceUpdate = 2,
-}
+pub const ELeaderboardDataRequest_k_ELeaderboardDataRequestGlobal: ELeaderboardDataRequest = 0;
+pub const ELeaderboardDataRequest_k_ELeaderboardDataRequestGlobalAroundUser:
+    ELeaderboardDataRequest = 1;
+pub const ELeaderboardDataRequest_k_ELeaderboardDataRequestFriends: ELeaderboardDataRequest = 2;
+pub const ELeaderboardDataRequest_k_ELeaderboardDataRequestUsers: ELeaderboardDataRequest = 3;
+pub type ELeaderboardDataRequest = ::std::os::raw::c_uint;
+pub const ELeaderboardSortMethod_k_ELeaderboardSortMethodNone: ELeaderboardSortMethod = 0;
+pub const ELeaderboardSortMethod_k_ELeaderboardSortMethodAscending: ELeaderboardSortMethod = 1;
+pub const ELeaderboardSortMethod_k_ELeaderboardSortMethodDescending: ELeaderboardSortMethod = 2;
+pub type ELeaderboardSortMethod = ::std::os::raw::c_uint;
+pub const ELeaderboardDisplayType_k_ELeaderboardDisplayTypeNone: ELeaderboardDisplayType = 0;
+pub const ELeaderboardDisplayType_k_ELeaderboardDisplayTypeNumeric: ELeaderboardDisplayType = 1;
+pub const ELeaderboardDisplayType_k_ELeaderboardDisplayTypeTimeSeconds: ELeaderboardDisplayType = 2;
+pub const ELeaderboardDisplayType_k_ELeaderboardDisplayTypeTimeMilliSeconds:
+    ELeaderboardDisplayType = 3;
+pub type ELeaderboardDisplayType = ::std::os::raw::c_uint;
+pub const ELeaderboardUploadScoreMethod_k_ELeaderboardUploadScoreMethodNone:
+    ELeaderboardUploadScoreMethod = 0;
+pub const ELeaderboardUploadScoreMethod_k_ELeaderboardUploadScoreMethodKeepBest:
+    ELeaderboardUploadScoreMethod = 1;
+pub const ELeaderboardUploadScoreMethod_k_ELeaderboardUploadScoreMethodForceUpdate:
+    ELeaderboardUploadScoreMethod = 2;
+pub type ELeaderboardUploadScoreMethod = ::std::os::raw::c_uint;
 #[repr(C, packed(4))]
 #[derive(Copy, Clone)]
 pub struct LeaderboardEntry_t {
@@ -11222,14 +10282,8 @@ pub struct UserStatsReceived_t {
     pub m_eResult: EResult,
     pub m_steamIDUser: CSteamID,
 }
-pub const UserStatsReceived_t_k_iCallback: UserStatsReceived_t__bindgen_ty_1 =
-    UserStatsReceived_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum UserStatsReceived_t__bindgen_ty_1 {
-    k_iCallback = 1101,
-}
+pub const UserStatsReceived_t_k_iCallback: UserStatsReceived_t__bindgen_ty_1 = 1101;
+pub type UserStatsReceived_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_UserStatsReceived_t() {
     const UNINIT: ::std::mem::MaybeUninit<UserStatsReceived_t> = ::std::mem::MaybeUninit::uninit();
@@ -11281,14 +10335,8 @@ pub struct UserStatsStored_t {
     pub m_nGameID: uint64,
     pub m_eResult: EResult,
 }
-pub const UserStatsStored_t_k_iCallback: UserStatsStored_t__bindgen_ty_1 =
-    UserStatsStored_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum UserStatsStored_t__bindgen_ty_1 {
-    k_iCallback = 1102,
-}
+pub const UserStatsStored_t_k_iCallback: UserStatsStored_t__bindgen_ty_1 = 1102;
+pub type UserStatsStored_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_UserStatsStored_t() {
     const UNINIT: ::std::mem::MaybeUninit<UserStatsStored_t> = ::std::mem::MaybeUninit::uninit();
@@ -11333,14 +10381,8 @@ pub struct UserAchievementStored_t {
     pub m_nCurProgress: uint32,
     pub m_nMaxProgress: uint32,
 }
-pub const UserAchievementStored_t_k_iCallback: UserAchievementStored_t__bindgen_ty_1 =
-    UserAchievementStored_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum UserAchievementStored_t__bindgen_ty_1 {
-    k_iCallback = 1103,
-}
+pub const UserAchievementStored_t_k_iCallback: UserAchievementStored_t__bindgen_ty_1 = 1103;
+pub type UserAchievementStored_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_UserAchievementStored_t() {
     const UNINIT: ::std::mem::MaybeUninit<UserAchievementStored_t> =
@@ -11413,14 +10455,8 @@ pub struct LeaderboardFindResult_t {
     pub m_hSteamLeaderboard: SteamLeaderboard_t,
     pub m_bLeaderboardFound: uint8,
 }
-pub const LeaderboardFindResult_t_k_iCallback: LeaderboardFindResult_t__bindgen_ty_1 =
-    LeaderboardFindResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LeaderboardFindResult_t__bindgen_ty_1 {
-    k_iCallback = 1104,
-}
+pub const LeaderboardFindResult_t_k_iCallback: LeaderboardFindResult_t__bindgen_ty_1 = 1104;
+pub type LeaderboardFindResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LeaderboardFindResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<LeaderboardFindResult_t> =
@@ -11465,13 +10501,8 @@ pub struct LeaderboardScoresDownloaded_t {
     pub m_cEntryCount: ::std::os::raw::c_int,
 }
 pub const LeaderboardScoresDownloaded_t_k_iCallback: LeaderboardScoresDownloaded_t__bindgen_ty_1 =
-    LeaderboardScoresDownloaded_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LeaderboardScoresDownloaded_t__bindgen_ty_1 {
-    k_iCallback = 1105,
-}
+    1105;
+pub type LeaderboardScoresDownloaded_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LeaderboardScoresDownloaded_t() {
     const UNINIT: ::std::mem::MaybeUninit<LeaderboardScoresDownloaded_t> =
@@ -11528,14 +10559,8 @@ pub struct LeaderboardScoreUploaded_t {
     pub m_nGlobalRankNew: ::std::os::raw::c_int,
     pub m_nGlobalRankPrevious: ::std::os::raw::c_int,
 }
-pub const LeaderboardScoreUploaded_t_k_iCallback: LeaderboardScoreUploaded_t__bindgen_ty_1 =
-    LeaderboardScoreUploaded_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LeaderboardScoreUploaded_t__bindgen_ty_1 {
-    k_iCallback = 1106,
-}
+pub const LeaderboardScoreUploaded_t_k_iCallback: LeaderboardScoreUploaded_t__bindgen_ty_1 = 1106;
+pub type LeaderboardScoreUploaded_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LeaderboardScoreUploaded_t() {
     const UNINIT: ::std::mem::MaybeUninit<LeaderboardScoreUploaded_t> =
@@ -11618,14 +10643,8 @@ pub struct NumberOfCurrentPlayers_t {
     pub m_bSuccess: uint8,
     pub m_cPlayers: int32,
 }
-pub const NumberOfCurrentPlayers_t_k_iCallback: NumberOfCurrentPlayers_t__bindgen_ty_1 =
-    NumberOfCurrentPlayers_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum NumberOfCurrentPlayers_t__bindgen_ty_1 {
-    k_iCallback = 1107,
-}
+pub const NumberOfCurrentPlayers_t_k_iCallback: NumberOfCurrentPlayers_t__bindgen_ty_1 = 1107;
+pub type NumberOfCurrentPlayers_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_NumberOfCurrentPlayers_t() {
     const UNINIT: ::std::mem::MaybeUninit<NumberOfCurrentPlayers_t> =
@@ -11667,14 +10686,8 @@ fn bindgen_test_layout_NumberOfCurrentPlayers_t() {
 pub struct UserStatsUnloaded_t {
     pub m_steamIDUser: CSteamID,
 }
-pub const UserStatsUnloaded_t_k_iCallback: UserStatsUnloaded_t__bindgen_ty_1 =
-    UserStatsUnloaded_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum UserStatsUnloaded_t__bindgen_ty_1 {
-    k_iCallback = 1108,
-}
+pub const UserStatsUnloaded_t_k_iCallback: UserStatsUnloaded_t__bindgen_ty_1 = 1108;
+pub type UserStatsUnloaded_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_UserStatsUnloaded_t() {
     const UNINIT: ::std::mem::MaybeUninit<UserStatsUnloaded_t> = ::std::mem::MaybeUninit::uninit();
@@ -11709,13 +10722,8 @@ pub struct UserAchievementIconFetched_t {
     pub m_nIconHandle: ::std::os::raw::c_int,
 }
 pub const UserAchievementIconFetched_t_k_iCallback: UserAchievementIconFetched_t__bindgen_ty_1 =
-    UserAchievementIconFetched_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum UserAchievementIconFetched_t__bindgen_ty_1 {
-    k_iCallback = 1109,
-}
+    1109;
+pub type UserAchievementIconFetched_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_UserAchievementIconFetched_t() {
     const UNINIT: ::std::mem::MaybeUninit<UserAchievementIconFetched_t> =
@@ -11779,14 +10787,8 @@ pub struct GlobalAchievementPercentagesReady_t {
     pub m_eResult: EResult,
 }
 pub const GlobalAchievementPercentagesReady_t_k_iCallback:
-    GlobalAchievementPercentagesReady_t__bindgen_ty_1 =
-    GlobalAchievementPercentagesReady_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GlobalAchievementPercentagesReady_t__bindgen_ty_1 {
-    k_iCallback = 1110,
-}
+    GlobalAchievementPercentagesReady_t__bindgen_ty_1 = 1110;
+pub type GlobalAchievementPercentagesReady_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GlobalAchievementPercentagesReady_t() {
     const UNINIT: ::std::mem::MaybeUninit<GlobalAchievementPercentagesReady_t> =
@@ -11832,14 +10834,8 @@ pub struct LeaderboardUGCSet_t {
     pub m_eResult: EResult,
     pub m_hSteamLeaderboard: SteamLeaderboard_t,
 }
-pub const LeaderboardUGCSet_t_k_iCallback: LeaderboardUGCSet_t__bindgen_ty_1 =
-    LeaderboardUGCSet_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum LeaderboardUGCSet_t__bindgen_ty_1 {
-    k_iCallback = 1111,
-}
+pub const LeaderboardUGCSet_t_k_iCallback: LeaderboardUGCSet_t__bindgen_ty_1 = 1111;
+pub type LeaderboardUGCSet_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_LeaderboardUGCSet_t() {
     const UNINIT: ::std::mem::MaybeUninit<LeaderboardUGCSet_t> = ::std::mem::MaybeUninit::uninit();
@@ -11882,14 +10878,8 @@ pub struct PS3TrophiesInstalled_t {
     pub m_eResult: EResult,
     pub m_ulRequiredDiskSpace: uint64,
 }
-pub const PS3TrophiesInstalled_t_k_iCallback: PS3TrophiesInstalled_t__bindgen_ty_1 =
-    PS3TrophiesInstalled_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum PS3TrophiesInstalled_t__bindgen_ty_1 {
-    k_iCallback = 1112,
-}
+pub const PS3TrophiesInstalled_t_k_iCallback: PS3TrophiesInstalled_t__bindgen_ty_1 = 1112;
+pub type PS3TrophiesInstalled_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_PS3TrophiesInstalled_t() {
     const UNINIT: ::std::mem::MaybeUninit<PS3TrophiesInstalled_t> =
@@ -11942,14 +10932,8 @@ pub struct GlobalStatsReceived_t {
     pub m_nGameID: uint64,
     pub m_eResult: EResult,
 }
-pub const GlobalStatsReceived_t_k_iCallback: GlobalStatsReceived_t__bindgen_ty_1 =
-    GlobalStatsReceived_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GlobalStatsReceived_t__bindgen_ty_1 {
-    k_iCallback = 1112,
-}
+pub const GlobalStatsReceived_t_k_iCallback: GlobalStatsReceived_t__bindgen_ty_1 = 1112;
+pub type GlobalStatsReceived_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GlobalStatsReceived_t() {
     const UNINIT: ::std::mem::MaybeUninit<GlobalStatsReceived_t> =
@@ -12012,14 +10996,8 @@ fn bindgen_test_layout_ISteamApps() {
 pub struct DlcInstalled_t {
     pub m_nAppID: AppId_t,
 }
-pub const DlcInstalled_t_k_iCallback: DlcInstalled_t__bindgen_ty_1 =
-    DlcInstalled_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum DlcInstalled_t__bindgen_ty_1 {
-    k_iCallback = 1005,
-}
+pub const DlcInstalled_t_k_iCallback: DlcInstalled_t__bindgen_ty_1 = 1005;
+pub type DlcInstalled_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_DlcInstalled_t() {
     const UNINIT: ::std::mem::MaybeUninit<DlcInstalled_t> = ::std::mem::MaybeUninit::uninit();
@@ -12050,14 +11028,8 @@ fn bindgen_test_layout_DlcInstalled_t() {
 pub struct NewUrlLaunchParameters_t {
     pub _address: u8,
 }
-pub const NewUrlLaunchParameters_t_k_iCallback: NewUrlLaunchParameters_t__bindgen_ty_1 =
-    NewUrlLaunchParameters_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum NewUrlLaunchParameters_t__bindgen_ty_1 {
-    k_iCallback = 1014,
-}
+pub const NewUrlLaunchParameters_t_k_iCallback: NewUrlLaunchParameters_t__bindgen_ty_1 = 1014;
+pub type NewUrlLaunchParameters_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_NewUrlLaunchParameters_t() {
     assert_eq!(
@@ -12080,14 +11052,8 @@ pub struct AppProofOfPurchaseKeyResponse_t {
     pub m_rgchKey: [::std::os::raw::c_char; 240usize],
 }
 pub const AppProofOfPurchaseKeyResponse_t_k_iCallback:
-    AppProofOfPurchaseKeyResponse_t__bindgen_ty_1 =
-    AppProofOfPurchaseKeyResponse_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum AppProofOfPurchaseKeyResponse_t__bindgen_ty_1 {
-    k_iCallback = 1021,
-}
+    AppProofOfPurchaseKeyResponse_t__bindgen_ty_1 = 1021;
+pub type AppProofOfPurchaseKeyResponse_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_AppProofOfPurchaseKeyResponse_t() {
     const UNINIT: ::std::mem::MaybeUninit<AppProofOfPurchaseKeyResponse_t> =
@@ -12152,14 +11118,8 @@ pub struct FileDetailsResult_t {
     pub m_FileSHA: [uint8; 20usize],
     pub m_unFlags: uint32,
 }
-pub const FileDetailsResult_t_k_iCallback: FileDetailsResult_t__bindgen_ty_1 =
-    FileDetailsResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum FileDetailsResult_t__bindgen_ty_1 {
-    k_iCallback = 1023,
-}
+pub const FileDetailsResult_t_k_iCallback: FileDetailsResult_t__bindgen_ty_1 = 1023;
+pub type FileDetailsResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_FileDetailsResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<FileDetailsResult_t> = ::std::mem::MaybeUninit::uninit();
@@ -12223,14 +11183,8 @@ pub struct TimedTrialStatus_t {
     pub m_unSecondsAllowed: uint32,
     pub m_unSecondsPlayed: uint32,
 }
-pub const TimedTrialStatus_t_k_iCallback: TimedTrialStatus_t__bindgen_ty_1 =
-    TimedTrialStatus_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum TimedTrialStatus_t__bindgen_ty_1 {
-    k_iCallback = 1030,
-}
+pub const TimedTrialStatus_t_k_iCallback: TimedTrialStatus_t__bindgen_ty_1 = 1030;
+pub type TimedTrialStatus_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_TimedTrialStatus_t() {
     const UNINIT: ::std::mem::MaybeUninit<TimedTrialStatus_t> = ::std::mem::MaybeUninit::uninit();
@@ -12286,26 +11240,18 @@ fn bindgen_test_layout_TimedTrialStatus_t() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EP2PSessionError {
-    k_EP2PSessionErrorNone = 0,
-    k_EP2PSessionErrorNoRightsToApp = 2,
-    k_EP2PSessionErrorTimeout = 4,
-    k_EP2PSessionErrorNotRunningApp_DELETED = 1,
-    k_EP2PSessionErrorDestinationNotLoggedIn_DELETED = 3,
-    k_EP2PSessionErrorMax = 5,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EP2PSend {
-    k_EP2PSendUnreliable = 0,
-    k_EP2PSendUnreliableNoDelay = 1,
-    k_EP2PSendReliable = 2,
-    k_EP2PSendReliableWithBuffering = 3,
-}
+pub const EP2PSessionError_k_EP2PSessionErrorNone: EP2PSessionError = 0;
+pub const EP2PSessionError_k_EP2PSessionErrorNoRightsToApp: EP2PSessionError = 2;
+pub const EP2PSessionError_k_EP2PSessionErrorTimeout: EP2PSessionError = 4;
+pub const EP2PSessionError_k_EP2PSessionErrorNotRunningApp_DELETED: EP2PSessionError = 1;
+pub const EP2PSessionError_k_EP2PSessionErrorDestinationNotLoggedIn_DELETED: EP2PSessionError = 3;
+pub const EP2PSessionError_k_EP2PSessionErrorMax: EP2PSessionError = 5;
+pub type EP2PSessionError = ::std::os::raw::c_uint;
+pub const EP2PSend_k_EP2PSendUnreliable: EP2PSend = 0;
+pub const EP2PSend_k_EP2PSendUnreliableNoDelay: EP2PSend = 1;
+pub const EP2PSend_k_EP2PSendReliable: EP2PSend = 2;
+pub const EP2PSend_k_EP2PSendReliableWithBuffering: EP2PSend = 3;
+pub type EP2PSend = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct P2PSessionState_t {
@@ -12415,30 +11361,24 @@ fn bindgen_test_layout_P2PSessionState_t() {
 }
 pub type SNetSocket_t = uint32;
 pub type SNetListenSocket_t = uint32;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESNetSocketState {
-    k_ESNetSocketStateInvalid = 0,
-    k_ESNetSocketStateConnected = 1,
-    k_ESNetSocketStateInitiated = 10,
-    k_ESNetSocketStateLocalCandidatesFound = 11,
-    k_ESNetSocketStateReceivedRemoteCandidates = 12,
-    k_ESNetSocketStateChallengeHandshake = 15,
-    k_ESNetSocketStateDisconnecting = 21,
-    k_ESNetSocketStateLocalDisconnect = 22,
-    k_ESNetSocketStateTimeoutDuringConnect = 23,
-    k_ESNetSocketStateRemoteEndDisconnected = 24,
-    k_ESNetSocketStateConnectionBroken = 25,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESNetSocketConnectionType {
-    k_ESNetSocketConnectionTypeNotConnected = 0,
-    k_ESNetSocketConnectionTypeUDP = 1,
-    k_ESNetSocketConnectionTypeUDPRelay = 2,
-}
+pub const ESNetSocketState_k_ESNetSocketStateInvalid: ESNetSocketState = 0;
+pub const ESNetSocketState_k_ESNetSocketStateConnected: ESNetSocketState = 1;
+pub const ESNetSocketState_k_ESNetSocketStateInitiated: ESNetSocketState = 10;
+pub const ESNetSocketState_k_ESNetSocketStateLocalCandidatesFound: ESNetSocketState = 11;
+pub const ESNetSocketState_k_ESNetSocketStateReceivedRemoteCandidates: ESNetSocketState = 12;
+pub const ESNetSocketState_k_ESNetSocketStateChallengeHandshake: ESNetSocketState = 15;
+pub const ESNetSocketState_k_ESNetSocketStateDisconnecting: ESNetSocketState = 21;
+pub const ESNetSocketState_k_ESNetSocketStateLocalDisconnect: ESNetSocketState = 22;
+pub const ESNetSocketState_k_ESNetSocketStateTimeoutDuringConnect: ESNetSocketState = 23;
+pub const ESNetSocketState_k_ESNetSocketStateRemoteEndDisconnected: ESNetSocketState = 24;
+pub const ESNetSocketState_k_ESNetSocketStateConnectionBroken: ESNetSocketState = 25;
+pub type ESNetSocketState = ::std::os::raw::c_uint;
+pub const ESNetSocketConnectionType_k_ESNetSocketConnectionTypeNotConnected:
+    ESNetSocketConnectionType = 0;
+pub const ESNetSocketConnectionType_k_ESNetSocketConnectionTypeUDP: ESNetSocketConnectionType = 1;
+pub const ESNetSocketConnectionType_k_ESNetSocketConnectionTypeUDPRelay: ESNetSocketConnectionType =
+    2;
+pub type ESNetSocketConnectionType = ::std::os::raw::c_uint;
 #[repr(C)]
 pub struct ISteamNetworking__bindgen_vtable(::std::os::raw::c_void);
 #[doc = "      the Steamworks SDK.  Please see ISteamNetworkingSockets and\n      ISteamNetworkingMessages"]
@@ -12465,14 +11405,8 @@ fn bindgen_test_layout_ISteamNetworking() {
 pub struct P2PSessionRequest_t {
     pub m_steamIDRemote: CSteamID,
 }
-pub const P2PSessionRequest_t_k_iCallback: P2PSessionRequest_t__bindgen_ty_1 =
-    P2PSessionRequest_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum P2PSessionRequest_t__bindgen_ty_1 {
-    k_iCallback = 1202,
-}
+pub const P2PSessionRequest_t_k_iCallback: P2PSessionRequest_t__bindgen_ty_1 = 1202;
+pub type P2PSessionRequest_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_P2PSessionRequest_t() {
     const UNINIT: ::std::mem::MaybeUninit<P2PSessionRequest_t> = ::std::mem::MaybeUninit::uninit();
@@ -12504,14 +11438,8 @@ pub struct P2PSessionConnectFail_t {
     pub m_steamIDRemote: CSteamID,
     pub m_eP2PSessionError: uint8,
 }
-pub const P2PSessionConnectFail_t_k_iCallback: P2PSessionConnectFail_t__bindgen_ty_1 =
-    P2PSessionConnectFail_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum P2PSessionConnectFail_t__bindgen_ty_1 {
-    k_iCallback = 1203,
-}
+pub const P2PSessionConnectFail_t_k_iCallback: P2PSessionConnectFail_t__bindgen_ty_1 = 1203;
+pub type P2PSessionConnectFail_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_P2PSessionConnectFail_t() {
     const UNINIT: ::std::mem::MaybeUninit<P2PSessionConnectFail_t> =
@@ -12556,14 +11484,8 @@ pub struct SocketStatusCallback_t {
     pub m_steamIDRemote: CSteamID,
     pub m_eSNetSocketState: ::std::os::raw::c_int,
 }
-pub const SocketStatusCallback_t_k_iCallback: SocketStatusCallback_t__bindgen_ty_1 =
-    SocketStatusCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SocketStatusCallback_t__bindgen_ty_1 {
-    k_iCallback = 1201,
-}
+pub const SocketStatusCallback_t_k_iCallback: SocketStatusCallback_t__bindgen_ty_1 = 1201;
+pub type SocketStatusCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SocketStatusCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<SocketStatusCallback_t> =
@@ -12626,17 +11548,13 @@ pub const k_cubUFSTagTypeMax: ::std::os::raw::c_int = 255;
 pub const k_cubUFSTagValueMax: ::std::os::raw::c_int = 255;
 pub const k_ScreenshotThumbWidth: ::std::os::raw::c_int = 200;
 pub type ScreenshotHandle = uint32;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EVRScreenshotType {
-    k_EVRScreenshotType_None = 0,
-    k_EVRScreenshotType_Mono = 1,
-    k_EVRScreenshotType_Stereo = 2,
-    k_EVRScreenshotType_MonoCubemap = 3,
-    k_EVRScreenshotType_MonoPanorama = 4,
-    k_EVRScreenshotType_StereoPanorama = 5,
-}
+pub const EVRScreenshotType_k_EVRScreenshotType_None: EVRScreenshotType = 0;
+pub const EVRScreenshotType_k_EVRScreenshotType_Mono: EVRScreenshotType = 1;
+pub const EVRScreenshotType_k_EVRScreenshotType_Stereo: EVRScreenshotType = 2;
+pub const EVRScreenshotType_k_EVRScreenshotType_MonoCubemap: EVRScreenshotType = 3;
+pub const EVRScreenshotType_k_EVRScreenshotType_MonoPanorama: EVRScreenshotType = 4;
+pub const EVRScreenshotType_k_EVRScreenshotType_StereoPanorama: EVRScreenshotType = 5;
+pub type EVRScreenshotType = ::std::os::raw::c_uint;
 #[repr(C)]
 pub struct ISteamScreenshots__bindgen_vtable(::std::os::raw::c_void);
 #[repr(C)]
@@ -12663,14 +11581,8 @@ pub struct ScreenshotReady_t {
     pub m_hLocal: ScreenshotHandle,
     pub m_eResult: EResult,
 }
-pub const ScreenshotReady_t_k_iCallback: ScreenshotReady_t__bindgen_ty_1 =
-    ScreenshotReady_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ScreenshotReady_t__bindgen_ty_1 {
-    k_iCallback = 2301,
-}
+pub const ScreenshotReady_t_k_iCallback: ScreenshotReady_t__bindgen_ty_1 = 2301;
+pub type ScreenshotReady_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_ScreenshotReady_t() {
     const UNINIT: ::std::mem::MaybeUninit<ScreenshotReady_t> = ::std::mem::MaybeUninit::uninit();
@@ -12711,14 +11623,8 @@ fn bindgen_test_layout_ScreenshotReady_t() {
 pub struct ScreenshotRequested_t {
     pub _address: u8,
 }
-pub const ScreenshotRequested_t_k_iCallback: ScreenshotRequested_t__bindgen_ty_1 =
-    ScreenshotRequested_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ScreenshotRequested_t__bindgen_ty_1 {
-    k_iCallback = 2302,
-}
+pub const ScreenshotRequested_t_k_iCallback: ScreenshotRequested_t__bindgen_ty_1 = 2302;
+pub type ScreenshotRequested_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_ScreenshotRequested_t() {
     assert_eq!(
@@ -12732,15 +11638,11 @@ fn bindgen_test_layout_ScreenshotRequested_t() {
         concat!("Alignment of ", stringify!(ScreenshotRequested_t))
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum AudioPlayback_Status {
-    AudioPlayback_Undefined = 0,
-    AudioPlayback_Playing = 1,
-    AudioPlayback_Paused = 2,
-    AudioPlayback_Idle = 3,
-}
+pub const AudioPlayback_Status_AudioPlayback_Undefined: AudioPlayback_Status = 0;
+pub const AudioPlayback_Status_AudioPlayback_Playing: AudioPlayback_Status = 1;
+pub const AudioPlayback_Status_AudioPlayback_Paused: AudioPlayback_Status = 2;
+pub const AudioPlayback_Status_AudioPlayback_Idle: AudioPlayback_Status = 3;
+pub type AudioPlayback_Status = ::std::os::raw::c_uint;
 #[repr(C)]
 pub struct ISteamMusic__bindgen_vtable(::std::os::raw::c_void);
 #[repr(C)]
@@ -12766,14 +11668,8 @@ fn bindgen_test_layout_ISteamMusic() {
 pub struct PlaybackStatusHasChanged_t {
     pub _address: u8,
 }
-pub const PlaybackStatusHasChanged_t_k_iCallback: PlaybackStatusHasChanged_t__bindgen_ty_1 =
-    PlaybackStatusHasChanged_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum PlaybackStatusHasChanged_t__bindgen_ty_1 {
-    k_iCallback = 4001,
-}
+pub const PlaybackStatusHasChanged_t_k_iCallback: PlaybackStatusHasChanged_t__bindgen_ty_1 = 4001;
+pub type PlaybackStatusHasChanged_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_PlaybackStatusHasChanged_t() {
     assert_eq!(
@@ -12792,14 +11688,8 @@ fn bindgen_test_layout_PlaybackStatusHasChanged_t() {
 pub struct VolumeHasChanged_t {
     pub m_flNewVolume: f32,
 }
-pub const VolumeHasChanged_t_k_iCallback: VolumeHasChanged_t__bindgen_ty_1 =
-    VolumeHasChanged_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum VolumeHasChanged_t__bindgen_ty_1 {
-    k_iCallback = 4002,
-}
+pub const VolumeHasChanged_t_k_iCallback: VolumeHasChanged_t__bindgen_ty_1 = 4002;
+pub type VolumeHasChanged_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_VolumeHasChanged_t() {
     const UNINIT: ::std::mem::MaybeUninit<VolumeHasChanged_t> = ::std::mem::MaybeUninit::uninit();
@@ -12851,14 +11741,8 @@ pub struct MusicPlayerRemoteWillActivate_t {
     pub _address: u8,
 }
 pub const MusicPlayerRemoteWillActivate_t_k_iCallback:
-    MusicPlayerRemoteWillActivate_t__bindgen_ty_1 =
-    MusicPlayerRemoteWillActivate_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerRemoteWillActivate_t__bindgen_ty_1 {
-    k_iCallback = 4101,
-}
+    MusicPlayerRemoteWillActivate_t__bindgen_ty_1 = 4101;
+pub type MusicPlayerRemoteWillActivate_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerRemoteWillActivate_t() {
     assert_eq!(
@@ -12878,14 +11762,8 @@ pub struct MusicPlayerRemoteWillDeactivate_t {
     pub _address: u8,
 }
 pub const MusicPlayerRemoteWillDeactivate_t_k_iCallback:
-    MusicPlayerRemoteWillDeactivate_t__bindgen_ty_1 =
-    MusicPlayerRemoteWillDeactivate_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerRemoteWillDeactivate_t__bindgen_ty_1 {
-    k_iCallback = 4102,
-}
+    MusicPlayerRemoteWillDeactivate_t__bindgen_ty_1 = 4102;
+pub type MusicPlayerRemoteWillDeactivate_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerRemoteWillDeactivate_t() {
     assert_eq!(
@@ -12907,14 +11785,8 @@ fn bindgen_test_layout_MusicPlayerRemoteWillDeactivate_t() {
 pub struct MusicPlayerRemoteToFront_t {
     pub _address: u8,
 }
-pub const MusicPlayerRemoteToFront_t_k_iCallback: MusicPlayerRemoteToFront_t__bindgen_ty_1 =
-    MusicPlayerRemoteToFront_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerRemoteToFront_t__bindgen_ty_1 {
-    k_iCallback = 4103,
-}
+pub const MusicPlayerRemoteToFront_t_k_iCallback: MusicPlayerRemoteToFront_t__bindgen_ty_1 = 4103;
+pub type MusicPlayerRemoteToFront_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerRemoteToFront_t() {
     assert_eq!(
@@ -12933,14 +11805,8 @@ fn bindgen_test_layout_MusicPlayerRemoteToFront_t() {
 pub struct MusicPlayerWillQuit_t {
     pub _address: u8,
 }
-pub const MusicPlayerWillQuit_t_k_iCallback: MusicPlayerWillQuit_t__bindgen_ty_1 =
-    MusicPlayerWillQuit_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerWillQuit_t__bindgen_ty_1 {
-    k_iCallback = 4104,
-}
+pub const MusicPlayerWillQuit_t_k_iCallback: MusicPlayerWillQuit_t__bindgen_ty_1 = 4104;
+pub type MusicPlayerWillQuit_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerWillQuit_t() {
     assert_eq!(
@@ -12959,14 +11825,8 @@ fn bindgen_test_layout_MusicPlayerWillQuit_t() {
 pub struct MusicPlayerWantsPlay_t {
     pub _address: u8,
 }
-pub const MusicPlayerWantsPlay_t_k_iCallback: MusicPlayerWantsPlay_t__bindgen_ty_1 =
-    MusicPlayerWantsPlay_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerWantsPlay_t__bindgen_ty_1 {
-    k_iCallback = 4105,
-}
+pub const MusicPlayerWantsPlay_t_k_iCallback: MusicPlayerWantsPlay_t__bindgen_ty_1 = 4105;
+pub type MusicPlayerWantsPlay_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerWantsPlay_t() {
     assert_eq!(
@@ -12985,14 +11845,8 @@ fn bindgen_test_layout_MusicPlayerWantsPlay_t() {
 pub struct MusicPlayerWantsPause_t {
     pub _address: u8,
 }
-pub const MusicPlayerWantsPause_t_k_iCallback: MusicPlayerWantsPause_t__bindgen_ty_1 =
-    MusicPlayerWantsPause_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerWantsPause_t__bindgen_ty_1 {
-    k_iCallback = 4106,
-}
+pub const MusicPlayerWantsPause_t_k_iCallback: MusicPlayerWantsPause_t__bindgen_ty_1 = 4106;
+pub type MusicPlayerWantsPause_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerWantsPause_t() {
     assert_eq!(
@@ -13012,13 +11866,8 @@ pub struct MusicPlayerWantsPlayPrevious_t {
     pub _address: u8,
 }
 pub const MusicPlayerWantsPlayPrevious_t_k_iCallback: MusicPlayerWantsPlayPrevious_t__bindgen_ty_1 =
-    MusicPlayerWantsPlayPrevious_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerWantsPlayPrevious_t__bindgen_ty_1 {
-    k_iCallback = 4107,
-}
+    4107;
+pub type MusicPlayerWantsPlayPrevious_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerWantsPlayPrevious_t() {
     assert_eq!(
@@ -13037,14 +11886,8 @@ fn bindgen_test_layout_MusicPlayerWantsPlayPrevious_t() {
 pub struct MusicPlayerWantsPlayNext_t {
     pub _address: u8,
 }
-pub const MusicPlayerWantsPlayNext_t_k_iCallback: MusicPlayerWantsPlayNext_t__bindgen_ty_1 =
-    MusicPlayerWantsPlayNext_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerWantsPlayNext_t__bindgen_ty_1 {
-    k_iCallback = 4108,
-}
+pub const MusicPlayerWantsPlayNext_t_k_iCallback: MusicPlayerWantsPlayNext_t__bindgen_ty_1 = 4108;
+pub type MusicPlayerWantsPlayNext_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerWantsPlayNext_t() {
     assert_eq!(
@@ -13063,14 +11906,8 @@ fn bindgen_test_layout_MusicPlayerWantsPlayNext_t() {
 pub struct MusicPlayerWantsShuffled_t {
     pub m_bShuffled: bool,
 }
-pub const MusicPlayerWantsShuffled_t_k_iCallback: MusicPlayerWantsShuffled_t__bindgen_ty_1 =
-    MusicPlayerWantsShuffled_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerWantsShuffled_t__bindgen_ty_1 {
-    k_iCallback = 4109,
-}
+pub const MusicPlayerWantsShuffled_t_k_iCallback: MusicPlayerWantsShuffled_t__bindgen_ty_1 = 4109;
+pub type MusicPlayerWantsShuffled_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerWantsShuffled_t() {
     const UNINIT: ::std::mem::MaybeUninit<MusicPlayerWantsShuffled_t> =
@@ -13102,14 +11939,8 @@ fn bindgen_test_layout_MusicPlayerWantsShuffled_t() {
 pub struct MusicPlayerWantsLooped_t {
     pub m_bLooped: bool,
 }
-pub const MusicPlayerWantsLooped_t_k_iCallback: MusicPlayerWantsLooped_t__bindgen_ty_1 =
-    MusicPlayerWantsLooped_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerWantsLooped_t__bindgen_ty_1 {
-    k_iCallback = 4110,
-}
+pub const MusicPlayerWantsLooped_t_k_iCallback: MusicPlayerWantsLooped_t__bindgen_ty_1 = 4110;
+pub type MusicPlayerWantsLooped_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerWantsLooped_t() {
     const UNINIT: ::std::mem::MaybeUninit<MusicPlayerWantsLooped_t> =
@@ -13141,14 +11972,8 @@ fn bindgen_test_layout_MusicPlayerWantsLooped_t() {
 pub struct MusicPlayerWantsVolume_t {
     pub m_flNewVolume: f32,
 }
-pub const MusicPlayerWantsVolume_t_k_iCallback: MusicPlayerWantsVolume_t__bindgen_ty_1 =
-    MusicPlayerWantsVolume_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerWantsVolume_t__bindgen_ty_1 {
-    k_iCallback = 4011,
-}
+pub const MusicPlayerWantsVolume_t_k_iCallback: MusicPlayerWantsVolume_t__bindgen_ty_1 = 4011;
+pub type MusicPlayerWantsVolume_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerWantsVolume_t() {
     const UNINIT: ::std::mem::MaybeUninit<MusicPlayerWantsVolume_t> =
@@ -13181,13 +12006,8 @@ pub struct MusicPlayerSelectsQueueEntry_t {
     pub nID: ::std::os::raw::c_int,
 }
 pub const MusicPlayerSelectsQueueEntry_t_k_iCallback: MusicPlayerSelectsQueueEntry_t__bindgen_ty_1 =
-    MusicPlayerSelectsQueueEntry_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerSelectsQueueEntry_t__bindgen_ty_1 {
-    k_iCallback = 4012,
-}
+    4012;
+pub type MusicPlayerSelectsQueueEntry_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerSelectsQueueEntry_t() {
     const UNINIT: ::std::mem::MaybeUninit<MusicPlayerSelectsQueueEntry_t> =
@@ -13220,14 +12040,8 @@ pub struct MusicPlayerSelectsPlaylistEntry_t {
     pub nID: ::std::os::raw::c_int,
 }
 pub const MusicPlayerSelectsPlaylistEntry_t_k_iCallback:
-    MusicPlayerSelectsPlaylistEntry_t__bindgen_ty_1 =
-    MusicPlayerSelectsPlaylistEntry_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerSelectsPlaylistEntry_t__bindgen_ty_1 {
-    k_iCallback = 4013,
-}
+    MusicPlayerSelectsPlaylistEntry_t__bindgen_ty_1 = 4013;
+pub type MusicPlayerSelectsPlaylistEntry_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerSelectsPlaylistEntry_t() {
     const UNINIT: ::std::mem::MaybeUninit<MusicPlayerSelectsPlaylistEntry_t> =
@@ -13263,14 +12077,8 @@ pub struct MusicPlayerWantsPlayingRepeatStatus_t {
     pub m_nPlayingRepeatStatus: ::std::os::raw::c_int,
 }
 pub const MusicPlayerWantsPlayingRepeatStatus_t_k_iCallback:
-    MusicPlayerWantsPlayingRepeatStatus_t__bindgen_ty_1 =
-    MusicPlayerWantsPlayingRepeatStatus_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum MusicPlayerWantsPlayingRepeatStatus_t__bindgen_ty_1 {
-    k_iCallback = 4114,
-}
+    MusicPlayerWantsPlayingRepeatStatus_t__bindgen_ty_1 = 4114;
+pub type MusicPlayerWantsPlayingRepeatStatus_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_MusicPlayerWantsPlayingRepeatStatus_t() {
     const UNINIT: ::std::mem::MaybeUninit<MusicPlayerWantsPlayingRepeatStatus_t> =
@@ -13303,70 +12111,62 @@ fn bindgen_test_layout_MusicPlayerWantsPlayingRepeatStatus_t() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EHTTPMethod {
-    k_EHTTPMethodInvalid = 0,
-    k_EHTTPMethodGET = 1,
-    k_EHTTPMethodHEAD = 2,
-    k_EHTTPMethodPOST = 3,
-    k_EHTTPMethodPUT = 4,
-    k_EHTTPMethodDELETE = 5,
-    k_EHTTPMethodOPTIONS = 6,
-    k_EHTTPMethodPATCH = 7,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EHTTPStatusCode {
-    k_EHTTPStatusCodeInvalid = 0,
-    k_EHTTPStatusCode100Continue = 100,
-    k_EHTTPStatusCode101SwitchingProtocols = 101,
-    k_EHTTPStatusCode200OK = 200,
-    k_EHTTPStatusCode201Created = 201,
-    k_EHTTPStatusCode202Accepted = 202,
-    k_EHTTPStatusCode203NonAuthoritative = 203,
-    k_EHTTPStatusCode204NoContent = 204,
-    k_EHTTPStatusCode205ResetContent = 205,
-    k_EHTTPStatusCode206PartialContent = 206,
-    k_EHTTPStatusCode300MultipleChoices = 300,
-    k_EHTTPStatusCode301MovedPermanently = 301,
-    k_EHTTPStatusCode302Found = 302,
-    k_EHTTPStatusCode303SeeOther = 303,
-    k_EHTTPStatusCode304NotModified = 304,
-    k_EHTTPStatusCode305UseProxy = 305,
-    k_EHTTPStatusCode307TemporaryRedirect = 307,
-    k_EHTTPStatusCode308PermanentRedirect = 308,
-    k_EHTTPStatusCode400BadRequest = 400,
-    k_EHTTPStatusCode401Unauthorized = 401,
-    k_EHTTPStatusCode402PaymentRequired = 402,
-    k_EHTTPStatusCode403Forbidden = 403,
-    k_EHTTPStatusCode404NotFound = 404,
-    k_EHTTPStatusCode405MethodNotAllowed = 405,
-    k_EHTTPStatusCode406NotAcceptable = 406,
-    k_EHTTPStatusCode407ProxyAuthRequired = 407,
-    k_EHTTPStatusCode408RequestTimeout = 408,
-    k_EHTTPStatusCode409Conflict = 409,
-    k_EHTTPStatusCode410Gone = 410,
-    k_EHTTPStatusCode411LengthRequired = 411,
-    k_EHTTPStatusCode412PreconditionFailed = 412,
-    k_EHTTPStatusCode413RequestEntityTooLarge = 413,
-    k_EHTTPStatusCode414RequestURITooLong = 414,
-    k_EHTTPStatusCode415UnsupportedMediaType = 415,
-    k_EHTTPStatusCode416RequestedRangeNotSatisfiable = 416,
-    k_EHTTPStatusCode417ExpectationFailed = 417,
-    k_EHTTPStatusCode4xxUnknown = 418,
-    k_EHTTPStatusCode429TooManyRequests = 429,
-    k_EHTTPStatusCode444ConnectionClosed = 444,
-    k_EHTTPStatusCode500InternalServerError = 500,
-    k_EHTTPStatusCode501NotImplemented = 501,
-    k_EHTTPStatusCode502BadGateway = 502,
-    k_EHTTPStatusCode503ServiceUnavailable = 503,
-    k_EHTTPStatusCode504GatewayTimeout = 504,
-    k_EHTTPStatusCode505HTTPVersionNotSupported = 505,
-    k_EHTTPStatusCode5xxUnknown = 599,
-}
+pub const EHTTPMethod_k_EHTTPMethodInvalid: EHTTPMethod = 0;
+pub const EHTTPMethod_k_EHTTPMethodGET: EHTTPMethod = 1;
+pub const EHTTPMethod_k_EHTTPMethodHEAD: EHTTPMethod = 2;
+pub const EHTTPMethod_k_EHTTPMethodPOST: EHTTPMethod = 3;
+pub const EHTTPMethod_k_EHTTPMethodPUT: EHTTPMethod = 4;
+pub const EHTTPMethod_k_EHTTPMethodDELETE: EHTTPMethod = 5;
+pub const EHTTPMethod_k_EHTTPMethodOPTIONS: EHTTPMethod = 6;
+pub const EHTTPMethod_k_EHTTPMethodPATCH: EHTTPMethod = 7;
+pub type EHTTPMethod = ::std::os::raw::c_uint;
+pub const EHTTPStatusCode_k_EHTTPStatusCodeInvalid: EHTTPStatusCode = 0;
+pub const EHTTPStatusCode_k_EHTTPStatusCode100Continue: EHTTPStatusCode = 100;
+pub const EHTTPStatusCode_k_EHTTPStatusCode101SwitchingProtocols: EHTTPStatusCode = 101;
+pub const EHTTPStatusCode_k_EHTTPStatusCode200OK: EHTTPStatusCode = 200;
+pub const EHTTPStatusCode_k_EHTTPStatusCode201Created: EHTTPStatusCode = 201;
+pub const EHTTPStatusCode_k_EHTTPStatusCode202Accepted: EHTTPStatusCode = 202;
+pub const EHTTPStatusCode_k_EHTTPStatusCode203NonAuthoritative: EHTTPStatusCode = 203;
+pub const EHTTPStatusCode_k_EHTTPStatusCode204NoContent: EHTTPStatusCode = 204;
+pub const EHTTPStatusCode_k_EHTTPStatusCode205ResetContent: EHTTPStatusCode = 205;
+pub const EHTTPStatusCode_k_EHTTPStatusCode206PartialContent: EHTTPStatusCode = 206;
+pub const EHTTPStatusCode_k_EHTTPStatusCode300MultipleChoices: EHTTPStatusCode = 300;
+pub const EHTTPStatusCode_k_EHTTPStatusCode301MovedPermanently: EHTTPStatusCode = 301;
+pub const EHTTPStatusCode_k_EHTTPStatusCode302Found: EHTTPStatusCode = 302;
+pub const EHTTPStatusCode_k_EHTTPStatusCode303SeeOther: EHTTPStatusCode = 303;
+pub const EHTTPStatusCode_k_EHTTPStatusCode304NotModified: EHTTPStatusCode = 304;
+pub const EHTTPStatusCode_k_EHTTPStatusCode305UseProxy: EHTTPStatusCode = 305;
+pub const EHTTPStatusCode_k_EHTTPStatusCode307TemporaryRedirect: EHTTPStatusCode = 307;
+pub const EHTTPStatusCode_k_EHTTPStatusCode308PermanentRedirect: EHTTPStatusCode = 308;
+pub const EHTTPStatusCode_k_EHTTPStatusCode400BadRequest: EHTTPStatusCode = 400;
+pub const EHTTPStatusCode_k_EHTTPStatusCode401Unauthorized: EHTTPStatusCode = 401;
+pub const EHTTPStatusCode_k_EHTTPStatusCode402PaymentRequired: EHTTPStatusCode = 402;
+pub const EHTTPStatusCode_k_EHTTPStatusCode403Forbidden: EHTTPStatusCode = 403;
+pub const EHTTPStatusCode_k_EHTTPStatusCode404NotFound: EHTTPStatusCode = 404;
+pub const EHTTPStatusCode_k_EHTTPStatusCode405MethodNotAllowed: EHTTPStatusCode = 405;
+pub const EHTTPStatusCode_k_EHTTPStatusCode406NotAcceptable: EHTTPStatusCode = 406;
+pub const EHTTPStatusCode_k_EHTTPStatusCode407ProxyAuthRequired: EHTTPStatusCode = 407;
+pub const EHTTPStatusCode_k_EHTTPStatusCode408RequestTimeout: EHTTPStatusCode = 408;
+pub const EHTTPStatusCode_k_EHTTPStatusCode409Conflict: EHTTPStatusCode = 409;
+pub const EHTTPStatusCode_k_EHTTPStatusCode410Gone: EHTTPStatusCode = 410;
+pub const EHTTPStatusCode_k_EHTTPStatusCode411LengthRequired: EHTTPStatusCode = 411;
+pub const EHTTPStatusCode_k_EHTTPStatusCode412PreconditionFailed: EHTTPStatusCode = 412;
+pub const EHTTPStatusCode_k_EHTTPStatusCode413RequestEntityTooLarge: EHTTPStatusCode = 413;
+pub const EHTTPStatusCode_k_EHTTPStatusCode414RequestURITooLong: EHTTPStatusCode = 414;
+pub const EHTTPStatusCode_k_EHTTPStatusCode415UnsupportedMediaType: EHTTPStatusCode = 415;
+pub const EHTTPStatusCode_k_EHTTPStatusCode416RequestedRangeNotSatisfiable: EHTTPStatusCode = 416;
+pub const EHTTPStatusCode_k_EHTTPStatusCode417ExpectationFailed: EHTTPStatusCode = 417;
+pub const EHTTPStatusCode_k_EHTTPStatusCode4xxUnknown: EHTTPStatusCode = 418;
+pub const EHTTPStatusCode_k_EHTTPStatusCode429TooManyRequests: EHTTPStatusCode = 429;
+pub const EHTTPStatusCode_k_EHTTPStatusCode444ConnectionClosed: EHTTPStatusCode = 444;
+pub const EHTTPStatusCode_k_EHTTPStatusCode500InternalServerError: EHTTPStatusCode = 500;
+pub const EHTTPStatusCode_k_EHTTPStatusCode501NotImplemented: EHTTPStatusCode = 501;
+pub const EHTTPStatusCode_k_EHTTPStatusCode502BadGateway: EHTTPStatusCode = 502;
+pub const EHTTPStatusCode_k_EHTTPStatusCode503ServiceUnavailable: EHTTPStatusCode = 503;
+pub const EHTTPStatusCode_k_EHTTPStatusCode504GatewayTimeout: EHTTPStatusCode = 504;
+pub const EHTTPStatusCode_k_EHTTPStatusCode505HTTPVersionNotSupported: EHTTPStatusCode = 505;
+pub const EHTTPStatusCode_k_EHTTPStatusCode5xxUnknown: EHTTPStatusCode = 599;
+pub type EHTTPStatusCode = ::std::os::raw::c_uint;
 pub type HTTPRequestHandle = uint32;
 pub type HTTPCookieContainerHandle = uint32;
 #[repr(C)]
@@ -13398,14 +12198,8 @@ pub struct HTTPRequestCompleted_t {
     pub m_eStatusCode: EHTTPStatusCode,
     pub m_unBodySize: uint32,
 }
-pub const HTTPRequestCompleted_t_k_iCallback: HTTPRequestCompleted_t__bindgen_ty_1 =
-    HTTPRequestCompleted_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTTPRequestCompleted_t__bindgen_ty_1 {
-    k_iCallback = 2101,
-}
+pub const HTTPRequestCompleted_t_k_iCallback: HTTPRequestCompleted_t__bindgen_ty_1 = 2101;
+pub type HTTPRequestCompleted_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTTPRequestCompleted_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTTPRequestCompleted_t> =
@@ -13479,13 +12273,8 @@ pub struct HTTPRequestHeadersReceived_t {
     pub m_ulContextValue: uint64,
 }
 pub const HTTPRequestHeadersReceived_t_k_iCallback: HTTPRequestHeadersReceived_t__bindgen_ty_1 =
-    HTTPRequestHeadersReceived_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTTPRequestHeadersReceived_t__bindgen_ty_1 {
-    k_iCallback = 2102,
-}
+    2102;
+pub type HTTPRequestHeadersReceived_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTTPRequestHeadersReceived_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTTPRequestHeadersReceived_t> =
@@ -13530,14 +12319,8 @@ pub struct HTTPRequestDataReceived_t {
     pub m_cOffset: uint32,
     pub m_cBytesReceived: uint32,
 }
-pub const HTTPRequestDataReceived_t_k_iCallback: HTTPRequestDataReceived_t__bindgen_ty_1 =
-    HTTPRequestDataReceived_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTTPRequestDataReceived_t__bindgen_ty_1 {
-    k_iCallback = 2103,
-}
+pub const HTTPRequestDataReceived_t_k_iCallback: HTTPRequestDataReceived_t__bindgen_ty_1 = 2103;
+pub type HTTPRequestDataReceived_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTTPRequestDataReceived_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTTPRequestDataReceived_t> =
@@ -13594,563 +12377,625 @@ fn bindgen_test_layout_HTTPRequestDataReceived_t() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EInputSourceMode {
-    k_EInputSourceMode_None = 0,
-    k_EInputSourceMode_Dpad = 1,
-    k_EInputSourceMode_Buttons = 2,
-    k_EInputSourceMode_FourButtons = 3,
-    k_EInputSourceMode_AbsoluteMouse = 4,
-    k_EInputSourceMode_RelativeMouse = 5,
-    k_EInputSourceMode_JoystickMove = 6,
-    k_EInputSourceMode_JoystickMouse = 7,
-    k_EInputSourceMode_JoystickCamera = 8,
-    k_EInputSourceMode_ScrollWheel = 9,
-    k_EInputSourceMode_Trigger = 10,
-    k_EInputSourceMode_TouchMenu = 11,
-    k_EInputSourceMode_MouseJoystick = 12,
-    k_EInputSourceMode_MouseRegion = 13,
-    k_EInputSourceMode_RadialMenu = 14,
-    k_EInputSourceMode_SingleButton = 15,
-    k_EInputSourceMode_Switches = 16,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EInputActionOrigin {
-    k_EInputActionOrigin_None = 0,
-    k_EInputActionOrigin_SteamController_A = 1,
-    k_EInputActionOrigin_SteamController_B = 2,
-    k_EInputActionOrigin_SteamController_X = 3,
-    k_EInputActionOrigin_SteamController_Y = 4,
-    k_EInputActionOrigin_SteamController_LeftBumper = 5,
-    k_EInputActionOrigin_SteamController_RightBumper = 6,
-    k_EInputActionOrigin_SteamController_LeftGrip = 7,
-    k_EInputActionOrigin_SteamController_RightGrip = 8,
-    k_EInputActionOrigin_SteamController_Start = 9,
-    k_EInputActionOrigin_SteamController_Back = 10,
-    k_EInputActionOrigin_SteamController_LeftPad_Touch = 11,
-    k_EInputActionOrigin_SteamController_LeftPad_Swipe = 12,
-    k_EInputActionOrigin_SteamController_LeftPad_Click = 13,
-    k_EInputActionOrigin_SteamController_LeftPad_DPadNorth = 14,
-    k_EInputActionOrigin_SteamController_LeftPad_DPadSouth = 15,
-    k_EInputActionOrigin_SteamController_LeftPad_DPadWest = 16,
-    k_EInputActionOrigin_SteamController_LeftPad_DPadEast = 17,
-    k_EInputActionOrigin_SteamController_RightPad_Touch = 18,
-    k_EInputActionOrigin_SteamController_RightPad_Swipe = 19,
-    k_EInputActionOrigin_SteamController_RightPad_Click = 20,
-    k_EInputActionOrigin_SteamController_RightPad_DPadNorth = 21,
-    k_EInputActionOrigin_SteamController_RightPad_DPadSouth = 22,
-    k_EInputActionOrigin_SteamController_RightPad_DPadWest = 23,
-    k_EInputActionOrigin_SteamController_RightPad_DPadEast = 24,
-    k_EInputActionOrigin_SteamController_LeftTrigger_Pull = 25,
-    k_EInputActionOrigin_SteamController_LeftTrigger_Click = 26,
-    k_EInputActionOrigin_SteamController_RightTrigger_Pull = 27,
-    k_EInputActionOrigin_SteamController_RightTrigger_Click = 28,
-    k_EInputActionOrigin_SteamController_LeftStick_Move = 29,
-    k_EInputActionOrigin_SteamController_LeftStick_Click = 30,
-    k_EInputActionOrigin_SteamController_LeftStick_DPadNorth = 31,
-    k_EInputActionOrigin_SteamController_LeftStick_DPadSouth = 32,
-    k_EInputActionOrigin_SteamController_LeftStick_DPadWest = 33,
-    k_EInputActionOrigin_SteamController_LeftStick_DPadEast = 34,
-    k_EInputActionOrigin_SteamController_Gyro_Move = 35,
-    k_EInputActionOrigin_SteamController_Gyro_Pitch = 36,
-    k_EInputActionOrigin_SteamController_Gyro_Yaw = 37,
-    k_EInputActionOrigin_SteamController_Gyro_Roll = 38,
-    k_EInputActionOrigin_SteamController_Reserved0 = 39,
-    k_EInputActionOrigin_SteamController_Reserved1 = 40,
-    k_EInputActionOrigin_SteamController_Reserved2 = 41,
-    k_EInputActionOrigin_SteamController_Reserved3 = 42,
-    k_EInputActionOrigin_SteamController_Reserved4 = 43,
-    k_EInputActionOrigin_SteamController_Reserved5 = 44,
-    k_EInputActionOrigin_SteamController_Reserved6 = 45,
-    k_EInputActionOrigin_SteamController_Reserved7 = 46,
-    k_EInputActionOrigin_SteamController_Reserved8 = 47,
-    k_EInputActionOrigin_SteamController_Reserved9 = 48,
-    k_EInputActionOrigin_SteamController_Reserved10 = 49,
-    k_EInputActionOrigin_PS4_X = 50,
-    k_EInputActionOrigin_PS4_Circle = 51,
-    k_EInputActionOrigin_PS4_Triangle = 52,
-    k_EInputActionOrigin_PS4_Square = 53,
-    k_EInputActionOrigin_PS4_LeftBumper = 54,
-    k_EInputActionOrigin_PS4_RightBumper = 55,
-    k_EInputActionOrigin_PS4_Options = 56,
-    k_EInputActionOrigin_PS4_Share = 57,
-    k_EInputActionOrigin_PS4_LeftPad_Touch = 58,
-    k_EInputActionOrigin_PS4_LeftPad_Swipe = 59,
-    k_EInputActionOrigin_PS4_LeftPad_Click = 60,
-    k_EInputActionOrigin_PS4_LeftPad_DPadNorth = 61,
-    k_EInputActionOrigin_PS4_LeftPad_DPadSouth = 62,
-    k_EInputActionOrigin_PS4_LeftPad_DPadWest = 63,
-    k_EInputActionOrigin_PS4_LeftPad_DPadEast = 64,
-    k_EInputActionOrigin_PS4_RightPad_Touch = 65,
-    k_EInputActionOrigin_PS4_RightPad_Swipe = 66,
-    k_EInputActionOrigin_PS4_RightPad_Click = 67,
-    k_EInputActionOrigin_PS4_RightPad_DPadNorth = 68,
-    k_EInputActionOrigin_PS4_RightPad_DPadSouth = 69,
-    k_EInputActionOrigin_PS4_RightPad_DPadWest = 70,
-    k_EInputActionOrigin_PS4_RightPad_DPadEast = 71,
-    k_EInputActionOrigin_PS4_CenterPad_Touch = 72,
-    k_EInputActionOrigin_PS4_CenterPad_Swipe = 73,
-    k_EInputActionOrigin_PS4_CenterPad_Click = 74,
-    k_EInputActionOrigin_PS4_CenterPad_DPadNorth = 75,
-    k_EInputActionOrigin_PS4_CenterPad_DPadSouth = 76,
-    k_EInputActionOrigin_PS4_CenterPad_DPadWest = 77,
-    k_EInputActionOrigin_PS4_CenterPad_DPadEast = 78,
-    k_EInputActionOrigin_PS4_LeftTrigger_Pull = 79,
-    k_EInputActionOrigin_PS4_LeftTrigger_Click = 80,
-    k_EInputActionOrigin_PS4_RightTrigger_Pull = 81,
-    k_EInputActionOrigin_PS4_RightTrigger_Click = 82,
-    k_EInputActionOrigin_PS4_LeftStick_Move = 83,
-    k_EInputActionOrigin_PS4_LeftStick_Click = 84,
-    k_EInputActionOrigin_PS4_LeftStick_DPadNorth = 85,
-    k_EInputActionOrigin_PS4_LeftStick_DPadSouth = 86,
-    k_EInputActionOrigin_PS4_LeftStick_DPadWest = 87,
-    k_EInputActionOrigin_PS4_LeftStick_DPadEast = 88,
-    k_EInputActionOrigin_PS4_RightStick_Move = 89,
-    k_EInputActionOrigin_PS4_RightStick_Click = 90,
-    k_EInputActionOrigin_PS4_RightStick_DPadNorth = 91,
-    k_EInputActionOrigin_PS4_RightStick_DPadSouth = 92,
-    k_EInputActionOrigin_PS4_RightStick_DPadWest = 93,
-    k_EInputActionOrigin_PS4_RightStick_DPadEast = 94,
-    k_EInputActionOrigin_PS4_DPad_North = 95,
-    k_EInputActionOrigin_PS4_DPad_South = 96,
-    k_EInputActionOrigin_PS4_DPad_West = 97,
-    k_EInputActionOrigin_PS4_DPad_East = 98,
-    k_EInputActionOrigin_PS4_Gyro_Move = 99,
-    k_EInputActionOrigin_PS4_Gyro_Pitch = 100,
-    k_EInputActionOrigin_PS4_Gyro_Yaw = 101,
-    k_EInputActionOrigin_PS4_Gyro_Roll = 102,
-    k_EInputActionOrigin_PS4_DPad_Move = 103,
-    k_EInputActionOrigin_PS4_Reserved1 = 104,
-    k_EInputActionOrigin_PS4_Reserved2 = 105,
-    k_EInputActionOrigin_PS4_Reserved3 = 106,
-    k_EInputActionOrigin_PS4_Reserved4 = 107,
-    k_EInputActionOrigin_PS4_Reserved5 = 108,
-    k_EInputActionOrigin_PS4_Reserved6 = 109,
-    k_EInputActionOrigin_PS4_Reserved7 = 110,
-    k_EInputActionOrigin_PS4_Reserved8 = 111,
-    k_EInputActionOrigin_PS4_Reserved9 = 112,
-    k_EInputActionOrigin_PS4_Reserved10 = 113,
-    k_EInputActionOrigin_XBoxOne_A = 114,
-    k_EInputActionOrigin_XBoxOne_B = 115,
-    k_EInputActionOrigin_XBoxOne_X = 116,
-    k_EInputActionOrigin_XBoxOne_Y = 117,
-    k_EInputActionOrigin_XBoxOne_LeftBumper = 118,
-    k_EInputActionOrigin_XBoxOne_RightBumper = 119,
-    k_EInputActionOrigin_XBoxOne_Menu = 120,
-    k_EInputActionOrigin_XBoxOne_View = 121,
-    k_EInputActionOrigin_XBoxOne_LeftTrigger_Pull = 122,
-    k_EInputActionOrigin_XBoxOne_LeftTrigger_Click = 123,
-    k_EInputActionOrigin_XBoxOne_RightTrigger_Pull = 124,
-    k_EInputActionOrigin_XBoxOne_RightTrigger_Click = 125,
-    k_EInputActionOrigin_XBoxOne_LeftStick_Move = 126,
-    k_EInputActionOrigin_XBoxOne_LeftStick_Click = 127,
-    k_EInputActionOrigin_XBoxOne_LeftStick_DPadNorth = 128,
-    k_EInputActionOrigin_XBoxOne_LeftStick_DPadSouth = 129,
-    k_EInputActionOrigin_XBoxOne_LeftStick_DPadWest = 130,
-    k_EInputActionOrigin_XBoxOne_LeftStick_DPadEast = 131,
-    k_EInputActionOrigin_XBoxOne_RightStick_Move = 132,
-    k_EInputActionOrigin_XBoxOne_RightStick_Click = 133,
-    k_EInputActionOrigin_XBoxOne_RightStick_DPadNorth = 134,
-    k_EInputActionOrigin_XBoxOne_RightStick_DPadSouth = 135,
-    k_EInputActionOrigin_XBoxOne_RightStick_DPadWest = 136,
-    k_EInputActionOrigin_XBoxOne_RightStick_DPadEast = 137,
-    k_EInputActionOrigin_XBoxOne_DPad_North = 138,
-    k_EInputActionOrigin_XBoxOne_DPad_South = 139,
-    k_EInputActionOrigin_XBoxOne_DPad_West = 140,
-    k_EInputActionOrigin_XBoxOne_DPad_East = 141,
-    k_EInputActionOrigin_XBoxOne_DPad_Move = 142,
-    k_EInputActionOrigin_XBoxOne_LeftGrip_Lower = 143,
-    k_EInputActionOrigin_XBoxOne_LeftGrip_Upper = 144,
-    k_EInputActionOrigin_XBoxOne_RightGrip_Lower = 145,
-    k_EInputActionOrigin_XBoxOne_RightGrip_Upper = 146,
-    k_EInputActionOrigin_XBoxOne_Share = 147,
-    k_EInputActionOrigin_XBoxOne_Reserved6 = 148,
-    k_EInputActionOrigin_XBoxOne_Reserved7 = 149,
-    k_EInputActionOrigin_XBoxOne_Reserved8 = 150,
-    k_EInputActionOrigin_XBoxOne_Reserved9 = 151,
-    k_EInputActionOrigin_XBoxOne_Reserved10 = 152,
-    k_EInputActionOrigin_XBox360_A = 153,
-    k_EInputActionOrigin_XBox360_B = 154,
-    k_EInputActionOrigin_XBox360_X = 155,
-    k_EInputActionOrigin_XBox360_Y = 156,
-    k_EInputActionOrigin_XBox360_LeftBumper = 157,
-    k_EInputActionOrigin_XBox360_RightBumper = 158,
-    k_EInputActionOrigin_XBox360_Start = 159,
-    k_EInputActionOrigin_XBox360_Back = 160,
-    k_EInputActionOrigin_XBox360_LeftTrigger_Pull = 161,
-    k_EInputActionOrigin_XBox360_LeftTrigger_Click = 162,
-    k_EInputActionOrigin_XBox360_RightTrigger_Pull = 163,
-    k_EInputActionOrigin_XBox360_RightTrigger_Click = 164,
-    k_EInputActionOrigin_XBox360_LeftStick_Move = 165,
-    k_EInputActionOrigin_XBox360_LeftStick_Click = 166,
-    k_EInputActionOrigin_XBox360_LeftStick_DPadNorth = 167,
-    k_EInputActionOrigin_XBox360_LeftStick_DPadSouth = 168,
-    k_EInputActionOrigin_XBox360_LeftStick_DPadWest = 169,
-    k_EInputActionOrigin_XBox360_LeftStick_DPadEast = 170,
-    k_EInputActionOrigin_XBox360_RightStick_Move = 171,
-    k_EInputActionOrigin_XBox360_RightStick_Click = 172,
-    k_EInputActionOrigin_XBox360_RightStick_DPadNorth = 173,
-    k_EInputActionOrigin_XBox360_RightStick_DPadSouth = 174,
-    k_EInputActionOrigin_XBox360_RightStick_DPadWest = 175,
-    k_EInputActionOrigin_XBox360_RightStick_DPadEast = 176,
-    k_EInputActionOrigin_XBox360_DPad_North = 177,
-    k_EInputActionOrigin_XBox360_DPad_South = 178,
-    k_EInputActionOrigin_XBox360_DPad_West = 179,
-    k_EInputActionOrigin_XBox360_DPad_East = 180,
-    k_EInputActionOrigin_XBox360_DPad_Move = 181,
-    k_EInputActionOrigin_XBox360_Reserved1 = 182,
-    k_EInputActionOrigin_XBox360_Reserved2 = 183,
-    k_EInputActionOrigin_XBox360_Reserved3 = 184,
-    k_EInputActionOrigin_XBox360_Reserved4 = 185,
-    k_EInputActionOrigin_XBox360_Reserved5 = 186,
-    k_EInputActionOrigin_XBox360_Reserved6 = 187,
-    k_EInputActionOrigin_XBox360_Reserved7 = 188,
-    k_EInputActionOrigin_XBox360_Reserved8 = 189,
-    k_EInputActionOrigin_XBox360_Reserved9 = 190,
-    k_EInputActionOrigin_XBox360_Reserved10 = 191,
-    k_EInputActionOrigin_Switch_A = 192,
-    k_EInputActionOrigin_Switch_B = 193,
-    k_EInputActionOrigin_Switch_X = 194,
-    k_EInputActionOrigin_Switch_Y = 195,
-    k_EInputActionOrigin_Switch_LeftBumper = 196,
-    k_EInputActionOrigin_Switch_RightBumper = 197,
-    k_EInputActionOrigin_Switch_Plus = 198,
-    k_EInputActionOrigin_Switch_Minus = 199,
-    k_EInputActionOrigin_Switch_Capture = 200,
-    k_EInputActionOrigin_Switch_LeftTrigger_Pull = 201,
-    k_EInputActionOrigin_Switch_LeftTrigger_Click = 202,
-    k_EInputActionOrigin_Switch_RightTrigger_Pull = 203,
-    k_EInputActionOrigin_Switch_RightTrigger_Click = 204,
-    k_EInputActionOrigin_Switch_LeftStick_Move = 205,
-    k_EInputActionOrigin_Switch_LeftStick_Click = 206,
-    k_EInputActionOrigin_Switch_LeftStick_DPadNorth = 207,
-    k_EInputActionOrigin_Switch_LeftStick_DPadSouth = 208,
-    k_EInputActionOrigin_Switch_LeftStick_DPadWest = 209,
-    k_EInputActionOrigin_Switch_LeftStick_DPadEast = 210,
-    k_EInputActionOrigin_Switch_RightStick_Move = 211,
-    k_EInputActionOrigin_Switch_RightStick_Click = 212,
-    k_EInputActionOrigin_Switch_RightStick_DPadNorth = 213,
-    k_EInputActionOrigin_Switch_RightStick_DPadSouth = 214,
-    k_EInputActionOrigin_Switch_RightStick_DPadWest = 215,
-    k_EInputActionOrigin_Switch_RightStick_DPadEast = 216,
-    k_EInputActionOrigin_Switch_DPad_North = 217,
-    k_EInputActionOrigin_Switch_DPad_South = 218,
-    k_EInputActionOrigin_Switch_DPad_West = 219,
-    k_EInputActionOrigin_Switch_DPad_East = 220,
-    k_EInputActionOrigin_Switch_ProGyro_Move = 221,
-    k_EInputActionOrigin_Switch_ProGyro_Pitch = 222,
-    k_EInputActionOrigin_Switch_ProGyro_Yaw = 223,
-    k_EInputActionOrigin_Switch_ProGyro_Roll = 224,
-    k_EInputActionOrigin_Switch_DPad_Move = 225,
-    k_EInputActionOrigin_Switch_Reserved1 = 226,
-    k_EInputActionOrigin_Switch_Reserved2 = 227,
-    k_EInputActionOrigin_Switch_Reserved3 = 228,
-    k_EInputActionOrigin_Switch_Reserved4 = 229,
-    k_EInputActionOrigin_Switch_Reserved5 = 230,
-    k_EInputActionOrigin_Switch_Reserved6 = 231,
-    k_EInputActionOrigin_Switch_Reserved7 = 232,
-    k_EInputActionOrigin_Switch_Reserved8 = 233,
-    k_EInputActionOrigin_Switch_Reserved9 = 234,
-    k_EInputActionOrigin_Switch_Reserved10 = 235,
-    k_EInputActionOrigin_Switch_RightGyro_Move = 236,
-    k_EInputActionOrigin_Switch_RightGyro_Pitch = 237,
-    k_EInputActionOrigin_Switch_RightGyro_Yaw = 238,
-    k_EInputActionOrigin_Switch_RightGyro_Roll = 239,
-    k_EInputActionOrigin_Switch_LeftGyro_Move = 240,
-    k_EInputActionOrigin_Switch_LeftGyro_Pitch = 241,
-    k_EInputActionOrigin_Switch_LeftGyro_Yaw = 242,
-    k_EInputActionOrigin_Switch_LeftGyro_Roll = 243,
-    k_EInputActionOrigin_Switch_LeftGrip_Lower = 244,
-    k_EInputActionOrigin_Switch_LeftGrip_Upper = 245,
-    k_EInputActionOrigin_Switch_RightGrip_Lower = 246,
-    k_EInputActionOrigin_Switch_RightGrip_Upper = 247,
-    k_EInputActionOrigin_Switch_JoyConButton_N = 248,
-    k_EInputActionOrigin_Switch_JoyConButton_E = 249,
-    k_EInputActionOrigin_Switch_JoyConButton_S = 250,
-    k_EInputActionOrigin_Switch_JoyConButton_W = 251,
-    k_EInputActionOrigin_Switch_Reserved15 = 252,
-    k_EInputActionOrigin_Switch_Reserved16 = 253,
-    k_EInputActionOrigin_Switch_Reserved17 = 254,
-    k_EInputActionOrigin_Switch_Reserved18 = 255,
-    k_EInputActionOrigin_Switch_Reserved19 = 256,
-    k_EInputActionOrigin_Switch_Reserved20 = 257,
-    k_EInputActionOrigin_PS5_X = 258,
-    k_EInputActionOrigin_PS5_Circle = 259,
-    k_EInputActionOrigin_PS5_Triangle = 260,
-    k_EInputActionOrigin_PS5_Square = 261,
-    k_EInputActionOrigin_PS5_LeftBumper = 262,
-    k_EInputActionOrigin_PS5_RightBumper = 263,
-    k_EInputActionOrigin_PS5_Option = 264,
-    k_EInputActionOrigin_PS5_Create = 265,
-    k_EInputActionOrigin_PS5_Mute = 266,
-    k_EInputActionOrigin_PS5_LeftPad_Touch = 267,
-    k_EInputActionOrigin_PS5_LeftPad_Swipe = 268,
-    k_EInputActionOrigin_PS5_LeftPad_Click = 269,
-    k_EInputActionOrigin_PS5_LeftPad_DPadNorth = 270,
-    k_EInputActionOrigin_PS5_LeftPad_DPadSouth = 271,
-    k_EInputActionOrigin_PS5_LeftPad_DPadWest = 272,
-    k_EInputActionOrigin_PS5_LeftPad_DPadEast = 273,
-    k_EInputActionOrigin_PS5_RightPad_Touch = 274,
-    k_EInputActionOrigin_PS5_RightPad_Swipe = 275,
-    k_EInputActionOrigin_PS5_RightPad_Click = 276,
-    k_EInputActionOrigin_PS5_RightPad_DPadNorth = 277,
-    k_EInputActionOrigin_PS5_RightPad_DPadSouth = 278,
-    k_EInputActionOrigin_PS5_RightPad_DPadWest = 279,
-    k_EInputActionOrigin_PS5_RightPad_DPadEast = 280,
-    k_EInputActionOrigin_PS5_CenterPad_Touch = 281,
-    k_EInputActionOrigin_PS5_CenterPad_Swipe = 282,
-    k_EInputActionOrigin_PS5_CenterPad_Click = 283,
-    k_EInputActionOrigin_PS5_CenterPad_DPadNorth = 284,
-    k_EInputActionOrigin_PS5_CenterPad_DPadSouth = 285,
-    k_EInputActionOrigin_PS5_CenterPad_DPadWest = 286,
-    k_EInputActionOrigin_PS5_CenterPad_DPadEast = 287,
-    k_EInputActionOrigin_PS5_LeftTrigger_Pull = 288,
-    k_EInputActionOrigin_PS5_LeftTrigger_Click = 289,
-    k_EInputActionOrigin_PS5_RightTrigger_Pull = 290,
-    k_EInputActionOrigin_PS5_RightTrigger_Click = 291,
-    k_EInputActionOrigin_PS5_LeftStick_Move = 292,
-    k_EInputActionOrigin_PS5_LeftStick_Click = 293,
-    k_EInputActionOrigin_PS5_LeftStick_DPadNorth = 294,
-    k_EInputActionOrigin_PS5_LeftStick_DPadSouth = 295,
-    k_EInputActionOrigin_PS5_LeftStick_DPadWest = 296,
-    k_EInputActionOrigin_PS5_LeftStick_DPadEast = 297,
-    k_EInputActionOrigin_PS5_RightStick_Move = 298,
-    k_EInputActionOrigin_PS5_RightStick_Click = 299,
-    k_EInputActionOrigin_PS5_RightStick_DPadNorth = 300,
-    k_EInputActionOrigin_PS5_RightStick_DPadSouth = 301,
-    k_EInputActionOrigin_PS5_RightStick_DPadWest = 302,
-    k_EInputActionOrigin_PS5_RightStick_DPadEast = 303,
-    k_EInputActionOrigin_PS5_DPad_North = 304,
-    k_EInputActionOrigin_PS5_DPad_South = 305,
-    k_EInputActionOrigin_PS5_DPad_West = 306,
-    k_EInputActionOrigin_PS5_DPad_East = 307,
-    k_EInputActionOrigin_PS5_Gyro_Move = 308,
-    k_EInputActionOrigin_PS5_Gyro_Pitch = 309,
-    k_EInputActionOrigin_PS5_Gyro_Yaw = 310,
-    k_EInputActionOrigin_PS5_Gyro_Roll = 311,
-    k_EInputActionOrigin_PS5_DPad_Move = 312,
-    k_EInputActionOrigin_PS5_LeftGrip = 313,
-    k_EInputActionOrigin_PS5_RightGrip = 314,
-    k_EInputActionOrigin_PS5_LeftFn = 315,
-    k_EInputActionOrigin_PS5_RightFn = 316,
-    k_EInputActionOrigin_PS5_Reserved5 = 317,
-    k_EInputActionOrigin_PS5_Reserved6 = 318,
-    k_EInputActionOrigin_PS5_Reserved7 = 319,
-    k_EInputActionOrigin_PS5_Reserved8 = 320,
-    k_EInputActionOrigin_PS5_Reserved9 = 321,
-    k_EInputActionOrigin_PS5_Reserved10 = 322,
-    k_EInputActionOrigin_PS5_Reserved11 = 323,
-    k_EInputActionOrigin_PS5_Reserved12 = 324,
-    k_EInputActionOrigin_PS5_Reserved13 = 325,
-    k_EInputActionOrigin_PS5_Reserved14 = 326,
-    k_EInputActionOrigin_PS5_Reserved15 = 327,
-    k_EInputActionOrigin_PS5_Reserved16 = 328,
-    k_EInputActionOrigin_PS5_Reserved17 = 329,
-    k_EInputActionOrigin_PS5_Reserved18 = 330,
-    k_EInputActionOrigin_PS5_Reserved19 = 331,
-    k_EInputActionOrigin_PS5_Reserved20 = 332,
-    k_EInputActionOrigin_SteamDeck_A = 333,
-    k_EInputActionOrigin_SteamDeck_B = 334,
-    k_EInputActionOrigin_SteamDeck_X = 335,
-    k_EInputActionOrigin_SteamDeck_Y = 336,
-    k_EInputActionOrigin_SteamDeck_L1 = 337,
-    k_EInputActionOrigin_SteamDeck_R1 = 338,
-    k_EInputActionOrigin_SteamDeck_Menu = 339,
-    k_EInputActionOrigin_SteamDeck_View = 340,
-    k_EInputActionOrigin_SteamDeck_LeftPad_Touch = 341,
-    k_EInputActionOrigin_SteamDeck_LeftPad_Swipe = 342,
-    k_EInputActionOrigin_SteamDeck_LeftPad_Click = 343,
-    k_EInputActionOrigin_SteamDeck_LeftPad_DPadNorth = 344,
-    k_EInputActionOrigin_SteamDeck_LeftPad_DPadSouth = 345,
-    k_EInputActionOrigin_SteamDeck_LeftPad_DPadWest = 346,
-    k_EInputActionOrigin_SteamDeck_LeftPad_DPadEast = 347,
-    k_EInputActionOrigin_SteamDeck_RightPad_Touch = 348,
-    k_EInputActionOrigin_SteamDeck_RightPad_Swipe = 349,
-    k_EInputActionOrigin_SteamDeck_RightPad_Click = 350,
-    k_EInputActionOrigin_SteamDeck_RightPad_DPadNorth = 351,
-    k_EInputActionOrigin_SteamDeck_RightPad_DPadSouth = 352,
-    k_EInputActionOrigin_SteamDeck_RightPad_DPadWest = 353,
-    k_EInputActionOrigin_SteamDeck_RightPad_DPadEast = 354,
-    k_EInputActionOrigin_SteamDeck_L2_SoftPull = 355,
-    k_EInputActionOrigin_SteamDeck_L2 = 356,
-    k_EInputActionOrigin_SteamDeck_R2_SoftPull = 357,
-    k_EInputActionOrigin_SteamDeck_R2 = 358,
-    k_EInputActionOrigin_SteamDeck_LeftStick_Move = 359,
-    k_EInputActionOrigin_SteamDeck_L3 = 360,
-    k_EInputActionOrigin_SteamDeck_LeftStick_DPadNorth = 361,
-    k_EInputActionOrigin_SteamDeck_LeftStick_DPadSouth = 362,
-    k_EInputActionOrigin_SteamDeck_LeftStick_DPadWest = 363,
-    k_EInputActionOrigin_SteamDeck_LeftStick_DPadEast = 364,
-    k_EInputActionOrigin_SteamDeck_LeftStick_Touch = 365,
-    k_EInputActionOrigin_SteamDeck_RightStick_Move = 366,
-    k_EInputActionOrigin_SteamDeck_R3 = 367,
-    k_EInputActionOrigin_SteamDeck_RightStick_DPadNorth = 368,
-    k_EInputActionOrigin_SteamDeck_RightStick_DPadSouth = 369,
-    k_EInputActionOrigin_SteamDeck_RightStick_DPadWest = 370,
-    k_EInputActionOrigin_SteamDeck_RightStick_DPadEast = 371,
-    k_EInputActionOrigin_SteamDeck_RightStick_Touch = 372,
-    k_EInputActionOrigin_SteamDeck_L4 = 373,
-    k_EInputActionOrigin_SteamDeck_R4 = 374,
-    k_EInputActionOrigin_SteamDeck_L5 = 375,
-    k_EInputActionOrigin_SteamDeck_R5 = 376,
-    k_EInputActionOrigin_SteamDeck_DPad_Move = 377,
-    k_EInputActionOrigin_SteamDeck_DPad_North = 378,
-    k_EInputActionOrigin_SteamDeck_DPad_South = 379,
-    k_EInputActionOrigin_SteamDeck_DPad_West = 380,
-    k_EInputActionOrigin_SteamDeck_DPad_East = 381,
-    k_EInputActionOrigin_SteamDeck_Gyro_Move = 382,
-    k_EInputActionOrigin_SteamDeck_Gyro_Pitch = 383,
-    k_EInputActionOrigin_SteamDeck_Gyro_Yaw = 384,
-    k_EInputActionOrigin_SteamDeck_Gyro_Roll = 385,
-    k_EInputActionOrigin_SteamDeck_Reserved1 = 386,
-    k_EInputActionOrigin_SteamDeck_Reserved2 = 387,
-    k_EInputActionOrigin_SteamDeck_Reserved3 = 388,
-    k_EInputActionOrigin_SteamDeck_Reserved4 = 389,
-    k_EInputActionOrigin_SteamDeck_Reserved5 = 390,
-    k_EInputActionOrigin_SteamDeck_Reserved6 = 391,
-    k_EInputActionOrigin_SteamDeck_Reserved7 = 392,
-    k_EInputActionOrigin_SteamDeck_Reserved8 = 393,
-    k_EInputActionOrigin_SteamDeck_Reserved9 = 394,
-    k_EInputActionOrigin_SteamDeck_Reserved10 = 395,
-    k_EInputActionOrigin_SteamDeck_Reserved11 = 396,
-    k_EInputActionOrigin_SteamDeck_Reserved12 = 397,
-    k_EInputActionOrigin_SteamDeck_Reserved13 = 398,
-    k_EInputActionOrigin_SteamDeck_Reserved14 = 399,
-    k_EInputActionOrigin_SteamDeck_Reserved15 = 400,
-    k_EInputActionOrigin_SteamDeck_Reserved16 = 401,
-    k_EInputActionOrigin_SteamDeck_Reserved17 = 402,
-    k_EInputActionOrigin_SteamDeck_Reserved18 = 403,
-    k_EInputActionOrigin_SteamDeck_Reserved19 = 404,
-    k_EInputActionOrigin_SteamDeck_Reserved20 = 405,
-    k_EInputActionOrigin_Count = 406,
-    k_EInputActionOrigin_MaximumPossibleValue = 32767,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EXboxOrigin {
-    k_EXboxOrigin_A = 0,
-    k_EXboxOrigin_B = 1,
-    k_EXboxOrigin_X = 2,
-    k_EXboxOrigin_Y = 3,
-    k_EXboxOrigin_LeftBumper = 4,
-    k_EXboxOrigin_RightBumper = 5,
-    k_EXboxOrigin_Menu = 6,
-    k_EXboxOrigin_View = 7,
-    k_EXboxOrigin_LeftTrigger_Pull = 8,
-    k_EXboxOrigin_LeftTrigger_Click = 9,
-    k_EXboxOrigin_RightTrigger_Pull = 10,
-    k_EXboxOrigin_RightTrigger_Click = 11,
-    k_EXboxOrigin_LeftStick_Move = 12,
-    k_EXboxOrigin_LeftStick_Click = 13,
-    k_EXboxOrigin_LeftStick_DPadNorth = 14,
-    k_EXboxOrigin_LeftStick_DPadSouth = 15,
-    k_EXboxOrigin_LeftStick_DPadWest = 16,
-    k_EXboxOrigin_LeftStick_DPadEast = 17,
-    k_EXboxOrigin_RightStick_Move = 18,
-    k_EXboxOrigin_RightStick_Click = 19,
-    k_EXboxOrigin_RightStick_DPadNorth = 20,
-    k_EXboxOrigin_RightStick_DPadSouth = 21,
-    k_EXboxOrigin_RightStick_DPadWest = 22,
-    k_EXboxOrigin_RightStick_DPadEast = 23,
-    k_EXboxOrigin_DPad_North = 24,
-    k_EXboxOrigin_DPad_South = 25,
-    k_EXboxOrigin_DPad_West = 26,
-    k_EXboxOrigin_DPad_East = 27,
-    k_EXboxOrigin_Count = 28,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamControllerPad {
-    k_ESteamControllerPad_Left = 0,
-    k_ESteamControllerPad_Right = 1,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EControllerHapticLocation {
-    k_EControllerHapticLocation_Left = 1,
-    k_EControllerHapticLocation_Right = 2,
-    k_EControllerHapticLocation_Both = 3,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EControllerHapticType {
-    k_EControllerHapticType_Off = 0,
-    k_EControllerHapticType_Tick = 1,
-    k_EControllerHapticType_Click = 2,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamInputType {
-    k_ESteamInputType_Unknown = 0,
-    k_ESteamInputType_SteamController = 1,
-    k_ESteamInputType_XBox360Controller = 2,
-    k_ESteamInputType_XBoxOneController = 3,
-    k_ESteamInputType_GenericGamepad = 4,
-    k_ESteamInputType_PS4Controller = 5,
-    k_ESteamInputType_AppleMFiController = 6,
-    k_ESteamInputType_AndroidController = 7,
-    k_ESteamInputType_SwitchJoyConPair = 8,
-    k_ESteamInputType_SwitchJoyConSingle = 9,
-    k_ESteamInputType_SwitchProController = 10,
-    k_ESteamInputType_MobileTouch = 11,
-    k_ESteamInputType_PS3Controller = 12,
-    k_ESteamInputType_PS5Controller = 13,
-    k_ESteamInputType_SteamDeckController = 14,
-    k_ESteamInputType_Count = 15,
-    k_ESteamInputType_MaximumPossibleValue = 255,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamInputConfigurationEnableType {
-    k_ESteamInputConfigurationEnableType_None = 0,
-    k_ESteamInputConfigurationEnableType_Playstation = 1,
-    k_ESteamInputConfigurationEnableType_Xbox = 2,
-    k_ESteamInputConfigurationEnableType_Generic = 4,
-    k_ESteamInputConfigurationEnableType_Switch = 8,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamInputLEDFlag {
-    k_ESteamInputLEDFlag_SetColor = 0,
-    k_ESteamInputLEDFlag_RestoreUserDefault = 1,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamInputGlyphSize {
-    k_ESteamInputGlyphSize_Small = 0,
-    k_ESteamInputGlyphSize_Medium = 1,
-    k_ESteamInputGlyphSize_Large = 2,
-    k_ESteamInputGlyphSize_Count = 3,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamInputGlyphStyle {
-    ESteamInputGlyphStyle_Knockout = 0,
-    ESteamInputGlyphStyle_Light = 1,
-    ESteamInputGlyphStyle_Dark = 2,
-    ESteamInputGlyphStyle_NeutralColorABXY = 16,
-    ESteamInputGlyphStyle_SolidABXY = 32,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamInputActionEventType {
-    ESteamInputActionEventType_DigitalAction = 0,
-    ESteamInputActionEventType_AnalogAction = 1,
-}
+pub const EInputSourceMode_k_EInputSourceMode_None: EInputSourceMode = 0;
+pub const EInputSourceMode_k_EInputSourceMode_Dpad: EInputSourceMode = 1;
+pub const EInputSourceMode_k_EInputSourceMode_Buttons: EInputSourceMode = 2;
+pub const EInputSourceMode_k_EInputSourceMode_FourButtons: EInputSourceMode = 3;
+pub const EInputSourceMode_k_EInputSourceMode_AbsoluteMouse: EInputSourceMode = 4;
+pub const EInputSourceMode_k_EInputSourceMode_RelativeMouse: EInputSourceMode = 5;
+pub const EInputSourceMode_k_EInputSourceMode_JoystickMove: EInputSourceMode = 6;
+pub const EInputSourceMode_k_EInputSourceMode_JoystickMouse: EInputSourceMode = 7;
+pub const EInputSourceMode_k_EInputSourceMode_JoystickCamera: EInputSourceMode = 8;
+pub const EInputSourceMode_k_EInputSourceMode_ScrollWheel: EInputSourceMode = 9;
+pub const EInputSourceMode_k_EInputSourceMode_Trigger: EInputSourceMode = 10;
+pub const EInputSourceMode_k_EInputSourceMode_TouchMenu: EInputSourceMode = 11;
+pub const EInputSourceMode_k_EInputSourceMode_MouseJoystick: EInputSourceMode = 12;
+pub const EInputSourceMode_k_EInputSourceMode_MouseRegion: EInputSourceMode = 13;
+pub const EInputSourceMode_k_EInputSourceMode_RadialMenu: EInputSourceMode = 14;
+pub const EInputSourceMode_k_EInputSourceMode_SingleButton: EInputSourceMode = 15;
+pub const EInputSourceMode_k_EInputSourceMode_Switches: EInputSourceMode = 16;
+pub type EInputSourceMode = ::std::os::raw::c_uint;
+pub const EInputActionOrigin_k_EInputActionOrigin_None: EInputActionOrigin = 0;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_A: EInputActionOrigin = 1;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_B: EInputActionOrigin = 2;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_X: EInputActionOrigin = 3;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Y: EInputActionOrigin = 4;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftBumper: EInputActionOrigin =
+    5;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_RightBumper: EInputActionOrigin =
+    6;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftGrip: EInputActionOrigin = 7;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_RightGrip: EInputActionOrigin = 8;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Start: EInputActionOrigin = 9;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Back: EInputActionOrigin = 10;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftPad_Touch:
+    EInputActionOrigin = 11;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftPad_Swipe:
+    EInputActionOrigin = 12;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftPad_Click:
+    EInputActionOrigin = 13;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftPad_DPadNorth:
+    EInputActionOrigin = 14;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftPad_DPadSouth:
+    EInputActionOrigin = 15;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftPad_DPadWest:
+    EInputActionOrigin = 16;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftPad_DPadEast:
+    EInputActionOrigin = 17;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_RightPad_Touch:
+    EInputActionOrigin = 18;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_RightPad_Swipe:
+    EInputActionOrigin = 19;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_RightPad_Click:
+    EInputActionOrigin = 20;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_RightPad_DPadNorth:
+    EInputActionOrigin = 21;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_RightPad_DPadSouth:
+    EInputActionOrigin = 22;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_RightPad_DPadWest:
+    EInputActionOrigin = 23;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_RightPad_DPadEast:
+    EInputActionOrigin = 24;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftTrigger_Pull:
+    EInputActionOrigin = 25;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftTrigger_Click:
+    EInputActionOrigin = 26;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_RightTrigger_Pull:
+    EInputActionOrigin = 27;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_RightTrigger_Click:
+    EInputActionOrigin = 28;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftStick_Move:
+    EInputActionOrigin = 29;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftStick_Click:
+    EInputActionOrigin = 30;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftStick_DPadNorth:
+    EInputActionOrigin = 31;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftStick_DPadSouth:
+    EInputActionOrigin = 32;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftStick_DPadWest:
+    EInputActionOrigin = 33;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_LeftStick_DPadEast:
+    EInputActionOrigin = 34;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Gyro_Move: EInputActionOrigin =
+    35;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Gyro_Pitch: EInputActionOrigin =
+    36;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Gyro_Yaw: EInputActionOrigin = 37;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Gyro_Roll: EInputActionOrigin =
+    38;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Reserved0: EInputActionOrigin =
+    39;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Reserved1: EInputActionOrigin =
+    40;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Reserved2: EInputActionOrigin =
+    41;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Reserved3: EInputActionOrigin =
+    42;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Reserved4: EInputActionOrigin =
+    43;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Reserved5: EInputActionOrigin =
+    44;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Reserved6: EInputActionOrigin =
+    45;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Reserved7: EInputActionOrigin =
+    46;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Reserved8: EInputActionOrigin =
+    47;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Reserved9: EInputActionOrigin =
+    48;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamController_Reserved10: EInputActionOrigin =
+    49;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_X: EInputActionOrigin = 50;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Circle: EInputActionOrigin = 51;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Triangle: EInputActionOrigin = 52;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Square: EInputActionOrigin = 53;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftBumper: EInputActionOrigin = 54;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightBumper: EInputActionOrigin = 55;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Options: EInputActionOrigin = 56;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Share: EInputActionOrigin = 57;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftPad_Touch: EInputActionOrigin = 58;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftPad_Swipe: EInputActionOrigin = 59;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftPad_Click: EInputActionOrigin = 60;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftPad_DPadNorth: EInputActionOrigin = 61;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftPad_DPadSouth: EInputActionOrigin = 62;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftPad_DPadWest: EInputActionOrigin = 63;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftPad_DPadEast: EInputActionOrigin = 64;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightPad_Touch: EInputActionOrigin = 65;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightPad_Swipe: EInputActionOrigin = 66;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightPad_Click: EInputActionOrigin = 67;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightPad_DPadNorth: EInputActionOrigin = 68;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightPad_DPadSouth: EInputActionOrigin = 69;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightPad_DPadWest: EInputActionOrigin = 70;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightPad_DPadEast: EInputActionOrigin = 71;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_CenterPad_Touch: EInputActionOrigin = 72;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_CenterPad_Swipe: EInputActionOrigin = 73;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_CenterPad_Click: EInputActionOrigin = 74;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_CenterPad_DPadNorth: EInputActionOrigin = 75;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_CenterPad_DPadSouth: EInputActionOrigin = 76;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_CenterPad_DPadWest: EInputActionOrigin = 77;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_CenterPad_DPadEast: EInputActionOrigin = 78;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftTrigger_Pull: EInputActionOrigin = 79;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftTrigger_Click: EInputActionOrigin = 80;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightTrigger_Pull: EInputActionOrigin = 81;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightTrigger_Click: EInputActionOrigin = 82;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftStick_Move: EInputActionOrigin = 83;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftStick_Click: EInputActionOrigin = 84;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftStick_DPadNorth: EInputActionOrigin = 85;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftStick_DPadSouth: EInputActionOrigin = 86;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftStick_DPadWest: EInputActionOrigin = 87;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_LeftStick_DPadEast: EInputActionOrigin = 88;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightStick_Move: EInputActionOrigin = 89;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightStick_Click: EInputActionOrigin = 90;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightStick_DPadNorth: EInputActionOrigin = 91;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightStick_DPadSouth: EInputActionOrigin = 92;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightStick_DPadWest: EInputActionOrigin = 93;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_RightStick_DPadEast: EInputActionOrigin = 94;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_DPad_North: EInputActionOrigin = 95;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_DPad_South: EInputActionOrigin = 96;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_DPad_West: EInputActionOrigin = 97;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_DPad_East: EInputActionOrigin = 98;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Gyro_Move: EInputActionOrigin = 99;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Gyro_Pitch: EInputActionOrigin = 100;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Gyro_Yaw: EInputActionOrigin = 101;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Gyro_Roll: EInputActionOrigin = 102;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_DPad_Move: EInputActionOrigin = 103;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Reserved1: EInputActionOrigin = 104;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Reserved2: EInputActionOrigin = 105;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Reserved3: EInputActionOrigin = 106;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Reserved4: EInputActionOrigin = 107;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Reserved5: EInputActionOrigin = 108;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Reserved6: EInputActionOrigin = 109;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Reserved7: EInputActionOrigin = 110;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Reserved8: EInputActionOrigin = 111;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Reserved9: EInputActionOrigin = 112;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS4_Reserved10: EInputActionOrigin = 113;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_A: EInputActionOrigin = 114;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_B: EInputActionOrigin = 115;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_X: EInputActionOrigin = 116;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_Y: EInputActionOrigin = 117;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_LeftBumper: EInputActionOrigin = 118;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_RightBumper: EInputActionOrigin = 119;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_Menu: EInputActionOrigin = 120;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_View: EInputActionOrigin = 121;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_LeftTrigger_Pull: EInputActionOrigin =
+    122;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_LeftTrigger_Click: EInputActionOrigin =
+    123;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_RightTrigger_Pull: EInputActionOrigin =
+    124;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_RightTrigger_Click: EInputActionOrigin =
+    125;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_LeftStick_Move: EInputActionOrigin = 126;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_LeftStick_Click: EInputActionOrigin = 127;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_LeftStick_DPadNorth: EInputActionOrigin =
+    128;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_LeftStick_DPadSouth: EInputActionOrigin =
+    129;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_LeftStick_DPadWest: EInputActionOrigin =
+    130;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_LeftStick_DPadEast: EInputActionOrigin =
+    131;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_RightStick_Move: EInputActionOrigin = 132;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_RightStick_Click: EInputActionOrigin =
+    133;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_RightStick_DPadNorth: EInputActionOrigin =
+    134;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_RightStick_DPadSouth: EInputActionOrigin =
+    135;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_RightStick_DPadWest: EInputActionOrigin =
+    136;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_RightStick_DPadEast: EInputActionOrigin =
+    137;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_DPad_North: EInputActionOrigin = 138;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_DPad_South: EInputActionOrigin = 139;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_DPad_West: EInputActionOrigin = 140;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_DPad_East: EInputActionOrigin = 141;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_DPad_Move: EInputActionOrigin = 142;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_LeftGrip_Lower: EInputActionOrigin = 143;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_LeftGrip_Upper: EInputActionOrigin = 144;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_RightGrip_Lower: EInputActionOrigin = 145;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_RightGrip_Upper: EInputActionOrigin = 146;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_Share: EInputActionOrigin = 147;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_Reserved6: EInputActionOrigin = 148;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_Reserved7: EInputActionOrigin = 149;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_Reserved8: EInputActionOrigin = 150;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_Reserved9: EInputActionOrigin = 151;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBoxOne_Reserved10: EInputActionOrigin = 152;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_A: EInputActionOrigin = 153;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_B: EInputActionOrigin = 154;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_X: EInputActionOrigin = 155;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Y: EInputActionOrigin = 156;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_LeftBumper: EInputActionOrigin = 157;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_RightBumper: EInputActionOrigin = 158;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Start: EInputActionOrigin = 159;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Back: EInputActionOrigin = 160;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_LeftTrigger_Pull: EInputActionOrigin =
+    161;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_LeftTrigger_Click: EInputActionOrigin =
+    162;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_RightTrigger_Pull: EInputActionOrigin =
+    163;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_RightTrigger_Click: EInputActionOrigin =
+    164;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_LeftStick_Move: EInputActionOrigin = 165;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_LeftStick_Click: EInputActionOrigin = 166;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_LeftStick_DPadNorth: EInputActionOrigin =
+    167;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_LeftStick_DPadSouth: EInputActionOrigin =
+    168;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_LeftStick_DPadWest: EInputActionOrigin =
+    169;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_LeftStick_DPadEast: EInputActionOrigin =
+    170;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_RightStick_Move: EInputActionOrigin = 171;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_RightStick_Click: EInputActionOrigin =
+    172;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_RightStick_DPadNorth: EInputActionOrigin =
+    173;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_RightStick_DPadSouth: EInputActionOrigin =
+    174;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_RightStick_DPadWest: EInputActionOrigin =
+    175;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_RightStick_DPadEast: EInputActionOrigin =
+    176;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_DPad_North: EInputActionOrigin = 177;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_DPad_South: EInputActionOrigin = 178;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_DPad_West: EInputActionOrigin = 179;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_DPad_East: EInputActionOrigin = 180;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_DPad_Move: EInputActionOrigin = 181;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Reserved1: EInputActionOrigin = 182;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Reserved2: EInputActionOrigin = 183;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Reserved3: EInputActionOrigin = 184;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Reserved4: EInputActionOrigin = 185;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Reserved5: EInputActionOrigin = 186;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Reserved6: EInputActionOrigin = 187;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Reserved7: EInputActionOrigin = 188;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Reserved8: EInputActionOrigin = 189;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Reserved9: EInputActionOrigin = 190;
+pub const EInputActionOrigin_k_EInputActionOrigin_XBox360_Reserved10: EInputActionOrigin = 191;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_A: EInputActionOrigin = 192;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_B: EInputActionOrigin = 193;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_X: EInputActionOrigin = 194;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Y: EInputActionOrigin = 195;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftBumper: EInputActionOrigin = 196;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightBumper: EInputActionOrigin = 197;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Plus: EInputActionOrigin = 198;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Minus: EInputActionOrigin = 199;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Capture: EInputActionOrigin = 200;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftTrigger_Pull: EInputActionOrigin = 201;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftTrigger_Click: EInputActionOrigin =
+    202;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightTrigger_Pull: EInputActionOrigin =
+    203;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightTrigger_Click: EInputActionOrigin =
+    204;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftStick_Move: EInputActionOrigin = 205;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftStick_Click: EInputActionOrigin = 206;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftStick_DPadNorth: EInputActionOrigin =
+    207;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftStick_DPadSouth: EInputActionOrigin =
+    208;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftStick_DPadWest: EInputActionOrigin =
+    209;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftStick_DPadEast: EInputActionOrigin =
+    210;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightStick_Move: EInputActionOrigin = 211;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightStick_Click: EInputActionOrigin = 212;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightStick_DPadNorth: EInputActionOrigin =
+    213;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightStick_DPadSouth: EInputActionOrigin =
+    214;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightStick_DPadWest: EInputActionOrigin =
+    215;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightStick_DPadEast: EInputActionOrigin =
+    216;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_DPad_North: EInputActionOrigin = 217;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_DPad_South: EInputActionOrigin = 218;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_DPad_West: EInputActionOrigin = 219;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_DPad_East: EInputActionOrigin = 220;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_ProGyro_Move: EInputActionOrigin = 221;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_ProGyro_Pitch: EInputActionOrigin = 222;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_ProGyro_Yaw: EInputActionOrigin = 223;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_ProGyro_Roll: EInputActionOrigin = 224;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_DPad_Move: EInputActionOrigin = 225;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved1: EInputActionOrigin = 226;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved2: EInputActionOrigin = 227;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved3: EInputActionOrigin = 228;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved4: EInputActionOrigin = 229;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved5: EInputActionOrigin = 230;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved6: EInputActionOrigin = 231;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved7: EInputActionOrigin = 232;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved8: EInputActionOrigin = 233;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved9: EInputActionOrigin = 234;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved10: EInputActionOrigin = 235;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightGyro_Move: EInputActionOrigin = 236;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightGyro_Pitch: EInputActionOrigin = 237;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightGyro_Yaw: EInputActionOrigin = 238;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightGyro_Roll: EInputActionOrigin = 239;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftGyro_Move: EInputActionOrigin = 240;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftGyro_Pitch: EInputActionOrigin = 241;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftGyro_Yaw: EInputActionOrigin = 242;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftGyro_Roll: EInputActionOrigin = 243;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftGrip_Lower: EInputActionOrigin = 244;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_LeftGrip_Upper: EInputActionOrigin = 245;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightGrip_Lower: EInputActionOrigin = 246;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_RightGrip_Upper: EInputActionOrigin = 247;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_JoyConButton_N: EInputActionOrigin = 248;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_JoyConButton_E: EInputActionOrigin = 249;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_JoyConButton_S: EInputActionOrigin = 250;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_JoyConButton_W: EInputActionOrigin = 251;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved15: EInputActionOrigin = 252;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved16: EInputActionOrigin = 253;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved17: EInputActionOrigin = 254;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved18: EInputActionOrigin = 255;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved19: EInputActionOrigin = 256;
+pub const EInputActionOrigin_k_EInputActionOrigin_Switch_Reserved20: EInputActionOrigin = 257;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_X: EInputActionOrigin = 258;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Circle: EInputActionOrigin = 259;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Triangle: EInputActionOrigin = 260;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Square: EInputActionOrigin = 261;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftBumper: EInputActionOrigin = 262;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightBumper: EInputActionOrigin = 263;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Option: EInputActionOrigin = 264;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Create: EInputActionOrigin = 265;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Mute: EInputActionOrigin = 266;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftPad_Touch: EInputActionOrigin = 267;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftPad_Swipe: EInputActionOrigin = 268;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftPad_Click: EInputActionOrigin = 269;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftPad_DPadNorth: EInputActionOrigin = 270;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftPad_DPadSouth: EInputActionOrigin = 271;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftPad_DPadWest: EInputActionOrigin = 272;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftPad_DPadEast: EInputActionOrigin = 273;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightPad_Touch: EInputActionOrigin = 274;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightPad_Swipe: EInputActionOrigin = 275;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightPad_Click: EInputActionOrigin = 276;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightPad_DPadNorth: EInputActionOrigin = 277;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightPad_DPadSouth: EInputActionOrigin = 278;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightPad_DPadWest: EInputActionOrigin = 279;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightPad_DPadEast: EInputActionOrigin = 280;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_CenterPad_Touch: EInputActionOrigin = 281;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_CenterPad_Swipe: EInputActionOrigin = 282;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_CenterPad_Click: EInputActionOrigin = 283;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_CenterPad_DPadNorth: EInputActionOrigin = 284;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_CenterPad_DPadSouth: EInputActionOrigin = 285;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_CenterPad_DPadWest: EInputActionOrigin = 286;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_CenterPad_DPadEast: EInputActionOrigin = 287;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftTrigger_Pull: EInputActionOrigin = 288;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftTrigger_Click: EInputActionOrigin = 289;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightTrigger_Pull: EInputActionOrigin = 290;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightTrigger_Click: EInputActionOrigin = 291;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftStick_Move: EInputActionOrigin = 292;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftStick_Click: EInputActionOrigin = 293;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftStick_DPadNorth: EInputActionOrigin = 294;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftStick_DPadSouth: EInputActionOrigin = 295;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftStick_DPadWest: EInputActionOrigin = 296;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftStick_DPadEast: EInputActionOrigin = 297;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightStick_Move: EInputActionOrigin = 298;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightStick_Click: EInputActionOrigin = 299;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightStick_DPadNorth: EInputActionOrigin =
+    300;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightStick_DPadSouth: EInputActionOrigin =
+    301;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightStick_DPadWest: EInputActionOrigin = 302;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightStick_DPadEast: EInputActionOrigin = 303;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_DPad_North: EInputActionOrigin = 304;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_DPad_South: EInputActionOrigin = 305;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_DPad_West: EInputActionOrigin = 306;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_DPad_East: EInputActionOrigin = 307;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Gyro_Move: EInputActionOrigin = 308;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Gyro_Pitch: EInputActionOrigin = 309;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Gyro_Yaw: EInputActionOrigin = 310;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Gyro_Roll: EInputActionOrigin = 311;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_DPad_Move: EInputActionOrigin = 312;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftGrip: EInputActionOrigin = 313;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightGrip: EInputActionOrigin = 314;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_LeftFn: EInputActionOrigin = 315;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_RightFn: EInputActionOrigin = 316;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved5: EInputActionOrigin = 317;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved6: EInputActionOrigin = 318;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved7: EInputActionOrigin = 319;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved8: EInputActionOrigin = 320;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved9: EInputActionOrigin = 321;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved10: EInputActionOrigin = 322;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved11: EInputActionOrigin = 323;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved12: EInputActionOrigin = 324;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved13: EInputActionOrigin = 325;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved14: EInputActionOrigin = 326;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved15: EInputActionOrigin = 327;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved16: EInputActionOrigin = 328;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved17: EInputActionOrigin = 329;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved18: EInputActionOrigin = 330;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved19: EInputActionOrigin = 331;
+pub const EInputActionOrigin_k_EInputActionOrigin_PS5_Reserved20: EInputActionOrigin = 332;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_A: EInputActionOrigin = 333;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_B: EInputActionOrigin = 334;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_X: EInputActionOrigin = 335;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Y: EInputActionOrigin = 336;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_L1: EInputActionOrigin = 337;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_R1: EInputActionOrigin = 338;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Menu: EInputActionOrigin = 339;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_View: EInputActionOrigin = 340;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftPad_Touch: EInputActionOrigin = 341;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftPad_Swipe: EInputActionOrigin = 342;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftPad_Click: EInputActionOrigin = 343;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftPad_DPadNorth: EInputActionOrigin =
+    344;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftPad_DPadSouth: EInputActionOrigin =
+    345;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftPad_DPadWest: EInputActionOrigin =
+    346;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftPad_DPadEast: EInputActionOrigin =
+    347;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightPad_Touch: EInputActionOrigin =
+    348;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightPad_Swipe: EInputActionOrigin =
+    349;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightPad_Click: EInputActionOrigin =
+    350;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightPad_DPadNorth: EInputActionOrigin =
+    351;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightPad_DPadSouth: EInputActionOrigin =
+    352;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightPad_DPadWest: EInputActionOrigin =
+    353;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightPad_DPadEast: EInputActionOrigin =
+    354;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_L2_SoftPull: EInputActionOrigin = 355;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_L2: EInputActionOrigin = 356;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_R2_SoftPull: EInputActionOrigin = 357;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_R2: EInputActionOrigin = 358;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftStick_Move: EInputActionOrigin =
+    359;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_L3: EInputActionOrigin = 360;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftStick_DPadNorth:
+    EInputActionOrigin = 361;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftStick_DPadSouth:
+    EInputActionOrigin = 362;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftStick_DPadWest: EInputActionOrigin =
+    363;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftStick_DPadEast: EInputActionOrigin =
+    364;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_LeftStick_Touch: EInputActionOrigin =
+    365;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightStick_Move: EInputActionOrigin =
+    366;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_R3: EInputActionOrigin = 367;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightStick_DPadNorth:
+    EInputActionOrigin = 368;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightStick_DPadSouth:
+    EInputActionOrigin = 369;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightStick_DPadWest:
+    EInputActionOrigin = 370;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightStick_DPadEast:
+    EInputActionOrigin = 371;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_RightStick_Touch: EInputActionOrigin =
+    372;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_L4: EInputActionOrigin = 373;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_R4: EInputActionOrigin = 374;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_L5: EInputActionOrigin = 375;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_R5: EInputActionOrigin = 376;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_DPad_Move: EInputActionOrigin = 377;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_DPad_North: EInputActionOrigin = 378;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_DPad_South: EInputActionOrigin = 379;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_DPad_West: EInputActionOrigin = 380;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_DPad_East: EInputActionOrigin = 381;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Gyro_Move: EInputActionOrigin = 382;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Gyro_Pitch: EInputActionOrigin = 383;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Gyro_Yaw: EInputActionOrigin = 384;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Gyro_Roll: EInputActionOrigin = 385;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved1: EInputActionOrigin = 386;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved2: EInputActionOrigin = 387;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved3: EInputActionOrigin = 388;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved4: EInputActionOrigin = 389;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved5: EInputActionOrigin = 390;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved6: EInputActionOrigin = 391;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved7: EInputActionOrigin = 392;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved8: EInputActionOrigin = 393;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved9: EInputActionOrigin = 394;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved10: EInputActionOrigin = 395;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved11: EInputActionOrigin = 396;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved12: EInputActionOrigin = 397;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved13: EInputActionOrigin = 398;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved14: EInputActionOrigin = 399;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved15: EInputActionOrigin = 400;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved16: EInputActionOrigin = 401;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved17: EInputActionOrigin = 402;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved18: EInputActionOrigin = 403;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved19: EInputActionOrigin = 404;
+pub const EInputActionOrigin_k_EInputActionOrigin_SteamDeck_Reserved20: EInputActionOrigin = 405;
+pub const EInputActionOrigin_k_EInputActionOrigin_Count: EInputActionOrigin = 406;
+pub const EInputActionOrigin_k_EInputActionOrigin_MaximumPossibleValue: EInputActionOrigin = 32767;
+pub type EInputActionOrigin = ::std::os::raw::c_uint;
+pub const EXboxOrigin_k_EXboxOrigin_A: EXboxOrigin = 0;
+pub const EXboxOrigin_k_EXboxOrigin_B: EXboxOrigin = 1;
+pub const EXboxOrigin_k_EXboxOrigin_X: EXboxOrigin = 2;
+pub const EXboxOrigin_k_EXboxOrigin_Y: EXboxOrigin = 3;
+pub const EXboxOrigin_k_EXboxOrigin_LeftBumper: EXboxOrigin = 4;
+pub const EXboxOrigin_k_EXboxOrigin_RightBumper: EXboxOrigin = 5;
+pub const EXboxOrigin_k_EXboxOrigin_Menu: EXboxOrigin = 6;
+pub const EXboxOrigin_k_EXboxOrigin_View: EXboxOrigin = 7;
+pub const EXboxOrigin_k_EXboxOrigin_LeftTrigger_Pull: EXboxOrigin = 8;
+pub const EXboxOrigin_k_EXboxOrigin_LeftTrigger_Click: EXboxOrigin = 9;
+pub const EXboxOrigin_k_EXboxOrigin_RightTrigger_Pull: EXboxOrigin = 10;
+pub const EXboxOrigin_k_EXboxOrigin_RightTrigger_Click: EXboxOrigin = 11;
+pub const EXboxOrigin_k_EXboxOrigin_LeftStick_Move: EXboxOrigin = 12;
+pub const EXboxOrigin_k_EXboxOrigin_LeftStick_Click: EXboxOrigin = 13;
+pub const EXboxOrigin_k_EXboxOrigin_LeftStick_DPadNorth: EXboxOrigin = 14;
+pub const EXboxOrigin_k_EXboxOrigin_LeftStick_DPadSouth: EXboxOrigin = 15;
+pub const EXboxOrigin_k_EXboxOrigin_LeftStick_DPadWest: EXboxOrigin = 16;
+pub const EXboxOrigin_k_EXboxOrigin_LeftStick_DPadEast: EXboxOrigin = 17;
+pub const EXboxOrigin_k_EXboxOrigin_RightStick_Move: EXboxOrigin = 18;
+pub const EXboxOrigin_k_EXboxOrigin_RightStick_Click: EXboxOrigin = 19;
+pub const EXboxOrigin_k_EXboxOrigin_RightStick_DPadNorth: EXboxOrigin = 20;
+pub const EXboxOrigin_k_EXboxOrigin_RightStick_DPadSouth: EXboxOrigin = 21;
+pub const EXboxOrigin_k_EXboxOrigin_RightStick_DPadWest: EXboxOrigin = 22;
+pub const EXboxOrigin_k_EXboxOrigin_RightStick_DPadEast: EXboxOrigin = 23;
+pub const EXboxOrigin_k_EXboxOrigin_DPad_North: EXboxOrigin = 24;
+pub const EXboxOrigin_k_EXboxOrigin_DPad_South: EXboxOrigin = 25;
+pub const EXboxOrigin_k_EXboxOrigin_DPad_West: EXboxOrigin = 26;
+pub const EXboxOrigin_k_EXboxOrigin_DPad_East: EXboxOrigin = 27;
+pub const EXboxOrigin_k_EXboxOrigin_Count: EXboxOrigin = 28;
+pub type EXboxOrigin = ::std::os::raw::c_uint;
+pub const ESteamControllerPad_k_ESteamControllerPad_Left: ESteamControllerPad = 0;
+pub const ESteamControllerPad_k_ESteamControllerPad_Right: ESteamControllerPad = 1;
+pub type ESteamControllerPad = ::std::os::raw::c_uint;
+pub const EControllerHapticLocation_k_EControllerHapticLocation_Left: EControllerHapticLocation = 1;
+pub const EControllerHapticLocation_k_EControllerHapticLocation_Right: EControllerHapticLocation =
+    2;
+pub const EControllerHapticLocation_k_EControllerHapticLocation_Both: EControllerHapticLocation = 3;
+pub type EControllerHapticLocation = ::std::os::raw::c_uint;
+pub const EControllerHapticType_k_EControllerHapticType_Off: EControllerHapticType = 0;
+pub const EControllerHapticType_k_EControllerHapticType_Tick: EControllerHapticType = 1;
+pub const EControllerHapticType_k_EControllerHapticType_Click: EControllerHapticType = 2;
+pub type EControllerHapticType = ::std::os::raw::c_uint;
+pub const ESteamInputType_k_ESteamInputType_Unknown: ESteamInputType = 0;
+pub const ESteamInputType_k_ESteamInputType_SteamController: ESteamInputType = 1;
+pub const ESteamInputType_k_ESteamInputType_XBox360Controller: ESteamInputType = 2;
+pub const ESteamInputType_k_ESteamInputType_XBoxOneController: ESteamInputType = 3;
+pub const ESteamInputType_k_ESteamInputType_GenericGamepad: ESteamInputType = 4;
+pub const ESteamInputType_k_ESteamInputType_PS4Controller: ESteamInputType = 5;
+pub const ESteamInputType_k_ESteamInputType_AppleMFiController: ESteamInputType = 6;
+pub const ESteamInputType_k_ESteamInputType_AndroidController: ESteamInputType = 7;
+pub const ESteamInputType_k_ESteamInputType_SwitchJoyConPair: ESteamInputType = 8;
+pub const ESteamInputType_k_ESteamInputType_SwitchJoyConSingle: ESteamInputType = 9;
+pub const ESteamInputType_k_ESteamInputType_SwitchProController: ESteamInputType = 10;
+pub const ESteamInputType_k_ESteamInputType_MobileTouch: ESteamInputType = 11;
+pub const ESteamInputType_k_ESteamInputType_PS3Controller: ESteamInputType = 12;
+pub const ESteamInputType_k_ESteamInputType_PS5Controller: ESteamInputType = 13;
+pub const ESteamInputType_k_ESteamInputType_SteamDeckController: ESteamInputType = 14;
+pub const ESteamInputType_k_ESteamInputType_Count: ESteamInputType = 15;
+pub const ESteamInputType_k_ESteamInputType_MaximumPossibleValue: ESteamInputType = 255;
+pub type ESteamInputType = ::std::os::raw::c_uint;
+pub const ESteamInputConfigurationEnableType_k_ESteamInputConfigurationEnableType_None:
+    ESteamInputConfigurationEnableType = 0;
+pub const ESteamInputConfigurationEnableType_k_ESteamInputConfigurationEnableType_Playstation:
+    ESteamInputConfigurationEnableType = 1;
+pub const ESteamInputConfigurationEnableType_k_ESteamInputConfigurationEnableType_Xbox:
+    ESteamInputConfigurationEnableType = 2;
+pub const ESteamInputConfigurationEnableType_k_ESteamInputConfigurationEnableType_Generic:
+    ESteamInputConfigurationEnableType = 4;
+pub const ESteamInputConfigurationEnableType_k_ESteamInputConfigurationEnableType_Switch:
+    ESteamInputConfigurationEnableType = 8;
+pub type ESteamInputConfigurationEnableType = ::std::os::raw::c_uint;
+pub const ESteamInputLEDFlag_k_ESteamInputLEDFlag_SetColor: ESteamInputLEDFlag = 0;
+pub const ESteamInputLEDFlag_k_ESteamInputLEDFlag_RestoreUserDefault: ESteamInputLEDFlag = 1;
+pub type ESteamInputLEDFlag = ::std::os::raw::c_uint;
+pub const ESteamInputGlyphSize_k_ESteamInputGlyphSize_Small: ESteamInputGlyphSize = 0;
+pub const ESteamInputGlyphSize_k_ESteamInputGlyphSize_Medium: ESteamInputGlyphSize = 1;
+pub const ESteamInputGlyphSize_k_ESteamInputGlyphSize_Large: ESteamInputGlyphSize = 2;
+pub const ESteamInputGlyphSize_k_ESteamInputGlyphSize_Count: ESteamInputGlyphSize = 3;
+pub type ESteamInputGlyphSize = ::std::os::raw::c_uint;
+pub const ESteamInputGlyphStyle_ESteamInputGlyphStyle_Knockout: ESteamInputGlyphStyle = 0;
+pub const ESteamInputGlyphStyle_ESteamInputGlyphStyle_Light: ESteamInputGlyphStyle = 1;
+pub const ESteamInputGlyphStyle_ESteamInputGlyphStyle_Dark: ESteamInputGlyphStyle = 2;
+pub const ESteamInputGlyphStyle_ESteamInputGlyphStyle_NeutralColorABXY: ESteamInputGlyphStyle = 16;
+pub const ESteamInputGlyphStyle_ESteamInputGlyphStyle_SolidABXY: ESteamInputGlyphStyle = 32;
+pub type ESteamInputGlyphStyle = ::std::os::raw::c_uint;
+pub const ESteamInputActionEventType_ESteamInputActionEventType_DigitalAction:
+    ESteamInputActionEventType = 0;
+pub const ESteamInputActionEventType_ESteamInputActionEventType_AnalogAction:
+    ESteamInputActionEventType = 1;
+pub type ESteamInputActionEventType = ::std::os::raw::c_uint;
 pub type InputHandle_t = uint64;
 pub type InputActionSetHandle_t = uint64;
 pub type InputDigitalActionHandle_t = uint64;
@@ -14826,14 +13671,8 @@ fn bindgen_test_layout_ISteamInput() {
 pub struct SteamInputDeviceConnected_t {
     pub m_ulConnectedDeviceHandle: InputHandle_t,
 }
-pub const SteamInputDeviceConnected_t_k_iCallback: SteamInputDeviceConnected_t__bindgen_ty_1 =
-    SteamInputDeviceConnected_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamInputDeviceConnected_t__bindgen_ty_1 {
-    k_iCallback = 2801,
-}
+pub const SteamInputDeviceConnected_t_k_iCallback: SteamInputDeviceConnected_t__bindgen_ty_1 = 2801;
+pub type SteamInputDeviceConnected_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamInputDeviceConnected_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamInputDeviceConnected_t> =
@@ -14866,13 +13705,8 @@ pub struct SteamInputDeviceDisconnected_t {
     pub m_ulDisconnectedDeviceHandle: InputHandle_t,
 }
 pub const SteamInputDeviceDisconnected_t_k_iCallback: SteamInputDeviceDisconnected_t__bindgen_ty_1 =
-    SteamInputDeviceDisconnected_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamInputDeviceDisconnected_t__bindgen_ty_1 {
-    k_iCallback = 2802,
-}
+    2802;
+pub type SteamInputDeviceDisconnected_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamInputDeviceDisconnected_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamInputDeviceDisconnected_t> =
@@ -14913,14 +13747,8 @@ pub struct SteamInputConfigurationLoaded_t {
     pub m_bUsesGamepadAPI: bool,
 }
 pub const SteamInputConfigurationLoaded_t_k_iCallback:
-    SteamInputConfigurationLoaded_t__bindgen_ty_1 =
-    SteamInputConfigurationLoaded_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamInputConfigurationLoaded_t__bindgen_ty_1 {
-    k_iCallback = 2803,
-}
+    SteamInputConfigurationLoaded_t__bindgen_ty_1 = 2803;
+pub type SteamInputConfigurationLoaded_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamInputConfigurationLoaded_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamInputConfigurationLoaded_t> =
@@ -15017,13 +13845,8 @@ pub struct SteamInputGamepadSlotChange_t {
     pub m_nNewGamepadSlot: ::std::os::raw::c_int,
 }
 pub const SteamInputGamepadSlotChange_t_k_iCallback: SteamInputGamepadSlotChange_t__bindgen_ty_1 =
-    SteamInputGamepadSlotChange_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamInputGamepadSlotChange_t__bindgen_ty_1 {
-    k_iCallback = 2804,
-}
+    2804;
+pub type SteamInputGamepadSlotChange_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamInputGamepadSlotChange_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamInputGamepadSlotChange_t> =
@@ -15090,406 +13913,761 @@ fn bindgen_test_layout_SteamInputGamepadSlotChange_t() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EControllerActionOrigin {
-    k_EControllerActionOrigin_None = 0,
-    k_EControllerActionOrigin_A = 1,
-    k_EControllerActionOrigin_B = 2,
-    k_EControllerActionOrigin_X = 3,
-    k_EControllerActionOrigin_Y = 4,
-    k_EControllerActionOrigin_LeftBumper = 5,
-    k_EControllerActionOrigin_RightBumper = 6,
-    k_EControllerActionOrigin_LeftGrip = 7,
-    k_EControllerActionOrigin_RightGrip = 8,
-    k_EControllerActionOrigin_Start = 9,
-    k_EControllerActionOrigin_Back = 10,
-    k_EControllerActionOrigin_LeftPad_Touch = 11,
-    k_EControllerActionOrigin_LeftPad_Swipe = 12,
-    k_EControllerActionOrigin_LeftPad_Click = 13,
-    k_EControllerActionOrigin_LeftPad_DPadNorth = 14,
-    k_EControllerActionOrigin_LeftPad_DPadSouth = 15,
-    k_EControllerActionOrigin_LeftPad_DPadWest = 16,
-    k_EControllerActionOrigin_LeftPad_DPadEast = 17,
-    k_EControllerActionOrigin_RightPad_Touch = 18,
-    k_EControllerActionOrigin_RightPad_Swipe = 19,
-    k_EControllerActionOrigin_RightPad_Click = 20,
-    k_EControllerActionOrigin_RightPad_DPadNorth = 21,
-    k_EControllerActionOrigin_RightPad_DPadSouth = 22,
-    k_EControllerActionOrigin_RightPad_DPadWest = 23,
-    k_EControllerActionOrigin_RightPad_DPadEast = 24,
-    k_EControllerActionOrigin_LeftTrigger_Pull = 25,
-    k_EControllerActionOrigin_LeftTrigger_Click = 26,
-    k_EControllerActionOrigin_RightTrigger_Pull = 27,
-    k_EControllerActionOrigin_RightTrigger_Click = 28,
-    k_EControllerActionOrigin_LeftStick_Move = 29,
-    k_EControllerActionOrigin_LeftStick_Click = 30,
-    k_EControllerActionOrigin_LeftStick_DPadNorth = 31,
-    k_EControllerActionOrigin_LeftStick_DPadSouth = 32,
-    k_EControllerActionOrigin_LeftStick_DPadWest = 33,
-    k_EControllerActionOrigin_LeftStick_DPadEast = 34,
-    k_EControllerActionOrigin_Gyro_Move = 35,
-    k_EControllerActionOrigin_Gyro_Pitch = 36,
-    k_EControllerActionOrigin_Gyro_Yaw = 37,
-    k_EControllerActionOrigin_Gyro_Roll = 38,
-    k_EControllerActionOrigin_PS4_X = 39,
-    k_EControllerActionOrigin_PS4_Circle = 40,
-    k_EControllerActionOrigin_PS4_Triangle = 41,
-    k_EControllerActionOrigin_PS4_Square = 42,
-    k_EControllerActionOrigin_PS4_LeftBumper = 43,
-    k_EControllerActionOrigin_PS4_RightBumper = 44,
-    k_EControllerActionOrigin_PS4_Options = 45,
-    k_EControllerActionOrigin_PS4_Share = 46,
-    k_EControllerActionOrigin_PS4_LeftPad_Touch = 47,
-    k_EControllerActionOrigin_PS4_LeftPad_Swipe = 48,
-    k_EControllerActionOrigin_PS4_LeftPad_Click = 49,
-    k_EControllerActionOrigin_PS4_LeftPad_DPadNorth = 50,
-    k_EControllerActionOrigin_PS4_LeftPad_DPadSouth = 51,
-    k_EControllerActionOrigin_PS4_LeftPad_DPadWest = 52,
-    k_EControllerActionOrigin_PS4_LeftPad_DPadEast = 53,
-    k_EControllerActionOrigin_PS4_RightPad_Touch = 54,
-    k_EControllerActionOrigin_PS4_RightPad_Swipe = 55,
-    k_EControllerActionOrigin_PS4_RightPad_Click = 56,
-    k_EControllerActionOrigin_PS4_RightPad_DPadNorth = 57,
-    k_EControllerActionOrigin_PS4_RightPad_DPadSouth = 58,
-    k_EControllerActionOrigin_PS4_RightPad_DPadWest = 59,
-    k_EControllerActionOrigin_PS4_RightPad_DPadEast = 60,
-    k_EControllerActionOrigin_PS4_CenterPad_Touch = 61,
-    k_EControllerActionOrigin_PS4_CenterPad_Swipe = 62,
-    k_EControllerActionOrigin_PS4_CenterPad_Click = 63,
-    k_EControllerActionOrigin_PS4_CenterPad_DPadNorth = 64,
-    k_EControllerActionOrigin_PS4_CenterPad_DPadSouth = 65,
-    k_EControllerActionOrigin_PS4_CenterPad_DPadWest = 66,
-    k_EControllerActionOrigin_PS4_CenterPad_DPadEast = 67,
-    k_EControllerActionOrigin_PS4_LeftTrigger_Pull = 68,
-    k_EControllerActionOrigin_PS4_LeftTrigger_Click = 69,
-    k_EControllerActionOrigin_PS4_RightTrigger_Pull = 70,
-    k_EControllerActionOrigin_PS4_RightTrigger_Click = 71,
-    k_EControllerActionOrigin_PS4_LeftStick_Move = 72,
-    k_EControllerActionOrigin_PS4_LeftStick_Click = 73,
-    k_EControllerActionOrigin_PS4_LeftStick_DPadNorth = 74,
-    k_EControllerActionOrigin_PS4_LeftStick_DPadSouth = 75,
-    k_EControllerActionOrigin_PS4_LeftStick_DPadWest = 76,
-    k_EControllerActionOrigin_PS4_LeftStick_DPadEast = 77,
-    k_EControllerActionOrigin_PS4_RightStick_Move = 78,
-    k_EControllerActionOrigin_PS4_RightStick_Click = 79,
-    k_EControllerActionOrigin_PS4_RightStick_DPadNorth = 80,
-    k_EControllerActionOrigin_PS4_RightStick_DPadSouth = 81,
-    k_EControllerActionOrigin_PS4_RightStick_DPadWest = 82,
-    k_EControllerActionOrigin_PS4_RightStick_DPadEast = 83,
-    k_EControllerActionOrigin_PS4_DPad_North = 84,
-    k_EControllerActionOrigin_PS4_DPad_South = 85,
-    k_EControllerActionOrigin_PS4_DPad_West = 86,
-    k_EControllerActionOrigin_PS4_DPad_East = 87,
-    k_EControllerActionOrigin_PS4_Gyro_Move = 88,
-    k_EControllerActionOrigin_PS4_Gyro_Pitch = 89,
-    k_EControllerActionOrigin_PS4_Gyro_Yaw = 90,
-    k_EControllerActionOrigin_PS4_Gyro_Roll = 91,
-    k_EControllerActionOrigin_XBoxOne_A = 92,
-    k_EControllerActionOrigin_XBoxOne_B = 93,
-    k_EControllerActionOrigin_XBoxOne_X = 94,
-    k_EControllerActionOrigin_XBoxOne_Y = 95,
-    k_EControllerActionOrigin_XBoxOne_LeftBumper = 96,
-    k_EControllerActionOrigin_XBoxOne_RightBumper = 97,
-    k_EControllerActionOrigin_XBoxOne_Menu = 98,
-    k_EControllerActionOrigin_XBoxOne_View = 99,
-    k_EControllerActionOrigin_XBoxOne_LeftTrigger_Pull = 100,
-    k_EControllerActionOrigin_XBoxOne_LeftTrigger_Click = 101,
-    k_EControllerActionOrigin_XBoxOne_RightTrigger_Pull = 102,
-    k_EControllerActionOrigin_XBoxOne_RightTrigger_Click = 103,
-    k_EControllerActionOrigin_XBoxOne_LeftStick_Move = 104,
-    k_EControllerActionOrigin_XBoxOne_LeftStick_Click = 105,
-    k_EControllerActionOrigin_XBoxOne_LeftStick_DPadNorth = 106,
-    k_EControllerActionOrigin_XBoxOne_LeftStick_DPadSouth = 107,
-    k_EControllerActionOrigin_XBoxOne_LeftStick_DPadWest = 108,
-    k_EControllerActionOrigin_XBoxOne_LeftStick_DPadEast = 109,
-    k_EControllerActionOrigin_XBoxOne_RightStick_Move = 110,
-    k_EControllerActionOrigin_XBoxOne_RightStick_Click = 111,
-    k_EControllerActionOrigin_XBoxOne_RightStick_DPadNorth = 112,
-    k_EControllerActionOrigin_XBoxOne_RightStick_DPadSouth = 113,
-    k_EControllerActionOrigin_XBoxOne_RightStick_DPadWest = 114,
-    k_EControllerActionOrigin_XBoxOne_RightStick_DPadEast = 115,
-    k_EControllerActionOrigin_XBoxOne_DPad_North = 116,
-    k_EControllerActionOrigin_XBoxOne_DPad_South = 117,
-    k_EControllerActionOrigin_XBoxOne_DPad_West = 118,
-    k_EControllerActionOrigin_XBoxOne_DPad_East = 119,
-    k_EControllerActionOrigin_XBox360_A = 120,
-    k_EControllerActionOrigin_XBox360_B = 121,
-    k_EControllerActionOrigin_XBox360_X = 122,
-    k_EControllerActionOrigin_XBox360_Y = 123,
-    k_EControllerActionOrigin_XBox360_LeftBumper = 124,
-    k_EControllerActionOrigin_XBox360_RightBumper = 125,
-    k_EControllerActionOrigin_XBox360_Start = 126,
-    k_EControllerActionOrigin_XBox360_Back = 127,
-    k_EControllerActionOrigin_XBox360_LeftTrigger_Pull = 128,
-    k_EControllerActionOrigin_XBox360_LeftTrigger_Click = 129,
-    k_EControllerActionOrigin_XBox360_RightTrigger_Pull = 130,
-    k_EControllerActionOrigin_XBox360_RightTrigger_Click = 131,
-    k_EControllerActionOrigin_XBox360_LeftStick_Move = 132,
-    k_EControllerActionOrigin_XBox360_LeftStick_Click = 133,
-    k_EControllerActionOrigin_XBox360_LeftStick_DPadNorth = 134,
-    k_EControllerActionOrigin_XBox360_LeftStick_DPadSouth = 135,
-    k_EControllerActionOrigin_XBox360_LeftStick_DPadWest = 136,
-    k_EControllerActionOrigin_XBox360_LeftStick_DPadEast = 137,
-    k_EControllerActionOrigin_XBox360_RightStick_Move = 138,
-    k_EControllerActionOrigin_XBox360_RightStick_Click = 139,
-    k_EControllerActionOrigin_XBox360_RightStick_DPadNorth = 140,
-    k_EControllerActionOrigin_XBox360_RightStick_DPadSouth = 141,
-    k_EControllerActionOrigin_XBox360_RightStick_DPadWest = 142,
-    k_EControllerActionOrigin_XBox360_RightStick_DPadEast = 143,
-    k_EControllerActionOrigin_XBox360_DPad_North = 144,
-    k_EControllerActionOrigin_XBox360_DPad_South = 145,
-    k_EControllerActionOrigin_XBox360_DPad_West = 146,
-    k_EControllerActionOrigin_XBox360_DPad_East = 147,
-    k_EControllerActionOrigin_SteamV2_A = 148,
-    k_EControllerActionOrigin_SteamV2_B = 149,
-    k_EControllerActionOrigin_SteamV2_X = 150,
-    k_EControllerActionOrigin_SteamV2_Y = 151,
-    k_EControllerActionOrigin_SteamV2_LeftBumper = 152,
-    k_EControllerActionOrigin_SteamV2_RightBumper = 153,
-    k_EControllerActionOrigin_SteamV2_LeftGrip_Lower = 154,
-    k_EControllerActionOrigin_SteamV2_LeftGrip_Upper = 155,
-    k_EControllerActionOrigin_SteamV2_RightGrip_Lower = 156,
-    k_EControllerActionOrigin_SteamV2_RightGrip_Upper = 157,
-    k_EControllerActionOrigin_SteamV2_LeftBumper_Pressure = 158,
-    k_EControllerActionOrigin_SteamV2_RightBumper_Pressure = 159,
-    k_EControllerActionOrigin_SteamV2_LeftGrip_Pressure = 160,
-    k_EControllerActionOrigin_SteamV2_RightGrip_Pressure = 161,
-    k_EControllerActionOrigin_SteamV2_LeftGrip_Upper_Pressure = 162,
-    k_EControllerActionOrigin_SteamV2_RightGrip_Upper_Pressure = 163,
-    k_EControllerActionOrigin_SteamV2_Start = 164,
-    k_EControllerActionOrigin_SteamV2_Back = 165,
-    k_EControllerActionOrigin_SteamV2_LeftPad_Touch = 166,
-    k_EControllerActionOrigin_SteamV2_LeftPad_Swipe = 167,
-    k_EControllerActionOrigin_SteamV2_LeftPad_Click = 168,
-    k_EControllerActionOrigin_SteamV2_LeftPad_Pressure = 169,
-    k_EControllerActionOrigin_SteamV2_LeftPad_DPadNorth = 170,
-    k_EControllerActionOrigin_SteamV2_LeftPad_DPadSouth = 171,
-    k_EControllerActionOrigin_SteamV2_LeftPad_DPadWest = 172,
-    k_EControllerActionOrigin_SteamV2_LeftPad_DPadEast = 173,
-    k_EControllerActionOrigin_SteamV2_RightPad_Touch = 174,
-    k_EControllerActionOrigin_SteamV2_RightPad_Swipe = 175,
-    k_EControllerActionOrigin_SteamV2_RightPad_Click = 176,
-    k_EControllerActionOrigin_SteamV2_RightPad_Pressure = 177,
-    k_EControllerActionOrigin_SteamV2_RightPad_DPadNorth = 178,
-    k_EControllerActionOrigin_SteamV2_RightPad_DPadSouth = 179,
-    k_EControllerActionOrigin_SteamV2_RightPad_DPadWest = 180,
-    k_EControllerActionOrigin_SteamV2_RightPad_DPadEast = 181,
-    k_EControllerActionOrigin_SteamV2_LeftTrigger_Pull = 182,
-    k_EControllerActionOrigin_SteamV2_LeftTrigger_Click = 183,
-    k_EControllerActionOrigin_SteamV2_RightTrigger_Pull = 184,
-    k_EControllerActionOrigin_SteamV2_RightTrigger_Click = 185,
-    k_EControllerActionOrigin_SteamV2_LeftStick_Move = 186,
-    k_EControllerActionOrigin_SteamV2_LeftStick_Click = 187,
-    k_EControllerActionOrigin_SteamV2_LeftStick_DPadNorth = 188,
-    k_EControllerActionOrigin_SteamV2_LeftStick_DPadSouth = 189,
-    k_EControllerActionOrigin_SteamV2_LeftStick_DPadWest = 190,
-    k_EControllerActionOrigin_SteamV2_LeftStick_DPadEast = 191,
-    k_EControllerActionOrigin_SteamV2_Gyro_Move = 192,
-    k_EControllerActionOrigin_SteamV2_Gyro_Pitch = 193,
-    k_EControllerActionOrigin_SteamV2_Gyro_Yaw = 194,
-    k_EControllerActionOrigin_SteamV2_Gyro_Roll = 195,
-    k_EControllerActionOrigin_Switch_A = 196,
-    k_EControllerActionOrigin_Switch_B = 197,
-    k_EControllerActionOrigin_Switch_X = 198,
-    k_EControllerActionOrigin_Switch_Y = 199,
-    k_EControllerActionOrigin_Switch_LeftBumper = 200,
-    k_EControllerActionOrigin_Switch_RightBumper = 201,
-    k_EControllerActionOrigin_Switch_Plus = 202,
-    k_EControllerActionOrigin_Switch_Minus = 203,
-    k_EControllerActionOrigin_Switch_Capture = 204,
-    k_EControllerActionOrigin_Switch_LeftTrigger_Pull = 205,
-    k_EControllerActionOrigin_Switch_LeftTrigger_Click = 206,
-    k_EControllerActionOrigin_Switch_RightTrigger_Pull = 207,
-    k_EControllerActionOrigin_Switch_RightTrigger_Click = 208,
-    k_EControllerActionOrigin_Switch_LeftStick_Move = 209,
-    k_EControllerActionOrigin_Switch_LeftStick_Click = 210,
-    k_EControllerActionOrigin_Switch_LeftStick_DPadNorth = 211,
-    k_EControllerActionOrigin_Switch_LeftStick_DPadSouth = 212,
-    k_EControllerActionOrigin_Switch_LeftStick_DPadWest = 213,
-    k_EControllerActionOrigin_Switch_LeftStick_DPadEast = 214,
-    k_EControllerActionOrigin_Switch_RightStick_Move = 215,
-    k_EControllerActionOrigin_Switch_RightStick_Click = 216,
-    k_EControllerActionOrigin_Switch_RightStick_DPadNorth = 217,
-    k_EControllerActionOrigin_Switch_RightStick_DPadSouth = 218,
-    k_EControllerActionOrigin_Switch_RightStick_DPadWest = 219,
-    k_EControllerActionOrigin_Switch_RightStick_DPadEast = 220,
-    k_EControllerActionOrigin_Switch_DPad_North = 221,
-    k_EControllerActionOrigin_Switch_DPad_South = 222,
-    k_EControllerActionOrigin_Switch_DPad_West = 223,
-    k_EControllerActionOrigin_Switch_DPad_East = 224,
-    k_EControllerActionOrigin_Switch_ProGyro_Move = 225,
-    k_EControllerActionOrigin_Switch_ProGyro_Pitch = 226,
-    k_EControllerActionOrigin_Switch_ProGyro_Yaw = 227,
-    k_EControllerActionOrigin_Switch_ProGyro_Roll = 228,
-    k_EControllerActionOrigin_Switch_RightGyro_Move = 229,
-    k_EControllerActionOrigin_Switch_RightGyro_Pitch = 230,
-    k_EControllerActionOrigin_Switch_RightGyro_Yaw = 231,
-    k_EControllerActionOrigin_Switch_RightGyro_Roll = 232,
-    k_EControllerActionOrigin_Switch_LeftGyro_Move = 233,
-    k_EControllerActionOrigin_Switch_LeftGyro_Pitch = 234,
-    k_EControllerActionOrigin_Switch_LeftGyro_Yaw = 235,
-    k_EControllerActionOrigin_Switch_LeftGyro_Roll = 236,
-    k_EControllerActionOrigin_Switch_LeftGrip_Lower = 237,
-    k_EControllerActionOrigin_Switch_LeftGrip_Upper = 238,
-    k_EControllerActionOrigin_Switch_RightGrip_Lower = 239,
-    k_EControllerActionOrigin_Switch_RightGrip_Upper = 240,
-    k_EControllerActionOrigin_PS4_DPad_Move = 241,
-    k_EControllerActionOrigin_XBoxOne_DPad_Move = 242,
-    k_EControllerActionOrigin_XBox360_DPad_Move = 243,
-    k_EControllerActionOrigin_Switch_DPad_Move = 244,
-    k_EControllerActionOrigin_PS5_X = 245,
-    k_EControllerActionOrigin_PS5_Circle = 246,
-    k_EControllerActionOrigin_PS5_Triangle = 247,
-    k_EControllerActionOrigin_PS5_Square = 248,
-    k_EControllerActionOrigin_PS5_LeftBumper = 249,
-    k_EControllerActionOrigin_PS5_RightBumper = 250,
-    k_EControllerActionOrigin_PS5_Option = 251,
-    k_EControllerActionOrigin_PS5_Create = 252,
-    k_EControllerActionOrigin_PS5_Mute = 253,
-    k_EControllerActionOrigin_PS5_LeftPad_Touch = 254,
-    k_EControllerActionOrigin_PS5_LeftPad_Swipe = 255,
-    k_EControllerActionOrigin_PS5_LeftPad_Click = 256,
-    k_EControllerActionOrigin_PS5_LeftPad_DPadNorth = 257,
-    k_EControllerActionOrigin_PS5_LeftPad_DPadSouth = 258,
-    k_EControllerActionOrigin_PS5_LeftPad_DPadWest = 259,
-    k_EControllerActionOrigin_PS5_LeftPad_DPadEast = 260,
-    k_EControllerActionOrigin_PS5_RightPad_Touch = 261,
-    k_EControllerActionOrigin_PS5_RightPad_Swipe = 262,
-    k_EControllerActionOrigin_PS5_RightPad_Click = 263,
-    k_EControllerActionOrigin_PS5_RightPad_DPadNorth = 264,
-    k_EControllerActionOrigin_PS5_RightPad_DPadSouth = 265,
-    k_EControllerActionOrigin_PS5_RightPad_DPadWest = 266,
-    k_EControllerActionOrigin_PS5_RightPad_DPadEast = 267,
-    k_EControllerActionOrigin_PS5_CenterPad_Touch = 268,
-    k_EControllerActionOrigin_PS5_CenterPad_Swipe = 269,
-    k_EControllerActionOrigin_PS5_CenterPad_Click = 270,
-    k_EControllerActionOrigin_PS5_CenterPad_DPadNorth = 271,
-    k_EControllerActionOrigin_PS5_CenterPad_DPadSouth = 272,
-    k_EControllerActionOrigin_PS5_CenterPad_DPadWest = 273,
-    k_EControllerActionOrigin_PS5_CenterPad_DPadEast = 274,
-    k_EControllerActionOrigin_PS5_LeftTrigger_Pull = 275,
-    k_EControllerActionOrigin_PS5_LeftTrigger_Click = 276,
-    k_EControllerActionOrigin_PS5_RightTrigger_Pull = 277,
-    k_EControllerActionOrigin_PS5_RightTrigger_Click = 278,
-    k_EControllerActionOrigin_PS5_LeftStick_Move = 279,
-    k_EControllerActionOrigin_PS5_LeftStick_Click = 280,
-    k_EControllerActionOrigin_PS5_LeftStick_DPadNorth = 281,
-    k_EControllerActionOrigin_PS5_LeftStick_DPadSouth = 282,
-    k_EControllerActionOrigin_PS5_LeftStick_DPadWest = 283,
-    k_EControllerActionOrigin_PS5_LeftStick_DPadEast = 284,
-    k_EControllerActionOrigin_PS5_RightStick_Move = 285,
-    k_EControllerActionOrigin_PS5_RightStick_Click = 286,
-    k_EControllerActionOrigin_PS5_RightStick_DPadNorth = 287,
-    k_EControllerActionOrigin_PS5_RightStick_DPadSouth = 288,
-    k_EControllerActionOrigin_PS5_RightStick_DPadWest = 289,
-    k_EControllerActionOrigin_PS5_RightStick_DPadEast = 290,
-    k_EControllerActionOrigin_PS5_DPad_Move = 291,
-    k_EControllerActionOrigin_PS5_DPad_North = 292,
-    k_EControllerActionOrigin_PS5_DPad_South = 293,
-    k_EControllerActionOrigin_PS5_DPad_West = 294,
-    k_EControllerActionOrigin_PS5_DPad_East = 295,
-    k_EControllerActionOrigin_PS5_Gyro_Move = 296,
-    k_EControllerActionOrigin_PS5_Gyro_Pitch = 297,
-    k_EControllerActionOrigin_PS5_Gyro_Yaw = 298,
-    k_EControllerActionOrigin_PS5_Gyro_Roll = 299,
-    k_EControllerActionOrigin_XBoxOne_LeftGrip_Lower = 300,
-    k_EControllerActionOrigin_XBoxOne_LeftGrip_Upper = 301,
-    k_EControllerActionOrigin_XBoxOne_RightGrip_Lower = 302,
-    k_EControllerActionOrigin_XBoxOne_RightGrip_Upper = 303,
-    k_EControllerActionOrigin_XBoxOne_Share = 304,
-    k_EControllerActionOrigin_SteamDeck_A = 305,
-    k_EControllerActionOrigin_SteamDeck_B = 306,
-    k_EControllerActionOrigin_SteamDeck_X = 307,
-    k_EControllerActionOrigin_SteamDeck_Y = 308,
-    k_EControllerActionOrigin_SteamDeck_L1 = 309,
-    k_EControllerActionOrigin_SteamDeck_R1 = 310,
-    k_EControllerActionOrigin_SteamDeck_Menu = 311,
-    k_EControllerActionOrigin_SteamDeck_View = 312,
-    k_EControllerActionOrigin_SteamDeck_LeftPad_Touch = 313,
-    k_EControllerActionOrigin_SteamDeck_LeftPad_Swipe = 314,
-    k_EControllerActionOrigin_SteamDeck_LeftPad_Click = 315,
-    k_EControllerActionOrigin_SteamDeck_LeftPad_DPadNorth = 316,
-    k_EControllerActionOrigin_SteamDeck_LeftPad_DPadSouth = 317,
-    k_EControllerActionOrigin_SteamDeck_LeftPad_DPadWest = 318,
-    k_EControllerActionOrigin_SteamDeck_LeftPad_DPadEast = 319,
-    k_EControllerActionOrigin_SteamDeck_RightPad_Touch = 320,
-    k_EControllerActionOrigin_SteamDeck_RightPad_Swipe = 321,
-    k_EControllerActionOrigin_SteamDeck_RightPad_Click = 322,
-    k_EControllerActionOrigin_SteamDeck_RightPad_DPadNorth = 323,
-    k_EControllerActionOrigin_SteamDeck_RightPad_DPadSouth = 324,
-    k_EControllerActionOrigin_SteamDeck_RightPad_DPadWest = 325,
-    k_EControllerActionOrigin_SteamDeck_RightPad_DPadEast = 326,
-    k_EControllerActionOrigin_SteamDeck_L2_SoftPull = 327,
-    k_EControllerActionOrigin_SteamDeck_L2 = 328,
-    k_EControllerActionOrigin_SteamDeck_R2_SoftPull = 329,
-    k_EControllerActionOrigin_SteamDeck_R2 = 330,
-    k_EControllerActionOrigin_SteamDeck_LeftStick_Move = 331,
-    k_EControllerActionOrigin_SteamDeck_L3 = 332,
-    k_EControllerActionOrigin_SteamDeck_LeftStick_DPadNorth = 333,
-    k_EControllerActionOrigin_SteamDeck_LeftStick_DPadSouth = 334,
-    k_EControllerActionOrigin_SteamDeck_LeftStick_DPadWest = 335,
-    k_EControllerActionOrigin_SteamDeck_LeftStick_DPadEast = 336,
-    k_EControllerActionOrigin_SteamDeck_LeftStick_Touch = 337,
-    k_EControllerActionOrigin_SteamDeck_RightStick_Move = 338,
-    k_EControllerActionOrigin_SteamDeck_R3 = 339,
-    k_EControllerActionOrigin_SteamDeck_RightStick_DPadNorth = 340,
-    k_EControllerActionOrigin_SteamDeck_RightStick_DPadSouth = 341,
-    k_EControllerActionOrigin_SteamDeck_RightStick_DPadWest = 342,
-    k_EControllerActionOrigin_SteamDeck_RightStick_DPadEast = 343,
-    k_EControllerActionOrigin_SteamDeck_RightStick_Touch = 344,
-    k_EControllerActionOrigin_SteamDeck_L4 = 345,
-    k_EControllerActionOrigin_SteamDeck_R4 = 346,
-    k_EControllerActionOrigin_SteamDeck_L5 = 347,
-    k_EControllerActionOrigin_SteamDeck_R5 = 348,
-    k_EControllerActionOrigin_SteamDeck_DPad_Move = 349,
-    k_EControllerActionOrigin_SteamDeck_DPad_North = 350,
-    k_EControllerActionOrigin_SteamDeck_DPad_South = 351,
-    k_EControllerActionOrigin_SteamDeck_DPad_West = 352,
-    k_EControllerActionOrigin_SteamDeck_DPad_East = 353,
-    k_EControllerActionOrigin_SteamDeck_Gyro_Move = 354,
-    k_EControllerActionOrigin_SteamDeck_Gyro_Pitch = 355,
-    k_EControllerActionOrigin_SteamDeck_Gyro_Yaw = 356,
-    k_EControllerActionOrigin_SteamDeck_Gyro_Roll = 357,
-    k_EControllerActionOrigin_SteamDeck_Reserved1 = 358,
-    k_EControllerActionOrigin_SteamDeck_Reserved2 = 359,
-    k_EControllerActionOrigin_SteamDeck_Reserved3 = 360,
-    k_EControllerActionOrigin_SteamDeck_Reserved4 = 361,
-    k_EControllerActionOrigin_SteamDeck_Reserved5 = 362,
-    k_EControllerActionOrigin_SteamDeck_Reserved6 = 363,
-    k_EControllerActionOrigin_SteamDeck_Reserved7 = 364,
-    k_EControllerActionOrigin_SteamDeck_Reserved8 = 365,
-    k_EControllerActionOrigin_SteamDeck_Reserved9 = 366,
-    k_EControllerActionOrigin_SteamDeck_Reserved10 = 367,
-    k_EControllerActionOrigin_SteamDeck_Reserved11 = 368,
-    k_EControllerActionOrigin_SteamDeck_Reserved12 = 369,
-    k_EControllerActionOrigin_SteamDeck_Reserved13 = 370,
-    k_EControllerActionOrigin_SteamDeck_Reserved14 = 371,
-    k_EControllerActionOrigin_SteamDeck_Reserved15 = 372,
-    k_EControllerActionOrigin_SteamDeck_Reserved16 = 373,
-    k_EControllerActionOrigin_SteamDeck_Reserved17 = 374,
-    k_EControllerActionOrigin_SteamDeck_Reserved18 = 375,
-    k_EControllerActionOrigin_SteamDeck_Reserved19 = 376,
-    k_EControllerActionOrigin_SteamDeck_Reserved20 = 377,
-    k_EControllerActionOrigin_Switch_JoyConButton_N = 378,
-    k_EControllerActionOrigin_Switch_JoyConButton_E = 379,
-    k_EControllerActionOrigin_Switch_JoyConButton_S = 380,
-    k_EControllerActionOrigin_Switch_JoyConButton_W = 381,
-    k_EControllerActionOrigin_PS5_LeftGrip = 382,
-    k_EControllerActionOrigin_PS5_RightGrip = 383,
-    k_EControllerActionOrigin_PS5_LeftFn = 384,
-    k_EControllerActionOrigin_PS5_RightFn = 385,
-    k_EControllerActionOrigin_Count = 386,
-    k_EControllerActionOrigin_MaximumPossibleValue = 32767,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamControllerLEDFlag {
-    k_ESteamControllerLEDFlag_SetColor = 0,
-    k_ESteamControllerLEDFlag_RestoreUserDefault = 1,
-}
+pub const EControllerActionOrigin_k_EControllerActionOrigin_None: EControllerActionOrigin = 0;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_A: EControllerActionOrigin = 1;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_B: EControllerActionOrigin = 2;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_X: EControllerActionOrigin = 3;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Y: EControllerActionOrigin = 4;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftBumper: EControllerActionOrigin = 5;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_RightBumper: EControllerActionOrigin =
+    6;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftGrip: EControllerActionOrigin = 7;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_RightGrip: EControllerActionOrigin = 8;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Start: EControllerActionOrigin = 9;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Back: EControllerActionOrigin = 10;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftPad_Touch: EControllerActionOrigin =
+    11;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftPad_Swipe: EControllerActionOrigin =
+    12;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftPad_Click: EControllerActionOrigin =
+    13;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftPad_DPadNorth:
+    EControllerActionOrigin = 14;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftPad_DPadSouth:
+    EControllerActionOrigin = 15;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftPad_DPadWest:
+    EControllerActionOrigin = 16;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftPad_DPadEast:
+    EControllerActionOrigin = 17;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_RightPad_Touch:
+    EControllerActionOrigin = 18;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_RightPad_Swipe:
+    EControllerActionOrigin = 19;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_RightPad_Click:
+    EControllerActionOrigin = 20;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_RightPad_DPadNorth:
+    EControllerActionOrigin = 21;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_RightPad_DPadSouth:
+    EControllerActionOrigin = 22;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_RightPad_DPadWest:
+    EControllerActionOrigin = 23;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_RightPad_DPadEast:
+    EControllerActionOrigin = 24;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftTrigger_Pull:
+    EControllerActionOrigin = 25;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftTrigger_Click:
+    EControllerActionOrigin = 26;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_RightTrigger_Pull:
+    EControllerActionOrigin = 27;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_RightTrigger_Click:
+    EControllerActionOrigin = 28;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftStick_Move:
+    EControllerActionOrigin = 29;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftStick_Click:
+    EControllerActionOrigin = 30;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftStick_DPadNorth:
+    EControllerActionOrigin = 31;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftStick_DPadSouth:
+    EControllerActionOrigin = 32;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftStick_DPadWest:
+    EControllerActionOrigin = 33;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_LeftStick_DPadEast:
+    EControllerActionOrigin = 34;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Gyro_Move: EControllerActionOrigin = 35;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Gyro_Pitch: EControllerActionOrigin =
+    36;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Gyro_Yaw: EControllerActionOrigin = 37;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Gyro_Roll: EControllerActionOrigin = 38;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_X: EControllerActionOrigin = 39;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_Circle: EControllerActionOrigin =
+    40;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_Triangle: EControllerActionOrigin =
+    41;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_Square: EControllerActionOrigin =
+    42;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftBumper:
+    EControllerActionOrigin = 43;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightBumper:
+    EControllerActionOrigin = 44;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_Options: EControllerActionOrigin =
+    45;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_Share: EControllerActionOrigin = 46;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftPad_Touch:
+    EControllerActionOrigin = 47;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftPad_Swipe:
+    EControllerActionOrigin = 48;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftPad_Click:
+    EControllerActionOrigin = 49;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftPad_DPadNorth:
+    EControllerActionOrigin = 50;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftPad_DPadSouth:
+    EControllerActionOrigin = 51;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftPad_DPadWest:
+    EControllerActionOrigin = 52;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftPad_DPadEast:
+    EControllerActionOrigin = 53;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightPad_Touch:
+    EControllerActionOrigin = 54;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightPad_Swipe:
+    EControllerActionOrigin = 55;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightPad_Click:
+    EControllerActionOrigin = 56;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightPad_DPadNorth:
+    EControllerActionOrigin = 57;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightPad_DPadSouth:
+    EControllerActionOrigin = 58;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightPad_DPadWest:
+    EControllerActionOrigin = 59;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightPad_DPadEast:
+    EControllerActionOrigin = 60;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_CenterPad_Touch:
+    EControllerActionOrigin = 61;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_CenterPad_Swipe:
+    EControllerActionOrigin = 62;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_CenterPad_Click:
+    EControllerActionOrigin = 63;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_CenterPad_DPadNorth:
+    EControllerActionOrigin = 64;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_CenterPad_DPadSouth:
+    EControllerActionOrigin = 65;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_CenterPad_DPadWest:
+    EControllerActionOrigin = 66;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_CenterPad_DPadEast:
+    EControllerActionOrigin = 67;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftTrigger_Pull:
+    EControllerActionOrigin = 68;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftTrigger_Click:
+    EControllerActionOrigin = 69;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightTrigger_Pull:
+    EControllerActionOrigin = 70;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightTrigger_Click:
+    EControllerActionOrigin = 71;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftStick_Move:
+    EControllerActionOrigin = 72;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftStick_Click:
+    EControllerActionOrigin = 73;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftStick_DPadNorth:
+    EControllerActionOrigin = 74;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftStick_DPadSouth:
+    EControllerActionOrigin = 75;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftStick_DPadWest:
+    EControllerActionOrigin = 76;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_LeftStick_DPadEast:
+    EControllerActionOrigin = 77;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightStick_Move:
+    EControllerActionOrigin = 78;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightStick_Click:
+    EControllerActionOrigin = 79;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightStick_DPadNorth:
+    EControllerActionOrigin = 80;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightStick_DPadSouth:
+    EControllerActionOrigin = 81;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightStick_DPadWest:
+    EControllerActionOrigin = 82;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_RightStick_DPadEast:
+    EControllerActionOrigin = 83;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_DPad_North:
+    EControllerActionOrigin = 84;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_DPad_South:
+    EControllerActionOrigin = 85;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_DPad_West: EControllerActionOrigin =
+    86;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_DPad_East: EControllerActionOrigin =
+    87;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_Gyro_Move: EControllerActionOrigin =
+    88;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_Gyro_Pitch:
+    EControllerActionOrigin = 89;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_Gyro_Yaw: EControllerActionOrigin =
+    90;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_Gyro_Roll: EControllerActionOrigin =
+    91;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_A: EControllerActionOrigin = 92;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_B: EControllerActionOrigin = 93;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_X: EControllerActionOrigin = 94;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_Y: EControllerActionOrigin = 95;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_LeftBumper:
+    EControllerActionOrigin = 96;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_RightBumper:
+    EControllerActionOrigin = 97;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_Menu: EControllerActionOrigin =
+    98;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_View: EControllerActionOrigin =
+    99;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_LeftTrigger_Pull:
+    EControllerActionOrigin = 100;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_LeftTrigger_Click:
+    EControllerActionOrigin = 101;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_RightTrigger_Pull:
+    EControllerActionOrigin = 102;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_RightTrigger_Click:
+    EControllerActionOrigin = 103;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_LeftStick_Move:
+    EControllerActionOrigin = 104;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_LeftStick_Click:
+    EControllerActionOrigin = 105;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_LeftStick_DPadNorth:
+    EControllerActionOrigin = 106;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_LeftStick_DPadSouth:
+    EControllerActionOrigin = 107;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_LeftStick_DPadWest:
+    EControllerActionOrigin = 108;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_LeftStick_DPadEast:
+    EControllerActionOrigin = 109;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_RightStick_Move:
+    EControllerActionOrigin = 110;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_RightStick_Click:
+    EControllerActionOrigin = 111;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_RightStick_DPadNorth:
+    EControllerActionOrigin = 112;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_RightStick_DPadSouth:
+    EControllerActionOrigin = 113;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_RightStick_DPadWest:
+    EControllerActionOrigin = 114;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_RightStick_DPadEast:
+    EControllerActionOrigin = 115;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_DPad_North:
+    EControllerActionOrigin = 116;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_DPad_South:
+    EControllerActionOrigin = 117;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_DPad_West:
+    EControllerActionOrigin = 118;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_DPad_East:
+    EControllerActionOrigin = 119;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_A: EControllerActionOrigin =
+    120;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_B: EControllerActionOrigin =
+    121;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_X: EControllerActionOrigin =
+    122;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_Y: EControllerActionOrigin =
+    123;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_LeftBumper:
+    EControllerActionOrigin = 124;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_RightBumper:
+    EControllerActionOrigin = 125;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_Start: EControllerActionOrigin =
+    126;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_Back: EControllerActionOrigin =
+    127;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_LeftTrigger_Pull:
+    EControllerActionOrigin = 128;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_LeftTrigger_Click:
+    EControllerActionOrigin = 129;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_RightTrigger_Pull:
+    EControllerActionOrigin = 130;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_RightTrigger_Click:
+    EControllerActionOrigin = 131;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_LeftStick_Move:
+    EControllerActionOrigin = 132;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_LeftStick_Click:
+    EControllerActionOrigin = 133;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_LeftStick_DPadNorth:
+    EControllerActionOrigin = 134;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_LeftStick_DPadSouth:
+    EControllerActionOrigin = 135;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_LeftStick_DPadWest:
+    EControllerActionOrigin = 136;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_LeftStick_DPadEast:
+    EControllerActionOrigin = 137;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_RightStick_Move:
+    EControllerActionOrigin = 138;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_RightStick_Click:
+    EControllerActionOrigin = 139;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_RightStick_DPadNorth:
+    EControllerActionOrigin = 140;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_RightStick_DPadSouth:
+    EControllerActionOrigin = 141;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_RightStick_DPadWest:
+    EControllerActionOrigin = 142;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_RightStick_DPadEast:
+    EControllerActionOrigin = 143;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_DPad_North:
+    EControllerActionOrigin = 144;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_DPad_South:
+    EControllerActionOrigin = 145;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_DPad_West:
+    EControllerActionOrigin = 146;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_DPad_East:
+    EControllerActionOrigin = 147;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_A: EControllerActionOrigin =
+    148;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_B: EControllerActionOrigin =
+    149;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_X: EControllerActionOrigin =
+    150;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_Y: EControllerActionOrigin =
+    151;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftBumper:
+    EControllerActionOrigin = 152;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightBumper:
+    EControllerActionOrigin = 153;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftGrip_Lower:
+    EControllerActionOrigin = 154;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftGrip_Upper:
+    EControllerActionOrigin = 155;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightGrip_Lower:
+    EControllerActionOrigin = 156;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightGrip_Upper:
+    EControllerActionOrigin = 157;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftBumper_Pressure:
+    EControllerActionOrigin = 158;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightBumper_Pressure:
+    EControllerActionOrigin = 159;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftGrip_Pressure:
+    EControllerActionOrigin = 160;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightGrip_Pressure:
+    EControllerActionOrigin = 161;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftGrip_Upper_Pressure:
+    EControllerActionOrigin = 162;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightGrip_Upper_Pressure:
+    EControllerActionOrigin = 163;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_Start: EControllerActionOrigin =
+    164;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_Back: EControllerActionOrigin =
+    165;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftPad_Touch:
+    EControllerActionOrigin = 166;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftPad_Swipe:
+    EControllerActionOrigin = 167;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftPad_Click:
+    EControllerActionOrigin = 168;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftPad_Pressure:
+    EControllerActionOrigin = 169;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftPad_DPadNorth:
+    EControllerActionOrigin = 170;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftPad_DPadSouth:
+    EControllerActionOrigin = 171;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftPad_DPadWest:
+    EControllerActionOrigin = 172;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftPad_DPadEast:
+    EControllerActionOrigin = 173;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightPad_Touch:
+    EControllerActionOrigin = 174;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightPad_Swipe:
+    EControllerActionOrigin = 175;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightPad_Click:
+    EControllerActionOrigin = 176;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightPad_Pressure:
+    EControllerActionOrigin = 177;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightPad_DPadNorth:
+    EControllerActionOrigin = 178;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightPad_DPadSouth:
+    EControllerActionOrigin = 179;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightPad_DPadWest:
+    EControllerActionOrigin = 180;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightPad_DPadEast:
+    EControllerActionOrigin = 181;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftTrigger_Pull:
+    EControllerActionOrigin = 182;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftTrigger_Click:
+    EControllerActionOrigin = 183;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightTrigger_Pull:
+    EControllerActionOrigin = 184;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_RightTrigger_Click:
+    EControllerActionOrigin = 185;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftStick_Move:
+    EControllerActionOrigin = 186;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftStick_Click:
+    EControllerActionOrigin = 187;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftStick_DPadNorth:
+    EControllerActionOrigin = 188;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftStick_DPadSouth:
+    EControllerActionOrigin = 189;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftStick_DPadWest:
+    EControllerActionOrigin = 190;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_LeftStick_DPadEast:
+    EControllerActionOrigin = 191;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_Gyro_Move:
+    EControllerActionOrigin = 192;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_Gyro_Pitch:
+    EControllerActionOrigin = 193;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_Gyro_Yaw:
+    EControllerActionOrigin = 194;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamV2_Gyro_Roll:
+    EControllerActionOrigin = 195;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_A: EControllerActionOrigin = 196;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_B: EControllerActionOrigin = 197;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_X: EControllerActionOrigin = 198;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_Y: EControllerActionOrigin = 199;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftBumper:
+    EControllerActionOrigin = 200;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightBumper:
+    EControllerActionOrigin = 201;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_Plus: EControllerActionOrigin =
+    202;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_Minus: EControllerActionOrigin =
+    203;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_Capture:
+    EControllerActionOrigin = 204;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftTrigger_Pull:
+    EControllerActionOrigin = 205;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftTrigger_Click:
+    EControllerActionOrigin = 206;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightTrigger_Pull:
+    EControllerActionOrigin = 207;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightTrigger_Click:
+    EControllerActionOrigin = 208;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftStick_Move:
+    EControllerActionOrigin = 209;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftStick_Click:
+    EControllerActionOrigin = 210;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftStick_DPadNorth:
+    EControllerActionOrigin = 211;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftStick_DPadSouth:
+    EControllerActionOrigin = 212;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftStick_DPadWest:
+    EControllerActionOrigin = 213;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftStick_DPadEast:
+    EControllerActionOrigin = 214;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightStick_Move:
+    EControllerActionOrigin = 215;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightStick_Click:
+    EControllerActionOrigin = 216;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightStick_DPadNorth:
+    EControllerActionOrigin = 217;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightStick_DPadSouth:
+    EControllerActionOrigin = 218;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightStick_DPadWest:
+    EControllerActionOrigin = 219;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightStick_DPadEast:
+    EControllerActionOrigin = 220;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_DPad_North:
+    EControllerActionOrigin = 221;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_DPad_South:
+    EControllerActionOrigin = 222;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_DPad_West:
+    EControllerActionOrigin = 223;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_DPad_East:
+    EControllerActionOrigin = 224;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_ProGyro_Move:
+    EControllerActionOrigin = 225;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_ProGyro_Pitch:
+    EControllerActionOrigin = 226;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_ProGyro_Yaw:
+    EControllerActionOrigin = 227;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_ProGyro_Roll:
+    EControllerActionOrigin = 228;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightGyro_Move:
+    EControllerActionOrigin = 229;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightGyro_Pitch:
+    EControllerActionOrigin = 230;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightGyro_Yaw:
+    EControllerActionOrigin = 231;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightGyro_Roll:
+    EControllerActionOrigin = 232;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftGyro_Move:
+    EControllerActionOrigin = 233;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftGyro_Pitch:
+    EControllerActionOrigin = 234;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftGyro_Yaw:
+    EControllerActionOrigin = 235;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftGyro_Roll:
+    EControllerActionOrigin = 236;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftGrip_Lower:
+    EControllerActionOrigin = 237;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_LeftGrip_Upper:
+    EControllerActionOrigin = 238;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightGrip_Lower:
+    EControllerActionOrigin = 239;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_RightGrip_Upper:
+    EControllerActionOrigin = 240;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS4_DPad_Move: EControllerActionOrigin =
+    241;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_DPad_Move:
+    EControllerActionOrigin = 242;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBox360_DPad_Move:
+    EControllerActionOrigin = 243;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_DPad_Move:
+    EControllerActionOrigin = 244;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_X: EControllerActionOrigin = 245;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_Circle: EControllerActionOrigin =
+    246;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_Triangle: EControllerActionOrigin =
+    247;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_Square: EControllerActionOrigin =
+    248;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftBumper:
+    EControllerActionOrigin = 249;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightBumper:
+    EControllerActionOrigin = 250;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_Option: EControllerActionOrigin =
+    251;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_Create: EControllerActionOrigin =
+    252;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_Mute: EControllerActionOrigin = 253;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftPad_Touch:
+    EControllerActionOrigin = 254;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftPad_Swipe:
+    EControllerActionOrigin = 255;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftPad_Click:
+    EControllerActionOrigin = 256;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftPad_DPadNorth:
+    EControllerActionOrigin = 257;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftPad_DPadSouth:
+    EControllerActionOrigin = 258;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftPad_DPadWest:
+    EControllerActionOrigin = 259;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftPad_DPadEast:
+    EControllerActionOrigin = 260;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightPad_Touch:
+    EControllerActionOrigin = 261;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightPad_Swipe:
+    EControllerActionOrigin = 262;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightPad_Click:
+    EControllerActionOrigin = 263;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightPad_DPadNorth:
+    EControllerActionOrigin = 264;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightPad_DPadSouth:
+    EControllerActionOrigin = 265;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightPad_DPadWest:
+    EControllerActionOrigin = 266;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightPad_DPadEast:
+    EControllerActionOrigin = 267;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_CenterPad_Touch:
+    EControllerActionOrigin = 268;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_CenterPad_Swipe:
+    EControllerActionOrigin = 269;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_CenterPad_Click:
+    EControllerActionOrigin = 270;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_CenterPad_DPadNorth:
+    EControllerActionOrigin = 271;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_CenterPad_DPadSouth:
+    EControllerActionOrigin = 272;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_CenterPad_DPadWest:
+    EControllerActionOrigin = 273;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_CenterPad_DPadEast:
+    EControllerActionOrigin = 274;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftTrigger_Pull:
+    EControllerActionOrigin = 275;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftTrigger_Click:
+    EControllerActionOrigin = 276;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightTrigger_Pull:
+    EControllerActionOrigin = 277;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightTrigger_Click:
+    EControllerActionOrigin = 278;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftStick_Move:
+    EControllerActionOrigin = 279;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftStick_Click:
+    EControllerActionOrigin = 280;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftStick_DPadNorth:
+    EControllerActionOrigin = 281;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftStick_DPadSouth:
+    EControllerActionOrigin = 282;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftStick_DPadWest:
+    EControllerActionOrigin = 283;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftStick_DPadEast:
+    EControllerActionOrigin = 284;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightStick_Move:
+    EControllerActionOrigin = 285;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightStick_Click:
+    EControllerActionOrigin = 286;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightStick_DPadNorth:
+    EControllerActionOrigin = 287;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightStick_DPadSouth:
+    EControllerActionOrigin = 288;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightStick_DPadWest:
+    EControllerActionOrigin = 289;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightStick_DPadEast:
+    EControllerActionOrigin = 290;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_DPad_Move: EControllerActionOrigin =
+    291;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_DPad_North:
+    EControllerActionOrigin = 292;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_DPad_South:
+    EControllerActionOrigin = 293;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_DPad_West: EControllerActionOrigin =
+    294;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_DPad_East: EControllerActionOrigin =
+    295;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_Gyro_Move: EControllerActionOrigin =
+    296;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_Gyro_Pitch:
+    EControllerActionOrigin = 297;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_Gyro_Yaw: EControllerActionOrigin =
+    298;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_Gyro_Roll: EControllerActionOrigin =
+    299;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_LeftGrip_Lower:
+    EControllerActionOrigin = 300;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_LeftGrip_Upper:
+    EControllerActionOrigin = 301;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_RightGrip_Lower:
+    EControllerActionOrigin = 302;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_RightGrip_Upper:
+    EControllerActionOrigin = 303;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_XBoxOne_Share: EControllerActionOrigin =
+    304;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_A: EControllerActionOrigin =
+    305;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_B: EControllerActionOrigin =
+    306;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_X: EControllerActionOrigin =
+    307;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Y: EControllerActionOrigin =
+    308;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_L1: EControllerActionOrigin =
+    309;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_R1: EControllerActionOrigin =
+    310;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Menu:
+    EControllerActionOrigin = 311;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_View:
+    EControllerActionOrigin = 312;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftPad_Touch:
+    EControllerActionOrigin = 313;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftPad_Swipe:
+    EControllerActionOrigin = 314;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftPad_Click:
+    EControllerActionOrigin = 315;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftPad_DPadNorth:
+    EControllerActionOrigin = 316;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftPad_DPadSouth:
+    EControllerActionOrigin = 317;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftPad_DPadWest:
+    EControllerActionOrigin = 318;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftPad_DPadEast:
+    EControllerActionOrigin = 319;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightPad_Touch:
+    EControllerActionOrigin = 320;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightPad_Swipe:
+    EControllerActionOrigin = 321;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightPad_Click:
+    EControllerActionOrigin = 322;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightPad_DPadNorth:
+    EControllerActionOrigin = 323;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightPad_DPadSouth:
+    EControllerActionOrigin = 324;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightPad_DPadWest:
+    EControllerActionOrigin = 325;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightPad_DPadEast:
+    EControllerActionOrigin = 326;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_L2_SoftPull:
+    EControllerActionOrigin = 327;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_L2: EControllerActionOrigin =
+    328;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_R2_SoftPull:
+    EControllerActionOrigin = 329;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_R2: EControllerActionOrigin =
+    330;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftStick_Move:
+    EControllerActionOrigin = 331;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_L3: EControllerActionOrigin =
+    332;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftStick_DPadNorth:
+    EControllerActionOrigin = 333;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftStick_DPadSouth:
+    EControllerActionOrigin = 334;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftStick_DPadWest:
+    EControllerActionOrigin = 335;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftStick_DPadEast:
+    EControllerActionOrigin = 336;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_LeftStick_Touch:
+    EControllerActionOrigin = 337;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightStick_Move:
+    EControllerActionOrigin = 338;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_R3: EControllerActionOrigin =
+    339;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightStick_DPadNorth:
+    EControllerActionOrigin = 340;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightStick_DPadSouth:
+    EControllerActionOrigin = 341;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightStick_DPadWest:
+    EControllerActionOrigin = 342;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightStick_DPadEast:
+    EControllerActionOrigin = 343;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_RightStick_Touch:
+    EControllerActionOrigin = 344;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_L4: EControllerActionOrigin =
+    345;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_R4: EControllerActionOrigin =
+    346;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_L5: EControllerActionOrigin =
+    347;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_R5: EControllerActionOrigin =
+    348;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_DPad_Move:
+    EControllerActionOrigin = 349;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_DPad_North:
+    EControllerActionOrigin = 350;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_DPad_South:
+    EControllerActionOrigin = 351;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_DPad_West:
+    EControllerActionOrigin = 352;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_DPad_East:
+    EControllerActionOrigin = 353;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Gyro_Move:
+    EControllerActionOrigin = 354;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Gyro_Pitch:
+    EControllerActionOrigin = 355;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Gyro_Yaw:
+    EControllerActionOrigin = 356;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Gyro_Roll:
+    EControllerActionOrigin = 357;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved1:
+    EControllerActionOrigin = 358;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved2:
+    EControllerActionOrigin = 359;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved3:
+    EControllerActionOrigin = 360;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved4:
+    EControllerActionOrigin = 361;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved5:
+    EControllerActionOrigin = 362;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved6:
+    EControllerActionOrigin = 363;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved7:
+    EControllerActionOrigin = 364;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved8:
+    EControllerActionOrigin = 365;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved9:
+    EControllerActionOrigin = 366;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved10:
+    EControllerActionOrigin = 367;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved11:
+    EControllerActionOrigin = 368;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved12:
+    EControllerActionOrigin = 369;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved13:
+    EControllerActionOrigin = 370;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved14:
+    EControllerActionOrigin = 371;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved15:
+    EControllerActionOrigin = 372;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved16:
+    EControllerActionOrigin = 373;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved17:
+    EControllerActionOrigin = 374;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved18:
+    EControllerActionOrigin = 375;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved19:
+    EControllerActionOrigin = 376;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_SteamDeck_Reserved20:
+    EControllerActionOrigin = 377;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_JoyConButton_N:
+    EControllerActionOrigin = 378;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_JoyConButton_E:
+    EControllerActionOrigin = 379;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_JoyConButton_S:
+    EControllerActionOrigin = 380;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Switch_JoyConButton_W:
+    EControllerActionOrigin = 381;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftGrip: EControllerActionOrigin =
+    382;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightGrip: EControllerActionOrigin =
+    383;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_LeftFn: EControllerActionOrigin =
+    384;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_PS5_RightFn: EControllerActionOrigin =
+    385;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_Count: EControllerActionOrigin = 386;
+pub const EControllerActionOrigin_k_EControllerActionOrigin_MaximumPossibleValue:
+    EControllerActionOrigin = 32767;
+pub type EControllerActionOrigin = ::std::os::raw::c_uint;
+pub const ESteamControllerLEDFlag_k_ESteamControllerLEDFlag_SetColor: ESteamControllerLEDFlag = 0;
+pub const ESteamControllerLEDFlag_k_ESteamControllerLEDFlag_RestoreUserDefault:
+    ESteamControllerLEDFlag = 1;
+pub type ESteamControllerLEDFlag = ::std::os::raw::c_uint;
 pub type ControllerHandle_t = uint64;
 pub type ControllerActionSetHandle_t = uint64;
 pub type ControllerDigitalActionHandle_t = uint64;
@@ -15518,138 +14696,109 @@ pub type UGCQueryHandle_t = uint64;
 pub type UGCUpdateHandle_t = uint64;
 pub const k_UGCQueryHandleInvalid: UGCQueryHandle_t = 18446744073709551615;
 pub const k_UGCUpdateHandleInvalid: UGCUpdateHandle_t = 18446744073709551615;
-#[repr(i32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EUGCMatchingUGCType {
-    k_EUGCMatchingUGCType_Items = 0,
-    k_EUGCMatchingUGCType_Items_Mtx = 1,
-    k_EUGCMatchingUGCType_Items_ReadyToUse = 2,
-    k_EUGCMatchingUGCType_Collections = 3,
-    k_EUGCMatchingUGCType_Artwork = 4,
-    k_EUGCMatchingUGCType_Videos = 5,
-    k_EUGCMatchingUGCType_Screenshots = 6,
-    k_EUGCMatchingUGCType_AllGuides = 7,
-    k_EUGCMatchingUGCType_WebGuides = 8,
-    k_EUGCMatchingUGCType_IntegratedGuides = 9,
-    k_EUGCMatchingUGCType_UsableInGame = 10,
-    k_EUGCMatchingUGCType_ControllerBindings = 11,
-    k_EUGCMatchingUGCType_GameManagedItems = 12,
-    k_EUGCMatchingUGCType_All = -1,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EUserUGCList {
-    k_EUserUGCList_Published = 0,
-    k_EUserUGCList_VotedOn = 1,
-    k_EUserUGCList_VotedUp = 2,
-    k_EUserUGCList_VotedDown = 3,
-    k_EUserUGCList_WillVoteLater = 4,
-    k_EUserUGCList_Favorited = 5,
-    k_EUserUGCList_Subscribed = 6,
-    k_EUserUGCList_UsedOrPlayed = 7,
-    k_EUserUGCList_Followed = 8,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EUserUGCListSortOrder {
-    k_EUserUGCListSortOrder_CreationOrderDesc = 0,
-    k_EUserUGCListSortOrder_CreationOrderAsc = 1,
-    k_EUserUGCListSortOrder_TitleAsc = 2,
-    k_EUserUGCListSortOrder_LastUpdatedDesc = 3,
-    k_EUserUGCListSortOrder_SubscriptionDateDesc = 4,
-    k_EUserUGCListSortOrder_VoteScoreDesc = 5,
-    k_EUserUGCListSortOrder_ForModeration = 6,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EUGCQuery {
-    k_EUGCQuery_RankedByVote = 0,
-    k_EUGCQuery_RankedByPublicationDate = 1,
-    k_EUGCQuery_AcceptedForGameRankedByAcceptanceDate = 2,
-    k_EUGCQuery_RankedByTrend = 3,
-    k_EUGCQuery_FavoritedByFriendsRankedByPublicationDate = 4,
-    k_EUGCQuery_CreatedByFriendsRankedByPublicationDate = 5,
-    k_EUGCQuery_RankedByNumTimesReported = 6,
-    k_EUGCQuery_CreatedByFollowedUsersRankedByPublicationDate = 7,
-    k_EUGCQuery_NotYetRated = 8,
-    k_EUGCQuery_RankedByTotalVotesAsc = 9,
-    k_EUGCQuery_RankedByVotesUp = 10,
-    k_EUGCQuery_RankedByTextSearch = 11,
-    k_EUGCQuery_RankedByTotalUniqueSubscriptions = 12,
-    k_EUGCQuery_RankedByPlaytimeTrend = 13,
-    k_EUGCQuery_RankedByTotalPlaytime = 14,
-    k_EUGCQuery_RankedByAveragePlaytimeTrend = 15,
-    k_EUGCQuery_RankedByLifetimeAveragePlaytime = 16,
-    k_EUGCQuery_RankedByPlaytimeSessionsTrend = 17,
-    k_EUGCQuery_RankedByLifetimePlaytimeSessions = 18,
-    k_EUGCQuery_RankedByLastUpdatedDate = 19,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EItemUpdateStatus {
-    k_EItemUpdateStatusInvalid = 0,
-    k_EItemUpdateStatusPreparingConfig = 1,
-    k_EItemUpdateStatusPreparingContent = 2,
-    k_EItemUpdateStatusUploadingContent = 3,
-    k_EItemUpdateStatusUploadingPreviewFile = 4,
-    k_EItemUpdateStatusCommittingChanges = 5,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EItemState {
-    k_EItemStateNone = 0,
-    k_EItemStateSubscribed = 1,
-    k_EItemStateLegacyItem = 2,
-    k_EItemStateInstalled = 4,
-    k_EItemStateNeedsUpdate = 8,
-    k_EItemStateDownloading = 16,
-    k_EItemStateDownloadPending = 32,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EItemStatistic {
-    k_EItemStatistic_NumSubscriptions = 0,
-    k_EItemStatistic_NumFavorites = 1,
-    k_EItemStatistic_NumFollowers = 2,
-    k_EItemStatistic_NumUniqueSubscriptions = 3,
-    k_EItemStatistic_NumUniqueFavorites = 4,
-    k_EItemStatistic_NumUniqueFollowers = 5,
-    k_EItemStatistic_NumUniqueWebsiteViews = 6,
-    k_EItemStatistic_ReportScore = 7,
-    k_EItemStatistic_NumSecondsPlayed = 8,
-    k_EItemStatistic_NumPlaytimeSessions = 9,
-    k_EItemStatistic_NumComments = 10,
-    k_EItemStatistic_NumSecondsPlayedDuringTimePeriod = 11,
-    k_EItemStatistic_NumPlaytimeSessionsDuringTimePeriod = 12,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EItemPreviewType {
-    k_EItemPreviewType_Image = 0,
-    k_EItemPreviewType_YouTubeVideo = 1,
-    k_EItemPreviewType_Sketchfab = 2,
-    k_EItemPreviewType_EnvironmentMap_HorizontalCross = 3,
-    k_EItemPreviewType_EnvironmentMap_LatLong = 4,
-    k_EItemPreviewType_ReservedMax = 255,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EUGCContentDescriptorID {
-    k_EUGCContentDescriptor_NudityOrSexualContent = 1,
-    k_EUGCContentDescriptor_FrequentViolenceOrGore = 2,
-    k_EUGCContentDescriptor_AdultOnlySexualContent = 3,
-    k_EUGCContentDescriptor_GratuitousSexualContent = 4,
-    k_EUGCContentDescriptor_AnyMatureContent = 5,
-}
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_Items: EUGCMatchingUGCType = 0;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_Items_Mtx: EUGCMatchingUGCType = 1;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_Items_ReadyToUse: EUGCMatchingUGCType = 2;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_Collections: EUGCMatchingUGCType = 3;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_Artwork: EUGCMatchingUGCType = 4;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_Videos: EUGCMatchingUGCType = 5;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_Screenshots: EUGCMatchingUGCType = 6;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_AllGuides: EUGCMatchingUGCType = 7;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_WebGuides: EUGCMatchingUGCType = 8;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_IntegratedGuides: EUGCMatchingUGCType = 9;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_UsableInGame: EUGCMatchingUGCType = 10;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_ControllerBindings: EUGCMatchingUGCType = 11;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_GameManagedItems: EUGCMatchingUGCType = 12;
+pub const EUGCMatchingUGCType_k_EUGCMatchingUGCType_All: EUGCMatchingUGCType = -1;
+pub type EUGCMatchingUGCType = ::std::os::raw::c_int;
+pub const EUserUGCList_k_EUserUGCList_Published: EUserUGCList = 0;
+pub const EUserUGCList_k_EUserUGCList_VotedOn: EUserUGCList = 1;
+pub const EUserUGCList_k_EUserUGCList_VotedUp: EUserUGCList = 2;
+pub const EUserUGCList_k_EUserUGCList_VotedDown: EUserUGCList = 3;
+pub const EUserUGCList_k_EUserUGCList_WillVoteLater: EUserUGCList = 4;
+pub const EUserUGCList_k_EUserUGCList_Favorited: EUserUGCList = 5;
+pub const EUserUGCList_k_EUserUGCList_Subscribed: EUserUGCList = 6;
+pub const EUserUGCList_k_EUserUGCList_UsedOrPlayed: EUserUGCList = 7;
+pub const EUserUGCList_k_EUserUGCList_Followed: EUserUGCList = 8;
+pub type EUserUGCList = ::std::os::raw::c_uint;
+pub const EUserUGCListSortOrder_k_EUserUGCListSortOrder_CreationOrderDesc: EUserUGCListSortOrder =
+    0;
+pub const EUserUGCListSortOrder_k_EUserUGCListSortOrder_CreationOrderAsc: EUserUGCListSortOrder = 1;
+pub const EUserUGCListSortOrder_k_EUserUGCListSortOrder_TitleAsc: EUserUGCListSortOrder = 2;
+pub const EUserUGCListSortOrder_k_EUserUGCListSortOrder_LastUpdatedDesc: EUserUGCListSortOrder = 3;
+pub const EUserUGCListSortOrder_k_EUserUGCListSortOrder_SubscriptionDateDesc:
+    EUserUGCListSortOrder = 4;
+pub const EUserUGCListSortOrder_k_EUserUGCListSortOrder_VoteScoreDesc: EUserUGCListSortOrder = 5;
+pub const EUserUGCListSortOrder_k_EUserUGCListSortOrder_ForModeration: EUserUGCListSortOrder = 6;
+pub type EUserUGCListSortOrder = ::std::os::raw::c_uint;
+pub const EUGCQuery_k_EUGCQuery_RankedByVote: EUGCQuery = 0;
+pub const EUGCQuery_k_EUGCQuery_RankedByPublicationDate: EUGCQuery = 1;
+pub const EUGCQuery_k_EUGCQuery_AcceptedForGameRankedByAcceptanceDate: EUGCQuery = 2;
+pub const EUGCQuery_k_EUGCQuery_RankedByTrend: EUGCQuery = 3;
+pub const EUGCQuery_k_EUGCQuery_FavoritedByFriendsRankedByPublicationDate: EUGCQuery = 4;
+pub const EUGCQuery_k_EUGCQuery_CreatedByFriendsRankedByPublicationDate: EUGCQuery = 5;
+pub const EUGCQuery_k_EUGCQuery_RankedByNumTimesReported: EUGCQuery = 6;
+pub const EUGCQuery_k_EUGCQuery_CreatedByFollowedUsersRankedByPublicationDate: EUGCQuery = 7;
+pub const EUGCQuery_k_EUGCQuery_NotYetRated: EUGCQuery = 8;
+pub const EUGCQuery_k_EUGCQuery_RankedByTotalVotesAsc: EUGCQuery = 9;
+pub const EUGCQuery_k_EUGCQuery_RankedByVotesUp: EUGCQuery = 10;
+pub const EUGCQuery_k_EUGCQuery_RankedByTextSearch: EUGCQuery = 11;
+pub const EUGCQuery_k_EUGCQuery_RankedByTotalUniqueSubscriptions: EUGCQuery = 12;
+pub const EUGCQuery_k_EUGCQuery_RankedByPlaytimeTrend: EUGCQuery = 13;
+pub const EUGCQuery_k_EUGCQuery_RankedByTotalPlaytime: EUGCQuery = 14;
+pub const EUGCQuery_k_EUGCQuery_RankedByAveragePlaytimeTrend: EUGCQuery = 15;
+pub const EUGCQuery_k_EUGCQuery_RankedByLifetimeAveragePlaytime: EUGCQuery = 16;
+pub const EUGCQuery_k_EUGCQuery_RankedByPlaytimeSessionsTrend: EUGCQuery = 17;
+pub const EUGCQuery_k_EUGCQuery_RankedByLifetimePlaytimeSessions: EUGCQuery = 18;
+pub const EUGCQuery_k_EUGCQuery_RankedByLastUpdatedDate: EUGCQuery = 19;
+pub type EUGCQuery = ::std::os::raw::c_uint;
+pub const EItemUpdateStatus_k_EItemUpdateStatusInvalid: EItemUpdateStatus = 0;
+pub const EItemUpdateStatus_k_EItemUpdateStatusPreparingConfig: EItemUpdateStatus = 1;
+pub const EItemUpdateStatus_k_EItemUpdateStatusPreparingContent: EItemUpdateStatus = 2;
+pub const EItemUpdateStatus_k_EItemUpdateStatusUploadingContent: EItemUpdateStatus = 3;
+pub const EItemUpdateStatus_k_EItemUpdateStatusUploadingPreviewFile: EItemUpdateStatus = 4;
+pub const EItemUpdateStatus_k_EItemUpdateStatusCommittingChanges: EItemUpdateStatus = 5;
+pub type EItemUpdateStatus = ::std::os::raw::c_uint;
+pub const EItemState_k_EItemStateNone: EItemState = 0;
+pub const EItemState_k_EItemStateSubscribed: EItemState = 1;
+pub const EItemState_k_EItemStateLegacyItem: EItemState = 2;
+pub const EItemState_k_EItemStateInstalled: EItemState = 4;
+pub const EItemState_k_EItemStateNeedsUpdate: EItemState = 8;
+pub const EItemState_k_EItemStateDownloading: EItemState = 16;
+pub const EItemState_k_EItemStateDownloadPending: EItemState = 32;
+pub type EItemState = ::std::os::raw::c_uint;
+pub const EItemStatistic_k_EItemStatistic_NumSubscriptions: EItemStatistic = 0;
+pub const EItemStatistic_k_EItemStatistic_NumFavorites: EItemStatistic = 1;
+pub const EItemStatistic_k_EItemStatistic_NumFollowers: EItemStatistic = 2;
+pub const EItemStatistic_k_EItemStatistic_NumUniqueSubscriptions: EItemStatistic = 3;
+pub const EItemStatistic_k_EItemStatistic_NumUniqueFavorites: EItemStatistic = 4;
+pub const EItemStatistic_k_EItemStatistic_NumUniqueFollowers: EItemStatistic = 5;
+pub const EItemStatistic_k_EItemStatistic_NumUniqueWebsiteViews: EItemStatistic = 6;
+pub const EItemStatistic_k_EItemStatistic_ReportScore: EItemStatistic = 7;
+pub const EItemStatistic_k_EItemStatistic_NumSecondsPlayed: EItemStatistic = 8;
+pub const EItemStatistic_k_EItemStatistic_NumPlaytimeSessions: EItemStatistic = 9;
+pub const EItemStatistic_k_EItemStatistic_NumComments: EItemStatistic = 10;
+pub const EItemStatistic_k_EItemStatistic_NumSecondsPlayedDuringTimePeriod: EItemStatistic = 11;
+pub const EItemStatistic_k_EItemStatistic_NumPlaytimeSessionsDuringTimePeriod: EItemStatistic = 12;
+pub type EItemStatistic = ::std::os::raw::c_uint;
+pub const EItemPreviewType_k_EItemPreviewType_Image: EItemPreviewType = 0;
+pub const EItemPreviewType_k_EItemPreviewType_YouTubeVideo: EItemPreviewType = 1;
+pub const EItemPreviewType_k_EItemPreviewType_Sketchfab: EItemPreviewType = 2;
+pub const EItemPreviewType_k_EItemPreviewType_EnvironmentMap_HorizontalCross: EItemPreviewType = 3;
+pub const EItemPreviewType_k_EItemPreviewType_EnvironmentMap_LatLong: EItemPreviewType = 4;
+pub const EItemPreviewType_k_EItemPreviewType_ReservedMax: EItemPreviewType = 255;
+pub type EItemPreviewType = ::std::os::raw::c_uint;
+pub const EUGCContentDescriptorID_k_EUGCContentDescriptor_NudityOrSexualContent:
+    EUGCContentDescriptorID = 1;
+pub const EUGCContentDescriptorID_k_EUGCContentDescriptor_FrequentViolenceOrGore:
+    EUGCContentDescriptorID = 2;
+pub const EUGCContentDescriptorID_k_EUGCContentDescriptor_AdultOnlySexualContent:
+    EUGCContentDescriptorID = 3;
+pub const EUGCContentDescriptorID_k_EUGCContentDescriptor_GratuitousSexualContent:
+    EUGCContentDescriptorID = 4;
+pub const EUGCContentDescriptorID_k_EUGCContentDescriptor_AnyMatureContent:
+    EUGCContentDescriptorID = 5;
+pub type EUGCContentDescriptorID = ::std::os::raw::c_uint;
 pub const kNumUGCResultsPerPage: uint32 = 50;
 pub const k_cchDeveloperMetadataMax: uint32 = 5000;
 #[repr(C, packed(4))]
@@ -15987,14 +15136,8 @@ pub struct SteamUGCQueryCompleted_t {
     pub m_bCachedData: bool,
     pub m_rgchNextCursor: [::std::os::raw::c_char; 256usize],
 }
-pub const SteamUGCQueryCompleted_t_k_iCallback: SteamUGCQueryCompleted_t__bindgen_ty_1 =
-    SteamUGCQueryCompleted_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamUGCQueryCompleted_t__bindgen_ty_1 {
-    k_iCallback = 3401,
-}
+pub const SteamUGCQueryCompleted_t_k_iCallback: SteamUGCQueryCompleted_t__bindgen_ty_1 = 3401;
+pub type SteamUGCQueryCompleted_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamUGCQueryCompleted_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamUGCQueryCompleted_t> =
@@ -16078,14 +15221,8 @@ pub struct SteamUGCRequestUGCDetailsResult_t {
     pub m_bCachedData: bool,
 }
 pub const SteamUGCRequestUGCDetailsResult_t_k_iCallback:
-    SteamUGCRequestUGCDetailsResult_t__bindgen_ty_1 =
-    SteamUGCRequestUGCDetailsResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamUGCRequestUGCDetailsResult_t__bindgen_ty_1 {
-    k_iCallback = 3402,
-}
+    SteamUGCRequestUGCDetailsResult_t__bindgen_ty_1 = 3402;
+pub type SteamUGCRequestUGCDetailsResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamUGCRequestUGCDetailsResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamUGCRequestUGCDetailsResult_t> =
@@ -16132,14 +15269,8 @@ pub struct CreateItemResult_t {
     pub m_nPublishedFileId: PublishedFileId_t,
     pub m_bUserNeedsToAcceptWorkshopLegalAgreement: bool,
 }
-pub const CreateItemResult_t_k_iCallback: CreateItemResult_t__bindgen_ty_1 =
-    CreateItemResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum CreateItemResult_t__bindgen_ty_1 {
-    k_iCallback = 3403,
-}
+pub const CreateItemResult_t_k_iCallback: CreateItemResult_t__bindgen_ty_1 = 3403;
+pub type CreateItemResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_CreateItemResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<CreateItemResult_t> = ::std::mem::MaybeUninit::uninit();
@@ -16195,14 +15326,8 @@ pub struct SubmitItemUpdateResult_t {
     pub m_bUserNeedsToAcceptWorkshopLegalAgreement: bool,
     pub m_nPublishedFileId: PublishedFileId_t,
 }
-pub const SubmitItemUpdateResult_t_k_iCallback: SubmitItemUpdateResult_t__bindgen_ty_1 =
-    SubmitItemUpdateResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SubmitItemUpdateResult_t__bindgen_ty_1 {
-    k_iCallback = 3404,
-}
+pub const SubmitItemUpdateResult_t_k_iCallback: SubmitItemUpdateResult_t__bindgen_ty_1 = 3404;
+pub type SubmitItemUpdateResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SubmitItemUpdateResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<SubmitItemUpdateResult_t> =
@@ -16258,14 +15383,8 @@ pub struct ItemInstalled_t {
     pub m_unAppID: AppId_t,
     pub m_nPublishedFileId: PublishedFileId_t,
 }
-pub const ItemInstalled_t_k_iCallback: ItemInstalled_t__bindgen_ty_1 =
-    ItemInstalled_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ItemInstalled_t__bindgen_ty_1 {
-    k_iCallback = 3405,
-}
+pub const ItemInstalled_t_k_iCallback: ItemInstalled_t__bindgen_ty_1 = 3405;
+pub type ItemInstalled_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_ItemInstalled_t() {
     const UNINIT: ::std::mem::MaybeUninit<ItemInstalled_t> = ::std::mem::MaybeUninit::uninit();
@@ -16308,14 +15427,8 @@ pub struct DownloadItemResult_t {
     pub m_nPublishedFileId: PublishedFileId_t,
     pub m_eResult: EResult,
 }
-pub const DownloadItemResult_t_k_iCallback: DownloadItemResult_t__bindgen_ty_1 =
-    DownloadItemResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum DownloadItemResult_t__bindgen_ty_1 {
-    k_iCallback = 3406,
-}
+pub const DownloadItemResult_t_k_iCallback: DownloadItemResult_t__bindgen_ty_1 = 3406;
+pub type DownloadItemResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_DownloadItemResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<DownloadItemResult_t> = ::std::mem::MaybeUninit::uninit();
@@ -16369,13 +15482,8 @@ pub struct UserFavoriteItemsListChanged_t {
     pub m_bWasAddRequest: bool,
 }
 pub const UserFavoriteItemsListChanged_t_k_iCallback: UserFavoriteItemsListChanged_t__bindgen_ty_1 =
-    UserFavoriteItemsListChanged_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum UserFavoriteItemsListChanged_t__bindgen_ty_1 {
-    k_iCallback = 3407,
-}
+    3407;
+pub type UserFavoriteItemsListChanged_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_UserFavoriteItemsListChanged_t() {
     const UNINIT: ::std::mem::MaybeUninit<UserFavoriteItemsListChanged_t> =
@@ -16429,14 +15537,8 @@ pub struct SetUserItemVoteResult_t {
     pub m_eResult: EResult,
     pub m_bVoteUp: bool,
 }
-pub const SetUserItemVoteResult_t_k_iCallback: SetUserItemVoteResult_t__bindgen_ty_1 =
-    SetUserItemVoteResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SetUserItemVoteResult_t__bindgen_ty_1 {
-    k_iCallback = 3408,
-}
+pub const SetUserItemVoteResult_t_k_iCallback: SetUserItemVoteResult_t__bindgen_ty_1 = 3408;
+pub type SetUserItemVoteResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SetUserItemVoteResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<SetUserItemVoteResult_t> =
@@ -16492,14 +15594,8 @@ pub struct GetUserItemVoteResult_t {
     pub m_bVotedDown: bool,
     pub m_bVoteSkipped: bool,
 }
-pub const GetUserItemVoteResult_t_k_iCallback: GetUserItemVoteResult_t__bindgen_ty_1 =
-    GetUserItemVoteResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GetUserItemVoteResult_t__bindgen_ty_1 {
-    k_iCallback = 3409,
-}
+pub const GetUserItemVoteResult_t_k_iCallback: GetUserItemVoteResult_t__bindgen_ty_1 = 3409;
+pub type GetUserItemVoteResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GetUserItemVoteResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<GetUserItemVoteResult_t> =
@@ -16572,13 +15668,8 @@ pub struct StartPlaytimeTrackingResult_t {
     pub m_eResult: EResult,
 }
 pub const StartPlaytimeTrackingResult_t_k_iCallback: StartPlaytimeTrackingResult_t__bindgen_ty_1 =
-    StartPlaytimeTrackingResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum StartPlaytimeTrackingResult_t__bindgen_ty_1 {
-    k_iCallback = 3410,
-}
+    3410;
+pub type StartPlaytimeTrackingResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_StartPlaytimeTrackingResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<StartPlaytimeTrackingResult_t> =
@@ -16611,13 +15702,8 @@ pub struct StopPlaytimeTrackingResult_t {
     pub m_eResult: EResult,
 }
 pub const StopPlaytimeTrackingResult_t_k_iCallback: StopPlaytimeTrackingResult_t__bindgen_ty_1 =
-    StopPlaytimeTrackingResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum StopPlaytimeTrackingResult_t__bindgen_ty_1 {
-    k_iCallback = 3411,
-}
+    3411;
+pub type StopPlaytimeTrackingResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_StopPlaytimeTrackingResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<StopPlaytimeTrackingResult_t> =
@@ -16651,14 +15737,8 @@ pub struct AddUGCDependencyResult_t {
     pub m_nPublishedFileId: PublishedFileId_t,
     pub m_nChildPublishedFileId: PublishedFileId_t,
 }
-pub const AddUGCDependencyResult_t_k_iCallback: AddUGCDependencyResult_t__bindgen_ty_1 =
-    AddUGCDependencyResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum AddUGCDependencyResult_t__bindgen_ty_1 {
-    k_iCallback = 3412,
-}
+pub const AddUGCDependencyResult_t_k_iCallback: AddUGCDependencyResult_t__bindgen_ty_1 = 3412;
+pub type AddUGCDependencyResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_AddUGCDependencyResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<AddUGCDependencyResult_t> =
@@ -16712,14 +15792,8 @@ pub struct RemoveUGCDependencyResult_t {
     pub m_nPublishedFileId: PublishedFileId_t,
     pub m_nChildPublishedFileId: PublishedFileId_t,
 }
-pub const RemoveUGCDependencyResult_t_k_iCallback: RemoveUGCDependencyResult_t__bindgen_ty_1 =
-    RemoveUGCDependencyResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoveUGCDependencyResult_t__bindgen_ty_1 {
-    k_iCallback = 3413,
-}
+pub const RemoveUGCDependencyResult_t_k_iCallback: RemoveUGCDependencyResult_t__bindgen_ty_1 = 3413;
+pub type RemoveUGCDependencyResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoveUGCDependencyResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoveUGCDependencyResult_t> =
@@ -16773,14 +15847,8 @@ pub struct AddAppDependencyResult_t {
     pub m_nPublishedFileId: PublishedFileId_t,
     pub m_nAppID: AppId_t,
 }
-pub const AddAppDependencyResult_t_k_iCallback: AddAppDependencyResult_t__bindgen_ty_1 =
-    AddAppDependencyResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum AddAppDependencyResult_t__bindgen_ty_1 {
-    k_iCallback = 3414,
-}
+pub const AddAppDependencyResult_t_k_iCallback: AddAppDependencyResult_t__bindgen_ty_1 = 3414;
+pub type AddAppDependencyResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_AddAppDependencyResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<AddAppDependencyResult_t> =
@@ -16834,14 +15902,8 @@ pub struct RemoveAppDependencyResult_t {
     pub m_nPublishedFileId: PublishedFileId_t,
     pub m_nAppID: AppId_t,
 }
-pub const RemoveAppDependencyResult_t_k_iCallback: RemoveAppDependencyResult_t__bindgen_ty_1 =
-    RemoveAppDependencyResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum RemoveAppDependencyResult_t__bindgen_ty_1 {
-    k_iCallback = 3415,
-}
+pub const RemoveAppDependencyResult_t_k_iCallback: RemoveAppDependencyResult_t__bindgen_ty_1 = 3415;
+pub type RemoveAppDependencyResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_RemoveAppDependencyResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<RemoveAppDependencyResult_t> =
@@ -16897,14 +15959,8 @@ pub struct GetAppDependenciesResult_t {
     pub m_nNumAppDependencies: uint32,
     pub m_nTotalNumAppDependencies: uint32,
 }
-pub const GetAppDependenciesResult_t_k_iCallback: GetAppDependenciesResult_t__bindgen_ty_1 =
-    GetAppDependenciesResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GetAppDependenciesResult_t__bindgen_ty_1 {
-    k_iCallback = 3416,
-}
+pub const GetAppDependenciesResult_t_k_iCallback: GetAppDependenciesResult_t__bindgen_ty_1 = 3416;
+pub type GetAppDependenciesResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GetAppDependenciesResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<GetAppDependenciesResult_t> =
@@ -16977,14 +16033,8 @@ pub struct DeleteItemResult_t {
     pub m_eResult: EResult,
     pub m_nPublishedFileId: PublishedFileId_t,
 }
-pub const DeleteItemResult_t_k_iCallback: DeleteItemResult_t__bindgen_ty_1 =
-    DeleteItemResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum DeleteItemResult_t__bindgen_ty_1 {
-    k_iCallback = 3417,
-}
+pub const DeleteItemResult_t_k_iCallback: DeleteItemResult_t__bindgen_ty_1 = 3417;
+pub type DeleteItemResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_DeleteItemResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<DeleteItemResult_t> = ::std::mem::MaybeUninit::uninit();
@@ -17026,14 +16076,8 @@ pub struct UserSubscribedItemsListChanged_t {
     pub m_nAppID: AppId_t,
 }
 pub const UserSubscribedItemsListChanged_t_k_iCallback:
-    UserSubscribedItemsListChanged_t__bindgen_ty_1 =
-    UserSubscribedItemsListChanged_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum UserSubscribedItemsListChanged_t__bindgen_ty_1 {
-    k_iCallback = 3418,
-}
+    UserSubscribedItemsListChanged_t__bindgen_ty_1 = 3418;
+pub type UserSubscribedItemsListChanged_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_UserSubscribedItemsListChanged_t() {
     const UNINIT: ::std::mem::MaybeUninit<UserSubscribedItemsListChanged_t> =
@@ -17073,14 +16117,8 @@ pub struct WorkshopEULAStatus_t {
     pub m_bAccepted: bool,
     pub m_bNeedsAction: bool,
 }
-pub const WorkshopEULAStatus_t_k_iCallback: WorkshopEULAStatus_t__bindgen_ty_1 =
-    WorkshopEULAStatus_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum WorkshopEULAStatus_t__bindgen_ty_1 {
-    k_iCallback = 3420,
-}
+pub const WorkshopEULAStatus_t_k_iCallback: WorkshopEULAStatus_t__bindgen_ty_1 = 3420;
+pub type WorkshopEULAStatus_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_WorkshopEULAStatus_t() {
     const UNINIT: ::std::mem::MaybeUninit<WorkshopEULAStatus_t> = ::std::mem::MaybeUninit::uninit();
@@ -17182,14 +16220,8 @@ pub struct SteamAppInstalled_t {
     pub m_nAppID: AppId_t,
     pub m_iInstallFolderIndex: ::std::os::raw::c_int,
 }
-pub const SteamAppInstalled_t_k_iCallback: SteamAppInstalled_t__bindgen_ty_1 =
-    SteamAppInstalled_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamAppInstalled_t__bindgen_ty_1 {
-    k_iCallback = 3901,
-}
+pub const SteamAppInstalled_t_k_iCallback: SteamAppInstalled_t__bindgen_ty_1 = 3901;
+pub type SteamAppInstalled_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamAppInstalled_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamAppInstalled_t> = ::std::mem::MaybeUninit::uninit();
@@ -17231,14 +16263,8 @@ pub struct SteamAppUninstalled_t {
     pub m_nAppID: AppId_t,
     pub m_iInstallFolderIndex: ::std::os::raw::c_int,
 }
-pub const SteamAppUninstalled_t_k_iCallback: SteamAppUninstalled_t__bindgen_ty_1 =
-    SteamAppUninstalled_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamAppUninstalled_t__bindgen_ty_1 {
-    k_iCallback = 3902,
-}
+pub const SteamAppUninstalled_t_k_iCallback: SteamAppUninstalled_t__bindgen_ty_1 = 3902;
+pub type SteamAppUninstalled_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamAppUninstalled_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamAppUninstalled_t> =
@@ -17284,70 +16310,65 @@ pub struct ISteamHTMLSurface__bindgen_vtable(::std::os::raw::c_void);
 pub struct ISteamHTMLSurface {
     pub vtable_: *const ISteamHTMLSurface__bindgen_vtable,
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ISteamHTMLSurface_EHTMLMouseButton {
-    eHTMLMouseButton_Left = 0,
-    eHTMLMouseButton_Right = 1,
-    eHTMLMouseButton_Middle = 2,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ISteamHTMLSurface_EMouseCursor {
-    dc_user = 0,
-    dc_none = 1,
-    dc_arrow = 2,
-    dc_ibeam = 3,
-    dc_hourglass = 4,
-    dc_waitarrow = 5,
-    dc_crosshair = 6,
-    dc_up = 7,
-    dc_sizenw = 8,
-    dc_sizese = 9,
-    dc_sizene = 10,
-    dc_sizesw = 11,
-    dc_sizew = 12,
-    dc_sizee = 13,
-    dc_sizen = 14,
-    dc_sizes = 15,
-    dc_sizewe = 16,
-    dc_sizens = 17,
-    dc_sizeall = 18,
-    dc_no = 19,
-    dc_hand = 20,
-    dc_blank = 21,
-    dc_middle_pan = 22,
-    dc_north_pan = 23,
-    dc_north_east_pan = 24,
-    dc_east_pan = 25,
-    dc_south_east_pan = 26,
-    dc_south_pan = 27,
-    dc_south_west_pan = 28,
-    dc_west_pan = 29,
-    dc_north_west_pan = 30,
-    dc_alias = 31,
-    dc_cell = 32,
-    dc_colresize = 33,
-    dc_copycur = 34,
-    dc_verticaltext = 35,
-    dc_rowresize = 36,
-    dc_zoomin = 37,
-    dc_zoomout = 38,
-    dc_help = 39,
-    dc_custom = 40,
-    dc_last = 41,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ISteamHTMLSurface_EHTMLKeyModifiers {
-    k_eHTMLKeyModifier_None = 0,
-    k_eHTMLKeyModifier_AltDown = 1,
-    k_eHTMLKeyModifier_CtrlDown = 2,
-    k_eHTMLKeyModifier_ShiftDown = 4,
-}
+pub const ISteamHTMLSurface_EHTMLMouseButton_eHTMLMouseButton_Left:
+    ISteamHTMLSurface_EHTMLMouseButton = 0;
+pub const ISteamHTMLSurface_EHTMLMouseButton_eHTMLMouseButton_Right:
+    ISteamHTMLSurface_EHTMLMouseButton = 1;
+pub const ISteamHTMLSurface_EHTMLMouseButton_eHTMLMouseButton_Middle:
+    ISteamHTMLSurface_EHTMLMouseButton = 2;
+pub type ISteamHTMLSurface_EHTMLMouseButton = ::std::os::raw::c_uint;
+pub const ISteamHTMLSurface_EMouseCursor_dc_user: ISteamHTMLSurface_EMouseCursor = 0;
+pub const ISteamHTMLSurface_EMouseCursor_dc_none: ISteamHTMLSurface_EMouseCursor = 1;
+pub const ISteamHTMLSurface_EMouseCursor_dc_arrow: ISteamHTMLSurface_EMouseCursor = 2;
+pub const ISteamHTMLSurface_EMouseCursor_dc_ibeam: ISteamHTMLSurface_EMouseCursor = 3;
+pub const ISteamHTMLSurface_EMouseCursor_dc_hourglass: ISteamHTMLSurface_EMouseCursor = 4;
+pub const ISteamHTMLSurface_EMouseCursor_dc_waitarrow: ISteamHTMLSurface_EMouseCursor = 5;
+pub const ISteamHTMLSurface_EMouseCursor_dc_crosshair: ISteamHTMLSurface_EMouseCursor = 6;
+pub const ISteamHTMLSurface_EMouseCursor_dc_up: ISteamHTMLSurface_EMouseCursor = 7;
+pub const ISteamHTMLSurface_EMouseCursor_dc_sizenw: ISteamHTMLSurface_EMouseCursor = 8;
+pub const ISteamHTMLSurface_EMouseCursor_dc_sizese: ISteamHTMLSurface_EMouseCursor = 9;
+pub const ISteamHTMLSurface_EMouseCursor_dc_sizene: ISteamHTMLSurface_EMouseCursor = 10;
+pub const ISteamHTMLSurface_EMouseCursor_dc_sizesw: ISteamHTMLSurface_EMouseCursor = 11;
+pub const ISteamHTMLSurface_EMouseCursor_dc_sizew: ISteamHTMLSurface_EMouseCursor = 12;
+pub const ISteamHTMLSurface_EMouseCursor_dc_sizee: ISteamHTMLSurface_EMouseCursor = 13;
+pub const ISteamHTMLSurface_EMouseCursor_dc_sizen: ISteamHTMLSurface_EMouseCursor = 14;
+pub const ISteamHTMLSurface_EMouseCursor_dc_sizes: ISteamHTMLSurface_EMouseCursor = 15;
+pub const ISteamHTMLSurface_EMouseCursor_dc_sizewe: ISteamHTMLSurface_EMouseCursor = 16;
+pub const ISteamHTMLSurface_EMouseCursor_dc_sizens: ISteamHTMLSurface_EMouseCursor = 17;
+pub const ISteamHTMLSurface_EMouseCursor_dc_sizeall: ISteamHTMLSurface_EMouseCursor = 18;
+pub const ISteamHTMLSurface_EMouseCursor_dc_no: ISteamHTMLSurface_EMouseCursor = 19;
+pub const ISteamHTMLSurface_EMouseCursor_dc_hand: ISteamHTMLSurface_EMouseCursor = 20;
+pub const ISteamHTMLSurface_EMouseCursor_dc_blank: ISteamHTMLSurface_EMouseCursor = 21;
+pub const ISteamHTMLSurface_EMouseCursor_dc_middle_pan: ISteamHTMLSurface_EMouseCursor = 22;
+pub const ISteamHTMLSurface_EMouseCursor_dc_north_pan: ISteamHTMLSurface_EMouseCursor = 23;
+pub const ISteamHTMLSurface_EMouseCursor_dc_north_east_pan: ISteamHTMLSurface_EMouseCursor = 24;
+pub const ISteamHTMLSurface_EMouseCursor_dc_east_pan: ISteamHTMLSurface_EMouseCursor = 25;
+pub const ISteamHTMLSurface_EMouseCursor_dc_south_east_pan: ISteamHTMLSurface_EMouseCursor = 26;
+pub const ISteamHTMLSurface_EMouseCursor_dc_south_pan: ISteamHTMLSurface_EMouseCursor = 27;
+pub const ISteamHTMLSurface_EMouseCursor_dc_south_west_pan: ISteamHTMLSurface_EMouseCursor = 28;
+pub const ISteamHTMLSurface_EMouseCursor_dc_west_pan: ISteamHTMLSurface_EMouseCursor = 29;
+pub const ISteamHTMLSurface_EMouseCursor_dc_north_west_pan: ISteamHTMLSurface_EMouseCursor = 30;
+pub const ISteamHTMLSurface_EMouseCursor_dc_alias: ISteamHTMLSurface_EMouseCursor = 31;
+pub const ISteamHTMLSurface_EMouseCursor_dc_cell: ISteamHTMLSurface_EMouseCursor = 32;
+pub const ISteamHTMLSurface_EMouseCursor_dc_colresize: ISteamHTMLSurface_EMouseCursor = 33;
+pub const ISteamHTMLSurface_EMouseCursor_dc_copycur: ISteamHTMLSurface_EMouseCursor = 34;
+pub const ISteamHTMLSurface_EMouseCursor_dc_verticaltext: ISteamHTMLSurface_EMouseCursor = 35;
+pub const ISteamHTMLSurface_EMouseCursor_dc_rowresize: ISteamHTMLSurface_EMouseCursor = 36;
+pub const ISteamHTMLSurface_EMouseCursor_dc_zoomin: ISteamHTMLSurface_EMouseCursor = 37;
+pub const ISteamHTMLSurface_EMouseCursor_dc_zoomout: ISteamHTMLSurface_EMouseCursor = 38;
+pub const ISteamHTMLSurface_EMouseCursor_dc_help: ISteamHTMLSurface_EMouseCursor = 39;
+pub const ISteamHTMLSurface_EMouseCursor_dc_custom: ISteamHTMLSurface_EMouseCursor = 40;
+pub const ISteamHTMLSurface_EMouseCursor_dc_last: ISteamHTMLSurface_EMouseCursor = 41;
+pub type ISteamHTMLSurface_EMouseCursor = ::std::os::raw::c_uint;
+pub const ISteamHTMLSurface_EHTMLKeyModifiers_k_eHTMLKeyModifier_None:
+    ISteamHTMLSurface_EHTMLKeyModifiers = 0;
+pub const ISteamHTMLSurface_EHTMLKeyModifiers_k_eHTMLKeyModifier_AltDown:
+    ISteamHTMLSurface_EHTMLKeyModifiers = 1;
+pub const ISteamHTMLSurface_EHTMLKeyModifiers_k_eHTMLKeyModifier_CtrlDown:
+    ISteamHTMLSurface_EHTMLKeyModifiers = 2;
+pub const ISteamHTMLSurface_EHTMLKeyModifiers_k_eHTMLKeyModifier_ShiftDown:
+    ISteamHTMLSurface_EHTMLKeyModifiers = 4;
+pub type ISteamHTMLSurface_EHTMLKeyModifiers = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_ISteamHTMLSurface() {
     assert_eq!(
@@ -17366,14 +16387,8 @@ fn bindgen_test_layout_ISteamHTMLSurface() {
 pub struct HTML_BrowserReady_t {
     pub unBrowserHandle: HHTMLBrowser,
 }
-pub const HTML_BrowserReady_t_k_iCallback: HTML_BrowserReady_t__bindgen_ty_1 =
-    HTML_BrowserReady_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_BrowserReady_t__bindgen_ty_1 {
-    k_iCallback = 4501,
-}
+pub const HTML_BrowserReady_t_k_iCallback: HTML_BrowserReady_t__bindgen_ty_1 = 4501;
+pub type HTML_BrowserReady_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_BrowserReady_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_BrowserReady_t> = ::std::mem::MaybeUninit::uninit();
@@ -17415,14 +16430,8 @@ pub struct HTML_NeedsPaint_t {
     pub flPageScale: f32,
     pub unPageSerial: uint32,
 }
-pub const HTML_NeedsPaint_t_k_iCallback: HTML_NeedsPaint_t__bindgen_ty_1 =
-    HTML_NeedsPaint_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_NeedsPaint_t__bindgen_ty_1 {
-    k_iCallback = 4502,
-}
+pub const HTML_NeedsPaint_t_k_iCallback: HTML_NeedsPaint_t__bindgen_ty_1 = 4502;
+pub type HTML_NeedsPaint_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_NeedsPaint_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_NeedsPaint_t> = ::std::mem::MaybeUninit::uninit();
@@ -17567,14 +16576,8 @@ pub struct HTML_StartRequest_t {
     pub pchPostData: *const ::std::os::raw::c_char,
     pub bIsRedirect: bool,
 }
-pub const HTML_StartRequest_t_k_iCallback: HTML_StartRequest_t__bindgen_ty_1 =
-    HTML_StartRequest_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_StartRequest_t__bindgen_ty_1 {
-    k_iCallback = 4503,
-}
+pub const HTML_StartRequest_t_k_iCallback: HTML_StartRequest_t__bindgen_ty_1 = 4503;
+pub type HTML_StartRequest_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_StartRequest_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_StartRequest_t> = ::std::mem::MaybeUninit::uninit();
@@ -17645,14 +16648,8 @@ fn bindgen_test_layout_HTML_StartRequest_t() {
 pub struct HTML_CloseBrowser_t {
     pub unBrowserHandle: HHTMLBrowser,
 }
-pub const HTML_CloseBrowser_t_k_iCallback: HTML_CloseBrowser_t__bindgen_ty_1 =
-    HTML_CloseBrowser_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_CloseBrowser_t__bindgen_ty_1 {
-    k_iCallback = 4504,
-}
+pub const HTML_CloseBrowser_t_k_iCallback: HTML_CloseBrowser_t__bindgen_ty_1 = 4504;
+pub type HTML_CloseBrowser_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_CloseBrowser_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_CloseBrowser_t> = ::std::mem::MaybeUninit::uninit();
@@ -17688,14 +16685,8 @@ pub struct HTML_URLChanged_t {
     pub pchPageTitle: *const ::std::os::raw::c_char,
     pub bNewNavigation: bool,
 }
-pub const HTML_URLChanged_t_k_iCallback: HTML_URLChanged_t__bindgen_ty_1 =
-    HTML_URLChanged_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_URLChanged_t__bindgen_ty_1 {
-    k_iCallback = 4505,
-}
+pub const HTML_URLChanged_t_k_iCallback: HTML_URLChanged_t__bindgen_ty_1 = 4505;
+pub type HTML_URLChanged_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_URLChanged_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_URLChanged_t> = ::std::mem::MaybeUninit::uninit();
@@ -17778,14 +16769,8 @@ pub struct HTML_FinishedRequest_t {
     pub pchURL: *const ::std::os::raw::c_char,
     pub pchPageTitle: *const ::std::os::raw::c_char,
 }
-pub const HTML_FinishedRequest_t_k_iCallback: HTML_FinishedRequest_t__bindgen_ty_1 =
-    HTML_FinishedRequest_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_FinishedRequest_t__bindgen_ty_1 {
-    k_iCallback = 4506,
-}
+pub const HTML_FinishedRequest_t_k_iCallback: HTML_FinishedRequest_t__bindgen_ty_1 = 4506;
+pub type HTML_FinishedRequest_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_FinishedRequest_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_FinishedRequest_t> =
@@ -17838,14 +16823,8 @@ pub struct HTML_OpenLinkInNewTab_t {
     pub unBrowserHandle: HHTMLBrowser,
     pub pchURL: *const ::std::os::raw::c_char,
 }
-pub const HTML_OpenLinkInNewTab_t_k_iCallback: HTML_OpenLinkInNewTab_t__bindgen_ty_1 =
-    HTML_OpenLinkInNewTab_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_OpenLinkInNewTab_t__bindgen_ty_1 {
-    k_iCallback = 4507,
-}
+pub const HTML_OpenLinkInNewTab_t_k_iCallback: HTML_OpenLinkInNewTab_t__bindgen_ty_1 = 4507;
+pub type HTML_OpenLinkInNewTab_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_OpenLinkInNewTab_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_OpenLinkInNewTab_t> =
@@ -17888,14 +16867,8 @@ pub struct HTML_ChangedTitle_t {
     pub unBrowserHandle: HHTMLBrowser,
     pub pchTitle: *const ::std::os::raw::c_char,
 }
-pub const HTML_ChangedTitle_t_k_iCallback: HTML_ChangedTitle_t__bindgen_ty_1 =
-    HTML_ChangedTitle_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_ChangedTitle_t__bindgen_ty_1 {
-    k_iCallback = 4508,
-}
+pub const HTML_ChangedTitle_t_k_iCallback: HTML_ChangedTitle_t__bindgen_ty_1 = 4508;
+pub type HTML_ChangedTitle_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_ChangedTitle_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_ChangedTitle_t> = ::std::mem::MaybeUninit::uninit();
@@ -17938,14 +16911,8 @@ pub struct HTML_SearchResults_t {
     pub unResults: uint32,
     pub unCurrentMatch: uint32,
 }
-pub const HTML_SearchResults_t_k_iCallback: HTML_SearchResults_t__bindgen_ty_1 =
-    HTML_SearchResults_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_SearchResults_t__bindgen_ty_1 {
-    k_iCallback = 4509,
-}
+pub const HTML_SearchResults_t_k_iCallback: HTML_SearchResults_t__bindgen_ty_1 = 4509;
+pub type HTML_SearchResults_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_SearchResults_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_SearchResults_t> = ::std::mem::MaybeUninit::uninit();
@@ -17998,14 +16965,8 @@ pub struct HTML_CanGoBackAndForward_t {
     pub bCanGoBack: bool,
     pub bCanGoForward: bool,
 }
-pub const HTML_CanGoBackAndForward_t_k_iCallback: HTML_CanGoBackAndForward_t__bindgen_ty_1 =
-    HTML_CanGoBackAndForward_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_CanGoBackAndForward_t__bindgen_ty_1 {
-    k_iCallback = 4510,
-}
+pub const HTML_CanGoBackAndForward_t_k_iCallback: HTML_CanGoBackAndForward_t__bindgen_ty_1 = 4510;
+pub type HTML_CanGoBackAndForward_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_CanGoBackAndForward_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_CanGoBackAndForward_t> =
@@ -18062,14 +17023,8 @@ pub struct HTML_HorizontalScroll_t {
     pub bVisible: bool,
     pub unPageSize: uint32,
 }
-pub const HTML_HorizontalScroll_t_k_iCallback: HTML_HorizontalScroll_t__bindgen_ty_1 =
-    HTML_HorizontalScroll_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_HorizontalScroll_t__bindgen_ty_1 {
-    k_iCallback = 4511,
-}
+pub const HTML_HorizontalScroll_t_k_iCallback: HTML_HorizontalScroll_t__bindgen_ty_1 = 4511;
+pub type HTML_HorizontalScroll_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_HorizontalScroll_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_HorizontalScroll_t> =
@@ -18156,14 +17111,8 @@ pub struct HTML_VerticalScroll_t {
     pub bVisible: bool,
     pub unPageSize: uint32,
 }
-pub const HTML_VerticalScroll_t_k_iCallback: HTML_VerticalScroll_t__bindgen_ty_1 =
-    HTML_VerticalScroll_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_VerticalScroll_t__bindgen_ty_1 {
-    k_iCallback = 4512,
-}
+pub const HTML_VerticalScroll_t_k_iCallback: HTML_VerticalScroll_t__bindgen_ty_1 = 4512;
+pub type HTML_VerticalScroll_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_VerticalScroll_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_VerticalScroll_t> =
@@ -18250,14 +17199,8 @@ pub struct HTML_LinkAtPosition_t {
     pub bInput: bool,
     pub bLiveLink: bool,
 }
-pub const HTML_LinkAtPosition_t_k_iCallback: HTML_LinkAtPosition_t__bindgen_ty_1 =
-    HTML_LinkAtPosition_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_LinkAtPosition_t__bindgen_ty_1 {
-    k_iCallback = 4513,
-}
+pub const HTML_LinkAtPosition_t_k_iCallback: HTML_LinkAtPosition_t__bindgen_ty_1 = 4513;
+pub type HTML_LinkAtPosition_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_LinkAtPosition_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_LinkAtPosition_t> =
@@ -18340,14 +17283,8 @@ pub struct HTML_JSAlert_t {
     pub unBrowserHandle: HHTMLBrowser,
     pub pchMessage: *const ::std::os::raw::c_char,
 }
-pub const HTML_JSAlert_t_k_iCallback: HTML_JSAlert_t__bindgen_ty_1 =
-    HTML_JSAlert_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_JSAlert_t__bindgen_ty_1 {
-    k_iCallback = 4514,
-}
+pub const HTML_JSAlert_t_k_iCallback: HTML_JSAlert_t__bindgen_ty_1 = 4514;
+pub type HTML_JSAlert_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_JSAlert_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_JSAlert_t> = ::std::mem::MaybeUninit::uninit();
@@ -18389,14 +17326,8 @@ pub struct HTML_JSConfirm_t {
     pub unBrowserHandle: HHTMLBrowser,
     pub pchMessage: *const ::std::os::raw::c_char,
 }
-pub const HTML_JSConfirm_t_k_iCallback: HTML_JSConfirm_t__bindgen_ty_1 =
-    HTML_JSConfirm_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_JSConfirm_t__bindgen_ty_1 {
-    k_iCallback = 4515,
-}
+pub const HTML_JSConfirm_t_k_iCallback: HTML_JSConfirm_t__bindgen_ty_1 = 4515;
+pub type HTML_JSConfirm_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_JSConfirm_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_JSConfirm_t> = ::std::mem::MaybeUninit::uninit();
@@ -18439,14 +17370,8 @@ pub struct HTML_FileOpenDialog_t {
     pub pchTitle: *const ::std::os::raw::c_char,
     pub pchInitialFile: *const ::std::os::raw::c_char,
 }
-pub const HTML_FileOpenDialog_t_k_iCallback: HTML_FileOpenDialog_t__bindgen_ty_1 =
-    HTML_FileOpenDialog_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_FileOpenDialog_t__bindgen_ty_1 {
-    k_iCallback = 4516,
-}
+pub const HTML_FileOpenDialog_t_k_iCallback: HTML_FileOpenDialog_t__bindgen_ty_1 = 4516;
+pub type HTML_FileOpenDialog_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_FileOpenDialog_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_FileOpenDialog_t> =
@@ -18504,14 +17429,8 @@ pub struct HTML_NewWindow_t {
     pub unTall: uint32,
     pub unNewWindow_BrowserHandle_IGNORE: HHTMLBrowser,
 }
-pub const HTML_NewWindow_t_k_iCallback: HTML_NewWindow_t__bindgen_ty_1 =
-    HTML_NewWindow_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_NewWindow_t__bindgen_ty_1 {
-    k_iCallback = 4521,
-}
+pub const HTML_NewWindow_t_k_iCallback: HTML_NewWindow_t__bindgen_ty_1 = 4521;
+pub type HTML_NewWindow_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_NewWindow_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_NewWindow_t> = ::std::mem::MaybeUninit::uninit();
@@ -18605,14 +17524,8 @@ pub struct HTML_SetCursor_t {
     pub unBrowserHandle: HHTMLBrowser,
     pub eMouseCursor: uint32,
 }
-pub const HTML_SetCursor_t_k_iCallback: HTML_SetCursor_t__bindgen_ty_1 =
-    HTML_SetCursor_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_SetCursor_t__bindgen_ty_1 {
-    k_iCallback = 4522,
-}
+pub const HTML_SetCursor_t_k_iCallback: HTML_SetCursor_t__bindgen_ty_1 = 4522;
+pub type HTML_SetCursor_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_SetCursor_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_SetCursor_t> = ::std::mem::MaybeUninit::uninit();
@@ -18654,14 +17567,8 @@ pub struct HTML_StatusText_t {
     pub unBrowserHandle: HHTMLBrowser,
     pub pchMsg: *const ::std::os::raw::c_char,
 }
-pub const HTML_StatusText_t_k_iCallback: HTML_StatusText_t__bindgen_ty_1 =
-    HTML_StatusText_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_StatusText_t__bindgen_ty_1 {
-    k_iCallback = 4523,
-}
+pub const HTML_StatusText_t_k_iCallback: HTML_StatusText_t__bindgen_ty_1 = 4523;
+pub type HTML_StatusText_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_StatusText_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_StatusText_t> = ::std::mem::MaybeUninit::uninit();
@@ -18703,14 +17610,8 @@ pub struct HTML_ShowToolTip_t {
     pub unBrowserHandle: HHTMLBrowser,
     pub pchMsg: *const ::std::os::raw::c_char,
 }
-pub const HTML_ShowToolTip_t_k_iCallback: HTML_ShowToolTip_t__bindgen_ty_1 =
-    HTML_ShowToolTip_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_ShowToolTip_t__bindgen_ty_1 {
-    k_iCallback = 4524,
-}
+pub const HTML_ShowToolTip_t_k_iCallback: HTML_ShowToolTip_t__bindgen_ty_1 = 4524;
+pub type HTML_ShowToolTip_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_ShowToolTip_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_ShowToolTip_t> = ::std::mem::MaybeUninit::uninit();
@@ -18752,14 +17653,8 @@ pub struct HTML_UpdateToolTip_t {
     pub unBrowserHandle: HHTMLBrowser,
     pub pchMsg: *const ::std::os::raw::c_char,
 }
-pub const HTML_UpdateToolTip_t_k_iCallback: HTML_UpdateToolTip_t__bindgen_ty_1 =
-    HTML_UpdateToolTip_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_UpdateToolTip_t__bindgen_ty_1 {
-    k_iCallback = 4525,
-}
+pub const HTML_UpdateToolTip_t_k_iCallback: HTML_UpdateToolTip_t__bindgen_ty_1 = 4525;
+pub type HTML_UpdateToolTip_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_UpdateToolTip_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_UpdateToolTip_t> = ::std::mem::MaybeUninit::uninit();
@@ -18800,14 +17695,8 @@ fn bindgen_test_layout_HTML_UpdateToolTip_t() {
 pub struct HTML_HideToolTip_t {
     pub unBrowserHandle: HHTMLBrowser,
 }
-pub const HTML_HideToolTip_t_k_iCallback: HTML_HideToolTip_t__bindgen_ty_1 =
-    HTML_HideToolTip_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_HideToolTip_t__bindgen_ty_1 {
-    k_iCallback = 4526,
-}
+pub const HTML_HideToolTip_t_k_iCallback: HTML_HideToolTip_t__bindgen_ty_1 = 4526;
+pub type HTML_HideToolTip_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_HideToolTip_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_HideToolTip_t> = ::std::mem::MaybeUninit::uninit();
@@ -18839,14 +17728,8 @@ pub struct HTML_BrowserRestarted_t {
     pub unBrowserHandle: HHTMLBrowser,
     pub unOldBrowserHandle: HHTMLBrowser,
 }
-pub const HTML_BrowserRestarted_t_k_iCallback: HTML_BrowserRestarted_t__bindgen_ty_1 =
-    HTML_BrowserRestarted_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum HTML_BrowserRestarted_t__bindgen_ty_1 {
-    k_iCallback = 4527,
-}
+pub const HTML_BrowserRestarted_t_k_iCallback: HTML_BrowserRestarted_t__bindgen_ty_1 = 4527;
+pub type HTML_BrowserRestarted_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_HTML_BrowserRestarted_t() {
     const UNINIT: ::std::mem::MaybeUninit<HTML_BrowserRestarted_t> =
@@ -18889,14 +17772,10 @@ extern "C" {
     pub static k_SteamItemInstanceIDInvalid: SteamItemInstanceID_t;
 }
 pub type SteamItemDef_t = int32;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamItemFlags {
-    k_ESteamItemNoTrade = 1,
-    k_ESteamItemRemoved = 256,
-    k_ESteamItemConsumed = 512,
-}
+pub const ESteamItemFlags_k_ESteamItemNoTrade: ESteamItemFlags = 1;
+pub const ESteamItemFlags_k_ESteamItemRemoved: ESteamItemFlags = 256;
+pub const ESteamItemFlags_k_ESteamItemConsumed: ESteamItemFlags = 512;
+pub type ESteamItemFlags = ::std::os::raw::c_uint;
 #[repr(C, packed(4))]
 #[derive(Debug, Copy, Clone)]
 pub struct SteamItemDetails_t {
@@ -18990,14 +17869,8 @@ pub struct SteamInventoryResultReady_t {
     pub m_handle: SteamInventoryResult_t,
     pub m_result: EResult,
 }
-pub const SteamInventoryResultReady_t_k_iCallback: SteamInventoryResultReady_t__bindgen_ty_1 =
-    SteamInventoryResultReady_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamInventoryResultReady_t__bindgen_ty_1 {
-    k_iCallback = 4700,
-}
+pub const SteamInventoryResultReady_t_k_iCallback: SteamInventoryResultReady_t__bindgen_ty_1 = 4700;
+pub type SteamInventoryResultReady_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamInventoryResultReady_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamInventoryResultReady_t> =
@@ -19039,14 +17912,8 @@ fn bindgen_test_layout_SteamInventoryResultReady_t() {
 pub struct SteamInventoryFullUpdate_t {
     pub m_handle: SteamInventoryResult_t,
 }
-pub const SteamInventoryFullUpdate_t_k_iCallback: SteamInventoryFullUpdate_t__bindgen_ty_1 =
-    SteamInventoryFullUpdate_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamInventoryFullUpdate_t__bindgen_ty_1 {
-    k_iCallback = 4701,
-}
+pub const SteamInventoryFullUpdate_t_k_iCallback: SteamInventoryFullUpdate_t__bindgen_ty_1 = 4701;
+pub type SteamInventoryFullUpdate_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamInventoryFullUpdate_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamInventoryFullUpdate_t> =
@@ -19079,14 +17946,8 @@ pub struct SteamInventoryDefinitionUpdate_t {
     pub _address: u8,
 }
 pub const SteamInventoryDefinitionUpdate_t_k_iCallback:
-    SteamInventoryDefinitionUpdate_t__bindgen_ty_1 =
-    SteamInventoryDefinitionUpdate_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamInventoryDefinitionUpdate_t__bindgen_ty_1 {
-    k_iCallback = 4702,
-}
+    SteamInventoryDefinitionUpdate_t__bindgen_ty_1 = 4702;
+pub type SteamInventoryDefinitionUpdate_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamInventoryDefinitionUpdate_t() {
     assert_eq!(
@@ -19112,14 +17973,8 @@ pub struct SteamInventoryEligiblePromoItemDefIDs_t {
     pub m_bCachedData: bool,
 }
 pub const SteamInventoryEligiblePromoItemDefIDs_t_k_iCallback:
-    SteamInventoryEligiblePromoItemDefIDs_t__bindgen_ty_1 =
-    SteamInventoryEligiblePromoItemDefIDs_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamInventoryEligiblePromoItemDefIDs_t__bindgen_ty_1 {
-    k_iCallback = 4703,
-}
+    SteamInventoryEligiblePromoItemDefIDs_t__bindgen_ty_1 = 4703;
+pub type SteamInventoryEligiblePromoItemDefIDs_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamInventoryEligiblePromoItemDefIDs_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamInventoryEligiblePromoItemDefIDs_t> =
@@ -19190,14 +18045,8 @@ pub struct SteamInventoryStartPurchaseResult_t {
     pub m_ulTransID: uint64,
 }
 pub const SteamInventoryStartPurchaseResult_t_k_iCallback:
-    SteamInventoryStartPurchaseResult_t__bindgen_ty_1 =
-    SteamInventoryStartPurchaseResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamInventoryStartPurchaseResult_t__bindgen_ty_1 {
-    k_iCallback = 4704,
-}
+    SteamInventoryStartPurchaseResult_t__bindgen_ty_1 = 4704;
+pub type SteamInventoryStartPurchaseResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamInventoryStartPurchaseResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamInventoryStartPurchaseResult_t> =
@@ -19254,14 +18103,8 @@ pub struct SteamInventoryRequestPricesResult_t {
     pub m_rgchCurrency: [::std::os::raw::c_char; 4usize],
 }
 pub const SteamInventoryRequestPricesResult_t_k_iCallback:
-    SteamInventoryRequestPricesResult_t__bindgen_ty_1 =
-    SteamInventoryRequestPricesResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamInventoryRequestPricesResult_t__bindgen_ty_1 {
-    k_iCallback = 4705,
-}
+    SteamInventoryRequestPricesResult_t__bindgen_ty_1 = 4705;
+pub type SteamInventoryRequestPricesResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamInventoryRequestPricesResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamInventoryRequestPricesResult_t> =
@@ -19328,14 +18171,8 @@ pub struct GetVideoURLResult_t {
     pub m_unVideoAppID: AppId_t,
     pub m_rgchURL: [::std::os::raw::c_char; 256usize],
 }
-pub const GetVideoURLResult_t_k_iCallback: GetVideoURLResult_t__bindgen_ty_1 =
-    GetVideoURLResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GetVideoURLResult_t__bindgen_ty_1 {
-    k_iCallback = 4611,
-}
+pub const GetVideoURLResult_t_k_iCallback: GetVideoURLResult_t__bindgen_ty_1 = 4611;
+pub type GetVideoURLResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GetVideoURLResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<GetVideoURLResult_t> = ::std::mem::MaybeUninit::uninit();
@@ -19387,14 +18224,8 @@ pub struct GetOPFSettingsResult_t {
     pub m_eResult: EResult,
     pub m_unVideoAppID: AppId_t,
 }
-pub const GetOPFSettingsResult_t_k_iCallback: GetOPFSettingsResult_t__bindgen_ty_1 =
-    GetOPFSettingsResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GetOPFSettingsResult_t__bindgen_ty_1 {
-    k_iCallback = 4624,
-}
+pub const GetOPFSettingsResult_t_k_iCallback: GetOPFSettingsResult_t__bindgen_ty_1 = 4624;
+pub type GetOPFSettingsResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GetOPFSettingsResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<GetOPFSettingsResult_t> =
@@ -19431,27 +18262,23 @@ fn bindgen_test_layout_GetOPFSettingsResult_t() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EParentalFeature {
-    k_EFeatureInvalid = 0,
-    k_EFeatureStore = 1,
-    k_EFeatureCommunity = 2,
-    k_EFeatureProfile = 3,
-    k_EFeatureFriends = 4,
-    k_EFeatureNews = 5,
-    k_EFeatureTrading = 6,
-    k_EFeatureSettings = 7,
-    k_EFeatureConsole = 8,
-    k_EFeatureBrowser = 9,
-    k_EFeatureParentalSetup = 10,
-    k_EFeatureLibrary = 11,
-    k_EFeatureTest = 12,
-    k_EFeatureSiteLicense = 13,
-    k_EFeatureKioskMode = 14,
-    k_EFeatureMax = 15,
-}
+pub const EParentalFeature_k_EFeatureInvalid: EParentalFeature = 0;
+pub const EParentalFeature_k_EFeatureStore: EParentalFeature = 1;
+pub const EParentalFeature_k_EFeatureCommunity: EParentalFeature = 2;
+pub const EParentalFeature_k_EFeatureProfile: EParentalFeature = 3;
+pub const EParentalFeature_k_EFeatureFriends: EParentalFeature = 4;
+pub const EParentalFeature_k_EFeatureNews: EParentalFeature = 5;
+pub const EParentalFeature_k_EFeatureTrading: EParentalFeature = 6;
+pub const EParentalFeature_k_EFeatureSettings: EParentalFeature = 7;
+pub const EParentalFeature_k_EFeatureConsole: EParentalFeature = 8;
+pub const EParentalFeature_k_EFeatureBrowser: EParentalFeature = 9;
+pub const EParentalFeature_k_EFeatureParentalSetup: EParentalFeature = 10;
+pub const EParentalFeature_k_EFeatureLibrary: EParentalFeature = 11;
+pub const EParentalFeature_k_EFeatureTest: EParentalFeature = 12;
+pub const EParentalFeature_k_EFeatureSiteLicense: EParentalFeature = 13;
+pub const EParentalFeature_k_EFeatureKioskMode: EParentalFeature = 14;
+pub const EParentalFeature_k_EFeatureMax: EParentalFeature = 15;
+pub type EParentalFeature = ::std::os::raw::c_uint;
 #[repr(C)]
 pub struct ISteamParentalSettings__bindgen_vtable(::std::os::raw::c_void);
 #[repr(C)]
@@ -19478,13 +18305,8 @@ pub struct SteamParentalSettingsChanged_t {
     pub _address: u8,
 }
 pub const SteamParentalSettingsChanged_t_k_iCallback: SteamParentalSettingsChanged_t__bindgen_ty_1 =
-    SteamParentalSettingsChanged_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamParentalSettingsChanged_t__bindgen_ty_1 {
-    k_iCallback = 5001,
-}
+    5001;
+pub type SteamParentalSettingsChanged_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamParentalSettingsChanged_t() {
     assert_eq!(
@@ -19498,16 +18320,12 @@ fn bindgen_test_layout_SteamParentalSettingsChanged_t() {
         concat!("Alignment of ", stringify!(SteamParentalSettingsChanged_t))
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamDeviceFormFactor {
-    k_ESteamDeviceFormFactorUnknown = 0,
-    k_ESteamDeviceFormFactorPhone = 1,
-    k_ESteamDeviceFormFactorTablet = 2,
-    k_ESteamDeviceFormFactorComputer = 3,
-    k_ESteamDeviceFormFactorTV = 4,
-}
+pub const ESteamDeviceFormFactor_k_ESteamDeviceFormFactorUnknown: ESteamDeviceFormFactor = 0;
+pub const ESteamDeviceFormFactor_k_ESteamDeviceFormFactorPhone: ESteamDeviceFormFactor = 1;
+pub const ESteamDeviceFormFactor_k_ESteamDeviceFormFactorTablet: ESteamDeviceFormFactor = 2;
+pub const ESteamDeviceFormFactor_k_ESteamDeviceFormFactorComputer: ESteamDeviceFormFactor = 3;
+pub const ESteamDeviceFormFactor_k_ESteamDeviceFormFactorTV: ESteamDeviceFormFactor = 4;
+pub type ESteamDeviceFormFactor = ::std::os::raw::c_uint;
 pub type RemotePlaySessionID_t = uint32;
 #[repr(C)]
 pub struct ISteamRemotePlay__bindgen_vtable(::std::os::raw::c_void);
@@ -19535,14 +18353,8 @@ pub struct SteamRemotePlaySessionConnected_t {
     pub m_unSessionID: RemotePlaySessionID_t,
 }
 pub const SteamRemotePlaySessionConnected_t_k_iCallback:
-    SteamRemotePlaySessionConnected_t__bindgen_ty_1 =
-    SteamRemotePlaySessionConnected_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamRemotePlaySessionConnected_t__bindgen_ty_1 {
-    k_iCallback = 5701,
-}
+    SteamRemotePlaySessionConnected_t__bindgen_ty_1 = 5701;
+pub type SteamRemotePlaySessionConnected_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamRemotePlaySessionConnected_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamRemotePlaySessionConnected_t> =
@@ -19578,14 +18390,8 @@ pub struct SteamRemotePlaySessionDisconnected_t {
     pub m_unSessionID: RemotePlaySessionID_t,
 }
 pub const SteamRemotePlaySessionDisconnected_t_k_iCallback:
-    SteamRemotePlaySessionDisconnected_t__bindgen_ty_1 =
-    SteamRemotePlaySessionDisconnected_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamRemotePlaySessionDisconnected_t__bindgen_ty_1 {
-    k_iCallback = 5702,
-}
+    SteamRemotePlaySessionDisconnected_t__bindgen_ty_1 = 5702;
+pub type SteamRemotePlaySessionDisconnected_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamRemotePlaySessionDisconnected_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamRemotePlaySessionDisconnected_t> =
@@ -19624,14 +18430,8 @@ pub struct SteamRemotePlayTogetherGuestInvite_t {
     pub m_szConnectURL: [::std::os::raw::c_char; 1024usize],
 }
 pub const SteamRemotePlayTogetherGuestInvite_t_k_iCallback:
-    SteamRemotePlayTogetherGuestInvite_t__bindgen_ty_1 =
-    SteamRemotePlayTogetherGuestInvite_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamRemotePlayTogetherGuestInvite_t__bindgen_ty_1 {
-    k_iCallback = 5703,
-}
+    SteamRemotePlayTogetherGuestInvite_t__bindgen_ty_1 = 5703;
+pub type SteamRemotePlayTogetherGuestInvite_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamRemotePlayTogetherGuestInvite_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamRemotePlayTogetherGuestInvite_t> =
@@ -19732,49 +18532,62 @@ pub type SteamNetworkingErrMsg = [::std::os::raw::c_char; 1024usize];
 pub type SteamNetworkingPOPID = uint32;
 #[doc = " A local timestamp.  You can subtract two timestamps to get the number of elapsed\n microseconds.  This is guaranteed to increase over time during the lifetime\n of a process, but not globally across runs.  You don't need to worry about\n the value wrapping around.  Note that the underlying clock might not actually have\n microsecond resolution."]
 pub type SteamNetworkingMicroseconds = int64;
-#[repr(i32)]
-#[non_exhaustive]
+pub const ESteamNetworkingAvailability_k_ESteamNetworkingAvailability_CannotTry:
+    ESteamNetworkingAvailability = -102;
+pub const ESteamNetworkingAvailability_k_ESteamNetworkingAvailability_Failed:
+    ESteamNetworkingAvailability = -101;
+pub const ESteamNetworkingAvailability_k_ESteamNetworkingAvailability_Previously:
+    ESteamNetworkingAvailability = -100;
+pub const ESteamNetworkingAvailability_k_ESteamNetworkingAvailability_Retrying:
+    ESteamNetworkingAvailability = -10;
+pub const ESteamNetworkingAvailability_k_ESteamNetworkingAvailability_NeverTried:
+    ESteamNetworkingAvailability = 1;
+pub const ESteamNetworkingAvailability_k_ESteamNetworkingAvailability_Waiting:
+    ESteamNetworkingAvailability = 2;
+pub const ESteamNetworkingAvailability_k_ESteamNetworkingAvailability_Attempting:
+    ESteamNetworkingAvailability = 3;
+pub const ESteamNetworkingAvailability_k_ESteamNetworkingAvailability_Current:
+    ESteamNetworkingAvailability = 100;
+pub const ESteamNetworkingAvailability_k_ESteamNetworkingAvailability_Unknown:
+    ESteamNetworkingAvailability = 0;
+pub const ESteamNetworkingAvailability_k_ESteamNetworkingAvailability__Force32bit:
+    ESteamNetworkingAvailability = 2147483647;
 #[doc = " Describe the status of a particular network resource"]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamNetworkingAvailability {
-    k_ESteamNetworkingAvailability_CannotTry = -102,
-    k_ESteamNetworkingAvailability_Failed = -101,
-    k_ESteamNetworkingAvailability_Previously = -100,
-    k_ESteamNetworkingAvailability_Retrying = -10,
-    k_ESteamNetworkingAvailability_NeverTried = 1,
-    k_ESteamNetworkingAvailability_Waiting = 2,
-    k_ESteamNetworkingAvailability_Attempting = 3,
-    k_ESteamNetworkingAvailability_Current = 100,
-    k_ESteamNetworkingAvailability_Unknown = 0,
-    k_ESteamNetworkingAvailability__Force32bit = 2147483647,
-}
-#[repr(u32)]
-#[non_exhaustive]
+pub type ESteamNetworkingAvailability = ::std::os::raw::c_int;
+pub const ESteamNetworkingIdentityType_k_ESteamNetworkingIdentityType_Invalid:
+    ESteamNetworkingIdentityType = 0;
+pub const ESteamNetworkingIdentityType_k_ESteamNetworkingIdentityType_SteamID:
+    ESteamNetworkingIdentityType = 16;
+pub const ESteamNetworkingIdentityType_k_ESteamNetworkingIdentityType_XboxPairwiseID:
+    ESteamNetworkingIdentityType = 17;
+pub const ESteamNetworkingIdentityType_k_ESteamNetworkingIdentityType_SonyPSN:
+    ESteamNetworkingIdentityType = 18;
+pub const ESteamNetworkingIdentityType_k_ESteamNetworkingIdentityType_GoogleStadia:
+    ESteamNetworkingIdentityType = 19;
+pub const ESteamNetworkingIdentityType_k_ESteamNetworkingIdentityType_IPAddress:
+    ESteamNetworkingIdentityType = 1;
+pub const ESteamNetworkingIdentityType_k_ESteamNetworkingIdentityType_GenericString:
+    ESteamNetworkingIdentityType = 2;
+pub const ESteamNetworkingIdentityType_k_ESteamNetworkingIdentityType_GenericBytes:
+    ESteamNetworkingIdentityType = 3;
+pub const ESteamNetworkingIdentityType_k_ESteamNetworkingIdentityType_UnknownType:
+    ESteamNetworkingIdentityType = 4;
+pub const ESteamNetworkingIdentityType_k_ESteamNetworkingIdentityType__Force32bit:
+    ESteamNetworkingIdentityType = 2147483647;
 #[doc = " Different methods of describing the identity of a network host"]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamNetworkingIdentityType {
-    k_ESteamNetworkingIdentityType_Invalid = 0,
-    k_ESteamNetworkingIdentityType_SteamID = 16,
-    k_ESteamNetworkingIdentityType_XboxPairwiseID = 17,
-    k_ESteamNetworkingIdentityType_SonyPSN = 18,
-    k_ESteamNetworkingIdentityType_GoogleStadia = 19,
-    k_ESteamNetworkingIdentityType_IPAddress = 1,
-    k_ESteamNetworkingIdentityType_GenericString = 2,
-    k_ESteamNetworkingIdentityType_GenericBytes = 3,
-    k_ESteamNetworkingIdentityType_UnknownType = 4,
-    k_ESteamNetworkingIdentityType__Force32bit = 2147483647,
-}
-#[repr(u32)]
-#[non_exhaustive]
+pub type ESteamNetworkingIdentityType = ::std::os::raw::c_uint;
+pub const ESteamNetworkingFakeIPType_k_ESteamNetworkingFakeIPType_Invalid:
+    ESteamNetworkingFakeIPType = 0;
+pub const ESteamNetworkingFakeIPType_k_ESteamNetworkingFakeIPType_NotFake:
+    ESteamNetworkingFakeIPType = 1;
+pub const ESteamNetworkingFakeIPType_k_ESteamNetworkingFakeIPType_GlobalIPv4:
+    ESteamNetworkingFakeIPType = 2;
+pub const ESteamNetworkingFakeIPType_k_ESteamNetworkingFakeIPType_LocalIPv4:
+    ESteamNetworkingFakeIPType = 3;
+pub const ESteamNetworkingFakeIPType_k_ESteamNetworkingFakeIPType__Force32Bit:
+    ESteamNetworkingFakeIPType = 2147483647;
 #[doc = " \"Fake IPs\" are assigned to hosts, to make it easier to interface with\n older code that assumed all hosts will have an IPv4 address"]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamNetworkingFakeIPType {
-    k_ESteamNetworkingFakeIPType_Invalid = 0,
-    k_ESteamNetworkingFakeIPType_NotFake = 1,
-    k_ESteamNetworkingFakeIPType_GlobalIPv4 = 2,
-    k_ESteamNetworkingFakeIPType_LocalIPv4 = 3,
-    k_ESteamNetworkingFakeIPType__Force32Bit = 2147483647,
-}
+pub type ESteamNetworkingFakeIPType = ::std::os::raw::c_uint;
 #[doc = " Store an IP and port.  IPv6 is always used; IPv4 is represented using\n \"IPv4-mapped\" addresses: IPv4 aa.bb.cc.dd => IPv6 ::ffff:aabb:ccdd\n (RFC 4291 section 2.5.5.2.)"]
 #[repr(C, packed)]
 #[derive(Copy, Clone)]
@@ -19782,14 +18595,8 @@ pub struct SteamNetworkingIPAddr {
     pub __bindgen_anon_1: SteamNetworkingIPAddr__bindgen_ty_2,
     pub m_port: uint16,
 }
-pub const SteamNetworkingIPAddr_k_cchMaxString: SteamNetworkingIPAddr__bindgen_ty_1 =
-    SteamNetworkingIPAddr__bindgen_ty_1::k_cchMaxString;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamNetworkingIPAddr__bindgen_ty_1 {
-    k_cchMaxString = 48,
-}
+pub const SteamNetworkingIPAddr_k_cchMaxString: SteamNetworkingIPAddr__bindgen_ty_1 = 48;
+pub type SteamNetworkingIPAddr__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[doc = " RFC4038, section 4.2"]
 #[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]
@@ -19941,22 +18748,12 @@ pub struct SteamNetworkingIdentity {
     pub m_cbSize: ::std::os::raw::c_int,
     pub __bindgen_anon_1: SteamNetworkingIdentity__bindgen_ty_2,
 }
-pub const SteamNetworkingIdentity_k_cchMaxString: SteamNetworkingIdentity__bindgen_ty_1 =
-    SteamNetworkingIdentity__bindgen_ty_1::k_cchMaxString;
-pub const SteamNetworkingIdentity_k_cchMaxGenericString: SteamNetworkingIdentity__bindgen_ty_1 =
-    SteamNetworkingIdentity__bindgen_ty_1::k_cchMaxGenericString;
+pub const SteamNetworkingIdentity_k_cchMaxString: SteamNetworkingIdentity__bindgen_ty_1 = 128;
+pub const SteamNetworkingIdentity_k_cchMaxGenericString: SteamNetworkingIdentity__bindgen_ty_1 = 32;
 pub const SteamNetworkingIdentity_k_cchMaxXboxPairwiseID: SteamNetworkingIdentity__bindgen_ty_1 =
-    SteamNetworkingIdentity__bindgen_ty_1::k_cchMaxXboxPairwiseID;
-pub const SteamNetworkingIdentity_k_cbMaxGenericBytes: SteamNetworkingIdentity__bindgen_ty_1 =
-    SteamNetworkingIdentity__bindgen_ty_1::k_cchMaxGenericString;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamNetworkingIdentity__bindgen_ty_1 {
-    k_cchMaxString = 128,
-    k_cchMaxGenericString = 32,
-    k_cchMaxXboxPairwiseID = 33,
-}
+    33;
+pub const SteamNetworkingIdentity_k_cbMaxGenericBytes: SteamNetworkingIdentity__bindgen_ty_1 = 32;
+pub type SteamNetworkingIdentity__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[repr(C, packed)]
 #[derive(Copy, Clone)]
 pub union SteamNetworkingIdentity__bindgen_ty_2 {
@@ -20118,77 +18915,96 @@ fn bindgen_test_layout_SteamNetworkingIdentity() {
         )
     );
 }
-#[repr(i32)]
-#[non_exhaustive]
+#[doc = " Dummy value used to indicate an error condition in the API.\n Specified connection doesn't exist or has already been closed."]
+pub const ESteamNetworkingConnectionState_k_ESteamNetworkingConnectionState_None:
+    ESteamNetworkingConnectionState = 0;
+#[doc = " We are trying to establish whether peers can talk to each other,\n whether they WANT to talk to each other, perform basic auth,\n and exchange crypt keys.\n\n - For connections on the \"client\" side (initiated locally):\n   We're in the process of trying to establish a connection.\n   Depending on the connection type, we might not know who they are.\n   Note that it is not possible to tell if we are waiting on the\n   network to complete handshake packets, or for the application layer\n   to accept the connection.\n\n - For connections on the \"server\" side (accepted through listen socket):\n   We have completed some basic handshake and the client has presented\n   some proof of identity.  The connection is ready to be accepted\n   using AcceptConnection().\n\n In either case, any unreliable packets sent now are almost certain\n to be dropped.  Attempts to receive packets are guaranteed to fail.\n You may send messages if the send mode allows for them to be queued.\n but if you close the connection before the connection is actually\n established, any queued messages will be discarded immediately.\n (We will not attempt to flush the queue and confirm delivery to the\n remote host, which ordinarily happens when a connection is closed.)"]
+pub const ESteamNetworkingConnectionState_k_ESteamNetworkingConnectionState_Connecting:
+    ESteamNetworkingConnectionState = 1;
+#[doc = " Some connection types use a back channel or trusted 3rd party\n for earliest communication.  If the server accepts the connection,\n then these connections switch into the rendezvous state.  During this\n state, we still have not yet established an end-to-end route (through\n the relay network), and so if you send any messages unreliable, they\n are going to be discarded."]
+pub const ESteamNetworkingConnectionState_k_ESteamNetworkingConnectionState_FindingRoute:
+    ESteamNetworkingConnectionState = 2;
+#[doc = " We've received communications from our peer (and we know\n who they are) and are all good.  If you close the connection now,\n we will make our best effort to flush out any reliable sent data that\n has not been acknowledged by the peer.  (But note that this happens\n from within the application process, so unlike a TCP connection, you are\n not totally handing it off to the operating system to deal with it.)"]
+pub const ESteamNetworkingConnectionState_k_ESteamNetworkingConnectionState_Connected:
+    ESteamNetworkingConnectionState = 3;
+#[doc = " Connection has been closed by our peer, but not closed locally.\n The connection still exists from an API perspective.  You must close the\n handle to free up resources.  If there are any messages in the inbound queue,\n you may retrieve them.  Otherwise, nothing may be done with the connection\n except to close it.\n\n This stats is similar to CLOSE_WAIT in the TCP state machine."]
+pub const ESteamNetworkingConnectionState_k_ESteamNetworkingConnectionState_ClosedByPeer:
+    ESteamNetworkingConnectionState = 4;
+#[doc = " A disruption in the connection has been detected locally.  (E.g. timeout,\n local internet connection disrupted, etc.)\n\n The connection still exists from an API perspective.  You must close the\n handle to free up resources.\n\n Attempts to send further messages will fail.  Any remaining received messages\n in the queue are available."]
+pub const ESteamNetworkingConnectionState_k_ESteamNetworkingConnectionState_ProblemDetectedLocally : ESteamNetworkingConnectionState = 5 ;
+#[doc = " We've disconnected on our side, and from an API perspective the connection is closed.\n No more data may be sent or received.  All reliable data has been flushed, or else\n we've given up and discarded it.  We do not yet know for sure that the peer knows\n the connection has been closed, however, so we're just hanging around so that if we do\n get a packet from them, we can send them the appropriate packets so that they can\n know why the connection was closed (and not have to rely on a timeout, which makes\n it appear as if something is wrong)."]
+pub const ESteamNetworkingConnectionState_k_ESteamNetworkingConnectionState_FinWait:
+    ESteamNetworkingConnectionState = -1;
+#[doc = " We've disconnected on our side, and from an API perspective the connection is closed.\n No more data may be sent or received.  From a network perspective, however, on the wire,\n we have not yet given any indication to the peer that the connection is closed.\n We are in the process of flushing out the last bit of reliable data.  Once that is done,\n we will inform the peer that the connection has been closed, and transition to the\n FinWait state.\n\n Note that no indication is given to the remote host that we have closed the connection,\n until the data has been flushed.  If the remote host attempts to send us data, we will\n do whatever is necessary to keep the connection alive until it can be closed properly.\n But in fact the data will be discarded, since there is no way for the application to\n read it back.  Typically this is not a problem, as application protocols that utilize\n the lingering functionality are designed for the remote host to wait for the response\n before sending any more data."]
+pub const ESteamNetworkingConnectionState_k_ESteamNetworkingConnectionState_Linger:
+    ESteamNetworkingConnectionState = -2;
+#[doc = " Connection is completely inactive and ready to be destroyed"]
+pub const ESteamNetworkingConnectionState_k_ESteamNetworkingConnectionState_Dead:
+    ESteamNetworkingConnectionState = -3;
+#[doc = " Connection is completely inactive and ready to be destroyed"]
+pub const ESteamNetworkingConnectionState_k_ESteamNetworkingConnectionState__Force32Bit:
+    ESteamNetworkingConnectionState = 2147483647;
 #[doc = " High level connection status"]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamNetworkingConnectionState {
-    #[doc = " Dummy value used to indicate an error condition in the API.\n Specified connection doesn't exist or has already been closed."]
-    k_ESteamNetworkingConnectionState_None = 0,
-    #[doc = " We are trying to establish whether peers can talk to each other,\n whether they WANT to talk to each other, perform basic auth,\n and exchange crypt keys.\n\n - For connections on the \"client\" side (initiated locally):\n   We're in the process of trying to establish a connection.\n   Depending on the connection type, we might not know who they are.\n   Note that it is not possible to tell if we are waiting on the\n   network to complete handshake packets, or for the application layer\n   to accept the connection.\n\n - For connections on the \"server\" side (accepted through listen socket):\n   We have completed some basic handshake and the client has presented\n   some proof of identity.  The connection is ready to be accepted\n   using AcceptConnection().\n\n In either case, any unreliable packets sent now are almost certain\n to be dropped.  Attempts to receive packets are guaranteed to fail.\n You may send messages if the send mode allows for them to be queued.\n but if you close the connection before the connection is actually\n established, any queued messages will be discarded immediately.\n (We will not attempt to flush the queue and confirm delivery to the\n remote host, which ordinarily happens when a connection is closed.)"]
-    k_ESteamNetworkingConnectionState_Connecting = 1,
-    #[doc = " Some connection types use a back channel or trusted 3rd party\n for earliest communication.  If the server accepts the connection,\n then these connections switch into the rendezvous state.  During this\n state, we still have not yet established an end-to-end route (through\n the relay network), and so if you send any messages unreliable, they\n are going to be discarded."]
-    k_ESteamNetworkingConnectionState_FindingRoute = 2,
-    #[doc = " We've received communications from our peer (and we know\n who they are) and are all good.  If you close the connection now,\n we will make our best effort to flush out any reliable sent data that\n has not been acknowledged by the peer.  (But note that this happens\n from within the application process, so unlike a TCP connection, you are\n not totally handing it off to the operating system to deal with it.)"]
-    k_ESteamNetworkingConnectionState_Connected = 3,
-    #[doc = " Connection has been closed by our peer, but not closed locally.\n The connection still exists from an API perspective.  You must close the\n handle to free up resources.  If there are any messages in the inbound queue,\n you may retrieve them.  Otherwise, nothing may be done with the connection\n except to close it.\n\n This stats is similar to CLOSE_WAIT in the TCP state machine."]
-    k_ESteamNetworkingConnectionState_ClosedByPeer = 4,
-    #[doc = " A disruption in the connection has been detected locally.  (E.g. timeout,\n local internet connection disrupted, etc.)\n\n The connection still exists from an API perspective.  You must close the\n handle to free up resources.\n\n Attempts to send further messages will fail.  Any remaining received messages\n in the queue are available."]
-    k_ESteamNetworkingConnectionState_ProblemDetectedLocally = 5,
-    #[doc = " We've disconnected on our side, and from an API perspective the connection is closed.\n No more data may be sent or received.  All reliable data has been flushed, or else\n we've given up and discarded it.  We do not yet know for sure that the peer knows\n the connection has been closed, however, so we're just hanging around so that if we do\n get a packet from them, we can send them the appropriate packets so that they can\n know why the connection was closed (and not have to rely on a timeout, which makes\n it appear as if something is wrong)."]
-    k_ESteamNetworkingConnectionState_FinWait = -1,
-    #[doc = " We've disconnected on our side, and from an API perspective the connection is closed.\n No more data may be sent or received.  From a network perspective, however, on the wire,\n we have not yet given any indication to the peer that the connection is closed.\n We are in the process of flushing out the last bit of reliable data.  Once that is done,\n we will inform the peer that the connection has been closed, and transition to the\n FinWait state.\n\n Note that no indication is given to the remote host that we have closed the connection,\n until the data has been flushed.  If the remote host attempts to send us data, we will\n do whatever is necessary to keep the connection alive until it can be closed properly.\n But in fact the data will be discarded, since there is no way for the application to\n read it back.  Typically this is not a problem, as application protocols that utilize\n the lingering functionality are designed for the remote host to wait for the response\n before sending any more data."]
-    k_ESteamNetworkingConnectionState_Linger = -2,
-    #[doc = " Connection is completely inactive and ready to be destroyed"]
-    k_ESteamNetworkingConnectionState_Dead = -3,
-    #[doc = " Connection is completely inactive and ready to be destroyed"]
-    k_ESteamNetworkingConnectionState__Force32Bit = 2147483647,
-}
-impl ESteamNetConnectionEnd {
-    pub const k_ESteamNetConnectionEnd_App_Generic: ESteamNetConnectionEnd =
-        ESteamNetConnectionEnd::k_ESteamNetConnectionEnd_App_Min;
-}
-impl ESteamNetConnectionEnd {
-    pub const k_ESteamNetConnectionEnd_AppException_Generic: ESteamNetConnectionEnd =
-        ESteamNetConnectionEnd::k_ESteamNetConnectionEnd_AppException_Min;
-}
-#[repr(u32)]
-#[non_exhaustive]
+pub type ESteamNetworkingConnectionState = ::std::os::raw::c_int;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Invalid: ESteamNetConnectionEnd = 0;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_App_Min: ESteamNetConnectionEnd = 1000;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_App_Generic: ESteamNetConnectionEnd =
+    1000;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_App_Max: ESteamNetConnectionEnd = 1999;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_AppException_Min: ESteamNetConnectionEnd =
+    2000;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_AppException_Generic:
+    ESteamNetConnectionEnd = 2000;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_AppException_Max: ESteamNetConnectionEnd =
+    2999;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Local_Min: ESteamNetConnectionEnd = 3000;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Local_OfflineMode:
+    ESteamNetConnectionEnd = 3001;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Local_ManyRelayConnectivity:
+    ESteamNetConnectionEnd = 3002;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Local_HostedServerPrimaryRelay:
+    ESteamNetConnectionEnd = 3003;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Local_NetworkConfig:
+    ESteamNetConnectionEnd = 3004;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Local_Rights: ESteamNetConnectionEnd =
+    3005;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Local_P2P_ICE_NoPublicAddresses:
+    ESteamNetConnectionEnd = 3006;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Local_Max: ESteamNetConnectionEnd = 3999;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Remote_Min: ESteamNetConnectionEnd = 4000;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Remote_Timeout: ESteamNetConnectionEnd =
+    4001;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Remote_BadCrypt: ESteamNetConnectionEnd =
+    4002;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Remote_BadCert: ESteamNetConnectionEnd =
+    4003;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Remote_BadProtocolVersion:
+    ESteamNetConnectionEnd = 4006;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Remote_P2P_ICE_NoPublicAddresses:
+    ESteamNetConnectionEnd = 4007;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Remote_Max: ESteamNetConnectionEnd = 4999;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Misc_Min: ESteamNetConnectionEnd = 5000;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Misc_Generic: ESteamNetConnectionEnd =
+    5001;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Misc_InternalError:
+    ESteamNetConnectionEnd = 5002;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Misc_Timeout: ESteamNetConnectionEnd =
+    5003;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Misc_SteamConnectivity:
+    ESteamNetConnectionEnd = 5005;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Misc_NoRelaySessionsToClient:
+    ESteamNetConnectionEnd = 5006;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Misc_P2P_Rendezvous:
+    ESteamNetConnectionEnd = 5008;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Misc_P2P_NAT_Firewall:
+    ESteamNetConnectionEnd = 5009;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Misc_PeerSentNoConnection:
+    ESteamNetConnectionEnd = 5010;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd_Misc_Max: ESteamNetConnectionEnd = 5999;
+pub const ESteamNetConnectionEnd_k_ESteamNetConnectionEnd__Force32Bit: ESteamNetConnectionEnd =
+    2147483647;
 #[doc = " Enumerate various causes of connection termination.  These are designed to work similar\n to HTTP error codes: the numeric range gives you a rough classification as to the source\n of the problem."]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamNetConnectionEnd {
-    k_ESteamNetConnectionEnd_Invalid = 0,
-    k_ESteamNetConnectionEnd_App_Min = 1000,
-    k_ESteamNetConnectionEnd_App_Max = 1999,
-    k_ESteamNetConnectionEnd_AppException_Min = 2000,
-    k_ESteamNetConnectionEnd_AppException_Max = 2999,
-    k_ESteamNetConnectionEnd_Local_Min = 3000,
-    k_ESteamNetConnectionEnd_Local_OfflineMode = 3001,
-    k_ESteamNetConnectionEnd_Local_ManyRelayConnectivity = 3002,
-    k_ESteamNetConnectionEnd_Local_HostedServerPrimaryRelay = 3003,
-    k_ESteamNetConnectionEnd_Local_NetworkConfig = 3004,
-    k_ESteamNetConnectionEnd_Local_Rights = 3005,
-    k_ESteamNetConnectionEnd_Local_P2P_ICE_NoPublicAddresses = 3006,
-    k_ESteamNetConnectionEnd_Local_Max = 3999,
-    k_ESteamNetConnectionEnd_Remote_Min = 4000,
-    k_ESteamNetConnectionEnd_Remote_Timeout = 4001,
-    k_ESteamNetConnectionEnd_Remote_BadCrypt = 4002,
-    k_ESteamNetConnectionEnd_Remote_BadCert = 4003,
-    k_ESteamNetConnectionEnd_Remote_BadProtocolVersion = 4006,
-    k_ESteamNetConnectionEnd_Remote_P2P_ICE_NoPublicAddresses = 4007,
-    k_ESteamNetConnectionEnd_Remote_Max = 4999,
-    k_ESteamNetConnectionEnd_Misc_Min = 5000,
-    k_ESteamNetConnectionEnd_Misc_Generic = 5001,
-    k_ESteamNetConnectionEnd_Misc_InternalError = 5002,
-    k_ESteamNetConnectionEnd_Misc_Timeout = 5003,
-    k_ESteamNetConnectionEnd_Misc_SteamConnectivity = 5005,
-    k_ESteamNetConnectionEnd_Misc_NoRelaySessionsToClient = 5006,
-    k_ESteamNetConnectionEnd_Misc_P2P_Rendezvous = 5008,
-    k_ESteamNetConnectionEnd_Misc_P2P_NAT_Firewall = 5009,
-    k_ESteamNetConnectionEnd_Misc_PeerSentNoConnection = 5010,
-    k_ESteamNetConnectionEnd_Misc_Max = 5999,
-    k_ESteamNetConnectionEnd__Force32Bit = 2147483647,
-}
+pub type ESteamNetConnectionEnd = ::std::os::raw::c_uint;
 #[doc = " Max length, in bytes (including null terminator) of the reason string\n when a connection is closed."]
 pub const k_cchSteamNetworkingMaxConnectionCloseReason: ::std::os::raw::c_int = 128;
 #[doc = " Max length, in bytes (include null terminator) of debug description\n of a connection."]
@@ -20895,166 +19711,226 @@ pub const k_cchMaxSteamNetworkingPingLocationString: ::std::os::raw::c_int = 102
 #[doc = " Special values that are returned by some functions that return a ping."]
 pub const k_nSteamNetworkingPing_Failed: ::std::os::raw::c_int = -1;
 pub const k_nSteamNetworkingPing_Unknown: ::std::os::raw::c_int = -2;
-#[repr(u32)]
-#[non_exhaustive]
+#[doc = " Get/set global option, or defaults.  Even options that apply to more specific scopes\n have global scope, and you may be able to just change the global defaults.  If you\n need different settings per connection (for example), then you will need to set those\n options at the more specific scope."]
+pub const ESteamNetworkingConfigScope_k_ESteamNetworkingConfig_Global: ESteamNetworkingConfigScope =
+    1;
+#[doc = " Some options are specific to a particular interface.  Note that all connection\n and listen socket settings can also be set at the interface level, and they will\n apply to objects created through those interfaces."]
+pub const ESteamNetworkingConfigScope_k_ESteamNetworkingConfig_SocketsInterface:
+    ESteamNetworkingConfigScope = 2;
+#[doc = " Options for a listen socket.  Listen socket options can be set at the interface layer,\n if  you have multiple listen sockets and they all use the same options.\n You can also set connection options on a listen socket, and they set the defaults\n for all connections accepted through this listen socket.  (They will be used if you don't\n set a connection option.)"]
+pub const ESteamNetworkingConfigScope_k_ESteamNetworkingConfig_ListenSocket:
+    ESteamNetworkingConfigScope = 3;
+#[doc = " Options for a specific connection."]
+pub const ESteamNetworkingConfigScope_k_ESteamNetworkingConfig_Connection:
+    ESteamNetworkingConfigScope = 4;
+#[doc = " Options for a specific connection."]
+pub const ESteamNetworkingConfigScope_k_ESteamNetworkingConfigScope__Force32Bit:
+    ESteamNetworkingConfigScope = 2147483647;
 #[doc = " Configuration values can be applied to different types of objects."]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamNetworkingConfigScope {
-    #[doc = " Get/set global option, or defaults.  Even options that apply to more specific scopes\n have global scope, and you may be able to just change the global defaults.  If you\n need different settings per connection (for example), then you will need to set those\n options at the more specific scope."]
-    k_ESteamNetworkingConfig_Global = 1,
-    #[doc = " Some options are specific to a particular interface.  Note that all connection\n and listen socket settings can also be set at the interface level, and they will\n apply to objects created through those interfaces."]
-    k_ESteamNetworkingConfig_SocketsInterface = 2,
-    #[doc = " Options for a listen socket.  Listen socket options can be set at the interface layer,\n if  you have multiple listen sockets and they all use the same options.\n You can also set connection options on a listen socket, and they set the defaults\n for all connections accepted through this listen socket.  (They will be used if you don't\n set a connection option.)"]
-    k_ESteamNetworkingConfig_ListenSocket = 3,
-    #[doc = " Options for a specific connection."]
-    k_ESteamNetworkingConfig_Connection = 4,
-    #[doc = " Options for a specific connection."]
-    k_ESteamNetworkingConfigScope__Force32Bit = 2147483647,
-}
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamNetworkingConfigDataType {
-    k_ESteamNetworkingConfig_Int32 = 1,
-    k_ESteamNetworkingConfig_Int64 = 2,
-    k_ESteamNetworkingConfig_Float = 3,
-    k_ESteamNetworkingConfig_String = 4,
-    k_ESteamNetworkingConfig_Ptr = 5,
-    k_ESteamNetworkingConfigDataType__Force32Bit = 2147483647,
-}
-#[repr(u32)]
-#[non_exhaustive]
+pub type ESteamNetworkingConfigScope = ::std::os::raw::c_uint;
+pub const ESteamNetworkingConfigDataType_k_ESteamNetworkingConfig_Int32:
+    ESteamNetworkingConfigDataType = 1;
+pub const ESteamNetworkingConfigDataType_k_ESteamNetworkingConfig_Int64:
+    ESteamNetworkingConfigDataType = 2;
+pub const ESteamNetworkingConfigDataType_k_ESteamNetworkingConfig_Float:
+    ESteamNetworkingConfigDataType = 3;
+pub const ESteamNetworkingConfigDataType_k_ESteamNetworkingConfig_String:
+    ESteamNetworkingConfigDataType = 4;
+pub const ESteamNetworkingConfigDataType_k_ESteamNetworkingConfig_Ptr:
+    ESteamNetworkingConfigDataType = 5;
+pub const ESteamNetworkingConfigDataType_k_ESteamNetworkingConfigDataType__Force32Bit:
+    ESteamNetworkingConfigDataType = 2147483647;
+pub type ESteamNetworkingConfigDataType = ::std::os::raw::c_uint;
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_Invalid:
+    ESteamNetworkingConfigValue = 0;
+#[doc = " [connection int32] Timeout value (in ms) to use when first connecting"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_TimeoutInitial:
+    ESteamNetworkingConfigValue = 24;
+#[doc = " [connection int32] Timeout value (in ms) to use after connection is established"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_TimeoutConnected:
+    ESteamNetworkingConfigValue = 25;
+#[doc = " [connection int32] Upper limit of buffered pending bytes to be sent,\n if this is reached SendMessage will return k_EResultLimitExceeded\n Default is 512k (524288 bytes)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SendBufferSize:
+    ESteamNetworkingConfigValue = 9;
+#[doc = " [connection int32] Upper limit on total size (in bytes) of received messages\n that will be buffered waiting to be processed by the application.  If this limit\n is exceeded, packets will be dropped.  This is to protect us from a malicious\n peer flooding us with messages faster than we can process them.\n\n This must be bigger than k_ESteamNetworkingConfig_RecvMaxMessageSize"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_RecvBufferSize:
+    ESteamNetworkingConfigValue = 47;
+#[doc = " [connection int32] Upper limit on the number of received messages that will\n that will be buffered waiting to be processed by the application.  If this limit\n is exceeded, packets will be dropped.  This is to protect us from a malicious\n peer flooding us with messages faster than we can pull them off the wire."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_RecvBufferMessages:
+    ESteamNetworkingConfigValue = 48;
+#[doc = " [connection int32] Maximum message size that we are willing to receive.\n if a client attempts to send us a message larger than this, the connection\n will be immediately closed.\n\n Default is 512k (524288 bytes).  Note that the peer needs to be able to\n send a message this big.  (See k_cbMaxSteamNetworkingSocketsMessageSizeSend.)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_RecvMaxMessageSize:
+    ESteamNetworkingConfigValue = 49;
+#[doc = " [connection int32] Max number of message segments that can be received\n in a single UDP packet.  While decoding a packet, if the number of segments\n exceeds this, we will abort further packet processing.\n\n The default is effectively unlimited.  If you know that you very rarely\n send small packets, you can protect yourself from malicious senders by\n lowering this number.\n\n In particular, if you are NOT using the reliability layer and are only using\n SteamNetworkingSockets for datagram transport, setting this to a very low\n number may be beneficial.  (We recommend a value of 2.)  Make sure your sender\n disables Nagle!"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_RecvMaxSegmentsPerPacket:
+    ESteamNetworkingConfigValue = 50;
+#[doc = " [connection int64] Get/set userdata as a configuration option.\n The default value is -1.   You may want to set the user data as\n a config value, instead of using ISteamNetworkingSockets::SetConnectionUserData\n in two specific instances:\n\n - You wish to set the userdata atomically when creating\n   an outbound connection, so that the userdata is filled in properly\n   for any callbacks that happen.  However, note that this trick\n   only works for connections initiated locally!  For incoming\n   connections, multiple state transitions may happen and\n   callbacks be queued, before you are able to service the first\n   callback!  Be careful!\n\n - You can set the default userdata for all newly created connections\n   by setting this value at a higher level (e.g. on the listen\n   socket or at the global level.)  Then this default\n   value will be inherited when the connection is created.\n   This is useful in case -1 is a valid userdata value, and you\n   wish to use something else as the default value so you can\n   tell if it has been set or not.\n\n   HOWEVER: once a connection is created, the effective value is\n   then bound to the connection.  Unlike other connection options,\n   if you change it again at a higher level, the new value will not\n   be inherited by connections.\n\n Using the userdata field in callback structs is not advised because\n of tricky race conditions.  Instead, you might try one of these methods:\n\n - Use a separate map with the HSteamNetConnection as the key.\n - Fetch the userdata from the connection in your callback\n   using ISteamNetworkingSockets::GetConnectionUserData, to"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_ConnectionUserData:
+    ESteamNetworkingConfigValue = 40;
+#[doc = " [connection int32] Minimum/maximum send rate clamp, in bytes/sec.\n At the time of this writing these two options should always be set to\n the same value, to manually configure a specific send rate.  The default\n value is 256K.  Eventually we hope to have the library estimate the bandwidth\n of the channel and set the send rate to that estimated bandwidth, and these\n values will only set limits on that send rate."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SendRateMin:
+    ESteamNetworkingConfigValue = 10;
+#[doc = " [connection int32] Minimum/maximum send rate clamp, in bytes/sec.\n At the time of this writing these two options should always be set to\n the same value, to manually configure a specific send rate.  The default\n value is 256K.  Eventually we hope to have the library estimate the bandwidth\n of the channel and set the send rate to that estimated bandwidth, and these\n values will only set limits on that send rate."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SendRateMax:
+    ESteamNetworkingConfigValue = 11;
+#[doc = " [connection int32] Nagle time, in microseconds.  When SendMessage is called, if\n the outgoing message is less than the size of the MTU, it will be\n queued for a delay equal to the Nagle timer value.  This is to ensure\n that if the application sends several small messages rapidly, they are\n coalesced into a single packet.\n See historical RFC 896.  Value is in microseconds.\n Default is 5000us (5ms)."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_NagleTime:
+    ESteamNetworkingConfigValue = 12;
+#[doc = " [connection int32] Don't automatically fail IP connections that don't have\n strong auth.  On clients, this means we will attempt the connection even if\n we don't know our identity or can't get a cert.  On the server, it means that\n we won't automatically reject a connection due to a failure to authenticate.\n (You can examine the incoming connection and decide whether to accept it.)\n\n This is a dev configuration value, and you should not let users modify it in\n production."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_IP_AllowWithoutAuth:
+    ESteamNetworkingConfigValue = 23;
+#[doc = " [connection int32] Do not send UDP packets with a payload of\n larger than N bytes.  If you set this, k_ESteamNetworkingConfig_MTU_DataSize\n is automatically adjusted"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_MTU_PacketSize:
+    ESteamNetworkingConfigValue = 32;
+#[doc = " [connection int32] (read only) Maximum message size you can send that\n will not fragment, based on k_ESteamNetworkingConfig_MTU_PacketSize"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_MTU_DataSize:
+    ESteamNetworkingConfigValue = 33;
+#[doc = " [connection int32] Allow unencrypted (and unauthenticated) communication.\n 0: Not allowed (the default)\n 1: Allowed, but prefer encrypted\n 2: Allowed, and preferred\n 3: Required.  (Fail the connection if the peer requires encryption.)\n\n This is a dev configuration value, since its purpose is to disable encryption.\n You should not let users modify it in production.  (But note that it requires\n the peer to also modify their value in order for encryption to be disabled.)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_Unencrypted:
+    ESteamNetworkingConfigValue = 34;
+#[doc = " [connection int32] Set this to 1 on outbound connections and listen sockets,\n to enable \"symmetric connect mode\", which is useful in the following\n common peer-to-peer use case:\n\n - The two peers are \"equal\" to each other.  (Neither is clearly the \"client\"\n   or \"server\".)\n - Either peer may initiate the connection, and indeed they may do this\n   at the same time\n - The peers only desire a single connection to each other, and if both\n   peers initiate connections simultaneously, a protocol is needed for them\n   to resolve the conflict, so that we end up with a single connection.\n\n This use case is both common, and involves subtle race conditions and tricky\n pitfalls, which is why the API has support for dealing with it.\n\n If an incoming connection arrives on a listen socket or via custom signaling,\n and the application has not attempted to make a matching outbound connection\n in symmetric mode, then the incoming connection can be accepted as usual.\n A \"matching\" connection means that the relevant endpoint information matches.\n (At the time this comment is being written, this is only supported for P2P\n connections, which means that the peer identities must match, and the virtual\n port must match.  At a later time, symmetric mode may be supported for other\n connection types.)\n\n If connections are initiated by both peers simultaneously, race conditions\n can arise, but fortunately, most of them are handled internally and do not\n require any special awareness from the application.  However, there\n is one important case that application code must be aware of:\n If application code attempts an outbound connection using a ConnectXxx\n function in symmetric mode, and a matching incoming connection is already\n waiting on a listen socket, then instead of forming a new connection,\n the ConnectXxx call will accept the existing incoming connection, and return\n a connection handle to this accepted connection.\n IMPORTANT: in this case, a SteamNetConnectionStatusChangedCallback_t\n has probably *already* been posted to the queue for the incoming connection!\n (Once callbacks are posted to the queue, they are not modified.)  It doesn't\n matter if the callback has not been consumed by the app.  Thus, application\n code that makes use of symmetric connections must be aware that, when processing a\n SteamNetConnectionStatusChangedCallback_t for an incoming connection, the\n m_hConn may refer to a new connection that the app has has not\n seen before (the usual case), but it may also refer to a connection that\n has already been accepted implicitly through a call to Connect()!  In this\n case, AcceptConnection() will return k_EResultDuplicateRequest.\n\n Only one symmetric connection to a given peer (on a given virtual port)\n may exist at any given time.  If client code attempts to create a connection,\n and a (live) connection already exists on the local host, then either the\n existing connection will be accepted as described above, or the attempt\n to create a new connection will fail.  Furthermore, linger mode functionality\n is not supported on symmetric connections.\n\n A more complicated race condition can arise if both peers initiate a connection\n at roughly the same time.  In this situation, each peer will receive an incoming\n connection from the other peer, when the application code has already initiated\n an outgoing connection to that peer.  The peers must resolve this conflict and\n decide who is going to act as the \"server\" and who will act as the \"client\".\n Typically the application does not need to be aware of this case as it is handled\n internally.  On both sides, the will observe their outbound connection being\n \"accepted\", although one of them one have been converted internally to act\n as the \"server\".\n\n In general, symmetric mode should be all-or-nothing: do not mix symmetric\n connections with a non-symmetric connection that it might possible \"match\"\n with.  If you use symmetric mode on any connections, then both peers should\n use it on all connections, and the corresponding listen socket, if any.  The\n behaviour when symmetric and ordinary connections are mixed is not defined by\n this API, and you should not rely on it.  (This advice only applies when connections\n might possibly \"match\".  For example, it's OK to use all symmetric mode\n connections on one virtual port, and all ordinary, non-symmetric connections\n on a different virtual port, as there is no potential for ambiguity.)\n\n When using the feature, you should set it in the following situations on\n applicable objects:\n\n - When creating an outbound connection using ConnectXxx function\n - When creating a listen socket.  (Note that this will automatically cause\n   any accepted connections to inherit the flag.)\n - When using custom signaling, before accepting an incoming connection.\n\n Setting the flag on listen socket and accepted connections will enable the\n API to automatically deal with duplicate incoming connections, even if the\n local host has not made any outbound requests.  (In general, such duplicate\n requests from a peer are ignored internally and will not be visible to the\n application code.  The previous connection must be closed or resolved first.)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SymmetricConnect:
+    ESteamNetworkingConfigValue = 37;
+#[doc = " [connection int32] For connection types that use \"virtual ports\", this can be used\n to assign a local virtual port.  For incoming connections, this will always be the\n virtual port of the listen socket (or the port requested by the remote host if custom\n signaling is used and the connection is accepted), and cannot be changed.  For\n connections initiated locally, the local virtual port will default to the same as the\n requested remote virtual port, if you do not specify a different option when creating\n the connection.  The local port is only relevant for symmetric connections, when\n determining if two connections \"match.\"  In this case, if you need the local and remote\n port to differ, you can set this value.\n\n You can also read back this value on listen sockets.\n\n This value should not be read or written in any other context."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LocalVirtualPort:
+    ESteamNetworkingConfigValue = 38;
+#[doc = " [connection int32] Enable Dual wifi band support for this connection\n 0 = no, 1 = yes, 2 = simulate it for debugging, even if dual wifi not available"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_DualWifi_Enable:
+    ESteamNetworkingConfigValue = 39;
+#[doc = " [connection int32] True to enable diagnostics reporting through\n generic platform UI.  (Only available on Steam.)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_EnableDiagnosticsUI:
+    ESteamNetworkingConfigValue = 46;
+#[doc = " [global float, 0--100] Randomly discard N pct of packets instead of sending/recv\n This is a global option only, since it is applied at a low level\n where we don't have much context"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakePacketLoss_Send:
+    ESteamNetworkingConfigValue = 2;
+#[doc = " [global float, 0--100] Randomly discard N pct of packets instead of sending/recv\n This is a global option only, since it is applied at a low level\n where we don't have much context"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakePacketLoss_Recv:
+    ESteamNetworkingConfigValue = 3;
+#[doc = " [global int32].  Delay all outbound/inbound packets by N ms"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakePacketLag_Send:
+    ESteamNetworkingConfigValue = 4;
+#[doc = " [global int32].  Delay all outbound/inbound packets by N ms"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakePacketLag_Recv:
+    ESteamNetworkingConfigValue = 5;
+#[doc = " [global float] 0-100 Percentage of packets we will add additional delay\n to (causing them to be reordered)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakePacketReorder_Send:
+    ESteamNetworkingConfigValue = 6;
+#[doc = " [global float] 0-100 Percentage of packets we will add additional delay\n to (causing them to be reordered)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakePacketReorder_Recv:
+    ESteamNetworkingConfigValue = 7;
+#[doc = " [global int32] Extra delay, in ms, to apply to reordered packets."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakePacketReorder_Time:
+    ESteamNetworkingConfigValue = 8;
+#[doc = " [global float 0--100] Globally duplicate some percentage of packets we send"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakePacketDup_Send:
+    ESteamNetworkingConfigValue = 26;
+#[doc = " [global float 0--100] Globally duplicate some percentage of packets we send"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakePacketDup_Recv:
+    ESteamNetworkingConfigValue = 27;
+#[doc = " [global int32] Amount of delay, in ms, to delay duplicated packets.\n (We chose a random delay between 0 and this value)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakePacketDup_TimeMax:
+    ESteamNetworkingConfigValue = 28;
+#[doc = " [global int32] Trace every UDP packet, similar to Wireshark or tcpdump.\n Value is max number of bytes to dump.  -1 disables tracing."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_PacketTraceMaxBytes:
+    ESteamNetworkingConfigValue = 41;
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakeRateLimit_Send_Rate:
+    ESteamNetworkingConfigValue = 42;
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakeRateLimit_Send_Burst:
+    ESteamNetworkingConfigValue = 43;
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakeRateLimit_Recv_Rate:
+    ESteamNetworkingConfigValue = 44;
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakeRateLimit_Recv_Burst:
+    ESteamNetworkingConfigValue = 45;
+#[doc = " [connection FnSteamNetConnectionStatusChanged] Callback that will be invoked\n when the state of a connection changes.\n\n IMPORTANT: callbacks are dispatched to the handler that is in effect at the time\n the event occurs, which might be in another thread.  For example, immediately after\n creating a listen socket, you may receive an incoming connection.  And then immediately\n after this, the remote host may close the connection.  All of this could happen\n before the function to create the listen socket has returned.  For this reason,\n callbacks usually must be in effect at the time of object creation.  This means\n you should set them when you are creating the listen socket or connection, or have\n them in effect so they will be inherited at the time of object creation.\n\n For example:\n\n exterm void MyStatusChangedFunc( SteamNetConnectionStatusChangedCallback_t *info );\n SteamNetworkingConfigValue_t opt; opt.SetPtr( k_ESteamNetworkingConfig_Callback_ConnectionStatusChanged, MyStatusChangedFunc );\n SteamNetworkingIPAddr localAddress; localAddress.Clear();\n HSteamListenSocket hListenSock = SteamNetworkingSockets()->CreateListenSocketIP( localAddress, 1, &opt );\n\n When accepting an incoming connection, there is no atomic way to switch the\n callback.  However, if the connection is DOA, AcceptConnection() will fail, and\n you can fetch the state of the connection at that time.\n\n If all connections and listen sockets can use the same callback, the simplest\n method is to set it globally before you create any listen sockets or connections."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_Callback_ConnectionStatusChanged:
+    ESteamNetworkingConfigValue = 201;
+#[doc = " [global FnSteamNetAuthenticationStatusChanged] Callback that will be invoked\n when our auth state changes.  If you use this, install the callback before creating\n any connections or listen sockets, and don't change it.\n See: ISteamNetworkingUtils::SetGlobalCallback_SteamNetAuthenticationStatusChanged"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_Callback_AuthStatusChanged:
+    ESteamNetworkingConfigValue = 202;
+#[doc = " [global FnSteamRelayNetworkStatusChanged] Callback that will be invoked\n when our auth state changes.  If you use this, install the callback before creating\n any connections or listen sockets, and don't change it.\n See: ISteamNetworkingUtils::SetGlobalCallback_SteamRelayNetworkStatusChanged"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_Callback_RelayNetworkStatusChanged : ESteamNetworkingConfigValue = 203 ;
+#[doc = " [global FnSteamNetworkingMessagesSessionRequest] Callback that will be invoked\n when a peer wants to initiate a SteamNetworkingMessagesSessionRequest.\n See: ISteamNetworkingUtils::SetGlobalCallback_MessagesSessionRequest"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_Callback_MessagesSessionRequest:
+    ESteamNetworkingConfigValue = 204;
+#[doc = " [global FnSteamNetworkingMessagesSessionFailed] Callback that will be invoked\n when a session you have initiated, or accepted either fails to connect, or loses\n connection in some unexpected way.\n See: ISteamNetworkingUtils::SetGlobalCallback_MessagesSessionFailed"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_Callback_MessagesSessionFailed:
+    ESteamNetworkingConfigValue = 205;
+#[doc = " [global FnSteamNetworkingSocketsCreateConnectionSignaling] Callback that will\n be invoked when we need to create a signaling object for a connection\n initiated locally.  See: ISteamNetworkingSockets::ConnectP2P,\n ISteamNetworkingMessages."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_Callback_CreateConnectionSignaling : ESteamNetworkingConfigValue = 206 ;
+#[doc = " [global FnSteamNetworkingFakeIPResult] Callback that's invoked when\n a FakeIP allocation finishes.  See: ISteamNetworkingSockets::BeginAsyncRequestFakeIP,\n ISteamNetworkingUtils::SetGlobalCallback_FakeIPResult"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_Callback_FakeIPResult:
+    ESteamNetworkingConfigValue = 207;
+#[doc = " [connection string] Comma-separated list of STUN servers that can be used\n for NAT piercing.  If you set this to an empty string, NAT piercing will\n not be attempted.  Also if \"public\" candidates are not allowed for\n P2P_Transport_ICE_Enable, then this is ignored."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_P2P_STUN_ServerList:
+    ESteamNetworkingConfigValue = 103;
+#[doc = " [connection int32] What types of ICE candidates to share with the peer.\n See k_nSteamNetworkingConfig_P2P_Transport_ICE_Enable_xxx values"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_P2P_Transport_ICE_Enable:
+    ESteamNetworkingConfigValue = 104;
+#[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_P2P_Transport_ICE_Penalty:
+    ESteamNetworkingConfigValue = 105;
+#[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_P2P_Transport_SDR_Penalty:
+    ESteamNetworkingConfigValue = 106;
+#[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_P2P_TURN_ServerList:
+    ESteamNetworkingConfigValue = 107;
+#[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_P2P_TURN_UserList:
+    ESteamNetworkingConfigValue = 108;
+#[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_P2P_TURN_PassList:
+    ESteamNetworkingConfigValue = 109;
+#[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_P2P_Transport_ICE_Implementation:
+    ESteamNetworkingConfigValue = 110;
+#[doc = " [int32 global] If the first N pings to a port all fail, mark that port as unavailable for\n a while, and try a different one.  Some ISPs and routers may drop the first\n packet, so setting this to 1 may greatly disrupt communications."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_ConsecutitivePingTimeoutsFailInitial : ESteamNetworkingConfigValue = 19 ;
+#[doc = " [int32 global] If N consecutive pings to a port fail, after having received successful\n communication, mark that port as unavailable for a while, and try a\n different one."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_ConsecutitivePingTimeoutsFail : ESteamNetworkingConfigValue = 20 ;
+#[doc = " [int32 global] Minimum number of lifetime pings we need to send, before we think our estimate\n is solid.  The first ping to each cluster is very often delayed because of NAT,\n routers not having the best route, etc.  Until we've sent a sufficient number\n of pings, our estimate is often inaccurate.  Keep pinging until we get this\n many pings."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_MinPingsBeforePingAccurate : ESteamNetworkingConfigValue = 21 ;
+#[doc = " [int32 global] Set all steam datagram traffic to originate from the same\n local port. By default, we open up a new UDP socket (on a different local\n port) for each relay.  This is slightly less optimal, but it works around\n some routers that don't implement NAT properly.  If you have intermittent\n problems talking to relays that might be NAT related, try toggling\n this flag"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_SingleSocket:
+    ESteamNetworkingConfigValue = 22;
+#[doc = " [global string] Code of relay cluster to force use.  If not empty, we will\n only use relays in that cluster.  E.g. 'iad'"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_ForceRelayCluster:
+    ESteamNetworkingConfigValue = 29;
+#[doc = " [connection string] For debugging, generate our own (unsigned) ticket, using\n the specified  gameserver address.  Router must be configured to accept unsigned\n tickets."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_DebugTicketAddress:
+    ESteamNetworkingConfigValue = 30;
+#[doc = " [global string] For debugging.  Override list of relays from the config with\n this set (maybe just one).  Comma-separated list."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_ForceProxyAddr:
+    ESteamNetworkingConfigValue = 31;
+#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_FakeClusterPing:
+    ESteamNetworkingConfigValue = 36;
+#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_AckRTT:
+    ESteamNetworkingConfigValue = 13;
+#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_PacketDecode:
+    ESteamNetworkingConfigValue = 14;
+#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_Message:
+    ESteamNetworkingConfigValue = 15;
+#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_PacketGaps:
+    ESteamNetworkingConfigValue = 16;
+#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_P2PRendezvous:
+    ESteamNetworkingConfigValue = 17;
+#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_SDRRelayPings:
+    ESteamNetworkingConfigValue = 18;
+#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_DELETED_EnumerateDevVars:
+    ESteamNetworkingConfigValue = 35;
+#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfigValue__Force32Bit:
+    ESteamNetworkingConfigValue = 2147483647;
 #[doc = " Configuration options"]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamNetworkingConfigValue {
-    k_ESteamNetworkingConfig_Invalid = 0,
-    #[doc = " [connection int32] Timeout value (in ms) to use when first connecting"]
-    k_ESteamNetworkingConfig_TimeoutInitial = 24,
-    #[doc = " [connection int32] Timeout value (in ms) to use after connection is established"]
-    k_ESteamNetworkingConfig_TimeoutConnected = 25,
-    #[doc = " [connection int32] Upper limit of buffered pending bytes to be sent,\n if this is reached SendMessage will return k_EResultLimitExceeded\n Default is 512k (524288 bytes)"]
-    k_ESteamNetworkingConfig_SendBufferSize = 9,
-    #[doc = " [connection int32] Upper limit on total size (in bytes) of received messages\n that will be buffered waiting to be processed by the application.  If this limit\n is exceeded, packets will be dropped.  This is to protect us from a malicious\n peer flooding us with messages faster than we can process them.\n\n This must be bigger than k_ESteamNetworkingConfig_RecvMaxMessageSize"]
-    k_ESteamNetworkingConfig_RecvBufferSize = 47,
-    #[doc = " [connection int32] Upper limit on the number of received messages that will\n that will be buffered waiting to be processed by the application.  If this limit\n is exceeded, packets will be dropped.  This is to protect us from a malicious\n peer flooding us with messages faster than we can pull them off the wire."]
-    k_ESteamNetworkingConfig_RecvBufferMessages = 48,
-    #[doc = " [connection int32] Maximum message size that we are willing to receive.\n if a client attempts to send us a message larger than this, the connection\n will be immediately closed.\n\n Default is 512k (524288 bytes).  Note that the peer needs to be able to\n send a message this big.  (See k_cbMaxSteamNetworkingSocketsMessageSizeSend.)"]
-    k_ESteamNetworkingConfig_RecvMaxMessageSize = 49,
-    #[doc = " [connection int32] Max number of message segments that can be received\n in a single UDP packet.  While decoding a packet, if the number of segments\n exceeds this, we will abort further packet processing.\n\n The default is effectively unlimited.  If you know that you very rarely\n send small packets, you can protect yourself from malicious senders by\n lowering this number.\n\n In particular, if you are NOT using the reliability layer and are only using\n SteamNetworkingSockets for datagram transport, setting this to a very low\n number may be beneficial.  (We recommend a value of 2.)  Make sure your sender\n disables Nagle!"]
-    k_ESteamNetworkingConfig_RecvMaxSegmentsPerPacket = 50,
-    #[doc = " [connection int64] Get/set userdata as a configuration option.\n The default value is -1.   You may want to set the user data as\n a config value, instead of using ISteamNetworkingSockets::SetConnectionUserData\n in two specific instances:\n\n - You wish to set the userdata atomically when creating\n   an outbound connection, so that the userdata is filled in properly\n   for any callbacks that happen.  However, note that this trick\n   only works for connections initiated locally!  For incoming\n   connections, multiple state transitions may happen and\n   callbacks be queued, before you are able to service the first\n   callback!  Be careful!\n\n - You can set the default userdata for all newly created connections\n   by setting this value at a higher level (e.g. on the listen\n   socket or at the global level.)  Then this default\n   value will be inherited when the connection is created.\n   This is useful in case -1 is a valid userdata value, and you\n   wish to use something else as the default value so you can\n   tell if it has been set or not.\n\n   HOWEVER: once a connection is created, the effective value is\n   then bound to the connection.  Unlike other connection options,\n   if you change it again at a higher level, the new value will not\n   be inherited by connections.\n\n Using the userdata field in callback structs is not advised because\n of tricky race conditions.  Instead, you might try one of these methods:\n\n - Use a separate map with the HSteamNetConnection as the key.\n - Fetch the userdata from the connection in your callback\n   using ISteamNetworkingSockets::GetConnectionUserData, to"]
-    k_ESteamNetworkingConfig_ConnectionUserData = 40,
-    #[doc = " [connection int32] Minimum/maximum send rate clamp, in bytes/sec.\n At the time of this writing these two options should always be set to\n the same value, to manually configure a specific send rate.  The default\n value is 256K.  Eventually we hope to have the library estimate the bandwidth\n of the channel and set the send rate to that estimated bandwidth, and these\n values will only set limits on that send rate."]
-    k_ESteamNetworkingConfig_SendRateMin = 10,
-    #[doc = " [connection int32] Minimum/maximum send rate clamp, in bytes/sec.\n At the time of this writing these two options should always be set to\n the same value, to manually configure a specific send rate.  The default\n value is 256K.  Eventually we hope to have the library estimate the bandwidth\n of the channel and set the send rate to that estimated bandwidth, and these\n values will only set limits on that send rate."]
-    k_ESteamNetworkingConfig_SendRateMax = 11,
-    #[doc = " [connection int32] Nagle time, in microseconds.  When SendMessage is called, if\n the outgoing message is less than the size of the MTU, it will be\n queued for a delay equal to the Nagle timer value.  This is to ensure\n that if the application sends several small messages rapidly, they are\n coalesced into a single packet.\n See historical RFC 896.  Value is in microseconds.\n Default is 5000us (5ms)."]
-    k_ESteamNetworkingConfig_NagleTime = 12,
-    #[doc = " [connection int32] Don't automatically fail IP connections that don't have\n strong auth.  On clients, this means we will attempt the connection even if\n we don't know our identity or can't get a cert.  On the server, it means that\n we won't automatically reject a connection due to a failure to authenticate.\n (You can examine the incoming connection and decide whether to accept it.)\n\n This is a dev configuration value, and you should not let users modify it in\n production."]
-    k_ESteamNetworkingConfig_IP_AllowWithoutAuth = 23,
-    #[doc = " [connection int32] Do not send UDP packets with a payload of\n larger than N bytes.  If you set this, k_ESteamNetworkingConfig_MTU_DataSize\n is automatically adjusted"]
-    k_ESteamNetworkingConfig_MTU_PacketSize = 32,
-    #[doc = " [connection int32] (read only) Maximum message size you can send that\n will not fragment, based on k_ESteamNetworkingConfig_MTU_PacketSize"]
-    k_ESteamNetworkingConfig_MTU_DataSize = 33,
-    #[doc = " [connection int32] Allow unencrypted (and unauthenticated) communication.\n 0: Not allowed (the default)\n 1: Allowed, but prefer encrypted\n 2: Allowed, and preferred\n 3: Required.  (Fail the connection if the peer requires encryption.)\n\n This is a dev configuration value, since its purpose is to disable encryption.\n You should not let users modify it in production.  (But note that it requires\n the peer to also modify their value in order for encryption to be disabled.)"]
-    k_ESteamNetworkingConfig_Unencrypted = 34,
-    #[doc = " [connection int32] Set this to 1 on outbound connections and listen sockets,\n to enable \"symmetric connect mode\", which is useful in the following\n common peer-to-peer use case:\n\n - The two peers are \"equal\" to each other.  (Neither is clearly the \"client\"\n   or \"server\".)\n - Either peer may initiate the connection, and indeed they may do this\n   at the same time\n - The peers only desire a single connection to each other, and if both\n   peers initiate connections simultaneously, a protocol is needed for them\n   to resolve the conflict, so that we end up with a single connection.\n\n This use case is both common, and involves subtle race conditions and tricky\n pitfalls, which is why the API has support for dealing with it.\n\n If an incoming connection arrives on a listen socket or via custom signaling,\n and the application has not attempted to make a matching outbound connection\n in symmetric mode, then the incoming connection can be accepted as usual.\n A \"matching\" connection means that the relevant endpoint information matches.\n (At the time this comment is being written, this is only supported for P2P\n connections, which means that the peer identities must match, and the virtual\n port must match.  At a later time, symmetric mode may be supported for other\n connection types.)\n\n If connections are initiated by both peers simultaneously, race conditions\n can arise, but fortunately, most of them are handled internally and do not\n require any special awareness from the application.  However, there\n is one important case that application code must be aware of:\n If application code attempts an outbound connection using a ConnectXxx\n function in symmetric mode, and a matching incoming connection is already\n waiting on a listen socket, then instead of forming a new connection,\n the ConnectXxx call will accept the existing incoming connection, and return\n a connection handle to this accepted connection.\n IMPORTANT: in this case, a SteamNetConnectionStatusChangedCallback_t\n has probably *already* been posted to the queue for the incoming connection!\n (Once callbacks are posted to the queue, they are not modified.)  It doesn't\n matter if the callback has not been consumed by the app.  Thus, application\n code that makes use of symmetric connections must be aware that, when processing a\n SteamNetConnectionStatusChangedCallback_t for an incoming connection, the\n m_hConn may refer to a new connection that the app has has not\n seen before (the usual case), but it may also refer to a connection that\n has already been accepted implicitly through a call to Connect()!  In this\n case, AcceptConnection() will return k_EResultDuplicateRequest.\n\n Only one symmetric connection to a given peer (on a given virtual port)\n may exist at any given time.  If client code attempts to create a connection,\n and a (live) connection already exists on the local host, then either the\n existing connection will be accepted as described above, or the attempt\n to create a new connection will fail.  Furthermore, linger mode functionality\n is not supported on symmetric connections.\n\n A more complicated race condition can arise if both peers initiate a connection\n at roughly the same time.  In this situation, each peer will receive an incoming\n connection from the other peer, when the application code has already initiated\n an outgoing connection to that peer.  The peers must resolve this conflict and\n decide who is going to act as the \"server\" and who will act as the \"client\".\n Typically the application does not need to be aware of this case as it is handled\n internally.  On both sides, the will observe their outbound connection being\n \"accepted\", although one of them one have been converted internally to act\n as the \"server\".\n\n In general, symmetric mode should be all-or-nothing: do not mix symmetric\n connections with a non-symmetric connection that it might possible \"match\"\n with.  If you use symmetric mode on any connections, then both peers should\n use it on all connections, and the corresponding listen socket, if any.  The\n behaviour when symmetric and ordinary connections are mixed is not defined by\n this API, and you should not rely on it.  (This advice only applies when connections\n might possibly \"match\".  For example, it's OK to use all symmetric mode\n connections on one virtual port, and all ordinary, non-symmetric connections\n on a different virtual port, as there is no potential for ambiguity.)\n\n When using the feature, you should set it in the following situations on\n applicable objects:\n\n - When creating an outbound connection using ConnectXxx function\n - When creating a listen socket.  (Note that this will automatically cause\n   any accepted connections to inherit the flag.)\n - When using custom signaling, before accepting an incoming connection.\n\n Setting the flag on listen socket and accepted connections will enable the\n API to automatically deal with duplicate incoming connections, even if the\n local host has not made any outbound requests.  (In general, such duplicate\n requests from a peer are ignored internally and will not be visible to the\n application code.  The previous connection must be closed or resolved first.)"]
-    k_ESteamNetworkingConfig_SymmetricConnect = 37,
-    #[doc = " [connection int32] For connection types that use \"virtual ports\", this can be used\n to assign a local virtual port.  For incoming connections, this will always be the\n virtual port of the listen socket (or the port requested by the remote host if custom\n signaling is used and the connection is accepted), and cannot be changed.  For\n connections initiated locally, the local virtual port will default to the same as the\n requested remote virtual port, if you do not specify a different option when creating\n the connection.  The local port is only relevant for symmetric connections, when\n determining if two connections \"match.\"  In this case, if you need the local and remote\n port to differ, you can set this value.\n\n You can also read back this value on listen sockets.\n\n This value should not be read or written in any other context."]
-    k_ESteamNetworkingConfig_LocalVirtualPort = 38,
-    #[doc = " [connection int32] Enable Dual wifi band support for this connection\n 0 = no, 1 = yes, 2 = simulate it for debugging, even if dual wifi not available"]
-    k_ESteamNetworkingConfig_DualWifi_Enable = 39,
-    #[doc = " [connection int32] True to enable diagnostics reporting through\n generic platform UI.  (Only available on Steam.)"]
-    k_ESteamNetworkingConfig_EnableDiagnosticsUI = 46,
-    #[doc = " [global float, 0--100] Randomly discard N pct of packets instead of sending/recv\n This is a global option only, since it is applied at a low level\n where we don't have much context"]
-    k_ESteamNetworkingConfig_FakePacketLoss_Send = 2,
-    #[doc = " [global float, 0--100] Randomly discard N pct of packets instead of sending/recv\n This is a global option only, since it is applied at a low level\n where we don't have much context"]
-    k_ESteamNetworkingConfig_FakePacketLoss_Recv = 3,
-    #[doc = " [global int32].  Delay all outbound/inbound packets by N ms"]
-    k_ESteamNetworkingConfig_FakePacketLag_Send = 4,
-    #[doc = " [global int32].  Delay all outbound/inbound packets by N ms"]
-    k_ESteamNetworkingConfig_FakePacketLag_Recv = 5,
-    #[doc = " [global float] 0-100 Percentage of packets we will add additional delay\n to (causing them to be reordered)"]
-    k_ESteamNetworkingConfig_FakePacketReorder_Send = 6,
-    #[doc = " [global float] 0-100 Percentage of packets we will add additional delay\n to (causing them to be reordered)"]
-    k_ESteamNetworkingConfig_FakePacketReorder_Recv = 7,
-    #[doc = " [global int32] Extra delay, in ms, to apply to reordered packets."]
-    k_ESteamNetworkingConfig_FakePacketReorder_Time = 8,
-    #[doc = " [global float 0--100] Globally duplicate some percentage of packets we send"]
-    k_ESteamNetworkingConfig_FakePacketDup_Send = 26,
-    #[doc = " [global float 0--100] Globally duplicate some percentage of packets we send"]
-    k_ESteamNetworkingConfig_FakePacketDup_Recv = 27,
-    #[doc = " [global int32] Amount of delay, in ms, to delay duplicated packets.\n (We chose a random delay between 0 and this value)"]
-    k_ESteamNetworkingConfig_FakePacketDup_TimeMax = 28,
-    #[doc = " [global int32] Trace every UDP packet, similar to Wireshark or tcpdump.\n Value is max number of bytes to dump.  -1 disables tracing."]
-    k_ESteamNetworkingConfig_PacketTraceMaxBytes = 41,
-    k_ESteamNetworkingConfig_FakeRateLimit_Send_Rate = 42,
-    k_ESteamNetworkingConfig_FakeRateLimit_Send_Burst = 43,
-    k_ESteamNetworkingConfig_FakeRateLimit_Recv_Rate = 44,
-    k_ESteamNetworkingConfig_FakeRateLimit_Recv_Burst = 45,
-    #[doc = " [connection FnSteamNetConnectionStatusChanged] Callback that will be invoked\n when the state of a connection changes.\n\n IMPORTANT: callbacks are dispatched to the handler that is in effect at the time\n the event occurs, which might be in another thread.  For example, immediately after\n creating a listen socket, you may receive an incoming connection.  And then immediately\n after this, the remote host may close the connection.  All of this could happen\n before the function to create the listen socket has returned.  For this reason,\n callbacks usually must be in effect at the time of object creation.  This means\n you should set them when you are creating the listen socket or connection, or have\n them in effect so they will be inherited at the time of object creation.\n\n For example:\n\n exterm void MyStatusChangedFunc( SteamNetConnectionStatusChangedCallback_t *info );\n SteamNetworkingConfigValue_t opt; opt.SetPtr( k_ESteamNetworkingConfig_Callback_ConnectionStatusChanged, MyStatusChangedFunc );\n SteamNetworkingIPAddr localAddress; localAddress.Clear();\n HSteamListenSocket hListenSock = SteamNetworkingSockets()->CreateListenSocketIP( localAddress, 1, &opt );\n\n When accepting an incoming connection, there is no atomic way to switch the\n callback.  However, if the connection is DOA, AcceptConnection() will fail, and\n you can fetch the state of the connection at that time.\n\n If all connections and listen sockets can use the same callback, the simplest\n method is to set it globally before you create any listen sockets or connections."]
-    k_ESteamNetworkingConfig_Callback_ConnectionStatusChanged = 201,
-    #[doc = " [global FnSteamNetAuthenticationStatusChanged] Callback that will be invoked\n when our auth state changes.  If you use this, install the callback before creating\n any connections or listen sockets, and don't change it.\n See: ISteamNetworkingUtils::SetGlobalCallback_SteamNetAuthenticationStatusChanged"]
-    k_ESteamNetworkingConfig_Callback_AuthStatusChanged = 202,
-    #[doc = " [global FnSteamRelayNetworkStatusChanged] Callback that will be invoked\n when our auth state changes.  If you use this, install the callback before creating\n any connections or listen sockets, and don't change it.\n See: ISteamNetworkingUtils::SetGlobalCallback_SteamRelayNetworkStatusChanged"]
-    k_ESteamNetworkingConfig_Callback_RelayNetworkStatusChanged = 203,
-    #[doc = " [global FnSteamNetworkingMessagesSessionRequest] Callback that will be invoked\n when a peer wants to initiate a SteamNetworkingMessagesSessionRequest.\n See: ISteamNetworkingUtils::SetGlobalCallback_MessagesSessionRequest"]
-    k_ESteamNetworkingConfig_Callback_MessagesSessionRequest = 204,
-    #[doc = " [global FnSteamNetworkingMessagesSessionFailed] Callback that will be invoked\n when a session you have initiated, or accepted either fails to connect, or loses\n connection in some unexpected way.\n See: ISteamNetworkingUtils::SetGlobalCallback_MessagesSessionFailed"]
-    k_ESteamNetworkingConfig_Callback_MessagesSessionFailed = 205,
-    #[doc = " [global FnSteamNetworkingSocketsCreateConnectionSignaling] Callback that will\n be invoked when we need to create a signaling object for a connection\n initiated locally.  See: ISteamNetworkingSockets::ConnectP2P,\n ISteamNetworkingMessages."]
-    k_ESteamNetworkingConfig_Callback_CreateConnectionSignaling = 206,
-    #[doc = " [global FnSteamNetworkingFakeIPResult] Callback that's invoked when\n a FakeIP allocation finishes.  See: ISteamNetworkingSockets::BeginAsyncRequestFakeIP,\n ISteamNetworkingUtils::SetGlobalCallback_FakeIPResult"]
-    k_ESteamNetworkingConfig_Callback_FakeIPResult = 207,
-    #[doc = " [connection string] Comma-separated list of STUN servers that can be used\n for NAT piercing.  If you set this to an empty string, NAT piercing will\n not be attempted.  Also if \"public\" candidates are not allowed for\n P2P_Transport_ICE_Enable, then this is ignored."]
-    k_ESteamNetworkingConfig_P2P_STUN_ServerList = 103,
-    #[doc = " [connection int32] What types of ICE candidates to share with the peer.\n See k_nSteamNetworkingConfig_P2P_Transport_ICE_Enable_xxx values"]
-    k_ESteamNetworkingConfig_P2P_Transport_ICE_Enable = 104,
-    #[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
-    k_ESteamNetworkingConfig_P2P_Transport_ICE_Penalty = 105,
-    #[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
-    k_ESteamNetworkingConfig_P2P_Transport_SDR_Penalty = 106,
-    #[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
-    k_ESteamNetworkingConfig_P2P_TURN_ServerList = 107,
-    #[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
-    k_ESteamNetworkingConfig_P2P_TURN_UserList = 108,
-    #[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
-    k_ESteamNetworkingConfig_P2P_TURN_PassList = 109,
-    #[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
-    k_ESteamNetworkingConfig_P2P_Transport_ICE_Implementation = 110,
-    #[doc = " [int32 global] If the first N pings to a port all fail, mark that port as unavailable for\n a while, and try a different one.  Some ISPs and routers may drop the first\n packet, so setting this to 1 may greatly disrupt communications."]
-    k_ESteamNetworkingConfig_SDRClient_ConsecutitivePingTimeoutsFailInitial = 19,
-    #[doc = " [int32 global] If N consecutive pings to a port fail, after having received successful\n communication, mark that port as unavailable for a while, and try a\n different one."]
-    k_ESteamNetworkingConfig_SDRClient_ConsecutitivePingTimeoutsFail = 20,
-    #[doc = " [int32 global] Minimum number of lifetime pings we need to send, before we think our estimate\n is solid.  The first ping to each cluster is very often delayed because of NAT,\n routers not having the best route, etc.  Until we've sent a sufficient number\n of pings, our estimate is often inaccurate.  Keep pinging until we get this\n many pings."]
-    k_ESteamNetworkingConfig_SDRClient_MinPingsBeforePingAccurate = 21,
-    #[doc = " [int32 global] Set all steam datagram traffic to originate from the same\n local port. By default, we open up a new UDP socket (on a different local\n port) for each relay.  This is slightly less optimal, but it works around\n some routers that don't implement NAT properly.  If you have intermittent\n problems talking to relays that might be NAT related, try toggling\n this flag"]
-    k_ESteamNetworkingConfig_SDRClient_SingleSocket = 22,
-    #[doc = " [global string] Code of relay cluster to force use.  If not empty, we will\n only use relays in that cluster.  E.g. 'iad'"]
-    k_ESteamNetworkingConfig_SDRClient_ForceRelayCluster = 29,
-    #[doc = " [connection string] For debugging, generate our own (unsigned) ticket, using\n the specified  gameserver address.  Router must be configured to accept unsigned\n tickets."]
-    k_ESteamNetworkingConfig_SDRClient_DebugTicketAddress = 30,
-    #[doc = " [global string] For debugging.  Override list of relays from the config with\n this set (maybe just one).  Comma-separated list."]
-    k_ESteamNetworkingConfig_SDRClient_ForceProxyAddr = 31,
-    #[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
-    k_ESteamNetworkingConfig_SDRClient_FakeClusterPing = 36,
-    #[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
-    k_ESteamNetworkingConfig_LogLevel_AckRTT = 13,
-    #[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
-    k_ESteamNetworkingConfig_LogLevel_PacketDecode = 14,
-    #[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
-    k_ESteamNetworkingConfig_LogLevel_Message = 15,
-    #[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
-    k_ESteamNetworkingConfig_LogLevel_PacketGaps = 16,
-    #[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
-    k_ESteamNetworkingConfig_LogLevel_P2PRendezvous = 17,
-    #[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
-    k_ESteamNetworkingConfig_LogLevel_SDRRelayPings = 18,
-    #[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
-    k_ESteamNetworkingConfig_DELETED_EnumerateDevVars = 35,
-    #[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
-    k_ESteamNetworkingConfigValue__Force32Bit = 2147483647,
-}
+pub type ESteamNetworkingConfigValue = ::std::os::raw::c_uint;
 pub const k_nSteamNetworkingConfig_P2P_Transport_ICE_Enable_Default: ::std::os::raw::c_int = -1;
 pub const k_nSteamNetworkingConfig_P2P_Transport_ICE_Enable_Disable: ::std::os::raw::c_int = 0;
 pub const k_nSteamNetworkingConfig_P2P_Transport_ICE_Enable_Relay: ::std::os::raw::c_int = 1;
@@ -21199,34 +20075,36 @@ fn bindgen_test_layout_SteamNetworkingConfigValue_t() {
         )
     );
 }
-#[repr(i32)]
-#[non_exhaustive]
+pub const ESteamNetworkingGetConfigValueResult_k_ESteamNetworkingGetConfigValue_BadValue:
+    ESteamNetworkingGetConfigValueResult = -1;
+pub const ESteamNetworkingGetConfigValueResult_k_ESteamNetworkingGetConfigValue_BadScopeObj:
+    ESteamNetworkingGetConfigValueResult = -2;
+pub const ESteamNetworkingGetConfigValueResult_k_ESteamNetworkingGetConfigValue_BufferTooSmall:
+    ESteamNetworkingGetConfigValueResult = -3;
+pub const ESteamNetworkingGetConfigValueResult_k_ESteamNetworkingGetConfigValue_OK:
+    ESteamNetworkingGetConfigValueResult = 1;
+pub const ESteamNetworkingGetConfigValueResult_k_ESteamNetworkingGetConfigValue_OKInherited:
+    ESteamNetworkingGetConfigValueResult = 2;
+pub const ESteamNetworkingGetConfigValueResult_k_ESteamNetworkingGetConfigValueResult__Force32Bit : ESteamNetworkingGetConfigValueResult = 2147483647 ;
 #[doc = " Return value of ISteamNetworkintgUtils::GetConfigValue"]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamNetworkingGetConfigValueResult {
-    k_ESteamNetworkingGetConfigValue_BadValue = -1,
-    k_ESteamNetworkingGetConfigValue_BadScopeObj = -2,
-    k_ESteamNetworkingGetConfigValue_BufferTooSmall = -3,
-    k_ESteamNetworkingGetConfigValue_OK = 1,
-    k_ESteamNetworkingGetConfigValue_OKInherited = 2,
-    k_ESteamNetworkingGetConfigValueResult__Force32Bit = 2147483647,
-}
-#[repr(u32)]
-#[non_exhaustive]
+pub type ESteamNetworkingGetConfigValueResult = ::std::os::raw::c_int;
+pub const ESteamNetworkingSocketsDebugOutputType_k_ESteamNetworkingSocketsDebugOutputType_None:
+    ESteamNetworkingSocketsDebugOutputType = 0;
+pub const ESteamNetworkingSocketsDebugOutputType_k_ESteamNetworkingSocketsDebugOutputType_Bug:
+    ESteamNetworkingSocketsDebugOutputType = 1;
+pub const ESteamNetworkingSocketsDebugOutputType_k_ESteamNetworkingSocketsDebugOutputType_Error:
+    ESteamNetworkingSocketsDebugOutputType = 2;
+pub const ESteamNetworkingSocketsDebugOutputType_k_ESteamNetworkingSocketsDebugOutputType_Important : ESteamNetworkingSocketsDebugOutputType = 3 ;
+pub const ESteamNetworkingSocketsDebugOutputType_k_ESteamNetworkingSocketsDebugOutputType_Warning : ESteamNetworkingSocketsDebugOutputType = 4 ;
+pub const ESteamNetworkingSocketsDebugOutputType_k_ESteamNetworkingSocketsDebugOutputType_Msg:
+    ESteamNetworkingSocketsDebugOutputType = 5;
+pub const ESteamNetworkingSocketsDebugOutputType_k_ESteamNetworkingSocketsDebugOutputType_Verbose : ESteamNetworkingSocketsDebugOutputType = 6 ;
+pub const ESteamNetworkingSocketsDebugOutputType_k_ESteamNetworkingSocketsDebugOutputType_Debug:
+    ESteamNetworkingSocketsDebugOutputType = 7;
+pub const ESteamNetworkingSocketsDebugOutputType_k_ESteamNetworkingSocketsDebugOutputType_Everything : ESteamNetworkingSocketsDebugOutputType = 8 ;
+pub const ESteamNetworkingSocketsDebugOutputType_k_ESteamNetworkingSocketsDebugOutputType__Force32Bit : ESteamNetworkingSocketsDebugOutputType = 2147483647 ;
 #[doc = " Detail level for diagnostic output callback.\n See ISteamNetworkingUtils::SetDebugOutputFunction"]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamNetworkingSocketsDebugOutputType {
-    k_ESteamNetworkingSocketsDebugOutputType_None = 0,
-    k_ESteamNetworkingSocketsDebugOutputType_Bug = 1,
-    k_ESteamNetworkingSocketsDebugOutputType_Error = 2,
-    k_ESteamNetworkingSocketsDebugOutputType_Important = 3,
-    k_ESteamNetworkingSocketsDebugOutputType_Warning = 4,
-    k_ESteamNetworkingSocketsDebugOutputType_Msg = 5,
-    k_ESteamNetworkingSocketsDebugOutputType_Verbose = 6,
-    k_ESteamNetworkingSocketsDebugOutputType_Debug = 7,
-    k_ESteamNetworkingSocketsDebugOutputType_Everything = 8,
-    k_ESteamNetworkingSocketsDebugOutputType__Force32Bit = 2147483647,
-}
+pub type ESteamNetworkingSocketsDebugOutputType = ::std::os::raw::c_uint;
 #[doc = " Setup callback for debug output, and the desired verbosity you want."]
 pub type FSteamNetworkingSocketsDebugOutput = ::std::option::Option<
     unsafe extern "C" fn(
@@ -21299,14 +20177,8 @@ pub struct SteamNetworkingMessagesSessionRequest_t {
     pub m_identityRemote: SteamNetworkingIdentity,
 }
 pub const SteamNetworkingMessagesSessionRequest_t_k_iCallback:
-    SteamNetworkingMessagesSessionRequest_t__bindgen_ty_1 =
-    SteamNetworkingMessagesSessionRequest_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamNetworkingMessagesSessionRequest_t__bindgen_ty_1 {
-    k_iCallback = 1251,
-}
+    SteamNetworkingMessagesSessionRequest_t__bindgen_ty_1 = 1251;
+pub type SteamNetworkingMessagesSessionRequest_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamNetworkingMessagesSessionRequest_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamNetworkingMessagesSessionRequest_t> =
@@ -21347,14 +20219,8 @@ pub struct SteamNetworkingMessagesSessionFailed_t {
     pub m_info: SteamNetConnectionInfo_t,
 }
 pub const SteamNetworkingMessagesSessionFailed_t_k_iCallback:
-    SteamNetworkingMessagesSessionFailed_t__bindgen_ty_1 =
-    SteamNetworkingMessagesSessionFailed_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamNetworkingMessagesSessionFailed_t__bindgen_ty_1 {
-    k_iCallback = 1252,
-}
+    SteamNetworkingMessagesSessionFailed_t__bindgen_ty_1 = 1252;
+pub type SteamNetworkingMessagesSessionFailed_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamNetworkingMessagesSessionFailed_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamNetworkingMessagesSessionFailed_t> =
@@ -21447,14 +20313,8 @@ pub struct SteamNetConnectionStatusChangedCallback_t {
     pub m_eOldState: ESteamNetworkingConnectionState,
 }
 pub const SteamNetConnectionStatusChangedCallback_t_k_iCallback:
-    SteamNetConnectionStatusChangedCallback_t__bindgen_ty_1 =
-    SteamNetConnectionStatusChangedCallback_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamNetConnectionStatusChangedCallback_t__bindgen_ty_1 {
-    k_iCallback = 1221,
-}
+    SteamNetConnectionStatusChangedCallback_t__bindgen_ty_1 = 1221;
+pub type SteamNetConnectionStatusChangedCallback_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamNetConnectionStatusChangedCallback_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamNetConnectionStatusChangedCallback_t> =
@@ -21517,13 +20377,8 @@ pub struct SteamNetAuthenticationStatus_t {
     pub m_debugMsg: [::std::os::raw::c_char; 256usize],
 }
 pub const SteamNetAuthenticationStatus_t_k_iCallback: SteamNetAuthenticationStatus_t__bindgen_ty_1 =
-    SteamNetAuthenticationStatus_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamNetAuthenticationStatus_t__bindgen_ty_1 {
-    k_iCallback = 1222,
-}
+    1222;
+pub type SteamNetAuthenticationStatus_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamNetAuthenticationStatus_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamNetAuthenticationStatus_t> =
@@ -21606,14 +20461,8 @@ pub struct SteamRelayNetworkStatus_t {
     #[doc = " Non-localized English language status.  For diagnostic/debugging\n purposes only."]
     pub m_debugMsg: [::std::os::raw::c_char; 256usize],
 }
-pub const SteamRelayNetworkStatus_t_k_iCallback: SteamRelayNetworkStatus_t__bindgen_ty_1 =
-    SteamRelayNetworkStatus_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum SteamRelayNetworkStatus_t__bindgen_ty_1 {
-    k_iCallback = 1281,
-}
+pub const SteamRelayNetworkStatus_t_k_iCallback: SteamRelayNetworkStatus_t__bindgen_ty_1 = 1281;
+pub type SteamRelayNetworkStatus_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_SteamRelayNetworkStatus_t() {
     const UNINIT: ::std::mem::MaybeUninit<SteamRelayNetworkStatus_t> =
@@ -21746,15 +20595,11 @@ fn bindgen_test_layout_SteamNetworkingIPAddrRender() {
         )
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ESteamAPIInitResult {
-    k_ESteamAPIInitResult_OK = 0,
-    k_ESteamAPIInitResult_FailedGeneric = 1,
-    k_ESteamAPIInitResult_NoSteamClient = 2,
-    k_ESteamAPIInitResult_VersionMismatch = 3,
-}
+pub const ESteamAPIInitResult_k_ESteamAPIInitResult_OK: ESteamAPIInitResult = 0;
+pub const ESteamAPIInitResult_k_ESteamAPIInitResult_FailedGeneric: ESteamAPIInitResult = 1;
+pub const ESteamAPIInitResult_k_ESteamAPIInitResult_NoSteamClient: ESteamAPIInitResult = 2;
+pub const ESteamAPIInitResult_k_ESteamAPIInitResult_VersionMismatch: ESteamAPIInitResult = 3;
+pub type ESteamAPIInitResult = ::std::os::raw::c_uint;
 extern "C" {
     pub fn SteamAPI_Shutdown();
 }
@@ -21845,14 +20690,8 @@ pub struct GSClientApprove_t {
     pub m_SteamID: CSteamID,
     pub m_OwnerSteamID: CSteamID,
 }
-pub const GSClientApprove_t_k_iCallback: GSClientApprove_t__bindgen_ty_1 =
-    GSClientApprove_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GSClientApprove_t__bindgen_ty_1 {
-    k_iCallback = 201,
-}
+pub const GSClientApprove_t_k_iCallback: GSClientApprove_t__bindgen_ty_1 = 201;
+pub type GSClientApprove_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GSClientApprove_t() {
     const UNINIT: ::std::mem::MaybeUninit<GSClientApprove_t> = ::std::mem::MaybeUninit::uninit();
@@ -21895,14 +20734,8 @@ pub struct GSClientDeny_t {
     pub m_eDenyReason: EDenyReason,
     pub m_rgchOptionalText: [::std::os::raw::c_char; 128usize],
 }
-pub const GSClientDeny_t_k_iCallback: GSClientDeny_t__bindgen_ty_1 =
-    GSClientDeny_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GSClientDeny_t__bindgen_ty_1 {
-    k_iCallback = 202,
-}
+pub const GSClientDeny_t_k_iCallback: GSClientDeny_t__bindgen_ty_1 = 202;
+pub type GSClientDeny_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GSClientDeny_t() {
     const UNINIT: ::std::mem::MaybeUninit<GSClientDeny_t> = ::std::mem::MaybeUninit::uninit();
@@ -21954,14 +20787,8 @@ pub struct GSClientKick_t {
     pub m_SteamID: CSteamID,
     pub m_eDenyReason: EDenyReason,
 }
-pub const GSClientKick_t_k_iCallback: GSClientKick_t__bindgen_ty_1 =
-    GSClientKick_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GSClientKick_t__bindgen_ty_1 {
-    k_iCallback = 203,
-}
+pub const GSClientKick_t_k_iCallback: GSClientKick_t__bindgen_ty_1 = 203;
+pub type GSClientKick_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GSClientKick_t() {
     const UNINIT: ::std::mem::MaybeUninit<GSClientKick_t> = ::std::mem::MaybeUninit::uninit();
@@ -22004,14 +20831,8 @@ pub struct GSClientAchievementStatus_t {
     pub m_pchAchievement: [::std::os::raw::c_char; 128usize],
     pub m_bUnlocked: bool,
 }
-pub const GSClientAchievementStatus_t_k_iCallback: GSClientAchievementStatus_t__bindgen_ty_1 =
-    GSClientAchievementStatus_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GSClientAchievementStatus_t__bindgen_ty_1 {
-    k_iCallback = 206,
-}
+pub const GSClientAchievementStatus_t_k_iCallback: GSClientAchievementStatus_t__bindgen_ty_1 = 206;
+pub type GSClientAchievementStatus_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GSClientAchievementStatus_t() {
     const UNINIT: ::std::mem::MaybeUninit<GSClientAchievementStatus_t> =
@@ -22063,14 +20884,8 @@ fn bindgen_test_layout_GSClientAchievementStatus_t() {
 pub struct GSPolicyResponse_t {
     pub m_bSecure: uint8,
 }
-pub const GSPolicyResponse_t_k_iCallback: GSPolicyResponse_t__bindgen_ty_1 =
-    GSPolicyResponse_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GSPolicyResponse_t__bindgen_ty_1 {
-    k_iCallback = 115,
-}
+pub const GSPolicyResponse_t_k_iCallback: GSPolicyResponse_t__bindgen_ty_1 = 115;
+pub type GSPolicyResponse_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GSPolicyResponse_t() {
     const UNINIT: ::std::mem::MaybeUninit<GSPolicyResponse_t> = ::std::mem::MaybeUninit::uninit();
@@ -22104,14 +20919,8 @@ pub struct GSGameplayStats_t {
     pub m_unTotalConnects: uint32,
     pub m_unTotalMinutesPlayed: uint32,
 }
-pub const GSGameplayStats_t_k_iCallback: GSGameplayStats_t__bindgen_ty_1 =
-    GSGameplayStats_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GSGameplayStats_t__bindgen_ty_1 {
-    k_iCallback = 207,
-}
+pub const GSGameplayStats_t_k_iCallback: GSGameplayStats_t__bindgen_ty_1 = 207;
+pub type GSGameplayStats_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GSGameplayStats_t() {
     const UNINIT: ::std::mem::MaybeUninit<GSGameplayStats_t> = ::std::mem::MaybeUninit::uninit();
@@ -22175,14 +20984,8 @@ pub struct GSClientGroupStatus_t {
     pub m_bMember: bool,
     pub m_bOfficer: bool,
 }
-pub const GSClientGroupStatus_t_k_iCallback: GSClientGroupStatus_t__bindgen_ty_1 =
-    GSClientGroupStatus_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GSClientGroupStatus_t__bindgen_ty_1 {
-    k_iCallback = 208,
-}
+pub const GSClientGroupStatus_t_k_iCallback: GSClientGroupStatus_t__bindgen_ty_1 = 208;
+pub type GSClientGroupStatus_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GSClientGroupStatus_t() {
     const UNINIT: ::std::mem::MaybeUninit<GSClientGroupStatus_t> =
@@ -22250,14 +21053,8 @@ pub struct GSReputation_t {
     pub m_ulBannedGameID: uint64,
     pub m_unBanExpires: uint32,
 }
-pub const GSReputation_t_k_iCallback: GSReputation_t__bindgen_ty_1 =
-    GSReputation_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GSReputation_t__bindgen_ty_1 {
-    k_iCallback = 209,
-}
+pub const GSReputation_t_k_iCallback: GSReputation_t__bindgen_ty_1 = 209;
+pub type GSReputation_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GSReputation_t() {
     const UNINIT: ::std::mem::MaybeUninit<GSReputation_t> = ::std::mem::MaybeUninit::uninit();
@@ -22348,14 +21145,8 @@ fn bindgen_test_layout_GSReputation_t() {
 pub struct AssociateWithClanResult_t {
     pub m_eResult: EResult,
 }
-pub const AssociateWithClanResult_t_k_iCallback: AssociateWithClanResult_t__bindgen_ty_1 =
-    AssociateWithClanResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum AssociateWithClanResult_t__bindgen_ty_1 {
-    k_iCallback = 210,
-}
+pub const AssociateWithClanResult_t_k_iCallback: AssociateWithClanResult_t__bindgen_ty_1 = 210;
+pub type AssociateWithClanResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_AssociateWithClanResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<AssociateWithClanResult_t> =
@@ -22392,14 +21183,8 @@ pub struct ComputeNewPlayerCompatibilityResult_t {
     pub m_SteamIDCandidate: CSteamID,
 }
 pub const ComputeNewPlayerCompatibilityResult_t_k_iCallback:
-    ComputeNewPlayerCompatibilityResult_t__bindgen_ty_1 =
-    ComputeNewPlayerCompatibilityResult_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ComputeNewPlayerCompatibilityResult_t__bindgen_ty_1 {
-    k_iCallback = 211,
-}
+    ComputeNewPlayerCompatibilityResult_t__bindgen_ty_1 = 211;
+pub type ComputeNewPlayerCompatibilityResult_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_ComputeNewPlayerCompatibilityResult_t() {
     const UNINIT: ::std::mem::MaybeUninit<ComputeNewPlayerCompatibilityResult_t> =
@@ -22504,14 +21289,8 @@ pub struct GSStatsReceived_t {
     pub m_eResult: EResult,
     pub m_steamIDUser: CSteamID,
 }
-pub const GSStatsReceived_t_k_iCallback: GSStatsReceived_t__bindgen_ty_1 =
-    GSStatsReceived_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GSStatsReceived_t__bindgen_ty_1 {
-    k_iCallback = 1800,
-}
+pub const GSStatsReceived_t_k_iCallback: GSStatsReceived_t__bindgen_ty_1 = 1800;
+pub type GSStatsReceived_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GSStatsReceived_t() {
     const UNINIT: ::std::mem::MaybeUninit<GSStatsReceived_t> = ::std::mem::MaybeUninit::uninit();
@@ -22553,14 +21332,8 @@ pub struct GSStatsStored_t {
     pub m_eResult: EResult,
     pub m_steamIDUser: CSteamID,
 }
-pub const GSStatsStored_t_k_iCallback: GSStatsStored_t__bindgen_ty_1 =
-    GSStatsStored_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GSStatsStored_t__bindgen_ty_1 {
-    k_iCallback = 1801,
-}
+pub const GSStatsStored_t_k_iCallback: GSStatsStored_t__bindgen_ty_1 = 1801;
+pub type GSStatsStored_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GSStatsStored_t() {
     const UNINIT: ::std::mem::MaybeUninit<GSStatsStored_t> = ::std::mem::MaybeUninit::uninit();
@@ -22601,14 +21374,8 @@ fn bindgen_test_layout_GSStatsStored_t() {
 pub struct GSStatsUnloaded_t {
     pub m_steamIDUser: CSteamID,
 }
-pub const GSStatsUnloaded_t_k_iCallback: GSStatsUnloaded_t__bindgen_ty_1 =
-    GSStatsUnloaded_t__bindgen_ty_1::k_iCallback;
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum GSStatsUnloaded_t__bindgen_ty_1 {
-    k_iCallback = 1108,
-}
+pub const GSStatsUnloaded_t_k_iCallback: GSStatsUnloaded_t__bindgen_ty_1 = 1108;
+pub type GSStatsUnloaded_t__bindgen_ty_1 = ::std::os::raw::c_uint;
 #[test]
 fn bindgen_test_layout_GSStatsUnloaded_t() {
     const UNINIT: ::std::mem::MaybeUninit<GSStatsUnloaded_t> = ::std::mem::MaybeUninit::uninit();
@@ -29208,15 +27975,11 @@ extern "C" {
         popid: SteamNetworkingPOPID,
     );
 }
-#[repr(u32)]
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum EServerMode {
-    eServerModeInvalid = 0,
-    eServerModeNoAuthentication = 1,
-    eServerModeAuthentication = 2,
-    eServerModeAuthenticationAndSecure = 3,
-}
+pub const EServerMode_eServerModeInvalid: EServerMode = 0;
+pub const EServerMode_eServerModeNoAuthentication: EServerMode = 1;
+pub const EServerMode_eServerModeAuthentication: EServerMode = 2;
+pub const EServerMode_eServerModeAuthenticationAndSecure: EServerMode = 3;
+pub type EServerMode = ::std::os::raw::c_uint;
 #[doc = " Pass to SteamGameServer_Init to indicate that the same UDP port will be used for game traffic\n UDP queries for server browser pings and LAN discovery.  In this case, Steam will not open up a\n socket to handle server browser queries, and you must use ISteamGameServer::HandleIncomingPacket\n and ISteamGameServer::GetNextOutgoingPacket to handle packets related to server discovery on your socket."]
 pub const STEAMGAMESERVER_QUERY_PORT_SHARED: uint16 = 65535;
 pub const MASTERSERVERUPDATERPORT_USEGAMESOCKETSHARE: uint16 = 65535;
