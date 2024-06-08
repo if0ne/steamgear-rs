@@ -25,7 +25,7 @@ impl SteamClientInner {
         unsafe { sys::SteamAPI_RestartAppIfNecessary(app_id) }
     }
 
-    pub fn run_callbacks(&self) {
+    pub async fn run_callbacks(&self) {
         unsafe {
             sys::SteamAPI_ManualDispatch_RunFrame(self.pipe);
             let mut callback = std::mem::zeroed();
@@ -39,7 +39,8 @@ impl SteamClientInner {
                         entry.value().wake_by_ref();
                     }
                 } else {
-                    self.proceed_callback(callback);
+                    // TODO: Batched proceed
+                    self.proceed_callback(callback).await;
                 }
                 sys::SteamAPI_ManualDispatch_FreeLastCallback(self.pipe);
             }
@@ -131,13 +132,14 @@ impl SteamClientInner {
         ]
     }
 
-    unsafe fn proceed_callback(&self, callback: sys::CallbackMsg_t) {
-        match callback.m_iCallback as u32 {
+    async unsafe fn proceed_callback(&self, callback: sys::CallbackMsg_t) {
+        match callback.m_iCallback {
             sys::SteamShutdown_t_k_iCallback => {
                 let value = SteamShutdown::from_raw(SteamShutdown::from_ptr(callback.m_pubParam));
                 self.callback_container
                     .steam_shutdown_callback
-                    .proceed(value);
+                    .proceed(value)
+                    .await;
             }
             _ => {}
         }

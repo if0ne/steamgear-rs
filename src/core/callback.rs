@@ -1,9 +1,8 @@
 use std::future::Future;
 
+use async_channel::{Receiver, Sender};
 use parking_lot::Mutex;
 use steamgear_sys as sys;
-use tokio::sync::broadcast::Sender;
-use tokio_stream::wrappers::BroadcastStream;
 
 use crate::{client::SteamClient, utils::callbacks::SteamShutdownDispatcher};
 
@@ -71,28 +70,28 @@ pub(crate) struct CallbackContainer {
 pub(crate) trait CallbackDispatcher: Send + Sync {
     type Item: CallbackTyped;
 
-    fn storage(&self) -> &Mutex<Option<Sender<Self::Item>>>;
+    fn storage(&self) -> &Mutex<Option<(Sender<Self::Item>, Receiver<Self::Item>)>>;
 
-    fn register(&self) -> BroadcastStream<Self::Item> {
+    fn register(&self) -> Receiver<Self::Item> {
         let storage = self.storage();
         let mut guard = storage.lock();
 
-        if let Some(storage) = &*guard {
-            BroadcastStream::new(storage.subscribe())
+        if let Some((_, recv)) = &*guard {
+            recv.clone()
         } else {
-            let (sender, receiver) = tokio::sync::broadcast::channel(32);
-            *guard = Some(sender);
+            let (sender, receiver) = async_channel::unbounded();
+            *guard = Some((sender, receiver.clone()));
 
-            BroadcastStream::new(receiver)
+            receiver
         }
     }
 
-    fn proceed(&self, value: Self::Item) {
+    async fn proceed(&self, value: Self::Item) {
         let storage = self.storage();
         let mut guard = storage.lock();
 
-        if let Some(storage) = &*storage.lock() {
-            match storage.send(value) {
+        if let Some((sender, _)) = &*storage.lock() {
+            match sender.send(value).await {
                 Ok(_n) => { /* TODO: Log all is okey; number of listeners _n */ }
                 Err(_) => {
                     // Clear storage

@@ -3,16 +3,15 @@ use crate::core::{
     SteamClientInner,
 };
 
+use async_channel::{Receiver, Sender};
 use parking_lot::Mutex;
 use steamgear_sys as sys;
-use tokio::sync::broadcast::Sender;
-use tokio_stream::wrappers::errors::BroadcastStreamRecvError;
 
 #[derive(Clone, Debug)]
 pub struct SteamShutdown;
 
 impl CallbackTyped for SteamShutdown {
-    const TYPE: u32 = sys::SteamShutdown_t_k_iCallback;
+    const TYPE: u32 = sys::SteamShutdown_t_k_iCallback as u32;
 
     type Raw = sys::SteamShutdown_t;
 
@@ -23,21 +22,19 @@ impl CallbackTyped for SteamShutdown {
 
 #[derive(Debug, Default)]
 pub struct SteamShutdownDispatcher {
-    storage: Mutex<Option<Sender<SteamShutdown>>>,
+    storage: Mutex<Option<(Sender<SteamShutdown>, Receiver<SteamShutdown>)>>,
 }
 
 impl CallbackDispatcher for SteamShutdownDispatcher {
     type Item = SteamShutdown;
 
-    fn storage(&self) -> &Mutex<Option<Sender<Self::Item>>> {
+    fn storage(&self) -> &Mutex<Option<(Sender<Self::Item>, Receiver<Self::Item>)>> {
         &self.storage
     }
 }
 
 impl SteamClientInner {
-    pub fn on_steam_shutdown(
-        &self,
-    ) -> impl futures_core::Stream<Item = Result<SteamShutdown, BroadcastStreamRecvError>> {
+    pub fn on_steam_shutdown(&self) -> impl futures_core::Stream<Item = SteamShutdown> {
         self.callback_container.steam_shutdown_callback.register()
     }
 }
