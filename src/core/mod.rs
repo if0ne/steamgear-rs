@@ -144,13 +144,13 @@ impl SteamClientInner {
             _ => {}
         }
     }
-}
 
-impl Drop for SteamClientInner {
-    fn drop(&mut self) {
+    pub(crate) async fn shutdown(&self) {
         unsafe {
             sys::SteamAPI_Shutdown();
         }
+
+        self.callback_container.steam_shutdown_callback.proceed(SteamShutdown).await
     }
 }
 

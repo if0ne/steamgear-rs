@@ -1,10 +1,9 @@
 use std::future::Future;
 
 use async_channel::{Receiver, Sender};
-use parking_lot::Mutex;
 use steamgear_sys as sys;
 
-use crate::{client::SteamClient, utils::callbacks::SteamShutdownDispatcher};
+use crate::{client::SteamClient, utils::callbacks::SteamShutdown};
 
 pub(crate) struct CallResult<T: CallbackTyped> {
     id: sys::SteamAPICall_t,
@@ -64,42 +63,51 @@ pub(crate) trait CallbackTyped: Clone + Send + 'static {
 
 #[derive(Debug, Default)]
 pub(crate) struct CallbackContainer {
-    pub(crate) steam_shutdown_callback: SteamShutdownDispatcher,
+    pub(crate) steam_shutdown_callback: GenericDispatcher<SteamShutdown>,
 }
 
 pub(crate) trait CallbackDispatcher: Send + Sync {
     type Item: CallbackTyped;
 
-    fn storage(&self) -> &Mutex<Option<(Sender<Self::Item>, Receiver<Self::Item>)>>;
+    fn storage(&self) -> &GenericDispatcher<Self::Item>;
 
     fn register(&self) -> Receiver<Self::Item> {
-        let storage = self.storage();
-        let mut guard = storage.lock();
-
-        if let Some((_, recv)) = &*guard {
-            recv.clone()
-        } else {
-            let (sender, receiver) = async_channel::unbounded();
-            *guard = Some((sender, receiver.clone()));
-
-            receiver
-        }
+        let (_, storage) = &self.storage().inner;
+        storage.clone()
     }
 
     async fn proceed(&self, value: Self::Item) {
-        let storage = self.storage();
-        let mut guard = storage.lock();
+        let (storage, _) = &self.storage().inner;
 
-        if let Some((sender, _)) = &*storage.lock() {
-            match sender.send(value).await {
-                Ok(_n) => { /* TODO: Log all is okey; number of listeners _n */ }
+        if storage.receiver_count() > 1 {
+            match storage.send(value).await {
+                Ok(_) => { /* TODO: Log all is okey*/ }
                 Err(_) => {
-                    // Clear storage
-                    guard.take();
+                    // TODO: Storage is broken
                 }
             }
         } else {
             // TODO: Log no listeners
         }
+    }
+}
+
+#[derive(Debug)]
+pub(crate) struct GenericDispatcher<T: CallbackTyped> {
+    inner: (Sender<T>, Receiver<T>),
+}
+
+impl<T: CallbackTyped> Default for GenericDispatcher<T> {
+    fn default() -> Self {
+        let inner = async_channel::unbounded();
+        Self { inner }
+    }
+}
+
+impl<T: CallbackTyped> CallbackDispatcher for GenericDispatcher<T> {
+    type Item = T;
+
+    fn storage(&self) -> &GenericDispatcher<Self::Item> {
+        &self
     }
 }

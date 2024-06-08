@@ -1,10 +1,7 @@
 use crate::core::{
-    callback::{CallbackDispatcher, CallbackTyped},
-    SteamClientInner,
+    callback::{CallbackDispatcher, CallbackTyped}, SteamClientInner
 };
 
-use async_channel::{Receiver, Sender};
-use parking_lot::Mutex;
 use steamgear_sys as sys;
 
 #[derive(Clone, Debug)]
@@ -17,19 +14,6 @@ impl CallbackTyped for SteamShutdown {
 
     fn from_raw(_raw: Self::Raw) -> Self {
         SteamShutdown
-    }
-}
-
-#[derive(Debug, Default)]
-pub struct SteamShutdownDispatcher {
-    storage: Mutex<Option<(Sender<SteamShutdown>, Receiver<SteamShutdown>)>>,
-}
-
-impl CallbackDispatcher for SteamShutdownDispatcher {
-    type Item = SteamShutdown;
-
-    fn storage(&self) -> &Mutex<Option<(Sender<Self::Item>, Receiver<Self::Item>)>> {
-        &self.storage
     }
 }
 
