@@ -25,12 +25,12 @@ impl SteamClientInner {
         unsafe { sys::SteamAPI_RestartAppIfNecessary(app_id) }
     }
 
-    pub async fn run_callbacks(&self) {
+    pub fn run_callbacks(&self) {
         unsafe {
             sys::SteamAPI_ManualDispatch_RunFrame(self.pipe);
             let mut callback = std::mem::zeroed();
             while sys::SteamAPI_ManualDispatch_GetNextCallback(self.pipe, &mut callback) {
-                if callback.m_iCallback == sys::SteamAPICallCompleted_t_k_iCallback as i32 {
+                if callback.m_iCallback as u32 == sys::SteamAPICallCompleted_t_k_iCallback as u32 {
                     let apicall =
                         &*(callback.m_pubParam as *const _ as *const sys::SteamAPICallCompleted_t);
                     let id = apicall.m_hAsyncCall;
@@ -40,7 +40,7 @@ impl SteamClientInner {
                     }
                 } else {
                     // TODO: Batched proceed
-                    self.proceed_callback(callback).await;
+                    self.proceed_callback(callback);
                 }
                 sys::SteamAPI_ManualDispatch_FreeLastCallback(self.pipe);
             }
@@ -132,25 +132,26 @@ impl SteamClientInner {
         ]
     }
 
-    async unsafe fn proceed_callback(&self, callback: sys::CallbackMsg_t) {
+    unsafe fn proceed_callback(&self, callback: sys::CallbackMsg_t) {
         match callback.m_iCallback {
             sys::SteamShutdown_t_k_iCallback => {
                 let value = SteamShutdown::from_raw(SteamShutdown::from_ptr(callback.m_pubParam));
                 self.callback_container
                     .steam_shutdown_callback
-                    .proceed(value)
-                    .await;
+                    .proceed(value);
             }
             _ => {}
         }
     }
 
-    pub(crate) async fn shutdown(&self) {
+    pub(crate) fn shutdown(&self) {
         unsafe {
             sys::SteamAPI_Shutdown();
         }
 
-        self.callback_container.steam_shutdown_callback.proceed(SteamShutdown).await
+        self.callback_container
+            .steam_shutdown_callback
+            .proceed(SteamShutdown)
     }
 }
 

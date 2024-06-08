@@ -1,7 +1,9 @@
 use std::future::Future;
 
-use async_channel::{Receiver, Sender};
+use futures::channel::oneshot::{Receiver, Sender};
+use parking_lot::Mutex;
 use steamgear_sys as sys;
+use thiserror::Error;
 
 use crate::{client::SteamClient, utils::callbacks::SteamShutdown};
 
@@ -63,51 +65,66 @@ pub(crate) trait CallbackTyped: Clone + Send + 'static {
 
 #[derive(Debug, Default)]
 pub(crate) struct CallbackContainer {
-    pub(crate) steam_shutdown_callback: GenericDispatcher<SteamShutdown>,
+    pub(crate) steam_shutdown_callback: OneshotDispatcher<SteamShutdown>,
 }
 
 pub(crate) trait CallbackDispatcher: Send + Sync {
     type Item: CallbackTyped;
 
-    fn storage(&self) -> &GenericDispatcher<Self::Item>;
+    fn storage(&self) -> &OneshotDispatcher<Self::Item>;
 
     fn register(&self) -> Receiver<Self::Item> {
-        let (_, storage) = &self.storage().inner;
-        storage.clone()
+        let storage = &self.storage().inner;
+        let mut guard = storage.lock();
+        let (sender, receiver) = futures::channel::oneshot::channel();
+
+        if guard.replace(sender).is_some() {
+            // TODO: Log it was already registered
+        }
+
+        receiver
     }
 
-    async fn proceed(&self, value: Self::Item) {
-        let (storage, _) = &self.storage().inner;
+    fn proceed(&self, value: Self::Item) {
+        let storage = &self.storage().inner;
+        let mut guard = storage.lock();
 
-        if storage.receiver_count() > 1 {
-            match storage.send(value).await {
+        let sender = guard.take();
+
+        if let Some(sender) = sender {
+            match sender.send(value) {
                 Ok(_) => { /* TODO: Log all is okey*/ }
                 Err(_) => {
                     // TODO: Storage is broken
                 }
             }
-        } else {
-            // TODO: Log no listeners
         }
     }
 }
 
 #[derive(Debug)]
-pub(crate) struct GenericDispatcher<T: CallbackTyped> {
-    inner: (Sender<T>, Receiver<T>),
+pub(crate) struct OneshotDispatcher<T: CallbackTyped> {
+    inner: Mutex<Option<Sender<T>>>,
 }
 
-impl<T: CallbackTyped> Default for GenericDispatcher<T> {
+impl<T: CallbackTyped> Default for OneshotDispatcher<T> {
     fn default() -> Self {
-        let inner = async_channel::unbounded();
-        Self { inner }
+        Self {
+            inner: Default::default(),
+        }
     }
 }
 
-impl<T: CallbackTyped> CallbackDispatcher for GenericDispatcher<T> {
+impl<T: CallbackTyped> CallbackDispatcher for OneshotDispatcher<T> {
     type Item = T;
 
-    fn storage(&self) -> &GenericDispatcher<Self::Item> {
-        &self
+    fn storage(&self) -> &OneshotDispatcher<Self::Item> {
+        self
     }
+}
+
+#[derive(Clone, Error, Debug)]
+pub enum CallbackError {
+    #[error("This callback is pending elsewhere, the current request is canceled")]
+    Canceled,
 }
