@@ -2,7 +2,7 @@ pub mod callback;
 pub mod conv;
 pub mod enums;
 
-use std::ops::Deref;
+use std::{ops::Deref, sync::atomic::AtomicU8};
 
 use callback::{CallbackContainer, CallbackDispatcher, CallbackTyped};
 use dashmap::DashMap;
@@ -11,6 +11,8 @@ use futures::channel::oneshot::Sender;
 use steamgear_sys as sys;
 
 use crate::utils::{callbacks::SteamShutdown, SteamUtils};
+
+static STEAM_INIT_STATUS: AtomicU8 = AtomicU8::new(SteamApiState::Stopped as u8);
 
 #[derive(Debug)]
 pub struct SteamClientInner {
@@ -21,6 +23,9 @@ pub struct SteamClientInner {
     pub(crate) steam_utils: SteamUtils,
 }
 
+unsafe impl Send for SteamClientInner {}
+unsafe impl Sync for SteamClientInner {}
+
 impl SteamClientInner {
     pub fn restart_app_if_necessary(app_id: u32) -> bool {
         unsafe { sys::SteamAPI_RestartAppIfNecessary(app_id) }
@@ -30,6 +35,19 @@ impl SteamClientInner {
         unsafe {
             sys::SteamAPI_ManualDispatch_RunFrame(self.pipe);
             let mut callback = std::mem::zeroed();
+
+            if STEAM_INIT_STATUS
+                .compare_exchange(
+                    SteamApiState::Init as u8,
+                    SteamApiState::RunCallbacks as u8,
+                    std::sync::atomic::Ordering::SeqCst,
+                    std::sync::atomic::Ordering::Relaxed,
+                )
+                .is_err()
+            {
+                return;
+            }
+
             while sys::SteamAPI_ManualDispatch_GetNextCallback(self.pipe, &mut callback) {
                 if callback.m_iCallback as u32 == sys::SteamAPICallCompleted_t_k_iCallback as u32 {
                     let apicall =
@@ -56,6 +74,13 @@ impl SteamClientInner {
                 }
                 sys::SteamAPI_ManualDispatch_FreeLastCallback(self.pipe);
             }
+
+            let _ = STEAM_INIT_STATUS.compare_exchange(
+                SteamApiState::RunCallbacks as u8,
+                SteamApiState::Init as u8,
+                std::sync::atomic::Ordering::SeqCst,
+                std::sync::atomic::Ordering::Relaxed,
+            );
         }
     }
 }
@@ -69,9 +94,19 @@ impl SteamClientInner {
                 sys::SteamAPI_GetHSteamPipe()
             };
 
-            Self::init_ex()?;
+            if STEAM_INIT_STATUS
+                .compare_exchange(
+                    SteamApiState::Stopped as u8,
+                    SteamApiState::Init as u8,
+                    std::sync::atomic::Ordering::AcqRel,
+                    std::sync::atomic::Ordering::SeqCst,
+                )
+                .is_ok()
+            {
+                Self::init_ex()?;
 
-            sys::SteamAPI_ManualDispatch_Init();
+                sys::SteamAPI_ManualDispatch_Init();
+            }
 
             Ok(Self {
                 pipe,
@@ -159,8 +194,28 @@ impl SteamClientInner {
     }
 
     pub(crate) fn shutdown(&self) {
-        unsafe {
-            sys::SteamAPI_Shutdown();
+        loop {
+            let current = STEAM_INIT_STATUS.load(std::sync::atomic::Ordering::Acquire);
+
+            if current != SteamApiState::Stopped as u8 {
+                match STEAM_INIT_STATUS.compare_exchange(
+                    current,
+                    SteamApiState::Stopped as u8,
+                    std::sync::atomic::Ordering::SeqCst,
+                    std::sync::atomic::Ordering::Relaxed,
+                ) {
+                    Ok(_) => {
+                        unsafe {
+                            sys::SteamAPI_Shutdown();
+                        }
+
+                        break;
+                    }
+                    Err(_) => continue,
+                }
+            } else {
+                break;
+            }
         }
 
         self.callback_container
@@ -175,4 +230,12 @@ impl Deref for SteamClientInner {
     fn deref(&self) -> &Self::Target {
         &self.steam_utils
     }
+}
+
+#[derive(Clone, Copy, Debug)]
+#[repr(u8)]
+enum SteamApiState {
+    Stopped,
+    Init,
+    RunCallbacks,
 }
