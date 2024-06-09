@@ -191,7 +191,7 @@ pub const ETIMEDOUT: u32 = 138;
 pub const ETXTBSY: u32 = 139;
 pub const EWOULDBLOCK: u32 = 140;
 pub const _NLSCMPERROR: u32 = 2147483647;
-pub const STEAMCLIENT_INTERFACE_VERSION: &[u8; 15] = b"SteamClient020\0";
+pub const STEAMCLIENT_INTERFACE_VERSION: &[u8; 15] = b"SteamClient021\0";
 pub const STEAMUSER_INTERFACE_VERSION: &[u8; 13] = b"SteamUser023\0";
 pub const STEAMFRIENDS_INTERFACE_VERSION: &[u8; 16] = b"SteamFriends017\0";
 pub const STEAMUTILS_INTERFACE_VERSION: &[u8; 14] = b"SteamUtils010\0";
@@ -262,7 +262,6 @@ pub const STEAM_CONTROLLER_MIN_ANALOG_ACTION_DATA: f64 = -1.0;
 pub const STEAM_CONTROLLER_MAX_ANALOG_ACTION_DATA: f64 = 1.0;
 pub const STEAMCONTROLLER_INTERFACE_VERSION: &[u8; 19] = b"SteamController008\0";
 pub const STEAMUGC_INTERFACE_VERSION: &[u8; 30] = b"STEAMUGC_INTERFACE_VERSION018\0";
-pub const STEAMAPPLIST_INTERFACE_VERSION: &[u8; 34] = b"STEAMAPPLIST_INTERFACE_VERSION001\0";
 pub const STEAMHTMLSURFACE_INTERFACE_VERSION: &[u8; 39] =
     b"STEAMHTMLSURFACE_INTERFACE_VERSION_005\0";
 pub const STEAMINVENTORY_INTERFACE_VERSION: &[u8; 30] = b"STEAMINVENTORY_INTERFACE_V003\0";
@@ -299,6 +298,7 @@ pub type RTime32 = uint32;
 pub type SteamAPICall_t = uint64;
 pub const k_uAPICallInvalid: SteamAPICall_t = 0;
 pub type AccountID_t = uint32;
+pub const k_uAccountIdInvalid: AccountID_t = 0;
 pub type PartyBeaconID_t = uint64;
 pub const k_ulPartyBeaconIdInvalid: PartyBeaconID_t = 0;
 pub const ESteamIPType_k_ESteamIPTypeIPv4: ESteamIPType = 0;
@@ -522,6 +522,8 @@ pub const EResult_k_EResultInsufficientBattery: EResult = 124;
 pub const EResult_k_EResultChargerRequired: EResult = 125;
 pub const EResult_k_EResultCachedCredentialInvalid: EResult = 126;
 pub const EResult_K_EResultPhoneNumberIsVOIP: EResult = 127;
+pub const EResult_k_EResultNotSupported: EResult = 128;
+pub const EResult_k_EResultFamilySizeLimitExceeded: EResult = 129;
 pub type EResult = ::std::os::raw::c_int;
 pub const EVoiceResult_k_EVoiceResultOK: EVoiceResult = 0;
 pub const EVoiceResult_k_EVoiceResultNotInitialized: EVoiceResult = 1;
@@ -2426,32 +2428,30 @@ pub const k_iSteamUGCCallbacks: _bindgen_ty_24 = 3400;
 pub type _bindgen_ty_24 = ::std::os::raw::c_int;
 pub const k_iSteamStreamClientCallbacks: _bindgen_ty_25 = 3500;
 pub type _bindgen_ty_25 = ::std::os::raw::c_int;
-pub const k_iSteamAppListCallbacks: _bindgen_ty_26 = 3900;
+pub const k_iSteamMusicCallbacks: _bindgen_ty_26 = 4000;
 pub type _bindgen_ty_26 = ::std::os::raw::c_int;
-pub const k_iSteamMusicCallbacks: _bindgen_ty_27 = 4000;
+pub const k_iSteamMusicRemoteCallbacks: _bindgen_ty_27 = 4100;
 pub type _bindgen_ty_27 = ::std::os::raw::c_int;
-pub const k_iSteamMusicRemoteCallbacks: _bindgen_ty_28 = 4100;
+pub const k_iSteamGameNotificationCallbacks: _bindgen_ty_28 = 4400;
 pub type _bindgen_ty_28 = ::std::os::raw::c_int;
-pub const k_iSteamGameNotificationCallbacks: _bindgen_ty_29 = 4400;
+pub const k_iSteamHTMLSurfaceCallbacks: _bindgen_ty_29 = 4500;
 pub type _bindgen_ty_29 = ::std::os::raw::c_int;
-pub const k_iSteamHTMLSurfaceCallbacks: _bindgen_ty_30 = 4500;
+pub const k_iSteamVideoCallbacks: _bindgen_ty_30 = 4600;
 pub type _bindgen_ty_30 = ::std::os::raw::c_int;
-pub const k_iSteamVideoCallbacks: _bindgen_ty_31 = 4600;
+pub const k_iSteamInventoryCallbacks: _bindgen_ty_31 = 4700;
 pub type _bindgen_ty_31 = ::std::os::raw::c_int;
-pub const k_iSteamInventoryCallbacks: _bindgen_ty_32 = 4700;
+pub const k_ISteamParentalSettingsCallbacks: _bindgen_ty_32 = 5000;
 pub type _bindgen_ty_32 = ::std::os::raw::c_int;
-pub const k_ISteamParentalSettingsCallbacks: _bindgen_ty_33 = 5000;
+pub const k_iSteamGameSearchCallbacks: _bindgen_ty_33 = 5200;
 pub type _bindgen_ty_33 = ::std::os::raw::c_int;
-pub const k_iSteamGameSearchCallbacks: _bindgen_ty_34 = 5200;
+pub const k_iSteamPartiesCallbacks: _bindgen_ty_34 = 5300;
 pub type _bindgen_ty_34 = ::std::os::raw::c_int;
-pub const k_iSteamPartiesCallbacks: _bindgen_ty_35 = 5300;
+pub const k_iSteamSTARCallbacks: _bindgen_ty_35 = 5500;
 pub type _bindgen_ty_35 = ::std::os::raw::c_int;
-pub const k_iSteamSTARCallbacks: _bindgen_ty_36 = 5500;
+pub const k_iSteamRemotePlayCallbacks: _bindgen_ty_36 = 5700;
 pub type _bindgen_ty_36 = ::std::os::raw::c_int;
-pub const k_iSteamRemotePlayCallbacks: _bindgen_ty_37 = 5700;
+pub const k_iSteamChatCallbacks: _bindgen_ty_37 = 5900;
 pub type _bindgen_ty_37 = ::std::os::raw::c_int;
-pub const k_iSteamChatCallbacks: _bindgen_ty_38 = 5900;
-pub type _bindgen_ty_38 = ::std::os::raw::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct CSteamAPIContext {
@@ -2470,7 +2470,6 @@ pub struct CSteamAPIContext {
     pub m_pSteamHTTP: *mut ISteamHTTP,
     pub m_pController: *mut ISteamController,
     pub m_pSteamUGC: *mut ISteamUGC,
-    pub m_pSteamAppList: *mut ISteamAppList,
     pub m_pSteamMusic: *mut ISteamMusic,
     pub m_pSteamMusicRemote: *mut ISteamMusicRemote,
     pub m_pSteamHTMLSurface: *mut ISteamHTMLSurface,
@@ -2485,7 +2484,7 @@ fn bindgen_test_layout_CSteamAPIContext() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<CSteamAPIContext>(),
-        184usize,
+        176usize,
         concat!("Size of: ", stringify!(CSteamAPIContext))
     );
     assert_eq!(
@@ -2644,18 +2643,8 @@ fn bindgen_test_layout_CSteamAPIContext() {
         )
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).m_pSteamAppList) as usize - ptr as usize },
-        120usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(CSteamAPIContext),
-            "::",
-            stringify!(m_pSteamAppList)
-        )
-    );
-    assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).m_pSteamMusic) as usize - ptr as usize },
-        128usize,
+        120usize,
         concat!(
             "Offset of field: ",
             stringify!(CSteamAPIContext),
@@ -2665,7 +2654,7 @@ fn bindgen_test_layout_CSteamAPIContext() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).m_pSteamMusicRemote) as usize - ptr as usize },
-        136usize,
+        128usize,
         concat!(
             "Offset of field: ",
             stringify!(CSteamAPIContext),
@@ -2675,7 +2664,7 @@ fn bindgen_test_layout_CSteamAPIContext() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).m_pSteamHTMLSurface) as usize - ptr as usize },
-        144usize,
+        136usize,
         concat!(
             "Offset of field: ",
             stringify!(CSteamAPIContext),
@@ -2685,7 +2674,7 @@ fn bindgen_test_layout_CSteamAPIContext() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).m_pSteamInventory) as usize - ptr as usize },
-        152usize,
+        144usize,
         concat!(
             "Offset of field: ",
             stringify!(CSteamAPIContext),
@@ -2695,7 +2684,7 @@ fn bindgen_test_layout_CSteamAPIContext() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).m_pSteamVideo) as usize - ptr as usize },
-        160usize,
+        152usize,
         concat!(
             "Offset of field: ",
             stringify!(CSteamAPIContext),
@@ -2705,7 +2694,7 @@ fn bindgen_test_layout_CSteamAPIContext() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).m_pSteamParentalSettings) as usize - ptr as usize },
-        168usize,
+        160usize,
         concat!(
             "Offset of field: ",
             stringify!(CSteamAPIContext),
@@ -2715,7 +2704,7 @@ fn bindgen_test_layout_CSteamAPIContext() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).m_pSteamInput) as usize - ptr as usize },
-        176usize,
+        168usize,
         concat!(
             "Offset of field: ",
             stringify!(CSteamAPIContext),
@@ -3727,9 +3716,11 @@ fn bindgen_test_layout_FriendGameInfo_t() {
         )
     );
 }
-pub const k_cchPersonaNameMax: _bindgen_ty_39 = 128;
-pub const k_cwchPersonaNameMax: _bindgen_ty_39 = 32;
-pub type _bindgen_ty_39 = ::std::os::raw::c_int;
+pub const k_usFriendGameInfoQueryPort_NotInitialized: uint16 = 65535;
+pub const k_usFriendGameInfoQueryPort_Error: uint16 = 65534;
+pub const k_cchPersonaNameMax: _bindgen_ty_38 = 128;
+pub const k_cwchPersonaNameMax: _bindgen_ty_38 = 32;
+pub type _bindgen_ty_38 = ::std::os::raw::c_int;
 pub const EUserRestriction_k_nUserRestrictionNone: EUserRestriction = 0;
 pub const EUserRestriction_k_nUserRestrictionUnknown: EUserRestriction = 1;
 pub const EUserRestriction_k_nUserRestrictionAnyChat: EUserRestriction = 2;
@@ -3740,12 +3731,12 @@ pub const EUserRestriction_k_nUserRestrictionGameInvites: EUserRestriction = 32;
 pub const EUserRestriction_k_nUserRestrictionTrading: EUserRestriction = 64;
 pub type EUserRestriction = ::std::os::raw::c_int;
 pub const k_cubChatMetadataMax: uint32 = 8192;
-pub const k_cchMaxRichPresenceKeys: _bindgen_ty_40 = 30;
+pub const k_cchMaxRichPresenceKeys: _bindgen_ty_39 = 30;
+pub type _bindgen_ty_39 = ::std::os::raw::c_int;
+pub const k_cchMaxRichPresenceKeyLength: _bindgen_ty_40 = 64;
 pub type _bindgen_ty_40 = ::std::os::raw::c_int;
-pub const k_cchMaxRichPresenceKeyLength: _bindgen_ty_41 = 64;
+pub const k_cchMaxRichPresenceValueLength: _bindgen_ty_41 = 256;
 pub type _bindgen_ty_41 = ::std::os::raw::c_int;
-pub const k_cchMaxRichPresenceValueLength: _bindgen_ty_42 = 256;
-pub type _bindgen_ty_42 = ::std::os::raw::c_int;
 pub const EOverlayToStoreFlag_k_EOverlayToStoreFlag_None: EOverlayToStoreFlag = 0;
 pub const EOverlayToStoreFlag_k_EOverlayToStoreFlag_AddToCart: EOverlayToStoreFlag = 1;
 pub const EOverlayToStoreFlag_k_EOverlayToStoreFlag_AddToCartAndShow: EOverlayToStoreFlag = 2;
@@ -8123,7 +8114,8 @@ pub const EWorkshopFileType_k_EWorkshopFileTypeControllerBinding: EWorkshopFileT
 pub const EWorkshopFileType_k_EWorkshopFileTypeSteamworksAccessInvite: EWorkshopFileType = 13;
 pub const EWorkshopFileType_k_EWorkshopFileTypeSteamVideo: EWorkshopFileType = 14;
 pub const EWorkshopFileType_k_EWorkshopFileTypeGameManagedItem: EWorkshopFileType = 15;
-pub const EWorkshopFileType_k_EWorkshopFileTypeMax: EWorkshopFileType = 16;
+pub const EWorkshopFileType_k_EWorkshopFileTypeClip: EWorkshopFileType = 16;
+pub const EWorkshopFileType_k_EWorkshopFileTypeMax: EWorkshopFileType = 17;
 pub type EWorkshopFileType = ::std::os::raw::c_int;
 pub const EWorkshopVote_k_EWorkshopVoteUnvoted: EWorkshopVote = 0;
 pub const EWorkshopVote_k_EWorkshopVoteFor: EWorkshopVote = 1;
@@ -9964,12 +9956,12 @@ fn bindgen_test_layout_RemoteStorageLocalFileChange_t() {
         concat!("Alignment of ", stringify!(RemoteStorageLocalFileChange_t))
     );
 }
-pub const k_cchStatNameMax: _bindgen_ty_43 = 128;
+pub const k_cchStatNameMax: _bindgen_ty_42 = 128;
+pub type _bindgen_ty_42 = ::std::os::raw::c_int;
+pub const k_cchLeaderboardNameMax: _bindgen_ty_43 = 128;
 pub type _bindgen_ty_43 = ::std::os::raw::c_int;
-pub const k_cchLeaderboardNameMax: _bindgen_ty_44 = 128;
+pub const k_cLeaderboardDetailsMax: _bindgen_ty_44 = 64;
 pub type _bindgen_ty_44 = ::std::os::raw::c_int;
-pub const k_cLeaderboardDetailsMax: _bindgen_ty_45 = 64;
-pub type _bindgen_ty_45 = ::std::os::raw::c_int;
 pub type SteamLeaderboard_t = uint64;
 pub type SteamLeaderboardEntries_t = uint64;
 pub const ELeaderboardDataRequest_k_ELeaderboardDataRequestGlobal: ELeaderboardDataRequest = 0;
@@ -13050,223 +13042,6 @@ fn bindgen_test_layout_InputMotionData_t() {
     );
 }
 #[repr(C, packed)]
-#[derive(Debug, Copy, Clone)]
-pub struct InputMotionDataV2_t {
-    pub driftCorrectedQuatX: f32,
-    pub driftCorrectedQuatY: f32,
-    pub driftCorrectedQuatZ: f32,
-    pub driftCorrectedQuatW: f32,
-    pub sensorFusionQuatX: f32,
-    pub sensorFusionQuatY: f32,
-    pub sensorFusionQuatZ: f32,
-    pub sensorFusionQuatW: f32,
-    pub deferredSensorFusionQuatX: f32,
-    pub deferredSensorFusionQuatY: f32,
-    pub deferredSensorFusionQuatZ: f32,
-    pub deferredSensorFusionQuatW: f32,
-    pub gravityX: f32,
-    pub gravityY: f32,
-    pub gravityZ: f32,
-    pub degreesPerSecondX: f32,
-    pub degreesPerSecondY: f32,
-    pub degreesPerSecondZ: f32,
-}
-#[test]
-fn bindgen_test_layout_InputMotionDataV2_t() {
-    const UNINIT: ::std::mem::MaybeUninit<InputMotionDataV2_t> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<InputMotionDataV2_t>(),
-        72usize,
-        concat!("Size of: ", stringify!(InputMotionDataV2_t))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<InputMotionDataV2_t>(),
-        1usize,
-        concat!("Alignment of ", stringify!(InputMotionDataV2_t))
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).driftCorrectedQuatX) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(driftCorrectedQuatX)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).driftCorrectedQuatY) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(driftCorrectedQuatY)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).driftCorrectedQuatZ) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(driftCorrectedQuatZ)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).driftCorrectedQuatW) as usize - ptr as usize },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(driftCorrectedQuatW)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sensorFusionQuatX) as usize - ptr as usize },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(sensorFusionQuatX)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sensorFusionQuatY) as usize - ptr as usize },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(sensorFusionQuatY)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sensorFusionQuatZ) as usize - ptr as usize },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(sensorFusionQuatZ)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sensorFusionQuatW) as usize - ptr as usize },
-        28usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(sensorFusionQuatW)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).deferredSensorFusionQuatX) as usize - ptr as usize },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(deferredSensorFusionQuatX)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).deferredSensorFusionQuatY) as usize - ptr as usize },
-        36usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(deferredSensorFusionQuatY)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).deferredSensorFusionQuatZ) as usize - ptr as usize },
-        40usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(deferredSensorFusionQuatZ)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).deferredSensorFusionQuatW) as usize - ptr as usize },
-        44usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(deferredSensorFusionQuatW)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).gravityX) as usize - ptr as usize },
-        48usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(gravityX)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).gravityY) as usize - ptr as usize },
-        52usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(gravityY)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).gravityZ) as usize - ptr as usize },
-        56usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(gravityZ)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).degreesPerSecondX) as usize - ptr as usize },
-        60usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(degreesPerSecondX)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).degreesPerSecondY) as usize - ptr as usize },
-        64usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(degreesPerSecondY)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).degreesPerSecondZ) as usize - ptr as usize },
-        68usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(InputMotionDataV2_t),
-            "::",
-            stringify!(degreesPerSecondZ)
-        )
-    );
-}
-#[repr(C, packed)]
 #[derive(Copy, Clone)]
 pub struct SteamInputActionEvent_t {
     pub controllerHandle: InputHandle_t,
@@ -14580,6 +14355,7 @@ pub const EItemState_k_EItemStateInstalled: EItemState = 4;
 pub const EItemState_k_EItemStateNeedsUpdate: EItemState = 8;
 pub const EItemState_k_EItemStateDownloading: EItemState = 16;
 pub const EItemState_k_EItemStateDownloadPending: EItemState = 32;
+pub const EItemState_k_EItemStateDisabledLocally: EItemState = 64;
 pub type EItemState = ::std::os::raw::c_int;
 pub const EItemStatistic_k_EItemStatistic_NumSubscriptions: EItemStatistic = 0;
 pub const EItemStatistic_k_EItemStatistic_NumFavorites: EItemStatistic = 1;
@@ -14600,6 +14376,7 @@ pub const EItemPreviewType_k_EItemPreviewType_YouTubeVideo: EItemPreviewType = 1
 pub const EItemPreviewType_k_EItemPreviewType_Sketchfab: EItemPreviewType = 2;
 pub const EItemPreviewType_k_EItemPreviewType_EnvironmentMap_HorizontalCross: EItemPreviewType = 3;
 pub const EItemPreviewType_k_EItemPreviewType_EnvironmentMap_LatLong: EItemPreviewType = 4;
+pub const EItemPreviewType_k_EItemPreviewType_Clip: EItemPreviewType = 5;
 pub const EItemPreviewType_k_EItemPreviewType_ReservedMax: EItemPreviewType = 255;
 pub type EItemPreviewType = ::std::os::raw::c_int;
 pub const EUGCContentDescriptorID_k_EUGCContentDescriptor_NudityOrSexualContent:
@@ -16005,113 +15782,6 @@ fn bindgen_test_layout_WorkshopEULAStatus_t() {
             stringify!(WorkshopEULAStatus_t),
             "::",
             stringify!(m_bNeedsAction)
-        )
-    );
-}
-#[repr(C)]
-pub struct ISteamAppList__bindgen_vtable(::std::os::raw::c_void);
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ISteamAppList {
-    pub vtable_: *const ISteamAppList__bindgen_vtable,
-}
-#[test]
-fn bindgen_test_layout_ISteamAppList() {
-    assert_eq!(
-        ::std::mem::size_of::<ISteamAppList>(),
-        8usize,
-        concat!("Size of: ", stringify!(ISteamAppList))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<ISteamAppList>(),
-        8usize,
-        concat!("Alignment of ", stringify!(ISteamAppList))
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct SteamAppInstalled_t {
-    pub m_nAppID: AppId_t,
-    pub m_iInstallFolderIndex: ::std::os::raw::c_int,
-}
-pub const SteamAppInstalled_t_k_iCallback: SteamAppInstalled_t__bindgen_ty_1 = 3901;
-pub type SteamAppInstalled_t__bindgen_ty_1 = ::std::os::raw::c_int;
-#[test]
-fn bindgen_test_layout_SteamAppInstalled_t() {
-    const UNINIT: ::std::mem::MaybeUninit<SteamAppInstalled_t> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<SteamAppInstalled_t>(),
-        8usize,
-        concat!("Size of: ", stringify!(SteamAppInstalled_t))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<SteamAppInstalled_t>(),
-        4usize,
-        concat!("Alignment of ", stringify!(SteamAppInstalled_t))
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).m_nAppID) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SteamAppInstalled_t),
-            "::",
-            stringify!(m_nAppID)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).m_iInstallFolderIndex) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SteamAppInstalled_t),
-            "::",
-            stringify!(m_iInstallFolderIndex)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct SteamAppUninstalled_t {
-    pub m_nAppID: AppId_t,
-    pub m_iInstallFolderIndex: ::std::os::raw::c_int,
-}
-pub const SteamAppUninstalled_t_k_iCallback: SteamAppUninstalled_t__bindgen_ty_1 = 3902;
-pub type SteamAppUninstalled_t__bindgen_ty_1 = ::std::os::raw::c_int;
-#[test]
-fn bindgen_test_layout_SteamAppUninstalled_t() {
-    const UNINIT: ::std::mem::MaybeUninit<SteamAppUninstalled_t> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<SteamAppUninstalled_t>(),
-        8usize,
-        concat!("Size of: ", stringify!(SteamAppUninstalled_t))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<SteamAppUninstalled_t>(),
-        4usize,
-        concat!("Alignment of ", stringify!(SteamAppUninstalled_t))
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).m_nAppID) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SteamAppUninstalled_t),
-            "::",
-            stringify!(m_nAppID)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).m_iInstallFolderIndex) as usize - ptr as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(SteamAppUninstalled_t),
-            "::",
-            stringify!(m_iInstallFolderIndex)
         )
     );
 }
@@ -18089,7 +17759,7 @@ pub const EParentalFeature_k_EFeatureParentalSetup: EParentalFeature = 10;
 pub const EParentalFeature_k_EFeatureLibrary: EParentalFeature = 11;
 pub const EParentalFeature_k_EFeatureTest: EParentalFeature = 12;
 pub const EParentalFeature_k_EFeatureSiteLicense: EParentalFeature = 13;
-pub const EParentalFeature_k_EFeatureKioskMode: EParentalFeature = 14;
+pub const EParentalFeature_k_EFeatureKioskMode_Deprecated: EParentalFeature = 14;
 pub const EParentalFeature_k_EFeatureMax: EParentalFeature = 15;
 pub type EParentalFeature = ::std::os::raw::c_int;
 #[repr(C)]
@@ -18138,6 +17808,7 @@ pub const ESteamDeviceFormFactor_k_ESteamDeviceFormFactorPhone: ESteamDeviceForm
 pub const ESteamDeviceFormFactor_k_ESteamDeviceFormFactorTablet: ESteamDeviceFormFactor = 2;
 pub const ESteamDeviceFormFactor_k_ESteamDeviceFormFactorComputer: ESteamDeviceFormFactor = 3;
 pub const ESteamDeviceFormFactor_k_ESteamDeviceFormFactorTV: ESteamDeviceFormFactor = 4;
+pub const ESteamDeviceFormFactor_k_ESteamDeviceFormFactorVRHeadset: ESteamDeviceFormFactor = 5;
 pub type ESteamDeviceFormFactor = ::std::os::raw::c_int;
 pub type RemotePlaySessionID_t = uint32;
 #[repr(C)]
@@ -19654,6 +19325,7 @@ pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakeRateLimit_Rec
     ESteamNetworkingConfigValue = 44;
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_FakeRateLimit_Recv_Burst:
     ESteamNetworkingConfigValue = 45;
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_OutOfOrderCorrectionWindowMicroseconds : ESteamNetworkingConfigValue = 51 ;
 #[doc = " [connection FnSteamNetConnectionStatusChanged] Callback that will be invoked\n when the state of a connection changes.\n\n IMPORTANT: callbacks are dispatched to the handler that is in effect at the time\n the event occurs, which might be in another thread.  For example, immediately after\n creating a listen socket, you may receive an incoming connection.  And then immediately\n after this, the remote host may close the connection.  All of this could happen\n before the function to create the listen socket has returned.  For this reason,\n callbacks usually must be in effect at the time of object creation.  This means\n you should set them when you are creating the listen socket or connection, or have\n them in effect so they will be inherited at the time of object creation.\n\n For example:\n\n exterm void MyStatusChangedFunc( SteamNetConnectionStatusChangedCallback_t *info );\n SteamNetworkingConfigValue_t opt; opt.SetPtr( k_ESteamNetworkingConfig_Callback_ConnectionStatusChanged, MyStatusChangedFunc );\n SteamNetworkingIPAddr localAddress; localAddress.Clear();\n HSteamListenSocket hListenSock = SteamNetworkingSockets()->CreateListenSocketIP( localAddress, 1, &opt );\n\n When accepting an incoming connection, there is no atomic way to switch the\n callback.  However, if the connection is DOA, AcceptConnection() will fail, and\n you can fetch the state of the connection at that time.\n\n If all connections and listen sockets can use the same callback, the simplest\n method is to set it globally before you create any listen sockets or connections."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_Callback_ConnectionStatusChanged:
     ESteamNetworkingConfigValue = 201;
@@ -19697,20 +19369,20 @@ pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_P2P_TURN_PassList
 #[doc = " [connection int32] When selecting P2P transport, add various\n penalties to the scores for selected transports.  (Route selection\n scores are on a scale of milliseconds.  The score begins with the\n route ping time and is then adjusted.)"]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_P2P_Transport_ICE_Implementation:
     ESteamNetworkingConfigValue = 110;
-#[doc = " [int32 global] If the first N pings to a port all fail, mark that port as unavailable for\n a while, and try a different one.  Some ISPs and routers may drop the first\n packet, so setting this to 1 may greatly disrupt communications."]
+#[doc = " [global int32] If the first N pings to a port all fail, mark that port as unavailable for\n a while, and try a different one.  Some ISPs and routers may drop the first\n packet, so setting this to 1 may greatly disrupt communications."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_ConsecutitivePingTimeoutsFailInitial : ESteamNetworkingConfigValue = 19 ;
-#[doc = " [int32 global] If N consecutive pings to a port fail, after having received successful\n communication, mark that port as unavailable for a while, and try a\n different one."]
+#[doc = " [global int32] If N consecutive pings to a port fail, after having received successful\n communication, mark that port as unavailable for a while, and try a\n different one."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_ConsecutitivePingTimeoutsFail : ESteamNetworkingConfigValue = 20 ;
-#[doc = " [int32 global] Minimum number of lifetime pings we need to send, before we think our estimate\n is solid.  The first ping to each cluster is very often delayed because of NAT,\n routers not having the best route, etc.  Until we've sent a sufficient number\n of pings, our estimate is often inaccurate.  Keep pinging until we get this\n many pings."]
+#[doc = " [global int32] Minimum number of lifetime pings we need to send, before we think our estimate\n is solid.  The first ping to each cluster is very often delayed because of NAT,\n routers not having the best route, etc.  Until we've sent a sufficient number\n of pings, our estimate is often inaccurate.  Keep pinging until we get this\n many pings."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_MinPingsBeforePingAccurate : ESteamNetworkingConfigValue = 21 ;
-#[doc = " [int32 global] Set all steam datagram traffic to originate from the same\n local port. By default, we open up a new UDP socket (on a different local\n port) for each relay.  This is slightly less optimal, but it works around\n some routers that don't implement NAT properly.  If you have intermittent\n problems talking to relays that might be NAT related, try toggling\n this flag"]
+#[doc = " [global int32] Set all steam datagram traffic to originate from the same\n local port. By default, we open up a new UDP socket (on a different local\n port) for each relay.  This is slightly less optimal, but it works around\n some routers that don't implement NAT properly.  If you have intermittent\n problems talking to relays that might be NAT related, try toggling\n this flag"]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_SingleSocket:
     ESteamNetworkingConfigValue = 22;
 #[doc = " [global string] Code of relay cluster to force use.  If not empty, we will\n only use relays in that cluster.  E.g. 'iad'"]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_ForceRelayCluster:
     ESteamNetworkingConfigValue = 29;
-#[doc = " [connection string] For debugging, generate our own (unsigned) ticket, using\n the specified  gameserver address.  Router must be configured to accept unsigned\n tickets."]
-pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_DebugTicketAddress:
+#[doc = " [connection string] For development, a base-64 encoded ticket generated\n using the cert tool.  This can be used to connect to a gameserver via SDR\n without a ticket generated using the game coordinator.  (You will still\n need a key that is trusted for your app, however.)\n\n This can also be passed using the SDR_DEVTICKET environment variable"]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_DevTicket:
     ESteamNetworkingConfigValue = 30;
 #[doc = " [global string] For debugging.  Override list of relays from the config with\n this set (maybe just one).  Comma-separated list."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_ForceProxyAddr:
@@ -19718,28 +19390,33 @@ pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_ForcePr
 #[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_FakeClusterPing:
     ESteamNetworkingConfigValue = 36;
-#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+#[doc = " [global int32] When probing the SteamDatagram network, we limit exploration\n to the closest N POPs, based on our current best approximated ping to that POP."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_SDRClient_LimitPingProbesToNearestN : ESteamNetworkingConfigValue = 60 ;
+#[doc = " [global int32] When probing the SteamDatagram network, we limit exploration\n to the closest N POPs, based on our current best approximated ping to that POP."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_AckRTT:
     ESteamNetworkingConfigValue = 13;
-#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+#[doc = " [global int32] When probing the SteamDatagram network, we limit exploration\n to the closest N POPs, based on our current best approximated ping to that POP."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_PacketDecode:
     ESteamNetworkingConfigValue = 14;
-#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+#[doc = " [global int32] When probing the SteamDatagram network, we limit exploration\n to the closest N POPs, based on our current best approximated ping to that POP."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_Message:
     ESteamNetworkingConfigValue = 15;
-#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+#[doc = " [global int32] When probing the SteamDatagram network, we limit exploration\n to the closest N POPs, based on our current best approximated ping to that POP."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_PacketGaps:
     ESteamNetworkingConfigValue = 16;
-#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+#[doc = " [global int32] When probing the SteamDatagram network, we limit exploration\n to the closest N POPs, based on our current best approximated ping to that POP."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_P2PRendezvous:
     ESteamNetworkingConfigValue = 17;
-#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+#[doc = " [global int32] When probing the SteamDatagram network, we limit exploration\n to the closest N POPs, based on our current best approximated ping to that POP."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_LogLevel_SDRRelayPings:
     ESteamNetworkingConfigValue = 18;
-#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+#[doc = " [global int32] When probing the SteamDatagram network, we limit exploration\n to the closest N POPs, based on our current best approximated ping to that POP."]
+pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_ECN: ESteamNetworkingConfigValue =
+    999;
+#[doc = " [global int32] When probing the SteamDatagram network, we limit exploration\n to the closest N POPs, based on our current best approximated ping to that POP."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfig_DELETED_EnumerateDevVars:
     ESteamNetworkingConfigValue = 35;
-#[doc = " [global string] For debugging.  Force ping times to clusters to be the specified\n values.  A comma separated list of <cluster>=<ms> values.  E.g. \"sto=32,iad=100\"\n\n This is a dev configuration value, you probably should not let users modify it\n in production."]
+#[doc = " [global int32] When probing the SteamDatagram network, we limit exploration\n to the closest N POPs, based on our current best approximated ping to that POP."]
 pub const ESteamNetworkingConfigValue_k_ESteamNetworkingConfigValue__Force32Bit:
     ESteamNetworkingConfigValue = 2147483647;
 #[doc = " Configuration options"]
@@ -20413,6 +20090,9 @@ pub const ESteamAPIInitResult_k_ESteamAPIInitResult_FailedGeneric: ESteamAPIInit
 pub const ESteamAPIInitResult_k_ESteamAPIInitResult_NoSteamClient: ESteamAPIInitResult = 2;
 pub const ESteamAPIInitResult_k_ESteamAPIInitResult_VersionMismatch: ESteamAPIInitResult = 3;
 pub type ESteamAPIInitResult = ::std::os::raw::c_int;
+extern "C" {
+    pub fn SteamAPI_InitFlat(pOutErrMsg: *mut SteamErrMsg) -> ESteamAPIInitResult;
+}
 extern "C" {
     pub fn SteamAPI_Shutdown();
 }
@@ -21400,14 +21080,6 @@ extern "C" {
     ) -> *mut ISteamUGC;
 }
 extern "C" {
-    pub fn SteamAPI_ISteamClient_GetISteamAppList(
-        self_: *mut ISteamClient,
-        hSteamUser: HSteamUser,
-        hSteamPipe: HSteamPipe,
-        pchVersion: *const ::std::os::raw::c_char,
-    ) -> *mut ISteamAppList;
-}
-extern "C" {
     pub fn SteamAPI_ISteamClient_GetISteamMusic(
         self_: *mut ISteamClient,
         hSteamuser: HSteamUser,
@@ -22364,6 +22036,9 @@ extern "C" {
 }
 extern "C" {
     pub fn SteamAPI_ISteamUtils_DismissFloatingGamepadTextInput(self_: *mut ISteamUtils) -> bool;
+}
+extern "C" {
+    pub fn SteamAPI_ISteamUtils_DismissGamepadTextInput(self_: *mut ISteamUtils) -> bool;
 }
 extern "C" {
     pub fn SteamAPI_SteamMatchmaking_v009() -> *mut ISteamMatchmaking;
@@ -25739,41 +25414,6 @@ extern "C" {
         pvecDescriptors: *mut EUGCContentDescriptorID,
         cMaxEntries: uint32,
     ) -> uint32;
-}
-extern "C" {
-    pub fn SteamAPI_SteamAppList_v001() -> *mut ISteamAppList;
-}
-extern "C" {
-    pub fn SteamAPI_ISteamAppList_GetNumInstalledApps(self_: *mut ISteamAppList) -> uint32;
-}
-extern "C" {
-    pub fn SteamAPI_ISteamAppList_GetInstalledApps(
-        self_: *mut ISteamAppList,
-        pvecAppID: *mut AppId_t,
-        unMaxAppIDs: uint32,
-    ) -> uint32;
-}
-extern "C" {
-    pub fn SteamAPI_ISteamAppList_GetAppName(
-        self_: *mut ISteamAppList,
-        nAppID: AppId_t,
-        pchName: *mut ::std::os::raw::c_char,
-        cchNameMax: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn SteamAPI_ISteamAppList_GetAppInstallDir(
-        self_: *mut ISteamAppList,
-        nAppID: AppId_t,
-        pchDirectory: *mut ::std::os::raw::c_char,
-        cchNameMax: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn SteamAPI_ISteamAppList_GetAppBuildId(
-        self_: *mut ISteamAppList,
-        nAppID: AppId_t,
-    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn SteamAPI_SteamHTMLSurface_v005() -> *mut ISteamHTMLSurface;

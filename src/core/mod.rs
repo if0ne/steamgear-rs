@@ -148,11 +148,10 @@ impl SteamClientInner {
         }
     }
 
-    const fn get_all_version() -> [&'static [u8]; 28] {
+    const fn get_all_version() -> [&'static [u8]; 27] {
         [
             sys::STEAMUTILS_INTERFACE_VERSION,
             sys::STEAMNETWORKINGUTILS_INTERFACE_VERSION,
-            sys::STEAMAPPLIST_INTERFACE_VERSION,
             sys::STEAMAPPS_INTERFACE_VERSION,
             sys::STEAMCONTROLLER_INTERFACE_VERSION,
             sys::STEAMFRIENDS_INTERFACE_VERSION,

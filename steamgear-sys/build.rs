@@ -16,6 +16,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         path
     };
     println!("cargo:rerun-if-env-changed=STEAM_SDK_LOCATION");
+    println!("cargo:rerun-if-env-changed=lib/steam");
 
     let triple = env::var("TARGET").unwrap();
     let mut lib = "steam_api";
