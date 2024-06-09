@@ -1,9 +1,9 @@
 use crate::core::{
-    callback::{CallbackDispatcher, CallbackError, CallbackTyped},
+    callback::{CallbackDispatcher, CallbackTyped},
     SteamClientInner,
 };
 
-use futures::{Future, TryFutureExt};
+use futures::Stream;
 use steamgear_sys as sys;
 
 #[derive(Clone, Debug)]
@@ -20,8 +20,7 @@ impl CallbackTyped for SteamShutdown {
 }
 
 impl SteamClientInner {
-    pub fn on_steam_shutdown(&self) -> impl Future<Output = Result<SteamShutdown, CallbackError>> {
-        let receiver = self.callback_container.steam_shutdown_callback.register();
-        receiver.map_err(|_| CallbackError::Canceled)
+    pub fn on_steam_shutdown(&self) -> impl Stream<Item = SteamShutdown> {
+        self.callback_container.steam_shutdown_callback.register()
     }
 }

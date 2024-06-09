@@ -1,3 +1,4 @@
+use futures::StreamExt;
 use steamgear::prelude::*;
 
 #[test]
@@ -15,11 +16,10 @@ fn steam_api_callback_shutdown() {
     assert!(client.is_ok());
     let client = client.unwrap();
 
-    let shutdown_stream = client.on_steam_shutdown();
+    let mut shutdown_stream = client.on_steam_shutdown();
 
     let task = smol::spawn(async move {
-        let _ = shutdown_stream.await;
-        assert!(true);
+        assert!(shutdown_stream.next().await.is_some());
     });
 
     smol::block_on(async move {
@@ -34,15 +34,15 @@ fn steam_api_callback_override() {
     assert!(client.is_ok());
     let client = client.unwrap();
 
-    let shutdown_stream = client.on_steam_shutdown();
-    let another_shutdown_stream = client.on_steam_shutdown();
+    let mut shutdown_stream = client.on_steam_shutdown();
+    let mut another_shutdown_stream = client.on_steam_shutdown();
 
     let task = smol::spawn(async move {
-        assert!(shutdown_stream.await.is_err());
+        assert!(shutdown_stream.next().await.is_none());
     });
 
     let another_task = smol::spawn(async move {
-        assert!(another_shutdown_stream.await.is_ok());
+        assert!(another_shutdown_stream.next().await.is_some());
     });
 
     smol::block_on(async move {

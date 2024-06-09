@@ -2,11 +2,12 @@ pub mod callback;
 pub mod conv;
 pub mod enums;
 
-use std::{ops::Deref, task::Waker};
+use std::ops::Deref;
 
 use callback::{CallbackContainer, CallbackDispatcher, CallbackTyped};
 use dashmap::DashMap;
 use enums::SteamApiInitError;
+use futures::channel::oneshot::Sender;
 use steamgear_sys as sys;
 
 use crate::utils::{callbacks::SteamShutdown, SteamUtils};
@@ -14,7 +15,7 @@ use crate::utils::{callbacks::SteamShutdown, SteamUtils};
 #[derive(Debug)]
 pub struct SteamClientInner {
     pipe: sys::HSteamPipe,
-    call_results: DashMap<sys::SteamAPICall_t, Waker>,
+    call_results: DashMap<sys::SteamAPICall_t, Sender<sys::CallbackMsg_t>>,
 
     pub(crate) callback_container: CallbackContainer,
     pub(crate) steam_utils: SteamUtils,
@@ -35,8 +36,19 @@ impl SteamClientInner {
                         &*(callback.m_pubParam as *const _ as *const sys::SteamAPICallCompleted_t);
                     let id = apicall.m_hAsyncCall;
 
-                    if let Some(entry) = self.call_results.get(&id) {
-                        entry.value().wake_by_ref();
+                    if let Some((_, sender)) = self.call_results.remove(&id) {
+                        match sender.send(callback) {
+                            Ok(_) =>
+                            /*TODO: Log all is okey */
+                            {
+                                ()
+                            }
+                            Err(_) =>
+                            /*TODO: Log got error */
+                            {
+                                ()
+                            }
+                        }
                     }
                 } else {
                     // TODO: Batched proceed
@@ -70,17 +82,19 @@ impl SteamClientInner {
         }
     }
 
-    pub(crate) fn register_call_result(&self, id: sys::SteamAPICall_t, waker: Waker) {
-        self.call_results.insert(id, waker);
-    }
+    pub(crate) async fn register_call_result<T: CallbackTyped>(
+        &self,
+        id: sys::SteamAPICall_t,
+    ) -> T {
+        let (sender, receiver) = futures::channel::oneshot::channel();
+        self.call_results.insert(id, sender);
+        let result = receiver.await.expect("Client dropped");
 
-    pub(crate) fn remove_call_result(&self, id: sys::SteamAPICall_t) {
-        self.call_results.remove(&id);
-    }
+        assert_eq!(std::mem::size_of::<T::Raw>(), result.m_cubParam as usize);
 
-    /*pub(crate) fn register_call_back<T: CallbackTyped>(&self) -> impl Stream<Item = T> + Send {
-        self.call_backs.register_call_back::<T>()
-    }*/
+        let raw_data = unsafe { T::from_ptr(result.m_pubParam) };
+        T::from_raw(raw_data)
+    }
 }
 
 impl SteamClientInner {
