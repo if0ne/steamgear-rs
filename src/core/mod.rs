@@ -181,7 +181,7 @@ impl SteamClientInner {
     }
 
     unsafe fn proceed_callback(&self, callback: sys::CallbackMsg_t) {
-        match callback.m_iCallback {
+        match callback.m_iCallback.try_into().unwrap() {
             sys::SteamShutdown_t_k_iCallback => {
                 let value = SteamShutdown::from_raw(SteamShutdown::from_ptr(callback.m_pubParam));
                 self.callback_container
