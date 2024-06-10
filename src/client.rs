@@ -15,8 +15,9 @@ impl SteamClient {
     }
 
     pub fn shutdown(&self) {
-        if Arc::strong_count(&self.0) > 1 {
-            // TODO: Log warn you must to destroy all clients clones
+        let count = Arc::strong_count(&self.0);
+        if count > 1 {
+            tracing::warn!("Called shutdown when amount clones of client is {}", count);
         }
 
         self.0.shutdown();

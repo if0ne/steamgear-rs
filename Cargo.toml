@@ -21,5 +21,8 @@ path = "./steamgear-sys"
 [dependencies.thiserror]
 version = "1.0.61"
 
+[dependencies.tracing]
+version = "0.1.40"
+
 [dev-dependencies.smol]
 version = "2.0.0"

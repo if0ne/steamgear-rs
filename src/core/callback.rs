@@ -38,7 +38,10 @@ pub(crate) trait CallbackDispatcher: Send + Sync {
         let (sender, receiver) = futures::channel::mpsc::unbounded();
 
         if guard.replace(sender).is_some() {
-            // TODO: Log it was already registered
+            tracing::warn!(
+                "Callback {} have already registered, old request will be cancelled",
+                std::any::type_name::<Self>()
+            )
         }
 
         receiver
@@ -46,15 +49,18 @@ pub(crate) trait CallbackDispatcher: Send + Sync {
 
     fn proceed(&self, value: Self::Item) {
         let storage = &self.storage().inner;
-        let mut guard = storage.lock();
+        let guard = storage.lock();
 
-        let sender = guard.take();
-
-        if let Some(sender) = sender {
+        if let Some(sender) = &*guard {
             match sender.unbounded_send(value) {
-                Ok(_) => { /* TODO: Log all is okey*/ }
+                Ok(_) => {
+                    tracing::debug!("Sent callback: {}", std::any::type_name::<Self>())
+                }
                 Err(_) => {
-                    // TODO: Storage is broken
+                    tracing::error!(
+                        "Callback {} have received, but receiver is broken",
+                        std::any::type_name::<Self>()
+                    )
                 }
             }
         }

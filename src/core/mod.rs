@@ -56,15 +56,14 @@ impl SteamClientInner {
 
                     if let Some((_, sender)) = self.call_results.remove(&id) {
                         match sender.send(callback) {
-                            Ok(_) =>
-                            /*TODO: Log all is okey */
-                            {
-                                ()
+                            Ok(_) => {
+                                tracing::debug!("Sent call result with id: {}", id)
                             }
-                            Err(_) =>
-                            /*TODO: Log got error */
-                            {
-                                ()
+                            Err(_) => {
+                                tracing::debug!(
+                                    "CallResult with id {} have received, but receiver is broken",
+                                    id
+                                )
                             }
                         }
                     }
