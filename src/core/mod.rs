@@ -10,7 +10,7 @@ use std::sync::atomic::AtomicU8;
 
 static STEAM_INIT_STATUS: AtomicU8 = AtomicU8::new(SteamApiState::Stopped as u8);
 
-pub trait SteamApiInterface: Send + Sync {
+pub(crate) trait SteamApiInterface: Send + Sync {
     type InitArgs;
 
     fn init(args: Self::InitArgs) -> Result<Self, SteamApiInitError>
@@ -26,3 +26,5 @@ enum SteamApiState {
     Init,
     RunCallbacks,
 }
+
+pub type AppId = u32;

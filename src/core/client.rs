@@ -1,11 +1,10 @@
-use std::ops::Deref;
-
 use super::callback::{CallbackContainer, CallbackDispatcher, CallbackTyped};
 use super::enums::SteamApiInitError;
 use super::{SteamApiInterface, SteamApiState, STEAM_INIT_STATUS};
 
-use crate::utils::client::SteamUtilsClient;
+use crate::apps::SteamApps;
 use crate::utils::callbacks::SteamShutdown;
+use crate::utils::client::SteamUtilsClient;
 
 use dashmap::DashMap;
 use futures::channel::oneshot::Sender;
@@ -18,6 +17,7 @@ pub struct SteamApiClient {
 
     pub(crate) callback_container: CallbackContainer,
     pub(crate) steam_utils: SteamUtilsClient,
+    pub(crate) steam_apps: SteamApps,
 }
 
 unsafe impl Send for SteamApiClient {}
@@ -51,6 +51,7 @@ impl SteamApiInterface for SteamApiClient {
                 pipe,
                 call_results: Default::default(),
                 steam_utils: SteamUtilsClient::new(),
+                steam_apps: SteamApps::new(),
                 callback_container: Default::default(),
             })
         }
@@ -222,13 +223,5 @@ impl SteamApiClient {
             }
             _ => {}
         }
-    }
-}
-
-impl Deref for SteamApiClient {
-    type Target = SteamUtilsClient;
-
-    fn deref(&self) -> &Self::Target {
-        &self.steam_utils
     }
 }

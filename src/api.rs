@@ -1,3 +1,5 @@
+#![allow(private_bounds)]
+
 use std::{ops::Deref, sync::Arc};
 
 use crate::{

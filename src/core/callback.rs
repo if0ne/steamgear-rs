@@ -2,7 +2,7 @@ use futures::channel::mpsc::{UnboundedReceiver, UnboundedSender};
 use parking_lot::Mutex;
 use thiserror::Error;
 
-use crate::utils::callbacks::SteamShutdown;
+use crate::{apps::callbacks::DlcInstalled, utils::callbacks::SteamShutdown};
 
 pub(crate) trait CallbackTyped: Clone + Send + 'static {
     const TYPE: u32;
@@ -25,6 +25,7 @@ pub(crate) trait CallbackTyped: Clone + Send + 'static {
 #[derive(Debug, Default)]
 pub(crate) struct CallbackContainer {
     pub(crate) steam_shutdown_callback: SingleDispatcher<SteamShutdown>,
+    pub(crate) dlc_installed_callback: SingleDispatcher<DlcInstalled>,
 }
 
 pub(crate) trait CallbackDispatcher: Send + Sync {
