@@ -1,6 +1,6 @@
-use crate::core::{
-    callback::{CallbackDispatcher, CallbackTyped},
-    SteamClientInner,
+use crate::{
+    core::callback::CallbackTyped,
+    prelude::{callback::CallbackDispatcher, client::SteamApiClient, server::SteamApiServer},
 };
 
 use futures::Stream;
@@ -19,7 +19,13 @@ impl CallbackTyped for SteamShutdown {
     }
 }
 
-impl SteamClientInner {
+impl SteamApiClient {
+    pub fn on_steam_shutdown(&self) -> impl Stream<Item = SteamShutdown> {
+        self.callback_container.steam_shutdown_callback.register()
+    }
+}
+
+impl SteamApiServer {
     pub fn on_steam_shutdown(&self) -> impl Stream<Item = SteamShutdown> {
         self.callback_container.steam_shutdown_callback.register()
     }

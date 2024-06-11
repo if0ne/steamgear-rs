@@ -5,7 +5,7 @@ mod tests {
 
     #[test]
     fn steam_api_init() {
-        let client = SteamClient::new_client();
+        let client = SteamApi::new_client();
         assert!(client.is_ok());
         let client = client.unwrap();
 
@@ -14,7 +14,7 @@ mod tests {
 
     #[test]
     fn steam_api_callback_shutdown() {
-        let client = SteamClient::new_client();
+        let client = SteamApi::new_client();
         assert!(client.is_ok());
         let client = client.unwrap();
 
@@ -32,7 +32,7 @@ mod tests {
 
     #[test]
     fn steam_api_callback_override() {
-        let client = SteamClient::new_client();
+        let client = SteamApi::new_client();
         assert!(client.is_ok());
         let client = client.unwrap();
 
