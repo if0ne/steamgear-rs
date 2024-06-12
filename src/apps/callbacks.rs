@@ -1,10 +1,9 @@
 use crate::core::{
-    callback::{CallbackDispatcher, CallbackTyped},
+    callback::{CallbackDispatcher, CallbackError, CallbackTyped},
     client::SteamApiClient,
     AppId,
 };
 
-use futures::Stream;
 use steamgear_sys as sys;
 
 #[derive(Clone, Copy, Debug)]
@@ -22,10 +21,17 @@ impl CallbackTyped for DlcInstalled {
 }
 
 impl SteamApiClient {
-    pub fn install_app(&self, app_id: AppId) -> impl Stream<Item = DlcInstalled> {
+    pub async fn install_app(&self, app_id: AppId) -> Result<DlcInstalled, CallbackError> {
+        let recv = self.callback_container
+            .dlc_installed_callback
+            .register();
+
         unsafe {
             sys::SteamAPI_ISteamApps_InstallDLC(self.steam_apps.0, app_id);
         }
-        self.callback_container.dlc_installed_callback.register()
+
+        recv
+            .await
+            .map_err(|_| CallbackError::Canceled)
     }
 }
