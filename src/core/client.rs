@@ -1,6 +1,6 @@
 use super::callback::{CallbackContainer, CallbackDispatcher, CallbackTyped};
 use super::enums::SteamApiInitError;
-use super::{SteamApiInterface, SteamApiState, STEAM_INIT_STATUS};
+use super::{AppId, SteamApiInterface, SteamApiState, STEAM_INIT_STATUS};
 
 use crate::apps::SteamApps;
 use crate::utils::callbacks::SteamShutdown;
@@ -24,13 +24,20 @@ unsafe impl Send for SteamApiClient {}
 unsafe impl Sync for SteamApiClient {}
 
 impl SteamApiInterface for SteamApiClient {
-    type InitArgs = ();
+    type InitArgs = (Option<AppId>,);
 
-    fn init(_: Self::InitArgs) -> Result<Self, SteamApiInitError>
+    fn init(args: Self::InitArgs) -> Result<Self, SteamApiInitError>
     where
         Self: Sized,
     {
+        let (app_id,) = args;
         unsafe {
+            if let Some(app_id) = app_id {
+                let app_id = app_id.to_string();
+                std::env::set_var("SteamAppId", &app_id);
+                std::env::set_var("SteamGameId", &app_id);
+            }
+
             let pipe = sys::SteamAPI_GetHSteamPipe();
 
             if STEAM_INIT_STATUS

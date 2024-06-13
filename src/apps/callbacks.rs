@@ -22,16 +22,12 @@ impl CallbackTyped for DlcInstalled {
 
 impl SteamApiClient {
     pub async fn install_app(&self, app_id: AppId) -> Result<DlcInstalled, CallbackError> {
-        let recv = self.callback_container
-            .dlc_installed_callback
-            .register();
+        let recv = self.callback_container.dlc_installed_callback.register();
 
         unsafe {
             sys::SteamAPI_ISteamApps_InstallDLC(self.steam_apps.0, app_id);
         }
 
-        recv
-            .await
-            .map_err(|_| CallbackError::Canceled)
+        recv.await.map_err(|_| CallbackError::Canceled)
     }
 }

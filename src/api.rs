@@ -3,7 +3,7 @@
 use std::{ops::Deref, sync::Arc};
 
 use crate::{
-    core::enums::SteamApiInitError,
+    core::{enums::SteamApiInitError, AppId},
     prelude::{
         client::SteamApiClient, enums::ServerMode, server::SteamApiServer, SteamApiInterface,
     },
@@ -27,20 +27,21 @@ impl<T: SteamApiInterface> SteamApi<T> {
 }
 
 impl SteamApi<SteamApiClient> {
-    pub fn new_client() -> Result<Self, SteamApiInitError> {
-        let client = SteamApiClient::init(())?;
+    pub fn new_client(app_id: Option<AppId>) -> Result<Self, SteamApiInitError> {
+        let client = SteamApiClient::init((app_id,))?;
         Ok(Self(Arc::new(client)))
     }
 }
 
 impl SteamApi<SteamApiServer> {
     pub fn new_server(
+        app_id: Option<AppId>,
         addr: std::net::SocketAddrV4,
         query_port: u16,
         mode: ServerMode,
         version: (u8, u8, u8, u8),
     ) -> Result<Self, SteamApiInitError> {
-        let server = SteamApiServer::init((addr, query_port, mode, version))?;
+        let server = SteamApiServer::init((app_id, addr, query_port, mode, version))?;
         Ok(Self(Arc::new(server)))
     }
 }

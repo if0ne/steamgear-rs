@@ -1,6 +1,6 @@
 use super::callback::{CallbackContainer, CallbackDispatcher, CallbackTyped};
 use super::enums::{ServerMode, SteamApiInitError};
-use super::{SteamApiInterface, SteamApiState, STEAM_INIT_STATUS};
+use super::{AppId, SteamApiInterface, SteamApiState, STEAM_INIT_STATUS};
 
 use crate::utils::callbacks::SteamShutdown;
 
@@ -158,14 +158,26 @@ impl SteamApiServer {
 }
 
 impl SteamApiInterface for SteamApiServer {
-    type InitArgs = (std::net::SocketAddrV4, u16, ServerMode, (u8, u8, u8, u8));
+    type InitArgs = (
+        Option<AppId>,
+        std::net::SocketAddrV4,
+        u16,
+        ServerMode,
+        (u8, u8, u8, u8),
+    );
 
     fn init(args: Self::InitArgs) -> Result<Self, SteamApiInitError>
     where
         Self: Sized,
     {
-        let (addr, query_port, mode, version) = args;
+        let (app_id, addr, query_port, mode, version) = args;
         unsafe {
+            if let Some(app_id) = app_id {
+                let app_id = app_id.to_string();
+                std::env::set_var("SteamAppId", &app_id);
+                std::env::set_var("SteamGameId", &app_id);
+            }
+
             let pipe = sys::SteamGameServer_GetHSteamPipe();
 
             if STEAM_INIT_STATUS
