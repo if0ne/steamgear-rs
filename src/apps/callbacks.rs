@@ -1,7 +1,7 @@
 use crate::core::{
     callback::{CallbackDispatcher, CallbackTyped},
     client::SteamApiClient,
-    AppId,
+    structs::AppId,
 };
 
 use futures::StreamExt;
@@ -17,7 +17,9 @@ impl CallbackTyped for DlcInstalled {
     type Raw = sys::DlcInstalled_t;
 
     fn from_raw(raw: Self::Raw) -> Self {
-        DlcInstalled { id: raw.m_nAppID }
+        DlcInstalled {
+            id: AppId(raw.m_nAppID),
+        }
     }
 }
 
@@ -26,7 +28,7 @@ impl SteamApiClient {
         let recv = &mut *self.callback_container.dlc_installed_callback.register();
 
         unsafe {
-            sys::SteamAPI_ISteamApps_InstallDLC(self.steam_apps.0, app_id);
+            sys::SteamAPI_ISteamApps_InstallDLC(self.steam_apps.0, app_id.0);
         }
 
         recv.next().await.unwrap()

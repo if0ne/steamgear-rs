@@ -26,5 +26,3 @@ enum SteamApiState {
     Init,
     RunCallbacks,
 }
-
-pub type AppId = u32;

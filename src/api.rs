@@ -3,7 +3,7 @@
 use std::{ops::Deref, sync::Arc};
 
 use crate::{
-    core::{enums::SteamApiInitError, AppId},
+    core::{enums::SteamApiInitError, structs::AppId},
     prelude::{
         client::SteamApiClient, enums::ServerMode, server::SteamApiServer, SteamApiInterface,
     },
