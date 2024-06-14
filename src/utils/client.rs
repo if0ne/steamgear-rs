@@ -1,16 +1,26 @@
+use std::sync::Arc;
+
 use steamgear_sys as sys;
 
-use crate::core::callback::CallbackTyped;
+use crate::core::callback::{CallbackContainer, CallbackTyped};
 
 #[derive(Clone, Debug)]
-pub struct SteamUtilsClient(pub(crate) *mut sys::ISteamUtils);
+pub struct SteamUtilsClient {
+    pub(super) raw: *mut sys::ISteamUtils,
+    pub(super) container: Arc<CallbackContainer>,
+}
 
 unsafe impl Send for SteamUtilsClient {}
 unsafe impl Sync for SteamUtilsClient {}
 
 impl SteamUtilsClient {
-    pub(crate) fn new() -> Self {
-        unsafe { SteamUtilsClient(sys::SteamAPI_SteamUtils_v010()) }
+    pub(crate) fn new(container: Arc<CallbackContainer>) -> Self {
+        unsafe {
+            SteamUtilsClient {
+                raw: sys::SteamAPI_SteamUtils_v010(),
+                container,
+            }
+        }
     }
 }
 
@@ -19,7 +29,7 @@ impl SteamUtilsClient {
         let mut failed = false;
 
         let result =
-            unsafe { sys::SteamAPI_ISteamUtils_IsAPICallCompleted(self.0, call, &mut failed) };
+            unsafe { sys::SteamAPI_ISteamUtils_IsAPICallCompleted(self.raw, call, &mut failed) };
 
         if !failed {
             Some(result)
@@ -31,7 +41,7 @@ impl SteamUtilsClient {
     pub(crate) fn get_api_call_result<T: CallbackTyped>(
         &self,
         call: sys::SteamAPICall_t,
-    ) -> Option<T> {
+    ) -> Option<T::Mapped> {
         unsafe {
             let mut raw_type: T::Raw = std::mem::zeroed();
             let mut failed = false;
@@ -41,7 +51,7 @@ impl SteamUtilsClient {
                 let raw_type = raw_type as *mut T::Raw;
 
                 sys::SteamAPI_ISteamUtils_GetAPICallResult(
-                    self.0,
+                    self.raw,
                     call,
                     raw_type as *mut _,
                     std::mem::size_of::<T::Raw>() as i32,

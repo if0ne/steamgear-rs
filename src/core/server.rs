@@ -5,14 +5,11 @@ use super::{SteamApiInterface, SteamApiState, STEAM_INIT_STATUS};
 
 use crate::utils::callbacks::SteamShutdown;
 
-use dashmap::DashMap;
-use futures::channel::oneshot::Sender;
 use steamgear_sys as sys;
 
 #[derive(Debug)]
 pub struct SteamApiServer {
     pipe: sys::HSteamPipe,
-    call_results: DashMap<sys::SteamAPICall_t, Sender<sys::CallbackMsg_t>>,
 
     pub(crate) callback_container: CallbackContainer,
 }
@@ -50,7 +47,7 @@ impl SteamApiServer {
                         &*(callback.m_pubParam as *const _ as *const sys::SteamAPICallCompleted_t);
                     let id = apicall.m_hAsyncCall;
 
-                    if let Some((_, sender)) = self.call_results.remove(&id) {
+                    if let Some((_, sender)) = self.callback_container.call_results.remove(&id) {
                         match sender.send(callback) {
                             Ok(_) => {
                                 tracing::debug!("Sent call result with id: {}", id)
@@ -76,22 +73,6 @@ impl SteamApiServer {
                 std::sync::atomic::Ordering::Relaxed,
             );
         }
-    }
-}
-
-impl SteamApiServer {
-    pub(crate) async fn register_call_result<T: CallbackTyped>(
-        &self,
-        id: sys::SteamAPICall_t,
-    ) -> T {
-        let (sender, receiver) = futures::channel::oneshot::channel();
-        self.call_results.insert(id, sender);
-        let result = receiver.await.expect("Client dropped");
-
-        assert_eq!(std::mem::size_of::<T::Raw>(), result.m_cubParam as usize);
-
-        let raw_data = unsafe { T::from_ptr(result.m_pubParam) };
-        T::from_raw(raw_data)
     }
 }
 
@@ -197,7 +178,6 @@ impl SteamApiInterface for SteamApiServer {
 
             Ok(Self {
                 pipe,
-                call_results: Default::default(),
                 callback_container: Default::default(),
             })
         }

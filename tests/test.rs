@@ -18,7 +18,7 @@ mod tests {
         assert!(client.is_ok());
         let client = client.unwrap();
 
-        let mut shutdown_stream = client.on_steam_shutdown();
+        let mut shutdown_stream = client.utils().on_steam_shutdown();
 
         let task = smol::spawn(async move {
             assert!(shutdown_stream.next().await.is_some());
@@ -36,8 +36,8 @@ mod tests {
         assert!(client.is_ok());
         let client = client.unwrap();
 
-        let mut shutdown_stream = client.on_steam_shutdown();
-        let mut another_shutdown_stream = client.on_steam_shutdown();
+        let mut shutdown_stream = client.utils().on_steam_shutdown();
+        let mut another_shutdown_stream = client.utils().on_steam_shutdown();
 
         let task = smol::spawn(async move {
             assert!(shutdown_stream.next().await.is_none());

@@ -34,3 +34,12 @@ impl Display for AppId {
         write!(f, "AppId({})", self.0)
     }
 }
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+pub struct DepotId(pub u32);
+
+impl Display for DepotId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "DepotId({})", self.0)
+    }
+}

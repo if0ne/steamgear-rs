@@ -2,13 +2,21 @@ use futures::channel::{mpsc, oneshot};
 use parking_lot::{Mutex, MutexGuard};
 use thiserror::Error;
 
-use crate::{apps::callbacks::DlcInstalled, utils::callbacks::SteamShutdown};
+use dashmap::DashMap;
+
+use steamgear_sys as sys;
+
+use crate::{
+    apps::callbacks::{DlcInstalled, NewUrlLaunchParams},
+    utils::callbacks::SteamShutdown,
+};
 
 pub(crate) trait CallbackTyped: Clone + Send + 'static {
     const TYPE: u32;
     type Raw: Copy;
+    type Mapped;
 
-    fn from_raw(raw: Self::Raw) -> Self;
+    fn from_raw(raw: Self::Raw) -> Self::Mapped;
 
     unsafe fn from_ptr(ptr: *mut u8) -> Self::Raw {
         assert_eq!(
@@ -24,8 +32,29 @@ pub(crate) trait CallbackTyped: Clone + Send + 'static {
 
 #[derive(Debug, Default)]
 pub(crate) struct CallbackContainer {
+    pub(crate) call_results: DashMap<sys::SteamAPICall_t, oneshot::Sender<sys::CallbackMsg_t>>,
     pub(crate) steam_shutdown_callback: SingleDispatcher<SteamShutdown>,
     pub(crate) dlc_installed_callback: ReusableDispatcher<DlcInstalled>,
+    pub(crate) new_url_launch_params_callback: SingleDispatcher<NewUrlLaunchParams>,
+}
+
+unsafe impl Send for CallbackContainer {}
+unsafe impl Sync for CallbackContainer {}
+
+impl CallbackContainer {
+    pub(crate) async fn register_call_result<T: CallbackTyped>(
+        &self,
+        id: sys::SteamAPICall_t,
+    ) -> T::Mapped {
+        let (sender, receiver) = futures::channel::oneshot::channel();
+        self.call_results.insert(id, sender);
+        let result = receiver.await.expect("Client dropped");
+
+        assert_eq!(std::mem::size_of::<T::Raw>(), result.m_cubParam as usize);
+
+        let raw_data = unsafe { T::from_ptr(result.m_pubParam) };
+        T::from_raw(raw_data)
+    }
 }
 
 pub(crate) trait CallbackDispatcher: Send + Sync {

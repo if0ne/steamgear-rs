@@ -1,28 +1,25 @@
+use std::sync::Arc;
+
 use super::callback::{CallbackContainer, CallbackDispatcher, CallbackTyped};
 use super::enums::SteamApiInitError;
 use super::structs::AppId;
 use super::{SteamApiInterface, SteamApiState, STEAM_INIT_STATUS};
 
+use crate::apps::callbacks::{DlcInstalled, NewUrlLaunchParams};
 use crate::apps::SteamApps;
 use crate::utils::callbacks::SteamShutdown;
 use crate::utils::client::SteamUtilsClient;
 
-use dashmap::DashMap;
-use futures::channel::oneshot::Sender;
 use steamgear_sys as sys;
 
 #[derive(Debug)]
 pub struct SteamApiClient {
     pipe: sys::HSteamPipe,
-    call_results: DashMap<sys::SteamAPICall_t, Sender<sys::CallbackMsg_t>>,
 
-    pub(crate) callback_container: CallbackContainer,
+    pub(crate) callback_container: Arc<CallbackContainer>,
     pub(crate) steam_utils: SteamUtilsClient,
     pub(crate) steam_apps: SteamApps,
 }
-
-unsafe impl Send for SteamApiClient {}
-unsafe impl Sync for SteamApiClient {}
 
 impl SteamApiInterface for SteamApiClient {
     type InitArgs = (Option<AppId>,);
@@ -55,12 +52,13 @@ impl SteamApiInterface for SteamApiClient {
                 sys::SteamAPI_ManualDispatch_Init();
             }
 
+            let callback_container = Default::default();
+
             Ok(Self {
                 pipe,
-                call_results: Default::default(),
-                steam_utils: SteamUtilsClient::new(),
-                steam_apps: SteamApps::new(),
-                callback_container: Default::default(),
+                steam_utils: SteamUtilsClient::new(Arc::clone(&callback_container)),
+                steam_apps: SteamApps::new(Arc::clone(&callback_container)),
+                callback_container,
             })
         }
     }
@@ -128,7 +126,7 @@ impl SteamApiClient {
                         &*(callback.m_pubParam as *const _ as *const sys::SteamAPICallCompleted_t);
                     let id = apicall.m_hAsyncCall;
 
-                    if let Some((_, sender)) = self.call_results.remove(&id) {
+                    if let Some((_, sender)) = self.callback_container.call_results.remove(&id) {
                         match sender.send(callback) {
                             Ok(_) => {
                                 tracing::debug!("Sent call result with id: {}", id)
@@ -164,22 +162,6 @@ impl SteamApiClient {
 
     pub fn utils(&self) -> &SteamUtilsClient {
         &self.steam_utils
-    }
-}
-
-impl SteamApiClient {
-    pub(crate) async fn register_call_result<T: CallbackTyped>(
-        &self,
-        id: sys::SteamAPICall_t,
-    ) -> T {
-        let (sender, receiver) = futures::channel::oneshot::channel();
-        self.call_results.insert(id, sender);
-        let result = receiver.await.expect("Client dropped");
-
-        assert_eq!(std::mem::size_of::<T::Raw>(), result.m_cubParam as usize);
-
-        let raw_data = unsafe { T::from_ptr(result.m_pubParam) };
-        T::from_raw(raw_data)
     }
 }
 
@@ -237,6 +219,18 @@ impl SteamApiClient {
                 let value = SteamShutdown::from_raw(SteamShutdown::from_ptr(callback.m_pubParam));
                 self.callback_container
                     .steam_shutdown_callback
+                    .proceed(value);
+            }
+            sys::DlcInstalled_t_k_iCallback => {
+                let value = DlcInstalled::from_raw(DlcInstalled::from_ptr(callback.m_pubParam));
+                self.callback_container
+                    .dlc_installed_callback
+                    .proceed(value);
+            }
+            sys::NewUrlLaunchParameters_t_k_iCallback => {
+                let value = NewUrlLaunchParams::from_raw(NewUrlLaunchParams::from_ptr(callback.m_pubParam));
+                self.callback_container
+                    .new_url_launch_params_callback
                     .proceed(value);
             }
             _ => {}
