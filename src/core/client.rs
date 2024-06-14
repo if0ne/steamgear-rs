@@ -157,6 +157,16 @@ impl SteamApiClient {
 }
 
 impl SteamApiClient {
+    pub fn apps(&self) -> &SteamApps {
+        &self.steam_apps
+    }
+
+    pub fn utils(&self) -> &SteamUtilsClient {
+        &self.steam_utils
+    }
+}
+
+impl SteamApiClient {
     pub(crate) async fn register_call_result<T: CallbackTyped>(
         &self,
         id: sys::SteamAPICall_t,

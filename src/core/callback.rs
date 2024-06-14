@@ -40,7 +40,7 @@ pub(crate) trait CallbackDispatcher: Send + Sync {
 
 #[derive(Debug)]
 pub(crate) struct SingleDispatcher<T: CallbackTyped> {
-    inner: Mutex<Option<mpsc::UnboundedSender<T>>>,
+    inner: Mutex<Option<mpsc::Sender<T>>>,
 }
 
 impl<T: CallbackTyped> Default for SingleDispatcher<T> {
@@ -53,12 +53,12 @@ impl<T: CallbackTyped> Default for SingleDispatcher<T> {
 
 impl<T: CallbackTyped> CallbackDispatcher for SingleDispatcher<T> {
     type Item = T;
-    type Output<'a> = mpsc::UnboundedReceiver<Self::Item>;
+    type Output<'a> = mpsc::Receiver<Self::Item>;
 
     fn register(&self) -> Self::Output<'_> {
         let storage = &self.inner;
         let mut guard = storage.lock();
-        let (sender, receiver) = futures::channel::mpsc::unbounded();
+        let (sender, receiver) = futures::channel::mpsc::channel(8);
 
         if guard.replace(sender).is_some() {
             tracing::warn!(
@@ -72,10 +72,10 @@ impl<T: CallbackTyped> CallbackDispatcher for SingleDispatcher<T> {
 
     fn proceed(&self, value: Self::Item) {
         let storage = &self.inner;
-        let guard = storage.lock();
+        let mut guard = storage.lock();
 
-        if let Some(sender) = &*guard {
-            match sender.unbounded_send(value) {
+        if let Some(sender) = &mut *guard {
+            match sender.start_send(value) {
                 Ok(_) => {
                     tracing::debug!("Sent callback: {}", std::any::type_name::<Self>())
                 }
