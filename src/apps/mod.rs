@@ -1,7 +1,7 @@
 pub mod callbacks;
 pub mod structs;
 
-use std::{ffi::CString, os::unix::ffi::OsStrExt, sync::Arc};
+use std::{ffi::CString, sync::Arc};
 
 use chrono::DateTime;
 use steamgear_sys as sys;
@@ -234,7 +234,7 @@ impl SteamApps {
         path: impl AsRef<std::path::Path>,
     ) -> Result<FileDetails, FileNotFound> {
         let path = path.as_ref();
-        let path = path.as_os_str().as_bytes().as_ptr();
+        let path = path.as_os_str().as_encoded_bytes().as_ptr();
 
         let call_id =
             unsafe { sys::SteamAPI_ISteamApps_GetFileDetails(self.raw, path as *const _) };

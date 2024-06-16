@@ -31,7 +31,7 @@ impl std::fmt::Display for FileNotFound {
 }
 
 impl CallbackTyped for FileDetails {
-    const TYPE: u32 = sys::FileDetailsResult_t_k_iCallback;
+    const TYPE: u32 = sys::FileDetailsResult_t_k_iCallback as u32;
 
     type Raw = sys::FileDetailsResult_t;
     type Mapped = Result<Self, FileNotFound>;
