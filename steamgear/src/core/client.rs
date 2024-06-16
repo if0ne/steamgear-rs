@@ -228,7 +228,8 @@ impl SteamApiClient {
                     .proceed(value);
             }
             sys::NewUrlLaunchParameters_t_k_iCallback => {
-                let value = NewUrlLaunchParams::from_raw(NewUrlLaunchParams::from_ptr(callback.m_pubParam));
+                let value =
+                    NewUrlLaunchParams::from_raw(NewUrlLaunchParams::from_ptr(callback.m_pubParam));
                 self.callback_container
                     .new_url_launch_params_callback
                     .proceed(value);

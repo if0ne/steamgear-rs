@@ -1,7 +1,8 @@
 pub mod callbacks;
 pub mod structs;
 
-use std::{ffi::CString, sync::Arc};
+use std::ffi::CStr;
+use std::sync::Arc;
 
 use chrono::DateTime;
 use steamgear_sys as sys;
@@ -53,11 +54,13 @@ impl SteamApps {
         unsafe { sys::SteamAPI_ISteamApps_BIsVACBanned(self.raw) }
     }
 
-    pub fn get_current_game_language(&self) -> CString {
+    pub fn get_current_game_language(&self) -> String {
         unsafe {
             let raw = sys::SteamAPI_ISteamApps_GetCurrentGameLanguage(self.raw);
 
-            CString::from_raw(raw as *mut _)
+            let str = CStr::from_ptr(raw as *mut _).to_string_lossy().to_string();
+
+            str
         }
     }
 
@@ -65,7 +68,7 @@ impl SteamApps {
         unsafe {
             let raw = sys::SteamAPI_ISteamApps_GetAvailableGameLanguages(self.raw);
 
-            let raw = CString::from_raw(raw as *mut _);
+            let raw = CStr::from_ptr(raw as *mut _);
             let langs = raw.to_str().unwrap();
 
             langs
@@ -114,7 +117,7 @@ impl SteamApps {
                     name_buffer.as_mut_ptr(),
                     128,
                 ) {
-                    let dlc_name = CString::from_raw(name_buffer.as_mut_ptr())
+                    let dlc_name = CStr::from_ptr(name_buffer.as_mut_ptr())
                         .to_string_lossy()
                         .to_string();
                     Some(DlcInformation {
@@ -129,19 +132,23 @@ impl SteamApps {
         }
     }
 
-    pub fn unistall_dlc(&self, dlc_id: AppId) {
+    pub fn uninstall_dlc(&self, dlc_id: AppId) {
         unsafe {
             sys::SteamAPI_ISteamApps_UninstallDLC(self.raw, dlc_id.0);
         }
     }
 
-    pub fn get_current_beta_name(&self) -> Option<CString> {
+    pub fn get_current_beta_name(&self) -> Option<String> {
         unsafe {
             let mut name_buffer = [0; 128];
 
             if sys::SteamAPI_ISteamApps_GetCurrentBetaName(self.raw, name_buffer.as_mut_ptr(), 128)
             {
-                Some(CString::from_raw(name_buffer.as_mut_ptr()))
+                Some(
+                    CStr::from_ptr(name_buffer.as_mut_ptr())
+                        .to_string_lossy()
+                        .to_string(),
+                )
             } else {
                 None
             }
@@ -180,7 +187,7 @@ impl SteamApps {
             ) > 0
             {
                 Some(std::path::PathBuf::from(
-                    CString::from_raw(name_buffer.as_mut_ptr())
+                    CStr::from_ptr(name_buffer.as_mut_ptr())
                         .to_string_lossy()
                         .to_string(),
                 ))
@@ -198,13 +205,15 @@ impl SteamApps {
         unsafe { SteamId(sys::SteamAPI_ISteamApps_GetAppOwner(self.raw)) }
     }
 
-    pub fn get_launch_query_param(&self, key: impl AsRef<std::ffi::CStr>) -> CString {
+    pub fn get_launch_query_param(&self, key: impl AsRef<std::ffi::CStr>) -> String {
         unsafe {
             let key = key.as_ref();
 
             let result = sys::SteamAPI_ISteamApps_GetLaunchQueryParam(self.raw, key.as_ptr());
 
-            CString::from_raw(result as *mut _)
+            CStr::from_ptr(result as *mut _)
+                .to_string_lossy()
+                .to_string()
         }
     }
 
@@ -244,12 +253,13 @@ impl SteamApps {
             .await
     }
 
-    pub fn get_launch_command_line(&self) -> CString {
+    pub fn get_launch_command_line(&self) -> String {
         unsafe {
             let mut name_buffer = [0; 128];
-            sys::SteamAPI_ISteamApps_GetLaunchCommandLine(self.raw, name_buffer.as_mut_ptr(), 128);
 
-            CString::from_raw(name_buffer.as_ptr() as *mut _)
+            CStr::from_ptr(name_buffer.as_ptr() as *mut _)
+                .to_string_lossy()
+                .to_string()
         }
     }
 

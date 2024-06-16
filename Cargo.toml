@@ -1,31 +1,7 @@
-[package]
-name = "steamgear"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies.chrono]
-version = "0.4.38"
-
-[dependencies.dashmap]
-version = "5.5.3"
-
-[dependencies.futures]
-version = "0.3.30"
-
-[dependencies.futures-core]
-version = "0.3.30"
-
-[dependencies.parking_lot]
-version = "0.12.3"
-
-[dependencies.steamgear-sys]
-path = "./steamgear-sys"
-
-[dependencies.thiserror]
-version = "1.0.61"
-
-[dependencies.tracing]
-version = "0.1.40"
-
-[dev-dependencies.smol]
-version = "2.0.0"
+[workspace]
+resolver = "2"
+members = [
+    "steamgear",
+    "steamgear-sys",
+    "examples/*"
+]
