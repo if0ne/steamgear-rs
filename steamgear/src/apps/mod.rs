@@ -1,8 +1,11 @@
 pub mod callbacks;
 pub mod structs;
 
-use std::ffi::CStr;
-use std::sync::Arc;
+use std::{
+    ffi::CStr,
+    path::{Path, PathBuf},
+    sync::Arc,
+};
 
 use chrono::DateTime;
 use steamgear_sys as sys;
@@ -175,7 +178,7 @@ impl SteamApps {
         }
     }
 
-    pub fn get_app_install_dir(&self, app_id: AppId) -> Option<std::path::PathBuf> {
+    pub fn get_app_install_dir(&self, app_id: AppId) -> Option<PathBuf> {
         unsafe {
             let mut name_buffer = [0; 128];
 
@@ -186,7 +189,7 @@ impl SteamApps {
                 128,
             ) > 0
             {
-                Some(std::path::PathBuf::from(
+                Some(PathBuf::from(
                     CStr::from_ptr(name_buffer.as_mut_ptr())
                         .to_string_lossy()
                         .to_string(),
@@ -205,7 +208,7 @@ impl SteamApps {
         unsafe { SteamId(sys::SteamAPI_ISteamApps_GetAppOwner(self.raw)) }
     }
 
-    pub fn get_launch_query_param(&self, key: impl AsRef<std::ffi::CStr>) -> String {
+    pub fn get_launch_query_param(&self, key: impl AsRef<CStr>) -> String {
         unsafe {
             let key = key.as_ref();
 
@@ -240,7 +243,7 @@ impl SteamApps {
 
     pub async fn get_file_details(
         &self,
-        path: impl AsRef<std::path::Path>,
+        path: impl AsRef<Path>,
     ) -> Result<FileDetails, FileNotFound> {
         let path = path.as_ref();
         let path = path.as_os_str().as_encoded_bytes().as_ptr();
@@ -256,6 +259,8 @@ impl SteamApps {
     pub fn get_launch_command_line(&self) -> String {
         unsafe {
             let mut name_buffer = [0; 128];
+
+            sys::SteamAPI_ISteamApps_GetLaunchCommandLine(self.raw, name_buffer.as_mut_ptr(), 128);
 
             CStr::from_ptr(name_buffer.as_ptr() as *mut _)
                 .to_string_lossy()

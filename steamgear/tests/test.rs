@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
     use futures::StreamExt;
-    use steamgear::prelude::*;
+    use steamgear::api::SteamApi;
 
     #[test]
     fn steam_api_init() {
