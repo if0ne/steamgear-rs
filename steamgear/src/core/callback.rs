@@ -12,7 +12,7 @@ use crate::{
 };
 
 pub(crate) trait CallbackTyped: Clone + Send + 'static {
-    const TYPE: u32;
+    const TYPE: CallbackType;
     type Raw: Copy;
     type Mapped;
 
@@ -28,6 +28,15 @@ pub(crate) trait CallbackTyped: Clone + Send + 'static {
 
         raw_type
     }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[repr(u32)]
+pub(crate) enum CallbackType {
+    SteamShutdown = sys::SteamShutdown_t_k_iCallback as u32,
+    FileDetailsResult = sys::FileDetailsResult_t_k_iCallback as u32,
+    DlcInstalled = sys::DlcInstalled_t_k_iCallback as u32,
+    NewUrlLaunchParameters = sys::NewUrlLaunchParameters_t_k_iCallback as u32,
 }
 
 #[derive(Debug, Default)]

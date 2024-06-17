@@ -1,4 +1,7 @@
-use crate::core::{callback::CallbackTyped, structs::AppId};
+use crate::core::{
+    callback::{CallbackType, CallbackTyped},
+    structs::AppId,
+};
 
 use steamgear_sys as sys;
 
@@ -31,7 +34,7 @@ impl std::fmt::Display for FileNotFound {
 }
 
 impl CallbackTyped for FileDetails {
-    const TYPE: u32 = sys::FileDetailsResult_t_k_iCallback as u32;
+    const TYPE: CallbackType = CallbackType::FileDetailsResult;
 
     type Raw = sys::FileDetailsResult_t;
     type Mapped = Result<Self, FileNotFound>;
