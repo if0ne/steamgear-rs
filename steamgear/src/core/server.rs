@@ -1,4 +1,4 @@
-use super::callback::{CallbackContainer, CallbackDispatcher, CallbackTyped};
+use super::callback::{CallbackDispatcher, CallbackType, CallbackTyped, ClientCallbackContainer};
 use super::enums::{ServerMode, SteamApiInitError};
 use super::structs::AppId;
 use super::{SteamApiInterface, SteamApiState, STEAM_INIT_STATUS};
@@ -6,12 +6,14 @@ use super::{SteamApiInterface, SteamApiState, STEAM_INIT_STATUS};
 use crate::utils::callbacks::SteamShutdown;
 
 use steamgear_sys as sys;
+use tracing::{error, warn};
 
 #[derive(Debug)]
 pub struct SteamApiServer {
     pipe: sys::HSteamPipe,
 
-    pub(crate) callback_container: CallbackContainer,
+    //TODO: Replace
+    pub(crate) callback_container: ClientCallbackContainer,
 }
 
 unsafe impl Send for SteamApiServer {}
@@ -111,12 +113,30 @@ impl SteamApiServer {
     }
 
     unsafe fn proceed_callback(&self, callback: sys::CallbackMsg_t) {
-        match callback.m_iCallback.try_into().unwrap() {
-            sys::SteamShutdown_t_k_iCallback => {
+        let Ok(callback_type): Result<CallbackType, _> = callback
+            .m_iCallback
+            .try_into()
+            .map(|ty: u32| ty.try_into())
+            .unwrap()
+        else {
+            warn!("Got unknown callback type: {}", callback.m_iCallback);
+            return;
+        };
+
+        let is_client = callback_type.is_for_server();
+
+        match (callback_type, is_client) {
+            (CallbackType::SteamShutdown, _) => {
                 let value = SteamShutdown::from_raw(SteamShutdown::from_ptr(callback.m_pubParam));
                 self.callback_container
                     .steam_shutdown_callback
                     .proceed(value);
+            }
+            (callback_type, true) => {
+                error!(
+                    "Bug in steamgear. Didn't handle server callback: {:?}",
+                    callback_type
+                );
             }
             _ => {}
         }

@@ -30,27 +30,21 @@ pub(crate) trait CallbackTyped: Clone + Send + 'static {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
-#[repr(u32)]
-pub(crate) enum CallbackType {
-    SteamShutdown = sys::SteamShutdown_t_k_iCallback as u32,
-    FileDetailsResult = sys::FileDetailsResult_t_k_iCallback as u32,
-    DlcInstalled = sys::DlcInstalled_t_k_iCallback as u32,
-    NewUrlLaunchParameters = sys::NewUrlLaunchParameters_t_k_iCallback as u32,
-}
-
 #[derive(Debug, Default)]
-pub(crate) struct CallbackContainer {
+pub(crate) struct ClientCallbackContainer {
     pub(crate) call_results: DashMap<sys::SteamAPICall_t, oneshot::Sender<sys::CallbackMsg_t>>,
+
     pub(crate) steam_shutdown_callback: SingleDispatcher<SteamShutdown>,
+
+    // Steam Apps Callbacks
     pub(crate) dlc_installed_callback: ReusableDispatcher<DlcInstalled>,
     pub(crate) new_url_launch_params_callback: SingleDispatcher<NewUrlLaunchParams>,
 }
 
-unsafe impl Send for CallbackContainer {}
-unsafe impl Sync for CallbackContainer {}
+unsafe impl Send for ClientCallbackContainer {}
+unsafe impl Sync for ClientCallbackContainer {}
 
-impl CallbackContainer {
+impl ClientCallbackContainer {
     pub(crate) async fn register_call_result<T: CallbackTyped>(
         &self,
         id: sys::SteamAPICall_t,
@@ -218,6 +212,35 @@ impl<T: CallbackTyped> CallbackDispatcher for ReusableDispatcher<T> {
                     )
                 }
             }
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[repr(u32)]
+pub(crate) enum CallbackType {
+    SteamShutdown = sys::SteamShutdown_t_k_iCallback as u32,
+    FileDetailsResult = sys::FileDetailsResult_t_k_iCallback as u32,
+    DlcInstalled = sys::DlcInstalled_t_k_iCallback as u32,
+    NewUrlLaunchParameters = sys::NewUrlLaunchParameters_t_k_iCallback as u32,
+}
+
+impl CallbackType {
+    pub(crate) fn is_for_client(&self) -> bool {
+        match self {
+            CallbackType::SteamShutdown => true,
+            CallbackType::FileDetailsResult => true,
+            CallbackType::DlcInstalled => true,
+            CallbackType::NewUrlLaunchParameters => true,
+        }
+    }
+
+    pub(crate) fn is_for_server(&self) -> bool {
+        match self {
+            CallbackType::SteamShutdown => true,
+            CallbackType::FileDetailsResult => false,
+            CallbackType::DlcInstalled => false,
+            CallbackType::NewUrlLaunchParameters => false,
         }
     }
 }

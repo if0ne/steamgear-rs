@@ -2,19 +2,19 @@ use std::sync::Arc;
 
 use steamgear_sys as sys;
 
-use crate::core::callback::{CallbackContainer, CallbackTyped};
+use crate::core::callback::{CallbackTyped, ClientCallbackContainer};
 
 #[derive(Clone, Debug)]
 pub struct SteamUtilsClient {
     pub(super) raw: *mut sys::ISteamUtils,
-    pub(super) container: Arc<CallbackContainer>,
+    pub(super) container: Arc<ClientCallbackContainer>,
 }
 
 unsafe impl Send for SteamUtilsClient {}
 unsafe impl Sync for SteamUtilsClient {}
 
 impl SteamUtilsClient {
-    pub(crate) fn new(container: Arc<CallbackContainer>) -> Self {
+    pub(crate) fn new(container: Arc<ClientCallbackContainer>) -> Self {
         unsafe {
             SteamUtilsClient {
                 raw: sys::SteamAPI_SteamUtils_v010(),

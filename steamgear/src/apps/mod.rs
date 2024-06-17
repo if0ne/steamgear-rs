@@ -12,21 +12,21 @@ use steamgear_sys as sys;
 use structs::{DlcDownloadProgress, DlcInformation, FileDetails, FileNotFound, TrialTime};
 
 use crate::core::{
-    callback::CallbackContainer,
+    callback::ClientCallbackContainer,
     structs::{AppId, DepotId, SteamId},
 };
 
 #[derive(Clone, Debug)]
 pub struct SteamApps {
     raw: *mut sys::ISteamApps,
-    container: Arc<CallbackContainer>,
+    container: Arc<ClientCallbackContainer>,
 }
 
 unsafe impl Send for SteamApps {}
 unsafe impl Sync for SteamApps {}
 
 impl SteamApps {
-    pub(crate) fn new(container: Arc<CallbackContainer>) -> Self {
+    pub(crate) fn new(container: Arc<ClientCallbackContainer>) -> Self {
         unsafe {
             SteamApps {
                 raw: sys::SteamAPI_SteamApps_v008(),
