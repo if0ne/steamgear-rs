@@ -3,7 +3,7 @@ use crate::core::{
     structs::AppId,
 };
 
-use futures::{Stream, StreamExt};
+use futures_core::Stream;
 use steamgear_sys as sys;
 
 use super::SteamApps;
@@ -46,7 +46,7 @@ impl SteamApps {
             sys::SteamAPI_ISteamApps_InstallDLC(self.raw, app_id.0);
         }
 
-        recv.next().await.unwrap()
+        recv.recv().await.unwrap()
     }
 
     pub fn on_new_launch_query_param(&self) -> impl Stream<Item = NewUrlLaunchParams> {

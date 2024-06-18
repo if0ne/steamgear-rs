@@ -1,6 +1,6 @@
 use crate::core::callback::{CallbackDispatcher, CallbackType, CallbackTyped};
 
-use futures::Stream;
+use futures_core::Stream;
 use steamgear_sys as sys;
 
 use super::client::SteamUtilsClient;

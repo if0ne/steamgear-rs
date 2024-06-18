@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use futures::StreamExt;
+    use smol::stream::StreamExt;
     use steamgear::api::SteamApi;
 
     #[test]
@@ -18,9 +18,10 @@ mod tests {
         assert!(client.is_ok());
         let client = client.unwrap();
 
-        let mut shutdown_stream = client.utils().on_steam_shutdown();
+        let shutdown_stream = client.utils().on_steam_shutdown();
 
         let task = smol::spawn(async move {
+            let mut shutdown_stream = std::pin::pin!(shutdown_stream);
             assert!(shutdown_stream.next().await.is_some());
         });
 
@@ -36,14 +37,16 @@ mod tests {
         assert!(client.is_ok());
         let client = client.unwrap();
 
-        let mut shutdown_stream = client.utils().on_steam_shutdown();
-        let mut another_shutdown_stream = client.utils().on_steam_shutdown();
+        let shutdown_stream = client.utils().on_steam_shutdown();
+        let another_shutdown_stream = client.utils().on_steam_shutdown();
 
         let task = smol::spawn(async move {
+            let mut shutdown_stream = std::pin::pin!(shutdown_stream);
             assert!(shutdown_stream.next().await.is_none());
         });
 
         let another_task = smol::spawn(async move {
+            let mut another_shutdown_stream = std::pin::pin!(another_shutdown_stream);
             assert!(another_shutdown_stream.next().await.is_some());
         });
 

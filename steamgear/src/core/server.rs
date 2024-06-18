@@ -50,7 +50,7 @@ impl SteamApiServer {
                     let id = apicall.m_hAsyncCall;
 
                     if let Some((_, sender)) = self.callback_container.call_results.remove(&id) {
-                        match sender.send(callback) {
+                        match sender.send_blocking(callback) {
                             Ok(_) => {
                                 tracing::debug!("Sent call result with id: {}", id)
                             }
