@@ -142,7 +142,7 @@ impl<T: CallbackTyped> CallbackDispatcher for OneshotDispatcher<T> {
     fn register(&self) -> Self::Output<'_> {
         let storage = &self.inner;
         let mut guard = storage.lock();
-        let (sender, receiver) = async_channel::bounded(8);
+        let (sender, receiver) = async_channel::bounded(1);
 
         if guard.replace(sender).is_some() {
             tracing::warn!(
