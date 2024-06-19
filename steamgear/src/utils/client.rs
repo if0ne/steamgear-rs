@@ -1,4 +1,4 @@
-use std::sync::Arc;
+use std::{ffi::CStr, sync::Arc};
 
 use steamgear_sys as sys;
 
@@ -21,6 +21,21 @@ impl SteamUtilsClient {
                 container,
             }
         }
+    }
+}
+
+impl SteamUtilsClient {
+    pub fn enable_debug_hook(&self) {
+        unsafe {
+            sys::SteamAPI_ISteamUtils_SetWarningMessageHook(
+                self.raw,
+                Some(_internal_warning_message_hook),
+            )
+        }
+    }
+
+    pub fn disable_debug_hook(&self) {
+        unsafe { sys::SteamAPI_ISteamUtils_SetWarningMessageHook(self.raw, None) }
     }
 }
 
@@ -65,6 +80,25 @@ impl SteamUtilsClient {
             } else {
                 None
             }
+        }
+    }
+}
+
+unsafe extern "C" fn _internal_warning_message_hook(
+    severity: std::os::raw::c_int,
+    message: *const std::os::raw::c_char,
+) {
+    let message = CStr::from_ptr(message);
+
+    match severity {
+        0 => {
+            tracing::info!("{:?}", message);
+        }
+        1 => {
+            tracing::warn!("{:?}", message);
+        }
+        _ => {
+            unreachable!()
         }
     }
 }

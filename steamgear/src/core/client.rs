@@ -7,6 +7,7 @@ use super::{SteamApiInterface, SteamApiState, STEAM_INIT_STATUS};
 
 use crate::apps::callbacks::{DlcInstalled, NewUrlLaunchParams};
 use crate::apps::SteamApps;
+use crate::friends::SteamFriends;
 use crate::utils::callbacks::SteamShutdown;
 use crate::utils::client::SteamUtilsClient;
 
@@ -17,9 +18,10 @@ use tracing::{error, warn};
 pub struct SteamApiClient {
     pipe: sys::HSteamPipe,
 
-    pub(crate) callback_container: Arc<ClientCallbackContainer>,
-    pub(crate) steam_utils: SteamUtilsClient,
-    pub(crate) steam_apps: SteamApps,
+    callback_container: Arc<ClientCallbackContainer>,
+    steam_utils: SteamUtilsClient,
+    steam_apps: SteamApps,
+    steam_friends: SteamFriends,
 }
 
 impl SteamApiInterface for SteamApiClient {
@@ -29,8 +31,8 @@ impl SteamApiInterface for SteamApiClient {
     where
         Self: Sized,
     {
-        let (app_id,) = args;
         unsafe {
+            let (app_id,) = args;
             if let Some(app_id) = app_id {
                 let app_id = app_id.0.to_string();
                 std::env::set_var("SteamAppId", &app_id);
@@ -59,6 +61,8 @@ impl SteamApiInterface for SteamApiClient {
                 pipe,
                 steam_utils: SteamUtilsClient::new(Arc::clone(&callback_container)),
                 steam_apps: SteamApps::new(Arc::clone(&callback_container)),
+                steam_friends: SteamFriends::new(Arc::clone(&callback_container)),
+
                 callback_container,
             })
         }
@@ -159,6 +163,10 @@ impl SteamApiClient {
 impl SteamApiClient {
     pub fn apps(&self) -> &SteamApps {
         &self.steam_apps
+    }
+
+    pub fn friends(&self) -> &SteamFriends {
+        &self.steam_friends
     }
 
     pub fn utils(&self) -> &SteamUtilsClient {
