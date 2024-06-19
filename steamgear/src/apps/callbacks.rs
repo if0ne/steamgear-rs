@@ -40,7 +40,7 @@ impl CallbackTyped for NewUrlLaunchParams {
 
 impl SteamApps {
     pub async fn install_dlc(&self, app_id: AppId) -> DlcInstalled {
-        let recv = &mut *self.container.dlc_installed_callback.register();
+        let recv = self.container.dlc_installed_callback.register();
 
         unsafe {
             sys::SteamAPI_ISteamApps_InstallDLC(self.raw, app_id.0);

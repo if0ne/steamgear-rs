@@ -76,7 +76,6 @@ impl SteamApps {
 
             langs
                 .split(',')
-                .into_iter()
                 .map(|lang| lang.to_string())
                 .collect::<Vec<_>>()
         }
@@ -174,7 +173,7 @@ impl SteamApps {
                 32,
             ) as usize;
 
-            depots.into_iter().take(count).map(|id| DepotId(id))
+            depots.into_iter().take(count).map(DepotId)
         }
     }
 

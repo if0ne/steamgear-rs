@@ -1,5 +1,5 @@
 use async_channel::{Receiver, Sender};
-use parking_lot::{Mutex, MutexGuard};
+use parking_lot::Mutex;
 use thiserror::Error;
 
 use dashmap::DashMap;
@@ -37,7 +37,7 @@ pub(crate) struct ClientCallbackContainer {
     pub(crate) steam_shutdown_callback: MultiDispatcher<SteamShutdown>,
 
     // Steam Apps Callbacks
-    pub(crate) dlc_installed_callback: ReusableDispatcher<DlcInstalled>,
+    pub(crate) dlc_installed_callback: OneshotDispatcher<DlcInstalled>,
     pub(crate) new_url_launch_params_callback: MultiDispatcher<NewUrlLaunchParams>,
 }
 
@@ -159,48 +159,6 @@ impl<T: CallbackTyped> CallbackDispatcher for OneshotDispatcher<T> {
         let mut guard = storage.lock();
 
         if let Some(sender) = guard.take() {
-            match sender.send_blocking(value) {
-                Ok(_) => {
-                    tracing::debug!("Sent callback: {}", std::any::type_name::<Self>())
-                }
-                Err(_) => {
-                    tracing::error!(
-                        "Callback {} have received, but receiver is broken",
-                        std::any::type_name::<Self>()
-                    )
-                }
-            }
-        }
-    }
-}
-
-#[derive(Debug)]
-pub(crate) struct ReusableDispatcher<T: CallbackTyped> {
-    inner: (Sender<T>, Mutex<Receiver<T>>),
-}
-
-impl<T: CallbackTyped> Default for ReusableDispatcher<T> {
-    fn default() -> Self {
-        let (sender, receiver) = async_channel::bounded(8);
-        Self {
-            inner: (sender, Mutex::new(receiver)),
-        }
-    }
-}
-
-impl<T: CallbackTyped> CallbackDispatcher for ReusableDispatcher<T> {
-    type Item = T;
-    type Output<'a> = MutexGuard<'a, Receiver<Self::Item>>;
-
-    fn register(&self) -> Self::Output<'_> {
-        let (_, recv) = &self.inner;
-        recv.lock()
-    }
-
-    fn proceed(&self, value: Self::Item) {
-        let (sender, receiver) = &self.inner;
-
-        if receiver.is_locked() {
             match sender.send_blocking(value) {
                 Ok(_) => {
                     tracing::debug!("Sent callback: {}", std::any::type_name::<Self>())
