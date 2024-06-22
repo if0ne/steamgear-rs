@@ -1,6 +1,6 @@
-use crate::core::callback::{CallbackDispatcher, CallbackTyped};
+use crate::core::callback::{CallbackDispatcher, CallbackType, CallbackTyped};
 
-use futures::Stream;
+use futures_core::Stream;
 use steamgear_sys as sys;
 
 use super::client::SteamUtilsClient;
@@ -9,7 +9,7 @@ use super::client::SteamUtilsClient;
 pub struct SteamShutdown;
 
 impl CallbackTyped for SteamShutdown {
-    const TYPE: u32 = sys::SteamShutdown_t_k_iCallback as u32;
+    const TYPE: CallbackType = CallbackType::SteamShutdown;
 
     type Raw = sys::SteamShutdown_t;
     type Mapped = Self;

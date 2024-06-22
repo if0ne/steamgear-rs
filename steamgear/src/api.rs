@@ -2,11 +2,12 @@
 
 use std::{ops::Deref, sync::Arc};
 
-use crate::{
-    core::{enums::SteamApiInitError, structs::AppId},
-    prelude::{
-        client::SteamApiClient, enums::ServerMode, server::SteamApiServer, SteamApiInterface,
-    },
+use crate::core::{
+    client::SteamApiClient,
+    enums::{ServerMode, SteamApiInitError},
+    server::SteamApiServer,
+    structs::AppId,
+    SteamApiInterface,
 };
 
 #[derive(Clone, Debug)]

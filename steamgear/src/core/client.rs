@@ -1,24 +1,27 @@
 use std::sync::Arc;
 
-use super::callback::{CallbackContainer, CallbackDispatcher, CallbackTyped};
+use super::callback::{CallbackDispatcher, CallbackType, CallbackTyped, ClientCallbackContainer};
 use super::enums::SteamApiInitError;
 use super::structs::AppId;
 use super::{SteamApiInterface, SteamApiState, STEAM_INIT_STATUS};
 
 use crate::apps::callbacks::{DlcInstalled, NewUrlLaunchParams};
 use crate::apps::SteamApps;
+use crate::friends::SteamFriends;
 use crate::utils::callbacks::SteamShutdown;
 use crate::utils::client::SteamUtilsClient;
 
 use steamgear_sys as sys;
+use tracing::{error, warn};
 
 #[derive(Debug)]
 pub struct SteamApiClient {
     pipe: sys::HSteamPipe,
 
-    pub(crate) callback_container: Arc<CallbackContainer>,
-    pub(crate) steam_utils: SteamUtilsClient,
-    pub(crate) steam_apps: SteamApps,
+    callback_container: Arc<ClientCallbackContainer>,
+    steam_utils: SteamUtilsClient,
+    steam_apps: SteamApps,
+    steam_friends: SteamFriends,
 }
 
 impl SteamApiInterface for SteamApiClient {
@@ -28,8 +31,8 @@ impl SteamApiInterface for SteamApiClient {
     where
         Self: Sized,
     {
-        let (app_id,) = args;
         unsafe {
+            let (app_id,) = args;
             if let Some(app_id) = app_id {
                 let app_id = app_id.0.to_string();
                 std::env::set_var("SteamAppId", &app_id);
@@ -58,6 +61,8 @@ impl SteamApiInterface for SteamApiClient {
                 pipe,
                 steam_utils: SteamUtilsClient::new(Arc::clone(&callback_container)),
                 steam_apps: SteamApps::new(Arc::clone(&callback_container)),
+                steam_friends: SteamFriends::new(Arc::clone(&callback_container)),
+
                 callback_container,
             })
         }
@@ -127,7 +132,7 @@ impl SteamApiClient {
                     let id = apicall.m_hAsyncCall;
 
                     if let Some((_, sender)) = self.callback_container.call_results.remove(&id) {
-                        match sender.send(callback) {
+                        match sender.send_blocking(callback) {
                             Ok(_) => {
                                 tracing::debug!("Sent call result with id: {}", id)
                             }
@@ -158,6 +163,10 @@ impl SteamApiClient {
 impl SteamApiClient {
     pub fn apps(&self) -> &SteamApps {
         &self.steam_apps
+    }
+
+    pub fn friends(&self) -> &SteamFriends {
+        &self.steam_friends
     }
 
     pub fn utils(&self) -> &SteamUtilsClient {
@@ -214,25 +223,43 @@ impl SteamApiClient {
     }
 
     unsafe fn proceed_callback(&self, callback: sys::CallbackMsg_t) {
-        match callback.m_iCallback.try_into().unwrap() {
-            sys::SteamShutdown_t_k_iCallback => {
+        let Ok(callback_type): Result<CallbackType, _> = callback
+            .m_iCallback
+            .try_into()
+            .map(|ty: u32| ty.try_into())
+            .unwrap()
+        else {
+            warn!("Got unknown callback type: {}", callback.m_iCallback);
+            return;
+        };
+
+        let is_client = callback_type.is_for_client();
+
+        match (callback_type, is_client) {
+            (CallbackType::SteamShutdown, _) => {
                 let value = SteamShutdown::from_raw(SteamShutdown::from_ptr(callback.m_pubParam));
                 self.callback_container
                     .steam_shutdown_callback
                     .proceed(value);
             }
-            sys::DlcInstalled_t_k_iCallback => {
+            (CallbackType::DlcInstalled, _) => {
                 let value = DlcInstalled::from_raw(DlcInstalled::from_ptr(callback.m_pubParam));
                 self.callback_container
                     .dlc_installed_callback
                     .proceed(value);
             }
-            sys::NewUrlLaunchParameters_t_k_iCallback => {
+            (CallbackType::NewUrlLaunchParameters, _) => {
                 let value =
                     NewUrlLaunchParams::from_raw(NewUrlLaunchParams::from_ptr(callback.m_pubParam));
                 self.callback_container
                     .new_url_launch_params_callback
                     .proceed(value);
+            }
+            (callback_type, true) => {
+                error!(
+                    "Bug in steamgear. Didn't handle client callback: {:?}",
+                    callback_type
+                );
             }
             _ => {}
         }

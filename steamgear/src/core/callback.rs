@@ -1,5 +1,5 @@
-use futures::channel::{mpsc, oneshot};
-use parking_lot::{Mutex, MutexGuard};
+use async_channel::{Receiver, Sender};
+use parking_lot::Mutex;
 use thiserror::Error;
 
 use dashmap::DashMap;
@@ -12,7 +12,7 @@ use crate::{
 };
 
 pub(crate) trait CallbackTyped: Clone + Send + 'static {
-    const TYPE: u32;
+    const TYPE: CallbackType;
     type Raw: Copy;
     type Mapped;
 
@@ -31,24 +31,27 @@ pub(crate) trait CallbackTyped: Clone + Send + 'static {
 }
 
 #[derive(Debug, Default)]
-pub(crate) struct CallbackContainer {
-    pub(crate) call_results: DashMap<sys::SteamAPICall_t, oneshot::Sender<sys::CallbackMsg_t>>,
-    pub(crate) steam_shutdown_callback: SingleDispatcher<SteamShutdown>,
-    pub(crate) dlc_installed_callback: ReusableDispatcher<DlcInstalled>,
-    pub(crate) new_url_launch_params_callback: SingleDispatcher<NewUrlLaunchParams>,
+pub(crate) struct ClientCallbackContainer {
+    pub(crate) call_results: DashMap<sys::SteamAPICall_t, Sender<sys::CallbackMsg_t>>,
+
+    pub(crate) steam_shutdown_callback: MultiDispatcher<SteamShutdown>,
+
+    // Steam Apps Callbacks
+    pub(crate) dlc_installed_callback: OneshotDispatcher<DlcInstalled>,
+    pub(crate) new_url_launch_params_callback: MultiDispatcher<NewUrlLaunchParams>,
 }
 
-unsafe impl Send for CallbackContainer {}
-unsafe impl Sync for CallbackContainer {}
+unsafe impl Send for ClientCallbackContainer {}
+unsafe impl Sync for ClientCallbackContainer {}
 
-impl CallbackContainer {
+impl ClientCallbackContainer {
     pub(crate) async fn register_call_result<T: CallbackTyped>(
         &self,
         id: sys::SteamAPICall_t,
     ) -> T::Mapped {
-        let (sender, receiver) = futures::channel::oneshot::channel();
+        let (sender, receiver) = async_channel::bounded(1);
         self.call_results.insert(id, sender);
-        let result = receiver.await.expect("Client dropped");
+        let result = receiver.recv().await.expect("Client dropped");
 
         assert_eq!(std::mem::size_of::<T::Raw>(), result.m_cubParam as usize);
 
@@ -69,7 +72,7 @@ pub(crate) trait CallbackDispatcher: Send + Sync {
 
 #[derive(Debug)]
 pub(crate) struct SingleDispatcher<T: CallbackTyped> {
-    inner: Mutex<Option<mpsc::Sender<T>>>,
+    inner: Mutex<Option<Sender<T>>>,
 }
 
 impl<T: CallbackTyped> Default for SingleDispatcher<T> {
@@ -82,12 +85,12 @@ impl<T: CallbackTyped> Default for SingleDispatcher<T> {
 
 impl<T: CallbackTyped> CallbackDispatcher for SingleDispatcher<T> {
     type Item = T;
-    type Output<'a> = mpsc::Receiver<Self::Item>;
+    type Output<'a> = Receiver<Self::Item>;
 
     fn register(&self) -> Self::Output<'_> {
         let storage = &self.inner;
         let mut guard = storage.lock();
-        let (sender, receiver) = futures::channel::mpsc::channel(8);
+        let (sender, receiver) = async_channel::bounded(8);
 
         if guard.replace(sender).is_some() {
             tracing::warn!(
@@ -104,7 +107,7 @@ impl<T: CallbackTyped> CallbackDispatcher for SingleDispatcher<T> {
         let mut guard = storage.lock();
 
         if let Some(sender) = &mut *guard {
-            match sender.start_send(value) {
+            match sender.send_blocking(value) {
                 Ok(_) => {
                     tracing::debug!("Sent callback: {}", std::any::type_name::<Self>())
                 }
@@ -121,7 +124,7 @@ impl<T: CallbackTyped> CallbackDispatcher for SingleDispatcher<T> {
 
 #[derive(Debug)]
 pub(crate) struct OneshotDispatcher<T: CallbackTyped> {
-    inner: Mutex<Option<oneshot::Sender<T>>>,
+    inner: Mutex<Option<Sender<T>>>,
 }
 
 impl<T: CallbackTyped> Default for OneshotDispatcher<T> {
@@ -134,12 +137,12 @@ impl<T: CallbackTyped> Default for OneshotDispatcher<T> {
 
 impl<T: CallbackTyped> CallbackDispatcher for OneshotDispatcher<T> {
     type Item = T;
-    type Output<'a> = oneshot::Receiver<Self::Item>;
+    type Output<'a> = Receiver<Self::Item>;
 
     fn register(&self) -> Self::Output<'_> {
         let storage = &self.inner;
         let mut guard = storage.lock();
-        let (sender, receiver) = futures::channel::oneshot::channel();
+        let (sender, receiver) = async_channel::bounded(1);
 
         if guard.replace(sender).is_some() {
             tracing::warn!(
@@ -156,7 +159,7 @@ impl<T: CallbackTyped> CallbackDispatcher for OneshotDispatcher<T> {
         let mut guard = storage.lock();
 
         if let Some(sender) = guard.take() {
-            match sender.send(value) {
+            match sender.send_blocking(value) {
                 Ok(_) => {
                     tracing::debug!("Sent callback: {}", std::any::type_name::<Self>())
                 }
@@ -172,33 +175,33 @@ impl<T: CallbackTyped> CallbackDispatcher for OneshotDispatcher<T> {
 }
 
 #[derive(Debug)]
-pub(crate) struct ReusableDispatcher<T: CallbackTyped> {
-    inner: (Mutex<mpsc::Sender<T>>, Mutex<mpsc::Receiver<T>>),
+pub(crate) struct MultiDispatcher<T: CallbackTyped> {
+    inner: (Sender<T>, Receiver<T>),
 }
 
-impl<T: CallbackTyped> Default for ReusableDispatcher<T> {
+impl<T: CallbackTyped> Default for MultiDispatcher<T> {
     fn default() -> Self {
-        let (sender, receiver) = futures::channel::mpsc::channel(8);
+        let (sender, receiver) = async_channel::bounded(32);
         Self {
-            inner: (Mutex::new(sender), Mutex::new(receiver)),
+            inner: (sender, receiver),
         }
     }
 }
 
-impl<T: CallbackTyped> CallbackDispatcher for ReusableDispatcher<T> {
+impl<T: CallbackTyped> CallbackDispatcher for MultiDispatcher<T> {
     type Item = T;
-    type Output<'a> = MutexGuard<'a, mpsc::Receiver<Self::Item>>;
+    type Output<'a> = Receiver<Self::Item>;
 
     fn register(&self) -> Self::Output<'_> {
         let (_, recv) = &self.inner;
-        recv.lock()
+        recv.clone()
     }
 
     fn proceed(&self, value: Self::Item) {
-        let (sender, receiver) = &self.inner;
+        let (sender, _) = &self.inner;
 
-        if receiver.is_locked() {
-            match sender.lock().start_send(value) {
+        if sender.receiver_count() > 1 {
+            match sender.send_blocking(value) {
                 Ok(_) => {
                     tracing::debug!("Sent callback: {}", std::any::type_name::<Self>())
                 }
@@ -209,6 +212,37 @@ impl<T: CallbackTyped> CallbackDispatcher for ReusableDispatcher<T> {
                     )
                 }
             }
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[repr(u32)]
+pub(crate) enum CallbackType {
+    SteamShutdown = sys::SteamShutdown_t_k_iCallback as u32,
+    FileDetailsResult = sys::FileDetailsResult_t_k_iCallback as u32,
+    DlcInstalled = sys::DlcInstalled_t_k_iCallback as u32,
+    NewUrlLaunchParameters = sys::NewUrlLaunchParameters_t_k_iCallback as u32,
+}
+
+impl CallbackType {
+    // Do not use placeholder
+    pub(crate) fn is_for_client(&self) -> bool {
+        match self {
+            CallbackType::SteamShutdown => true,
+            CallbackType::FileDetailsResult => true,
+            CallbackType::DlcInstalled => true,
+            CallbackType::NewUrlLaunchParameters => true,
+        }
+    }
+
+    // Do not use placeholder
+    pub(crate) fn is_for_server(&self) -> bool {
+        match self {
+            CallbackType::SteamShutdown => true,
+            CallbackType::FileDetailsResult => false,
+            CallbackType::DlcInstalled => false,
+            CallbackType::NewUrlLaunchParameters => false,
         }
     }
 }

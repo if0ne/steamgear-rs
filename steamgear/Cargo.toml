@@ -3,14 +3,14 @@ name = "steamgear"
 version = "0.1.0"
 edition = "2021"
 
+[dependencies.async-channel]
+version = "2.3.1"
+
 [dependencies.chrono]
 version = "0.4.38"
 
 [dependencies.dashmap]
 version = "5.5.3"
-
-[dependencies.futures]
-version = "0.3.30"
 
 [dependencies.futures-core]
 version = "0.3.30"

@@ -1,4 +1,4 @@
-use steamgear::prelude::*;
+use steamgear::api::SteamApi;
 
 fn main() {
     let steam_api = SteamApi::new_client(None).unwrap();

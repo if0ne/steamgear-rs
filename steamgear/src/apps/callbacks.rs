@@ -1,9 +1,9 @@
 use crate::core::{
-    callback::{CallbackDispatcher, CallbackTyped},
+    callback::{CallbackDispatcher, CallbackType, CallbackTyped},
     structs::AppId,
 };
 
-use futures::{Stream, StreamExt};
+use futures_core::Stream;
 use steamgear_sys as sys;
 
 use super::SteamApps;
@@ -14,7 +14,7 @@ pub struct DlcInstalled {
 }
 
 impl CallbackTyped for DlcInstalled {
-    const TYPE: u32 = sys::DlcInstalled_t_k_iCallback as u32;
+    const TYPE: CallbackType = CallbackType::DlcInstalled;
     type Raw = sys::DlcInstalled_t;
     type Mapped = Self;
 
@@ -29,7 +29,7 @@ impl CallbackTyped for DlcInstalled {
 pub struct NewUrlLaunchParams;
 
 impl CallbackTyped for NewUrlLaunchParams {
-    const TYPE: u32 = sys::NewUrlLaunchParameters_t_k_iCallback as u32;
+    const TYPE: CallbackType = CallbackType::NewUrlLaunchParameters;
     type Raw = sys::NewUrlLaunchParameters_t;
     type Mapped = Self;
 
@@ -40,13 +40,13 @@ impl CallbackTyped for NewUrlLaunchParams {
 
 impl SteamApps {
     pub async fn install_dlc(&self, app_id: AppId) -> DlcInstalled {
-        let recv = &mut *self.container.dlc_installed_callback.register();
+        let recv = self.container.dlc_installed_callback.register();
 
         unsafe {
             sys::SteamAPI_ISteamApps_InstallDLC(self.raw, app_id.0);
         }
 
-        recv.next().await.unwrap()
+        recv.recv().await.unwrap()
     }
 
     pub fn on_new_launch_query_param(&self) -> impl Stream<Item = NewUrlLaunchParams> {

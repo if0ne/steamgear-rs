@@ -1,29 +1,32 @@
 pub mod callbacks;
 pub mod structs;
 
-use std::ffi::CStr;
-use std::sync::Arc;
+use std::{
+    ffi::CStr,
+    path::{Path, PathBuf},
+    sync::Arc,
+};
 
 use chrono::DateTime;
 use steamgear_sys as sys;
 use structs::{DlcDownloadProgress, DlcInformation, FileDetails, FileNotFound, TrialTime};
 
 use crate::core::{
-    callback::CallbackContainer,
+    callback::ClientCallbackContainer,
     structs::{AppId, DepotId, SteamId},
 };
 
 #[derive(Clone, Debug)]
 pub struct SteamApps {
     raw: *mut sys::ISteamApps,
-    container: Arc<CallbackContainer>,
+    container: Arc<ClientCallbackContainer>,
 }
 
 unsafe impl Send for SteamApps {}
 unsafe impl Sync for SteamApps {}
 
 impl SteamApps {
-    pub(crate) fn new(container: Arc<CallbackContainer>) -> Self {
+    pub(crate) fn new(container: Arc<ClientCallbackContainer>) -> Self {
         unsafe {
             SteamApps {
                 raw: sys::SteamAPI_SteamApps_v008(),
@@ -73,7 +76,6 @@ impl SteamApps {
 
             langs
                 .split(',')
-                .into_iter()
                 .map(|lang| lang.to_string())
                 .collect::<Vec<_>>()
         }
@@ -171,11 +173,11 @@ impl SteamApps {
                 32,
             ) as usize;
 
-            depots.into_iter().take(count).map(|id| DepotId(id))
+            depots.into_iter().take(count).map(DepotId)
         }
     }
 
-    pub fn get_app_install_dir(&self, app_id: AppId) -> Option<std::path::PathBuf> {
+    pub fn get_app_install_dir(&self, app_id: AppId) -> Option<PathBuf> {
         unsafe {
             let mut name_buffer = [0; 128];
 
@@ -186,7 +188,7 @@ impl SteamApps {
                 128,
             ) > 0
             {
-                Some(std::path::PathBuf::from(
+                Some(PathBuf::from(
                     CStr::from_ptr(name_buffer.as_mut_ptr())
                         .to_string_lossy()
                         .to_string(),
@@ -205,7 +207,7 @@ impl SteamApps {
         unsafe { SteamId(sys::SteamAPI_ISteamApps_GetAppOwner(self.raw)) }
     }
 
-    pub fn get_launch_query_param(&self, key: impl AsRef<std::ffi::CStr>) -> String {
+    pub fn get_launch_query_param(&self, key: impl AsRef<CStr>) -> String {
         unsafe {
             let key = key.as_ref();
 
@@ -240,7 +242,7 @@ impl SteamApps {
 
     pub async fn get_file_details(
         &self,
-        path: impl AsRef<std::path::Path>,
+        path: impl AsRef<Path>,
     ) -> Result<FileDetails, FileNotFound> {
         let path = path.as_ref();
         let path = path.as_os_str().as_encoded_bytes().as_ptr();
