@@ -257,6 +257,8 @@ impl SteamApps {
         unsafe {
             let mut name_buffer = [0; 128];
 
+            sys::SteamAPI_ISteamApps_GetLaunchCommandLine(self.raw, name_buffer.as_mut_ptr(), 128);
+
             CStr::from_ptr(name_buffer.as_ptr() as *mut _)
                 .to_string_lossy()
                 .to_string()
