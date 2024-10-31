@@ -2,7 +2,7 @@ use std::{cell::Cell, future::Future, marker::PhantomData};
 
 use steamgear_sys as sys;
 
-use crate::internal::Sealed;
+use crate::internal::sealed::Sealed;
 
 use super::{reactor::REACTOR, utils::CallUtils};
 
@@ -52,7 +52,7 @@ impl<T: CallResultTyped> Future for CallResult<T> {
     }
 }
 
-pub trait CallResultTyped: Clone + Send + Sealed + Sealed + 'static {
+pub trait CallResultTyped: Clone + Send + Sealed + 'static {
     const TYPE: CallbackType;
     type Raw: Copy;
     type Mapped;
@@ -73,7 +73,7 @@ pub trait CallResultTyped: Clone + Send + Sealed + Sealed + 'static {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 #[repr(u32)]
-pub(crate) enum CallbackType {
+pub enum CallbackType {
     SteamShutdown = sys::SteamShutdown_t_k_iCallback as u32,
     FileDetailsResult = sys::FileDetailsResult_t_k_iCallback as u32,
     DlcInstalled = sys::DlcInstalled_t_k_iCallback as u32,

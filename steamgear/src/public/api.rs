@@ -1,6 +1,6 @@
 use std::{ops::Deref, sync::Arc};
 
-use crate::internal::Sealed;
+use crate::internal::sealed::Sealed;
 
 use super::{
     client::Client,

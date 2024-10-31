@@ -3,7 +3,7 @@ use steamgear_sys as sys;
 use crate::{
     internal::{
         core::{reactor::REACTOR, SteamApiState, STEAM_INIT_STATUS},
-        Sealed,
+        sealed::Sealed,
     },
     SteamApiInterface,
 };

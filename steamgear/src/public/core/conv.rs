@@ -30,7 +30,7 @@ impl SteamApiInitError {
 }
 
 #[derive(Clone, Copy, Debug, Error)]
-pub(crate) struct UnknownCallback;
+pub struct UnknownCallback;
 
 impl Display for UnknownCallback {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

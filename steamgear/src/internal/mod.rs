@@ -1,3 +1,5 @@
 pub(crate) mod core;
 
-pub(crate) trait Sealed {}
+pub(crate) mod sealed {
+    pub trait Sealed {}
+}
