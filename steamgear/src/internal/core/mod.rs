@@ -1,6 +1,7 @@
 use std::sync::atomic::AtomicU8;
 
 pub(crate) mod call_result;
+pub(crate) mod callback_dispatcher;
 pub(crate) mod reactor;
 pub(crate) mod utils;
 

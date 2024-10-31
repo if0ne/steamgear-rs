@@ -2,6 +2,8 @@ use std::{cell::Cell, future::Future, marker::PhantomData};
 
 use steamgear_sys as sys;
 
+use crate::internal::Sealed;
+
 use super::{reactor::REACTOR, utils::CallUtils};
 
 #[derive(Debug)]
@@ -50,7 +52,7 @@ impl<T: CallResultTyped> Future for CallResult<T> {
     }
 }
 
-pub(crate) trait CallResultTyped: Clone + Send + 'static {
+pub trait CallResultTyped: Clone + Send + Sealed + Sealed + 'static {
     const TYPE: CallbackType;
     type Raw: Copy;
     type Mapped;

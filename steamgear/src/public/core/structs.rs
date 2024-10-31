@@ -1,4 +1,6 @@
-use std::{fmt::Display, ops::Deref};
+use std::{fmt::Display, marker::PhantomData, ops::Deref};
+
+use crate::internal::core::call_result::CallResultTyped;
 
 #[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Eq, Ord)]
 pub struct SteamId(pub u64);
@@ -41,5 +43,14 @@ pub struct DepotId(pub u32);
 impl Display for DepotId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "DepotId({})", self.0)
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+pub struct CallbackId<T: CallResultTyped>(pub(crate) u32, pub(crate) PhantomData<T>);
+
+impl<T: CallResultTyped> Display for CallbackId<T> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "CallbackId<{}>({})", std::any::type_name::<T>(), self.0)
     }
 }
