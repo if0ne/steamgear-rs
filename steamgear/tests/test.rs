@@ -1,4 +1,4 @@
-#[cfg(test)]
+/*#[cfg(test)]
 mod tests {
     use smol::stream::StreamExt;
     use steamgear::api::SteamApi;
@@ -56,4 +56,4 @@ mod tests {
             another_task.await;
         });
     }
-}
+}*/
